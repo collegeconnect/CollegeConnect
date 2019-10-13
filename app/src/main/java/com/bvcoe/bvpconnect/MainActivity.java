@@ -1,12 +1,11 @@
 package com.bvcoe.bvpconnect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     {
         EditText username = findViewById(R.id.editText);
         String text = username.getText().toString();
-        Intent intent = new Intent(this,LoggedIn.class);
-        intent.putExtra(LoggedIn.USERNAME,text);
+        Intent intent = new Intent(this,navigation.class);
+        intent.putExtra(navigation.USERNAME,text);
         startActivity(intent);
     }
 }
