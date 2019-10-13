@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Bvp Connect</string>
     <string name="display">BVP CONNECT</string>
+    <string name="logo">Logo</string>
 </resources>

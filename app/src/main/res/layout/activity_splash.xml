@@ -4,29 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradientcolor"
     tools:context=".Splash">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bvp" />
-
-    <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="377dp"
-        android:layout_height="161dp"
-        android:layout_marginTop="285dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:layout_width="334dp"
+        android:layout_height="233dp"
+        android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView3"
-        app:srcCompat="@drawable/download" />
+        app:layout_constraintBottom_toTopOf="@id/textView"
+        app:srcCompat="@drawable/logo_transparent"
+        tools:layout_editor_absoluteY="218dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -34,8 +25,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/alegreya_sc"
         android:text="@string/display"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
