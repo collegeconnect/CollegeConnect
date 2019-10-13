@@ -2,4 +2,9 @@
     <string name="app_name">Bvp Connect</string>
     <string name="display">BVP CONNECT</string>
     <string name="logo">Logo</string>
+    <string name="log_in">Log In</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="welcome">Welcome</string>
 </resources>
