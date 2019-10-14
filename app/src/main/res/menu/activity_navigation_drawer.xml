@@ -14,8 +14,8 @@
             android:title="@string/menu_attendance" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:icon="@drawable/ic_description_24px"
+            android:title="@string/menu_notes" />
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_manage"

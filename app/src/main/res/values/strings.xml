@@ -17,7 +17,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_attendance">Attendance</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_notes">Notes</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Logout</string>
