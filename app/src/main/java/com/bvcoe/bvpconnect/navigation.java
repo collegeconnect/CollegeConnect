@@ -29,6 +29,7 @@ public class navigation extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
         Intent intent = getIntent();
         Toast.makeText(this, "Welcome "+intent.getStringExtra(USERNAME), Toast.LENGTH_SHORT).show();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -48,6 +49,8 @@ public class navigation extends AppCompatActivity {
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
+
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
