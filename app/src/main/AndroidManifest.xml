@@ -10,10 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".navigation"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".LoggedIn" />
+
+
+        <activity android:name=".SignUp"></activity>
         <activity android:name=".LoggedIn" />
 
         <activity android:name=".Splash">
