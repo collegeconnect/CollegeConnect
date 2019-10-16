@@ -13,8 +13,9 @@
         android:ems="10"
         android:hint="Full Name"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="73dp"
-        tools:layout_editor_absoluteY="141dp" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="73dp" />
 
     <EditText
         android:id="@+id/editText4"
@@ -35,5 +36,12 @@
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="415dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
