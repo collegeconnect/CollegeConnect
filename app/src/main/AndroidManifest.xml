@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".navigation"
+        <activity android:name=".TimeTable"></activity>
+        <activity
+            android:name=".navigation"
             android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
-        <activity android:name=".SignUp"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SignUp" />
         <activity android:name=".LoggedIn" />
         <activity android:name=".Splash">
             <intent-filter>
