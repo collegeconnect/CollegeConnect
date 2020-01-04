@@ -21,7 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class navigation extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static final String USERNAME = "username";
+    public static final String USERNAME = "Username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
