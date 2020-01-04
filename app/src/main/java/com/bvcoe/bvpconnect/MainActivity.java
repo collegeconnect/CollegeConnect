@@ -35,15 +35,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        authStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser()!=null) {
-                    Intent intent = new Intent(MainActivity.this,navigation.class);
-                    startActivity(intent);
-                }
-            }
-        };
+//        authStateListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (firebaseAuth.getCurrentUser()!=null) {
+//                    Intent intent = new Intent(MainActivity.this,navigation.class);
+//                    startActivity(intent);
+//                }
+//            }
+//        };
     }
 
     public void LogIn(View view)
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener );
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        firebaseAuth.addAuthStateListener(authStateListener );
+//    }
 }

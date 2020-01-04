@@ -1,5 +1,6 @@
 package com.bvcoe.bvpconnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,24 +39,25 @@ public class SignUp extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String usernames =username.getText().toString();
-                    String passwords =password.getText().toString();
-                    final String names =name.getText().toString();
-                    String emails =email.getText().toString();
-                    if (emails.isEmpty()||passwords.isEmpty()||usernames.isEmpty()||names.isEmpty()) {
-                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                        User.addUser(usernames, emails, names, passwords);
+                    String Strusername =username.getText().toString();
+                    String Strpassword =password.getText().toString();
+                    String Strname =name.getText().toString();
+                    String Stremail =email.getText().toString();
 
-                    mAuth= FirebaseAuth.getInstance();
-                    mAuth.createUserWithEmailAndPassword(emails,passwords).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                    if (Stremail.isEmpty() || Strpassword.isEmpty() || Strusername.isEmpty() || Strname.isEmpty())
+                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
+                    else {
+                        User.addUser(Strusername, Stremail, Strname, Strpassword);
+                        mAuth = FirebaseAuth.getInstance();
+                        mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignUp.this, MainActivity.class);
+                                    startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -63,6 +65,7 @@ public class SignUp extends AppCompatActivity {
                                 }
                             }
                         });
+                    }
                 }
             });
     }
