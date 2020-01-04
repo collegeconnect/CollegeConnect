@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUp extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class SignUp extends AppCompatActivity {
                 public void onClick(View view) {
                     String usernames =username.getText().toString();
                     String passwords =password.getText().toString();
-                    String names =name.getText().toString();
+                    final String names =name.getText().toString();
                     String emails =email.getText().toString();
                     if (emails.isEmpty()||passwords.isEmpty()||usernames.isEmpty()||names.isEmpty()) {
                         Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
@@ -54,8 +55,7 @@ public class SignUp extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    Toast.makeText(SignUp.this, user.getDisplayName()+" registered!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());

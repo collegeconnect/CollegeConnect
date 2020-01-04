@@ -21,4 +21,5 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Logout</string>
+    <string name="email">Email</string>
 </resources>

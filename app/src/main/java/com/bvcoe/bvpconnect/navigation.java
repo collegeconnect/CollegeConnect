@@ -21,15 +21,13 @@ import com.google.android.material.snackbar.Snackbar;
 public class navigation extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public static final String USERNAME = "Username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        Intent intent = getIntent();
-        Toast.makeText(this, "Welcome "+intent.getStringExtra(USERNAME), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome ", Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,7 +51,6 @@ public class navigation extends AppCompatActivity {
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
-
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
