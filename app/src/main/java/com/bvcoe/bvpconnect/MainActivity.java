@@ -53,9 +53,17 @@ public class MainActivity extends AppCompatActivity {
         String Stremail = email.getText().toString();
         String Strpass= password.getText().toString();
 
-        if (Stremail.isEmpty()||Strpass.isEmpty())
-            Toast.makeText(MainActivity.this, "Fields Empty", Toast.LENGTH_SHORT).show();
+        if (Stremail.isEmpty() && Strpass.isEmpty()) {
+            email.setError("Enter your Email address");
+            password.setError("Enter a Valid password");
+        }
+        else if (Stremail.isEmpty())
+            email.setError("Enter your Email address");
+        else if(Strpass.isEmpty())
+            password.setError("Enter a valid password");
+//            Toast.makeText(MainActivity.this, "Fields Empty", Toast.LENGTH_SHORT).show();
         else {
+//            firebaseAuth.si
             firebaseAuth.signInWithEmailAndPassword(Stremail, Strpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

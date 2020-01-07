@@ -42,9 +42,22 @@ public class SignUp extends AppCompatActivity {
                     String Strname =name.getText().toString();
                     String Stremail =email.getText().toString();
 
-                    if (Stremail.isEmpty() || Strpassword.isEmpty() || Strusername.isEmpty() || Strname.isEmpty())
-                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
-                    else {
+                    if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()){
+//                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
+                        username.setError("Enter your username");
+                        password.setError("Enter a valid password");
+                        name.setError("Enter Username");
+                        email.setError("Enter your email address");
+                    }
+                    else if (Stremail.isEmpty())
+                        email.setError("Enter your Email address");
+                    else if(Strpassword.isEmpty())
+                        password.setError("Enter a valid password");
+                    else if (Strname.isEmpty())
+                        name.setError("Enter your name");
+                    else if (Strusername.isEmpty())
+                        username.setError("Enter username ");
+                        else {
                         User.addUser(Strusername, Stremail, Strname, Strpassword);
                         mAuth = FirebaseAuth.getInstance();
                         mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
@@ -59,7 +72,7 @@ public class SignUp extends AppCompatActivity {
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
