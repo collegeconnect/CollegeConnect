@@ -15,8 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUp extends AppCompatActivity {
 
@@ -57,7 +55,7 @@ public class SignUp extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                    startActivity(intent);
+                                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());

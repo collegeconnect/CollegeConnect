@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful())
-                        Toast.makeText(MainActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "User not Registered!", Toast.LENGTH_SHORT).show();
                     else {
                         Intent intent = new Intent(MainActivity.this,navigation.class);
-                        startActivity(intent);
+                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     }
                 }
             });
