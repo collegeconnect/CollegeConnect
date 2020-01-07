@@ -2,6 +2,7 @@ package com.bvcoe.bvpconnect;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     {
         EditText email = findViewById(R.id.editText);
         EditText password = findViewById(R.id.editText2);
-        String Stremail = email.getText().toString();
+        final String Stremail = email.getText().toString();
         String Strpass= password.getText().toString();
 
         if (Stremail.isEmpty() && Strpass.isEmpty()) {
@@ -61,14 +63,27 @@ public class MainActivity extends AppCompatActivity {
             email.setError("Enter your Email address");
         else if(Strpass.isEmpty())
             password.setError("Enter a valid password");
-//            Toast.makeText(MainActivity.this, "Fields Empty", Toast.LENGTH_SHORT).show();
         else {
-//            firebaseAuth.si
             firebaseAuth.signInWithEmailAndPassword(Stremail, Strpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (!task.isSuccessful())
-                        Toast.makeText(MainActivity.this, "User not Registered!", Toast.LENGTH_SHORT).show();
+                    if (!task.isSuccessful()) {
+
+                        firebaseAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                boolean b = !task.getResult().getSignInMethods().isEmpty();
+
+                                if (b) {
+                                    Toast.makeText(getApplicationContext(), "Incorrect Password!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "User not Registered!", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+                    }
                     else {
                         Intent intent = new Intent(MainActivity.this,navigation.class);
                         startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -83,4 +98,5 @@ public class MainActivity extends AppCompatActivity {
 //        super.onStart();
 //        firebaseAuth.addAuthStateListener(authStateListener );
 //    }
+
 }

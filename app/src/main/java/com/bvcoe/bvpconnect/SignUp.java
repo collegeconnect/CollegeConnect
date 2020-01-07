@@ -44,7 +44,6 @@ public class SignUp extends AppCompatActivity {
                 final String Stremail = email.getText().toString();
 
                 if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()) {
-//                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
                     username.setError("Enter your username");
                     password.setError("Enter a valid password");
                     name.setError("Enter Username");
@@ -58,15 +57,11 @@ public class SignUp extends AppCompatActivity {
                 else if (Strusername.isEmpty())
                     username.setError("Enter username ");
                 else {
-//                    User.addUser(Strusername, Stremail, Strname, Strpassword);
                     mAuth = FirebaseAuth.getInstance();
-
-//                        boolean b[] = new boolean[1];
                     mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                         @Override
                         public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                             boolean b = !task.getResult().getSignInMethods().isEmpty();
-
                             if (b) {
                                 Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
                             } else {
@@ -81,35 +76,12 @@ public class SignUp extends AppCompatActivity {
                                             Intent intent = new Intent(SignUp.this, MainActivity.class);
                                             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                         }
-//                                        else {
-//                                            // If sign in fails, display a message to the user.
-//                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                                            Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
-//                                        }
                                     }
                                 });
                             }
 
                         }
                     });
-
-//                    mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//                            if (task.isSuccessful()) {
-//                                // Sign in success, update UI with the signed-in user's information
-//                                Log.d(TAG, "createUserWithEmail:success");
-//                                Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(SignUp.this, MainActivity.class);
-//                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-//                            } else {
-//                                // If sign in fails, display a message to the user.
-//                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                                Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    });
-
                 }
             }
         });
