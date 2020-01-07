@@ -15,69 +15,103 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class SignUp extends AppCompatActivity {
 
     private EditText username, password, name, email;
     private Button button;
     private FirebaseAuth mAuth;
-    private static String TAG="Sign Up";
+    private static String TAG = "Sign Up";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        username= findViewById(R.id.editText6);
-        password= findViewById(R.id.editText5);
-        name= findViewById(R.id.editText3);
-        email= findViewById(R.id.editText4);
+        username = findViewById(R.id.editText6);
+        password = findViewById(R.id.editText5);
+        name = findViewById(R.id.editText3);
+        email = findViewById(R.id.editText4);
         button = findViewById(R.id.button3);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String Strusername =username.getText().toString();
-                    String Strpassword =password.getText().toString();
-                    String Strname =name.getText().toString();
-                    String Stremail =email.getText().toString();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String Strusername = username.getText().toString();
+                final String Strpassword = password.getText().toString();
+                final String Strname = name.getText().toString();
+                final String Stremail = email.getText().toString();
 
-                    if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()){
+                if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()) {
 //                        Toast.makeText(SignUp.this, "Fields Empty", Toast.LENGTH_SHORT).show();
-                        username.setError("Enter your username");
-                        password.setError("Enter a valid password");
-                        name.setError("Enter Username");
-                        email.setError("Enter your email address");
-                    }
-                    else if (Stremail.isEmpty())
-                        email.setError("Enter your Email address");
-                    else if(Strpassword.isEmpty())
-                        password.setError("Enter a valid password");
-                    else if (Strname.isEmpty())
-                        name.setError("Enter your name");
-                    else if (Strusername.isEmpty())
-                        username.setError("Enter username ");
-                        else {
-                        User.addUser(Strusername, Stremail, Strname, Strpassword);
-                        mAuth = FirebaseAuth.getInstance();
-                        mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
-                                }
+                    username.setError("Enter your username");
+                    password.setError("Enter a valid password");
+                    name.setError("Enter Username");
+                    email.setError("Enter your email address");
+                } else if (Stremail.isEmpty())
+                    email.setError("Enter your Email address");
+                else if (Strpassword.isEmpty())
+                    password.setError("Enter a valid password");
+                else if (Strname.isEmpty())
+                    name.setError("Enter your name");
+                else if (Strusername.isEmpty())
+                    username.setError("Enter username ");
+                else {
+//                    User.addUser(Strusername, Stremail, Strname, Strpassword);
+                    mAuth = FirebaseAuth.getInstance();
+
+//                        boolean b[] = new boolean[1];
+                    mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                            boolean b = !task.getResult().getSignInMethods().isEmpty();
+
+                            if (b) {
+                                Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                User.addUser(Strusername, Stremail, Strname, Strpassword);
+                                mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            // Sign in success, update UI with the signed-in user's information
+                                            Log.d(TAG, "createUserWithEmail:success");
+                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(SignUp.this, MainActivity.class);
+                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                        }
+//                                        else {
+//                                            // If sign in fails, display a message to the user.
+//                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                                            Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
+//                                        }
+                                    }
+                                });
                             }
-                        });
-                    }
+
+                        }
+                    });
+
+//                    mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                // Sign in success, update UI with the signed-in user's information
+//                                Log.d(TAG, "createUserWithEmail:success");
+//                                Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(SignUp.this, MainActivity.class);
+//                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                            } else {
+//                                // If sign in fails, display a message to the user.
+//                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+//                                Toast.makeText(SignUp.this, "Email already registered", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+
                 }
-            });
+            }
+        });
     }
 }
