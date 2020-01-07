@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else {
+                        SaveSharedPreference.setUserName(MainActivity.this,Stremail);
                         Intent intent = new Intent(MainActivity.this,navigation.class);
                         startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     }
@@ -93,10 +94,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
+        {
+            startActivity(new Intent(this,navigation.class));
+        }
 //        firebaseAuth.addAuthStateListener(authStateListener );
-//    }
+    }
 
 }
