@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bvcoe.bvpconnect.MainActivity;
 import com.bvcoe.bvpconnect.R;
+import com.bvcoe.bvpconnect.SaveSharedPreference;
 import com.bvcoe.bvpconnect.ui.home.HomeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -38,12 +39,9 @@ public class SendFragment extends Fragment {
 //        SaveSharedPreference.clearUserName(getContext());
 //        startActivity(new Intent(getContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
-
-
         sendViewModel =
                 ViewModelProviders.of(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);
-
 
         return root;
     }
@@ -68,6 +66,7 @@ public class SendFragment extends Fragment {
                         Intent i = new Intent(getActivity(), MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        SaveSharedPreference.clearUserName(getContext());
                         startActivity(i);
                     }
                 });
@@ -83,8 +82,6 @@ public class SendFragment extends Fragment {
                         Intent i = new Intent(getActivity(), HomeFragment.class);
                         startActivity(i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK));
-
-
                         dialog.cancel();
                     }
                 });
