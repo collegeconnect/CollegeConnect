@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TimeTable"></activity>
+        <activity android:name=".LogOut">
+            android:theme="@style/AppTheme.NoActionBar"
+        </activity>
         <activity
             android:name=".navigation"
             android:label="@string/title_activity_navigation"
