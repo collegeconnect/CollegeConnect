@@ -19,6 +19,7 @@ import com.google.firebase.auth.SignInMethodQueryResult;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
+    int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         SaveSharedPreference.setUserName(MainActivity.this,Stremail);
                         Intent intent = new Intent(MainActivity.this,navigation.class);
-                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                     }
                 }
             });
@@ -96,10 +97,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(SaveSharedPreference.getUserName(MainActivity.this).length() != 0)
-        {
-            startActivity(new Intent(this,navigation.class));
+//        count++;
+        if(count==0) {
+            if (SaveSharedPreference.getUserName(MainActivity.this).length() != 0) {
+                startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            }
         }
+        count++;
 //        firebaseAuth.addAuthStateListener(authStateListener );
     }
 
