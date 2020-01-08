@@ -81,8 +81,8 @@ public class SendFragment extends Fragment {
 //                                "You clicked on NO", Toast.LENGTH_SHORT)
 //                                .show();
                         Intent i = new Intent(getActivity(), HomeFragment.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
 
                         dialog.cancel();

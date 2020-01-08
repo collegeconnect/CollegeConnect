@@ -37,7 +37,7 @@ public class SignUp extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 final String Strusername = username.getText().toString();
                 final String Strpassword = password.getText().toString();
                 final String Strname = name.getText().toString();
@@ -71,8 +71,18 @@ public class SignUp extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
                                             // Sign in success, update UI with the signed-in user's information
+                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful())
+                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_SHORT).show();
+                                                    else
+                                                        Toast.makeText(SignUp.this,task.getException().getMessage(),
+                                                        Toast.LENGTH_SHORT);
+                                                }
+                                            });
                                             Log.d(TAG, "createUserWithEmail:success");
-                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(SignUp.this, MainActivity.class);
                                             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                         }

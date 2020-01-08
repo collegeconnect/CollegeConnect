@@ -85,9 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else {
-                        SaveSharedPreference.setUserName(MainActivity.this,Stremail);
-                        Intent intent = new Intent(MainActivity.this,navigation.class);
-                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                            SaveSharedPreference.setUserName(MainActivity.this,Stremail);
+                            Intent intent = new Intent(MainActivity.this,navigation.class);
+                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        }
+                        else
+                            Toast.makeText(MainActivity.this,"Email Not Verified! Please verify before continuing",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
