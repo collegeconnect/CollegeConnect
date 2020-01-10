@@ -1,5 +1,7 @@
 package com.bvcoe.bvpconnect;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,7 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class navigation extends AppCompatActivity {
 
@@ -49,7 +51,7 @@ public class navigation extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_tools, R.id.nav_share)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -69,12 +71,48 @@ public class navigation extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.action_logout :
-//                Intent intent = new Intent(this,LogOut.class);
-                startActivity(new Intent(getApplicationContext(),LogOut.class));
+                dialog();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void dialog(){
+        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
+        // Setting Dialog Title
+        alertDialog2.setTitle("Confirm SignOut");
+
+
+        // Setting Dialog Message
+        alertDialog2.setMessage("Are you sure you want to Signout?");
+
+        // Setting Positive "Yes" Btn
+        alertDialog2.setPositiveButton("Logout",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to execute after dialog
+
+                        FirebaseAuth.getInstance().signOut();
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        SaveSharedPreference.clearUserName(getApplication());
+                        startActivity(i);
+                    }
+                });
+
+        // Setting Negative "NO" Btn
+        alertDialog2.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        // Showing Alert Dialog
+        alertDialog2.show();
     }
 
     @Override
