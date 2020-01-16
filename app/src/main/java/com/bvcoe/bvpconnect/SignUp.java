@@ -1,11 +1,14 @@
 package com.bvcoe.bvpconnect;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,10 +37,17 @@ public class SignUp extends AppCompatActivity {
         name = findViewById(R.id.editText3);
         email = findViewById(R.id.editText4);
         button = findViewById(R.id.button3);
+        final ProgressBar progressBar = findViewById(R.id.progressbar);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+                progressBar.setVisibility(View.VISIBLE);
                 final String Strusername = username.getText().toString();
                 final String Strpassword = password.getText().toString();
                 final String Strname = name.getText().toString();
@@ -48,14 +58,23 @@ public class SignUp extends AppCompatActivity {
                     password.setError("Enter a valid password");
                     name.setError("Enter Username");
                     email.setError("Enter your email address");
-                } else if (Stremail.isEmpty())
+                    progressBar.setVisibility(View.GONE);
+                } else if (Stremail.isEmpty()) {
                     email.setError("Enter your Email address");
-                else if (Strpassword.isEmpty())
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if (Strpassword.isEmpty()) {
                     password.setError("Enter a valid password");
-                else if (Strname.isEmpty())
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if (Strname.isEmpty()) {
                     name.setError("Enter your name");
-                else if (Strusername.isEmpty())
+                    progressBar.setVisibility(View.GONE);
+                }
+                else if (Strusername.isEmpty()) {
                     username.setError("Enter username ");
+                    progressBar.setVisibility(View.GONE);
+                }
                 else {
                     mAuth = FirebaseAuth.getInstance();
                     mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
