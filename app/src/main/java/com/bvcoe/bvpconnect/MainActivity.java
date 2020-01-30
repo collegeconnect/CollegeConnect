@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
         register.setEnabled(false);
 
         progressBar.setVisibility(View.VISIBLE);
-        EditText email = findViewById(R.id.editText);
-        EditText password = findViewById(R.id.editText2);
-        final String Stremail = email.getText().toString();
-        String Strpass = password.getText().toString();
+        TextInputLayout email = findViewById(R.id.editText);
+        TextInputLayout password = findViewById(R.id.editText2);
+        final String Stremail = email.getEditText().getText().toString();
+        String Strpass = password.getEditText().getText().toString();
 
         if (Stremail.isEmpty() && Strpass.isEmpty()) {
             email.setError("Enter your Email address");
