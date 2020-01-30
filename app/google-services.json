@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "21216530797-3k4gn7i66a6792msjav8r7ldldf556ak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bvcoe.bvpconnect",
+            "certificate_hash": "03ab3d1b7a76cdb33ca854c9084d4d1dc3875a86"
+          }
+        },
+        {
           "client_id": "21216530797-ncco8qd58q4cokgsf7jjscmb33bc4tq2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
