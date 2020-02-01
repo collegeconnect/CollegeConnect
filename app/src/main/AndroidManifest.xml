@@ -12,8 +12,7 @@
         <activity android:name=".TimeTable"></activity>
         <activity
             android:name=".navigation"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".SignUp" />
         <activity android:name=".Splash">
             <intent-filter>

@@ -8,24 +8,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
+import com.bvcoe.bvpconnect.ui.attendance.AttendanceFragment;
+import com.bvcoe.bvpconnect.ui.home.HomeFragment;
+import com.bvcoe.bvpconnect.ui.notes.NotesFragment;
+import com.bvcoe.bvpconnect.ui.share.ShareFragment;
+import com.bvcoe.bvpconnect.ui.tools.ToolsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class navigation extends AppCompatActivity {
+public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     GoogleSignInClient mgoogleSignInClient;
@@ -44,12 +47,15 @@ public class navigation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 timetable();
-                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); */
             }
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+
+        loadFragments(new HomeFragment());
+
+        /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -61,7 +67,7 @@ public class navigation extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupWithNavController(navigationView, navController);  */
     }
 
     @Override
@@ -146,4 +152,38 @@ public class navigation extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()){
+            case R.id.nav_home:
+                fragment = new HomeFragment();
+                break;
+            case R.id.nav_attendance:
+                fragment = new AttendanceFragment();
+                break;
+            case R.id.nav_share:
+                fragment = new ShareFragment();
+                break;
+            case R.id.nav_notes:
+                fragment = new NotesFragment();
+                break;
+            case R.id.nav_tools:
+                fragment = new ToolsFragment();
+                break;
+        }
+        return loadFragments(fragment);
+    }
+
+    private boolean loadFragments(Fragment fragment)
+    {
+        if (fragment!=null)
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
+
+            return true;
+        }
+        return false;
+    }
 }

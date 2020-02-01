@@ -9,10 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,22 +28,20 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth.AuthStateListener authStateListener;
+//    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
-    FirebaseUser currentUser;
-    Button register;
+    private FirebaseUser currentUser;
+    private Button register;
     int RC_SIGN_IN = 1  ;
     GoogleSignInClient mGoogleSignInClient;
     private static final String TAG= "MainActivity";
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //        progressBar.setVisibility(View.GONE)
+
         firebaseAuth = FirebaseAuth.getInstance();
         final Intent i = new Intent(this, SignUp.class);
         register=findViewById(R.id.button2);
@@ -55,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
 
 //        authStateListener = new FirebaseAuth.AuthStateListener() {
 //            @Override
@@ -79,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
