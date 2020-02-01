@@ -4,7 +4,7 @@
     <string name="logo">Logo</string>
     <string name="log_in">Log In</string>
     <string name="password">Password</string>
-    <string name="username">Username</string>
+    <string name="username">Roll No.</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_navigation">Navigation</string>
@@ -21,4 +21,6 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Logout</string>
+    <string name="email">Email</string>
+    <string name="log_out">Log Out</string>
 </resources>
