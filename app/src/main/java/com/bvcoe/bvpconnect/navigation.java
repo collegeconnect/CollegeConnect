@@ -18,6 +18,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class navigation extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    GoogleSignInClient mgoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +99,12 @@ public class navigation extends AppCompatActivity {
                         // Write your code here to execute after dialog
 
                         FirebaseAuth.getInstance().signOut();
+                        signOut();
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         SaveSharedPreference.clearUserName(getApplication());
+
                         startActivity(i);
                     }
                 });
@@ -126,6 +132,17 @@ public class navigation extends AppCompatActivity {
     {
         Intent intent1 = new Intent(this, TimeTable.class);
         startActivity(intent1);
+    }
+    private void signOut() {
+        mgoogleSignInClient.signOut();
+    }
+    @Override
+    protected void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mgoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        super.onStart();
     }
 
 
