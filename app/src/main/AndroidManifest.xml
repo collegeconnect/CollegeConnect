@@ -12,7 +12,8 @@
         <activity android:name=".TimeTable"></activity>
         <activity
             android:name=".navigation"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SignUp" />
         <activity android:name=".Splash">
             <intent-filter>
@@ -21,11 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- -<category android:Name="android.intent.category.LAUNCHER" /> -->
+                <!-- -<category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
     </application>

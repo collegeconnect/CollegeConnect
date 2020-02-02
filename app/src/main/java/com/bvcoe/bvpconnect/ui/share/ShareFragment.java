@@ -17,9 +17,26 @@ import com.bvcoe.bvpconnect.R;
 
 public class ShareFragment extends Fragment {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_share,null);
+    private ShareViewModel shareViewModel;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        /*shareViewModel =
+                ViewModelProviders.of(this).get(ShareViewModel.class);
+
+        /*final TextView textView = root.findViewById(R.id.text_share);
+        shareViewModel.getText().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
+            }
+        });*/
+        View root = inflater.inflate(R.layout.fragment_share, container, false);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"Join our college app");
+        Intent chooseact = Intent.createChooser(intent,"Send via...");
+        startActivity(chooseact);
+        return root;
     }
 }

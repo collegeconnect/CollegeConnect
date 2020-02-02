@@ -1,15 +1,16 @@
 package com.bvcoe.bvpconnect;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 public class Splash extends AppCompatActivity {
 
-//    private static int splash_screen=2000;
+    private static int splash_screen=2000;
 
 
     @Override
@@ -34,7 +35,7 @@ public class Splash extends AppCompatActivity {
                 finish();
                 //the current activity will get finished.
             }
-        }, 1500);
+        }, splash_screen);
 
 
     }

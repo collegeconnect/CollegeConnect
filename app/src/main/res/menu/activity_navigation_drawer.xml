@@ -6,14 +6,14 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/home"
+            android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_attendance"
+            android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_assessment_24px"
             android:title="@string/menu_attendance" />
         <item
-            android:id="@+id/nav_notes"
+            android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_description_24px"
             android:title="@string/menu_notes" />
         <item
@@ -24,6 +24,10 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
             android:title="@string/menu_share" />
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_person_24px"
+            android:title="@string/menu_send" />
     </group>
 
     <!---<item android:title="Communicate">
