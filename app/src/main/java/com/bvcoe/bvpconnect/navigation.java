@@ -163,9 +163,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             case R.id.nav_attendance:
                 fragment = new AttendanceFragment();
                 break;
-            case R.id.nav_share:
-                fragment = new ShareFragment();
-                break;
             case R.id.nav_notes:
                 fragment = new NotesFragment();
                 break;
