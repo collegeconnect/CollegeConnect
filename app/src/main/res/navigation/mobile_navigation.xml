@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.bvcoe.bvpconnect.ui.attendance.GalleryFragment"
+        android:name="com.bvcoe.bvpconnect.ui.attendance.AttendanceFragment"
         android:label="@string/menu_attendance"
         tools:layout="@layout/fragment_attendance" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.bvcoe.bvpconnect.ui.notes.SlideshowFragment"
+        android:name="com.bvcoe.bvpconnect.ui.notes.NotesFragment"
         android:label="@string/menu_notes"
         tools:layout="@layout/fragment_notes" />
 
@@ -30,9 +30,9 @@
         tools:layout="@layout/fragment_tools" />
 
     <fragment
-        android:id="@+id/nav_share"
+        android:id="@+id/nav_loc"
         android:name="com.bvcoe.bvpconnect.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:label="@string/menu_loc"
+        tools:layout="@layout/fragment_loc" />
 
 </navigation>

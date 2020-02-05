@@ -1,12 +1,15 @@
 package com.bvcoe.bvpconnect;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,9 +33,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+    TextView tv;
     GoogleSignInClient mgoogleSignInClient;
 
     @Override
@@ -45,6 +51,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
 
+        TextView tv=findViewById(R.id.tvTitle);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +133,13 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                     }
                 });
 
+        //
+        AlertDialog alertDialog = alertDialog2.create();
         // Showing Alert Dialog
-        alertDialog2.show();
+        alertDialog.show();
+        alertDialog.getButton(Dialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#fff"));
+        alertDialog.getButton(Dialog.BUTTON_NEGATIVE).setBackgroundColor(Color.parseColor("#fff"));
+
     }
 
     @Override
@@ -172,8 +184,14 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             case R.id.nav_tools:
                 fragment = new ToolsFragment();
                 break;
+            case  R.id.nav_loc:
+                fragment=new ShareFragment();
+                break;
         }
         return loadFragments(fragment);
+    }
+    public void setTitle(String title) {
+        tv.setText(title);
     }
 
     private boolean loadFragments(Fragment fragment)

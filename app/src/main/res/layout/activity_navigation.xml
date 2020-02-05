@@ -23,6 +23,7 @@
             android:id="@+id/appbar">
 
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="College"
@@ -41,9 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="#ffffff"
-        app:itemTextColor="#ffffff"
+        app:labelVisibilityMode="labeled"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         app:menu="@menu/activity_navigation_drawer" />
 
         <FrameLayout
