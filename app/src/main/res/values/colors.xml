@@ -6,4 +6,5 @@
     <color name="startColor">#9AD3F9</color>
     <color name="endColor">#0438B1</color>
     <color name="colorSurface">#99FFFFFF</color>
+    <color name="colorwhite">#ffffff</color>
 </resources>

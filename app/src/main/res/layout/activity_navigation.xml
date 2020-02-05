@@ -20,13 +20,15 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/appbar">
+            android:id="@+id/appbar"
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="College"
+
                 android:textColor="#FFF"
                 android:textStyle="bold"
                 android:paddingStart="50dp"
@@ -39,11 +41,12 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
         app:labelVisibilityMode="labeled"
-        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         app:menu="@menu/activity_navigation_drawer" />
 
         <FrameLayout

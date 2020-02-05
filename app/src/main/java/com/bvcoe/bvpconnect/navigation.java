@@ -1,6 +1,5 @@
 package com.bvcoe.bvpconnect;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,10 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -28,8 +29,8 @@ import com.bvcoe.bvpconnect.ui.tools.ToolsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -91,25 +92,21 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         switch (item.getItemId())
         {
             case R.id.action_logout :
-                dialog();
+                Dialog();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    public void dialog(){
-        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
+    public void Dialog(){
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         // Setting Dialog Title
-        alertDialog2.setTitle("Confirm SignOut");
-
-
+        builder.setTitle("Confirm SignOut");
         // Setting Dialog Message
-        alertDialog2.setMessage("Are you sure you want to Signout?");
+        builder.setMessage("Are you sure you want to Signout?");
 
-        // Setting Positive "Yes" Btn
-        alertDialog2.setPositiveButton("Logout",
+        builder.setPositiveButton("Logout",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Write your code here to execute after dialog
@@ -126,20 +123,14 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 });
 
         // Setting Negative "NO" Btn
-        alertDialog2.setNegativeButton("Cancel",
+        builder.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-
-        //
-        AlertDialog alertDialog = alertDialog2.create();
-        // Showing Alert Dialog
-        alertDialog.show();
-        alertDialog.getButton(Dialog.BUTTON_POSITIVE).setBackgroundColor(Color.parseColor("#fff"));
-        alertDialog.getButton(Dialog.BUTTON_NEGATIVE).setBackgroundColor(Color.parseColor("#fff"));
-
+        AlertDialog alertDialog = builder.create();
+        builder.show();
     }
 
     @Override
