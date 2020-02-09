@@ -41,6 +41,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     private AppBarConfiguration mAppBarConfiguration;
     TextView tv;
     GoogleSignInClient mgoogleSignInClient;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             }
         });
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         loadFragments(new HomeFragment());
@@ -185,11 +186,24 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         tv.setText(title);
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+        else
+            super.onBackPressed();
+    }
+
     private boolean loadFragments(Fragment fragment)
     {
         if (fragment!=null)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainer,fragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer,fragment)
+                    .addToBackStack(null)
+                    .commit();
 
             return true;
         }
