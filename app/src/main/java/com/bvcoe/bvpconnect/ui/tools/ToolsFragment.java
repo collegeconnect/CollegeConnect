@@ -13,12 +13,21 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bvcoe.bvpconnect.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ToolsFragment extends Fragment {
+    BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(getActivity()!=null)
+            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         return inflater.inflate(R.layout.fragment_tools,null);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
 }

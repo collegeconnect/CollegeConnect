@@ -17,14 +17,18 @@ import androidx.navigation.Navigation;
 
 import com.bvcoe.bvpconnect.R;
 import com.bvcoe.bvpconnect.navigation;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ShareFragment extends Fragment {
 
+    BottomNavigationView bottomNavigationView;
     WebView webView;
     WebSettings webSettings;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(getActivity()!=null)
+            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         View view=  inflater.inflate(R.layout.fragment_loc,null);
 
         webView = view.findViewById(R.id.webView);
@@ -52,6 +56,11 @@ public class ShareFragment extends Fragment {
     public void onStop() {
         super.onStop();
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        bottomNavigationView.getMenu().findItem(R.id.nav_loc).setChecked(true);
     }
 
 
