@@ -88,6 +88,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         getMenuInflater().inflate(R.menu.navigation, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
@@ -188,9 +189,14 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStackImmediate();
+        if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
+            finish();
         }
+
+        else if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStackImmediate();
+        }
+
         else
             super.onBackPressed();
     }
