@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/menu_attendance"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/subject_card"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="200dp"
+
+    android:orientation="vertical"
+    android:padding="10dp">
+
 
     <androidx.cardview.widget.CardView
 
@@ -25,15 +20,9 @@
 
         android:layout_width="match_parent"
 
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
 
-        android:layout_margin="@dimen/cardview_compat_inset_shadow"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_gallery">
+        android:layout_margin="@dimen/cardview_compat_inset_shadow">
 
 
         <LinearLayout
@@ -61,7 +50,7 @@
 
                 android:gravity="center"
 
-                android:text="AM-3"
+                android:text="Subject Name"
 
                 android:textSize="24sp" />
 
@@ -86,7 +75,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="14sp" />
+                    android:textSize="30sp" />
 
                 <ImageButton
 
@@ -100,14 +89,6 @@
 
                     app:srcCompat="@android:drawable/btn_minus" />
 
-
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0" />
 
                 <TextView
 
@@ -136,7 +117,6 @@
 
                     android:layout_weight="1"
 
-                    android:onClick="inc"
                     app:srcCompat="@android:drawable/ic_input_add" />
 
             </LinearLayout>
@@ -145,4 +125,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
