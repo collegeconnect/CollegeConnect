@@ -12,7 +12,7 @@
         android:layout_width="241dp"
         android:layout_height="165dp"
         android:contentDescription="@string/logo"
-        app:layout_constraintBottom_toTopOf="@id/textView"
+        app:layout_constraintBottom_toTopOf="@id/subjectHeading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/bvdunew" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/subjectHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alegreya_sc"

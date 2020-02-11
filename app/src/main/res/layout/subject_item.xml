@@ -20,9 +20,13 @@
 
         android:layout_width="match_parent"
 
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
-        android:layout_margin="@dimen/cardview_compat_inset_shadow">
+        android:layout_below="@id/subjectName"
+        android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
+        android:layout_marginBottom="@dimen/cardview_compat_inset_shadow">
 
 
         <LinearLayout
@@ -40,7 +44,7 @@
 
             <TextView
 
-                android:id="@+id/textView"
+                android:id="@+id/subjectHeading"
 
                 android:layout_width="match_parent"
 
@@ -75,7 +79,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"
-                    android:textSize="30sp" />
+                    android:textSize="14sp" />
 
                 <ImageButton
 
@@ -87,8 +91,17 @@
 
                     android:layout_weight="1"
 
-                    app:srcCompat="@android:drawable/btn_minus" />
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/cross" />
 
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0" />
 
                 <TextView
 
@@ -117,7 +130,9 @@
 
                     android:layout_weight="1"
 
-                    app:srcCompat="@android:drawable/ic_input_add" />
+                    android:backgroundTint="@android:color/transparent"
+                    android:onClick="inc"
+                    app:srcCompat="@drawable/tick" />
 
             </LinearLayout>
 
