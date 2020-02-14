@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.TableLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -50,9 +50,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String name, String attended, String missed){
+    public boolean updateData(String ID, String name, String attended, String missed){
         SQLiteDatabase db=this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(Col1,ID);
         contentValues.put(Col2,name);
         contentValues.put(Col3,attended);
         contentValues.put(Col4,missed);
@@ -64,5 +65,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase();
         return db.delete(Table_name,"NAME = ?",new String[] {name});
 
+    }
+
+    public Cursor getClasses(String name)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        String args = Col2+" LIKE ?";
+
+        return db.query(Table_name, new String[]{Col3, Col4},args, new String[]{name},null,null,null);
     }
 }

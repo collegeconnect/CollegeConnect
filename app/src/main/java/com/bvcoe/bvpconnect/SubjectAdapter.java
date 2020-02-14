@@ -1,12 +1,12 @@
 package com.bvcoe.bvpconnect;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +17,14 @@ import java.util.ArrayList;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHolder> {
 
-    private ArrayList<Subject> subjects;
+    private ArrayList<String> subjects;
     private Context context;
+    private DatabaseHelper dB;
 
-    public SubjectAdapter(ArrayList<Subject> subjects, Context context) {
+    public SubjectAdapter(ArrayList<String> subjects, Context context) {
         this.subjects = subjects;
         this.context = context;
+//        this.dB = new DatabaseHelper(context);
     }
 
     @NonNull
@@ -34,21 +36,61 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Subject current = subjects.get(position);
-        holder.heading.setText(current.getSubjectName());
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final String current = subjects.get(position);
+
+        //Setting details of cards on loading
+        holder.heading.setText(current);
+        final int[] attended = {0};
+        final int[] missed = {0};
+        dB = new DatabaseHelper(context);
+        final Cursor res = dB.getClasses(current);
+
+        if (res.moveToFirst())
+        {
+            attended[0] = Integer.parseInt(res.getString(0));
+            missed[0] = Integer.parseInt(res.getString(1));
+        }
+        holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
+
+        String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+        holder.percecntage.setText(percentage+"%");
+
+        //Button functionality
         holder.increase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Increase", Toast.LENGTH_SHORT).show();
+                attended[0]++;
+                dB.updateData(Integer.toString(position+1),current,Integer.toString(attended[0]),Integer.toString(missed[0]));
+//                Toast.makeText(context, res.getString(0)+" "+res.getString(1) , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "position: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
+                holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
+                String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+                holder.percecntage.setText(percentage+"%");
             }
         });
         holder.decrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Decrease", Toast.LENGTH_SHORT).show();
+                missed[0]++;
+                dB.updateData(Integer.toString(position+1),current,Integer.toString(attended[0]),Integer.toString(missed[0]));
+//                Toast.makeText(context, res.getString(0)+" "+res.getString(1) , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "position: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
+                holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
+                String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+                holder.percecntage.setText(percentage+"%");
             }
         });
+
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dB.deleteData(subjects.get(position));
+                subjects.remove(position);
+                AttendanceFragment.notifyChange();
+            }
+        });
+
     }
 
     @Override
@@ -59,19 +101,18 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageButton increase, decrease;
-        public TextView attended, missed, percecntage, heading;
+        public ImageButton increase, decrease, delete;
+        public TextView ratio, percecntage, heading;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             increase = itemView.findViewById(R.id.increase);
             decrease = itemView.findViewById(R.id.decrease);
-            attended = itemView.findViewById(R.id.qtyTextview);
-            missed = itemView.findViewById(R.id.textView8);
-            percecntage = itemView.findViewById(R.id.textView7);
+            delete = itemView.findViewById(R.id.deleteSubject);
+            ratio = itemView.findViewById(R.id.qtyTextview);
+            percecntage = itemView.findViewById(R.id.percentage);
             heading = itemView.findViewById(R.id.subjectHeading);
         }
     }
 }
-

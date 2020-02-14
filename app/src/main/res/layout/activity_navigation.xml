@@ -18,22 +18,22 @@
 
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/appbar"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorPrimaryDark">
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="College"
-
-                android:textColor="#FFF"
-                android:textStyle="bold"
-                android:paddingStart="50dp"
                 android:gravity="center"
-                android:textSize="22sp"/>
+
+                android:paddingStart="50dp"
+                android:text="College"
+                android:textColor="#FFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/activity_navigation_drawer" />
 
