@@ -109,7 +109,8 @@
 
                         android:layout_height="wrap_content"
 
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
+                        android:layout_marginStart="40dp"
 
                         android:backgroundTint="@android:color/transparent"
                         app:srcCompat="@drawable/cross" />
@@ -129,24 +130,33 @@
 
                         android:text="0"
 
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
 
 
                     <ImageButton
 
                         android:id="@+id/increase"
-
                         android:layout_width="20dp"
 
                         android:layout_height="wrap_content"
 
-                        android:layout_weight="1"
+                        android:layout_marginEnd="40dp"
+                        android:layout_weight="0.5"
 
                         android:backgroundTint="@android:color/transparent"
                         android:onClick="inc"
                         app:srcCompat="@drawable/tick" />
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_bunk"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Add your Attendence"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textColor="#000"/>
             </LinearLayout>
 
         </LinearLayout>

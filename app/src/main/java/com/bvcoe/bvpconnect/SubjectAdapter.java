@@ -1,6 +1,8 @@
 package com.bvcoe.bvpconnect;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SearchRecentSuggestionsProvider;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     private ArrayList<String> subjects;
     private Context context;
     private DatabaseHelper dB;
+    public float percent;
 
     public SubjectAdapter(ArrayList<String> subjects, Context context) {
         this.subjects = subjects;
@@ -31,7 +34,6 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_item,parent,false);
-
         return new SubjectAdapter.ViewHolder(view);
     }
 
@@ -54,7 +56,13 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
         holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
 
         String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
-        holder.percecntage.setText(percentage+"%");
+
+        if(percentage.equals("NaN")) {
+            holder.percecntage.setText("0%");
+        }
+         else
+            holder.percecntage.setText(percentage+"%");
+
 
         //Button functionality
         holder.increase.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +75,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                 holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
                 String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
                 holder.percecntage.setText(percentage+"%");
+                String s = holder.percecntage.getText().toString();
+                percent = Float.parseFloat(s.substring(0,s.length()-1));
+                if(percent <= 77)
+                    holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
+                else if(percent > 78)
+                    holder.tv_bunk.setText("You CAN BUNK Classes");
             }
         });
         holder.decrease.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +93,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                 holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
                 String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
                 holder.percecntage.setText(percentage+"%");
+                String s = holder.percecntage.getText().toString();
+                percent = Float.parseFloat(s.substring(0,s.length()-1));
+                if(percent <= 77)
+                    holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
+                else if(percent > 78)
+                    holder.tv_bunk.setText("You CAN BUNK Classes");
             }
         });
 
@@ -102,7 +122,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageButton increase, decrease, delete;
-        public TextView ratio, percecntage, heading;
+        public TextView ratio, percecntage, heading, tv_bunk;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,6 +133,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             ratio = itemView.findViewById(R.id.qtyTextview);
             percecntage = itemView.findViewById(R.id.percentage);
             heading = itemView.findViewById(R.id.subjectHeading);
+            tv_bunk = itemView.findViewById(R.id.tv_bunk);
         }
     }
 }
