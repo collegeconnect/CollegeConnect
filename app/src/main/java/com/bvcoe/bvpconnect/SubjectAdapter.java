@@ -2,13 +2,16 @@ package com.bvcoe.bvpconnect;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bvcoe.bvpconnect.ui.attendance.AttendanceFragment;
@@ -38,6 +41,10 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final String current = subjects.get(position);
+        holder.progressBar.setProgress(0);
+        holder.progressBar.setSecondaryProgress(100);
+        holder.progressBar.setMax(100);
+        holder.progressBar.setProgressDrawable(ContextCompat.getDrawable(context,R.drawable.circular));
 
         //Setting details of cards on loading
         holder.heading.setText(current);
@@ -53,7 +60,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
         }
         holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
 
-        String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+        String percentage = String.format("%.0f",(float)attended[0]/(attended[0]+missed[0])*100);
+        holder.progressBar.setProgress((int)Float.parseFloat(percentage));
 
         if(percentage.equals("NaN")) {
             holder.percecntage.setText("0%");
@@ -71,7 +79,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 //                Toast.makeText(context, res.getString(0)+" "+res.getString(1) , Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, "position: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
                 holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
-                String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+                String percentage = String.format("%.0f",(float)attended[0]/(attended[0]+missed[0])*100);
                 holder.percecntage.setText(percentage+"%");
                 String s = holder.percecntage.getText().toString();
                 percent = Float.parseFloat(s.substring(0,s.length()-1));
@@ -79,6 +87,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                     holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
                 else if(percent > 78)
                     holder.tv_bunk.setText("You CAN BUNK Classes");
+                holder.progressBar.setProgress((int)Float.parseFloat(percentage));
+
             }
         });
         holder.decrease.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +99,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 //                Toast.makeText(context, res.getString(0)+" "+res.getString(1) , Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, "position: " + Integer.toString(position), Toast.LENGTH_SHORT).show();
                 holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
-                String percentage = String.format("%.2f",(float)attended[0]/(attended[0]+missed[0])*100);
+                String percentage = String.format("%.0f",(float)attended[0]/(attended[0]+missed[0])*100);
                 holder.percecntage.setText(percentage+"%");
                 String s = holder.percecntage.getText().toString();
                 percent = Float.parseFloat(s.substring(0,s.length()-1));
@@ -97,6 +107,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                     holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
                 else if(percent > 78)
                     holder.tv_bunk.setText("You CAN BUNK Classes");
+                holder.progressBar.setProgress((int)Float.parseFloat(percentage));
+
             }
         });
 
@@ -121,10 +133,10 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
         public ImageButton increase, decrease, delete;
         public TextView ratio, percecntage, heading, tv_bunk;
+        public ProgressBar progressBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             increase = itemView.findViewById(R.id.increase);
             decrease = itemView.findViewById(R.id.decrease);
             delete = itemView.findViewById(R.id.deleteSubject);
@@ -132,6 +144,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             percecntage = itemView.findViewById(R.id.percentage);
             heading = itemView.findViewById(R.id.subjectHeading);
             tv_bunk = itemView.findViewById(R.id.tv_bunk);
+            progressBar = itemView.findViewById(R.id.circularProgressbar);
         }
     }
 }
+//    final ProgressBar mProgress = (ProgressBar) findViewById(R.id.circularProgressbar);
+//        mProgress.setProgress(0);   // Main Progress
+//                mProgress.setSecondaryProgress(100); // Secondary Progress
+//                mProgress.setMax(100); // Maximum Progress
+//                mProgress.setProgressDrawable(drawable);

@@ -40,21 +40,39 @@
             android:orientation="horizontal"
 
             android:padding="5dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <ProgressBar
+                    android:id="@+id/circularProgressbar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="50"
+                    android:layout_centerInParent="true"
+                    android:progressDrawable="@drawable/circular"
+                    android:secondaryProgress="100"
+                    />
 
-            <TextView
-                android:id="@+id/percentage"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="TextView"
-                android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/percentage"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:gravity="center"
+                    android:text="25%"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <LinearLayout

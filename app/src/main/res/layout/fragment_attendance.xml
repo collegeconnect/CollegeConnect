@@ -20,18 +20,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <EditText
-        android:id="@+id/subjectName"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_gallery"
         android:layout_alignParentStart="true"
         android:layout_marginEnd="10dp"
-        android:layout_toStartOf="@+id/addSubject"
-        android:ems="10"
-        android:hint="Subject Name"
-        android:inputType="textPersonName" />
+        android:layout_toStartOf="@id/addSubject"
+        android:backgroundTint="@color/colorSurface"
+        android:ems="10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:id="@+id/subjectName"
+            android:backgroundTint="#fff"
+            android:layout_height="wrap_content"
+            android:hint="Subject Name"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/addSubject"
@@ -47,5 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/addSubject" />
+
+
 
 </RelativeLayout>

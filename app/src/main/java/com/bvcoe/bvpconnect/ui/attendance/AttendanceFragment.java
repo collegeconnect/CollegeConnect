@@ -81,16 +81,19 @@ public class AttendanceFragment extends Fragment {
 
     public void addSubject()
     {
-        boolean res= mydb.insetData(subject.getText().toString(),"0","0");
-        if (res==true) {
-            Toast.makeText(getContext(), "Subject added successfully", Toast.LENGTH_SHORT).show();
-        }
-        else
-            Toast.makeText(getContext(), "Data not added", Toast.LENGTH_SHORT).show();
+        if(subject.getText().toString().isEmpty() || subject.getText().toString().equals(""))
+            subject.setError("Enter a Subject");
+        else {
+            boolean res = mydb.insetData(subject.getText().toString(), "0", "0");
+            if (res == true) {
+                Toast.makeText(getContext(), "Subject added successfully", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(getContext(), "Data not added", Toast.LENGTH_SHORT).show();
 
-        subjectList.add(subject.getText().toString());
-        subjectAdapter.notifyDataSetChanged();
-        subject.setText("");
+            subjectList.add(subject.getText().toString());
+            subjectAdapter.notifyDataSetChanged();
+            subject.setText("");
+        }
     }
 
     public static void notifyChange()
