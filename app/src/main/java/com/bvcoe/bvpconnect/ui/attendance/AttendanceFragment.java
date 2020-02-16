@@ -20,13 +20,15 @@ import com.bvcoe.bvpconnect.DatabaseHelper;
 import com.bvcoe.bvpconnect.R;
 import com.bvcoe.bvpconnect.SubjectAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
 public class AttendanceFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     DatabaseHelper mydb;
-    EditText subject;
+    TextInputLayout subject;
     Button addSubject;
     private static ArrayList<String> subjectList;
     private RecyclerView subjectRecycler;
@@ -53,7 +55,7 @@ public class AttendanceFragment extends Fragment {
         subjectRecycler.setAdapter(subjectAdapter);
         loadData();
 
-        subject = view.findViewById(R.id.subjectName);
+        subject = view.findViewById(R.id.subjectNamemas);
         addSubject = view.findViewById(R.id.addSubject);
 
         addSubject.setOnClickListener(new View.OnClickListener() {
@@ -85,18 +87,18 @@ public class AttendanceFragment extends Fragment {
 
     public void addSubject()
     {
-        if(subject.getText().toString().isEmpty() || subject.getText().toString().equals(""))
+        if(subject.getEditText().getText().toString().isEmpty() || subject.getEditText().getText().toString().equals(""))
             subject.setError("Enter a Subject");
         else {
-            boolean res = mydb.insetData(subject.getText().toString(), "0", "0");
+            boolean res = mydb.insetData(subject.getEditText().getText().toString(), "0", "0");
             if (res == true) {
                 Toast.makeText(getContext(), "Subject added successfully", Toast.LENGTH_SHORT).show();
             } else
                 Toast.makeText(getContext(), "Data not added", Toast.LENGTH_SHORT).show();
 
-            subjectList.add(subject.getText().toString());
+            subjectList.add(subject.getEditText().getText().toString());
             subjectAdapter.notifyDataSetChanged();
-            subject.setText("");
+            subject.getEditText().setText("");
         }
     }
 

@@ -13,7 +13,8 @@
         <activity
             android:name=".navigation"
             android:windowSoftInputMode="adjustPan"
-            android:hardwareAccelerated="true"/>
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"/>
         <activity android:name=".SignUp" />
         <activity android:name=".Splash">
             <intent-filter>

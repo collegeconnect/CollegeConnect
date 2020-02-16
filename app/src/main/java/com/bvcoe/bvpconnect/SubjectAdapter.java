@@ -4,9 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -72,6 +75,10 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             per = (int) Float.parseFloat(percentage);
 
         holder.circleProgress.setProgress(per);
+        if(per <= 77)
+            holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
+        else if(per > 78)
+            holder.tv_bunk.setText("You CAN BUNK Classes");
 
 
 //        if(percentage.equals("NaN")) {
@@ -134,13 +141,31 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dB.deleteData(subjects.get(position));
-                subjects.remove(position);
-                AttendanceFragment.notifyChange();
+                final PopupMenu popup = new PopupMenu(context,view);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.actions, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.delete:
+                                dB.deleteData(subjects.get(position));
+                              subjects.remove(position);
+                                 AttendanceFragment.notifyChange();
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
+
             }
         });
 
     }
+//
+//     dB.deleteData(subjects.get(position));
+//                subjects.remove(position);
+//                AttendanceFragment.notifyChange();
 
     @Override
     public int getItemCount() {
@@ -159,7 +184,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             super(itemView);
             increase = itemView.findViewById(R.id.increase);
             decrease = itemView.findViewById(R.id.decrease);
-            delete = itemView.findViewById(R.id.deleteSubject);
+            delete = itemView.findViewById(R.id.pop);
             ratio = itemView.findViewById(R.id.qtyTextview);
 //            percecntage = itemView.findViewById(R.id.percentage);
             heading = itemView.findViewById(R.id.subjectHeading);
