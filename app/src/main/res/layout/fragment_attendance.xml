@@ -4,39 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="15dp"
     android:background="@color/colorSurface">
-
-    <TextView
-        android:id="@+id/text_gallery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/menu_attendance"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_gallery"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@id/addSubject"
         android:backgroundTint="@color/colorSurface"
         android:ems="10">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
             android:id="@+id/subjectName"
-            android:backgroundTint="#fff"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#fff"
             android:hint="Subject Name"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -44,8 +32,9 @@
         android:id="@+id/addSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_gallery"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="18dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Add Subject" />
 
@@ -53,7 +42,8 @@
         android:id="@+id/subjectRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/addSubject" />
+        android:layout_below="@id/addSubject"
+        android:layout_marginTop="15dp" />
 
 
 

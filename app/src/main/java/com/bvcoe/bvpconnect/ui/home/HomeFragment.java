@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
+    TextView tv;
 
     @Nullable
     @Override
@@ -22,6 +24,8 @@ public class HomeFragment extends Fragment {
 
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
+        tv=getActivity().findViewById(R.id.tvTitle);
+        tv.setText("College");
         return inflater.inflate(R.layout.fragment_home,null);
 
     }

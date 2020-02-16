@@ -17,12 +17,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
+    TextView tv;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
+        tv=getActivity().findViewById(R.id.tvTitle);
+        tv.setText("Tools");
         return inflater.inflate(R.layout.fragment_tools,null);
     }
     @Override

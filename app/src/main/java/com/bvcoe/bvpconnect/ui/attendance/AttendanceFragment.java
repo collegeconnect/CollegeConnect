@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -30,11 +31,14 @@ public class AttendanceFragment extends Fragment {
     private static ArrayList<String> subjectList;
     private RecyclerView subjectRecycler;
     static SubjectAdapter subjectAdapter;
+    TextView tv;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendance,null);
+        tv=getActivity().findViewById(R.id.tvTitle);
+        tv.setText("Attendance");
 
         mydb= new DatabaseHelper(getContext());
 
