@@ -12,7 +12,7 @@
         <activity android:name=".TimeTable"></activity>
         <activity
             android:name=".navigation"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".SignUp" />
         <activity android:name=".Splash">
             <intent-filter>
