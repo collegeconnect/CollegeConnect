@@ -1,46 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     android:id="@+id/subject_card"
-
     android:layout_width="match_parent"
-
     android:layout_height="wrap_content"
-
     android:background="@color/colorSurface"
     android:orientation="vertical"
     android:padding="5dp">
 
 
-    <androidx.cardview.widget.CardView
-
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
-
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
-
         android:layout_below="@id/subjectName"
+        android:layout_margin="2dp"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="15dp"
         android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
         android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
         android:layout_marginBottom="@dimen/cardview_compat_inset_shadow">
 
-
         <LinearLayout
-
             android:id="@+id/cardLayout"
-
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
-
             android:orientation="horizontal"
-
             android:padding="5dp">
-
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -174,6 +161,6 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="15dp"
+    android:paddingTop="10dp"
     android:background="@color/colorSurface">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/subjectNamemas"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@id/addSubject"
         android:backgroundTint="@color/colorSurface"
@@ -22,10 +24,12 @@
             android:id="@+id/subjectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:backgroundTint="#fff"
             android:hint="Subject Name"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
 
     <Button
@@ -35,16 +39,19 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="18dp"
+        android:layout_marginEnd="3dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:text="Add Subject" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjectRecyclerView"
         android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_height="match_parent"
-        android:layout_below="@id/addSubject"
+        android:layout_below="@id/subjectNamemas"
         android:layout_marginTop="15dp" />
-
 
 
 </RelativeLayout>
