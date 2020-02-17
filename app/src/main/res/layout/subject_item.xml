@@ -16,11 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/subjectName"
         android:layout_margin="2dp"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="15dp"
         android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
         android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
-        android:layout_marginBottom="@dimen/cardview_compat_inset_shadow">
+        android:layout_marginBottom="@dimen/cardview_compat_inset_shadow"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="3dp">
 
         <LinearLayout
             android:id="@+id/cardLayout"
@@ -29,20 +29,20 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-                <com.github.lzyzsd.circleprogress.ArcProgress
-                    android:id="@+id/arc_progress"
-                    android:background="#214193"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="100dp"
-                    app:arc_max="100"
-                    app:arc_text_size="30sp"
-                    app:arc_progress="50"
-                    android:backgroundTint="#fff"
-                    app:arc_unfinished_color="#FF0000"
-                    app:arc_finished_color="#00FF00"
-                    android:layout_height="100dp"
-                    app:arc_bottom_text="Attendance"/>
+            <com.github.lzyzsd.circleprogress.ArcProgress
+                android:id="@+id/arc_progress"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:background="#214193"
+                android:backgroundTint="#fff"
+                app:arc_bottom_text="Attendance"
+                app:arc_finished_color="#00FF00"
+                app:arc_max="100"
+                app:arc_progress="50"
+                app:arc_text_size="30sp"
+                app:arc_unfinished_color="#FF0000" />
 
 
             <LinearLayout
@@ -70,11 +70,11 @@
 
                     <ImageButton
                         android:id="@+id/pop"
+                        style="?android:attr/actionOverflowButtonStyle"
                         android:layout_width="12dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        style="?android:attr/actionOverflowButtonStyle" />
+                        android:background="@android:color/transparent" />
 
                 </LinearLayout>
 
@@ -85,13 +85,14 @@
                     android:layout_marginTop="1dp"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <ImageButton
 
                         android:id="@+id/decrease"
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
                         android:layout_marginStart="40dp"
+                        android:layout_weight="0.5"
                         android:backgroundTint="@android:color/transparent"
                         app:srcCompat="@drawable/cross" />
 
@@ -123,9 +124,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textSize="13sp"
                     android:text="Add attendance"
-                    android:textColor="#000"/>
+                    android:textColor="#000"
+                    android:textSize="13sp" />
             </LinearLayout>
 
         </LinearLayout>

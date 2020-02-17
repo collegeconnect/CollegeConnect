@@ -79,7 +79,6 @@ public class AttendanceFragment extends Fragment {
         Cursor res = mydb.viewAllData();
 
         while (res.moveToNext()) {
-
             subjectList.add(res.getString(1));
             subjectAdapter.notifyDataSetChanged();
         }
@@ -99,6 +98,8 @@ public class AttendanceFragment extends Fragment {
             subjectList.add(subject.getEditText().getText().toString());
             subjectAdapter.notifyDataSetChanged();
             subject.getEditText().setText("");
+            subject.clearFocus();
+            subject.setErrorEnabled(false);
         }
     }
 

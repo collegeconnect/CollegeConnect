@@ -75,7 +75,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             per = (int) Float.parseFloat(percentage);
 
         holder.circleProgress.setProgress(per);
-        if(per <= 77)
+        if(per <= 77 && !percentage.equals("NaN"))
             holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
         else if(per > 78)
             holder.tv_bunk.setText("You CAN BUNK Classes");
