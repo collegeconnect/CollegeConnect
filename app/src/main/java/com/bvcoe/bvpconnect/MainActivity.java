@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            SaveSharedPreference.setUserName(getApplicationContext(),user.getEmail());
                             startActivity(new Intent(getApplicationContext(), navigation.class));
                             finish();
                         } else {

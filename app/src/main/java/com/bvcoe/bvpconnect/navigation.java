@@ -39,6 +39,7 @@ import org.w3c.dom.Text;
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     TextView tv;
     GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
@@ -48,7 +49,8 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
-        Toast.makeText(this, "Welcome ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
