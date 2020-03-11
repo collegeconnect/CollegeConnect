@@ -12,10 +12,14 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String Database_name= "Attendance.db";
     public static final String Table_name= "Attendance_Table";
+    public static final String Tablename = "Image_table";
     public static final String Col1= "ID";
     public static final String Col2= "Name";
     public static final String Col3= "Attended";
     public static final String Col4= "Missed";
+    public static final String COL= "Imagetext";
+    public static final String COL1="Imageblob";
+    public static final String string = "image";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, Database_name, null, 1);
@@ -24,11 +28,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table "+Table_name+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, ATTENDED INTEGER, MISSED INTEGER)");
+        sqLiteDatabase.execSQL("create table "+Tablename+" (IMAGETEXT TEXT PRIMARY KEY, IMAGEBLOB BLOB)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+Table_name);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+Tablename);
         onCreate(sqLiteDatabase);
     }
 
@@ -44,9 +50,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean insertImage(byte[] image){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL,string);
+        cv.put(COL1,image);
+        long res = db.insert(Tablename, null, cv);
+        return res != -1;
+    }
+
     public Cursor viewAllData() {
         SQLiteDatabase db=this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+Table_name,null);
+        return res;
+    }
+    public Cursor viewAllImage() {
+        SQLiteDatabase db=this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+Tablename,null);
         return res;
     }
 
@@ -60,6 +80,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(Table_name,contentValues,"NAME = ?",new String[] {name});
         return true;
     }
+    public boolean updateImage(byte[] image){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL,string);
+        cv.put(COL1,image);
+        db.update(Tablename,cv,"IMAGETEXT = ?",new String[]{string});
+        return true;
+    }
 
     public int deleteData(String name){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -71,7 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db=this.getWritableDatabase();
         String args = Col2+" LIKE ?";
-
         return db.query(Table_name, new String[]{Col3, Col4},args, new String[]{name},null,null,null);
     }
 }
