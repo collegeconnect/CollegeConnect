@@ -69,7 +69,7 @@ public class TimeTable extends AppCompatActivity {
 //        });
         byte[] image;
         Bitmap bit;
-        //load form sqlite
+        //load from sqlite
         Cursor res=db.viewAllImage();
         if(res.getCount()==0)
             Toast.makeText(getApplicationContext(),"No time table found",Toast.LENGTH_LONG).show();
