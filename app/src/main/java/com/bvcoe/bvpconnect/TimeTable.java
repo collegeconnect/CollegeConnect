@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -30,7 +31,7 @@ public class TimeTable extends AppCompatActivity {
 
     private static final int GET_FROM_GALLERY = 1;
     DatabaseHelper db;
-    private ImageView imageView;
+    private TouchImageView imageView;
     private ProgressBar progressBar;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -78,6 +79,7 @@ public class TimeTable extends AppCompatActivity {
                 image = res.getBlob(1);
                 bit = getImage(image);
                 imageView.setImageBitmap(bit);
+                imageView.setMaxZoom(3);
             }
         }
 
