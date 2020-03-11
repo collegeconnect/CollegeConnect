@@ -187,10 +187,11 @@ public class TimeTable extends AppCompatActivity {
 //                UploadImage();
                 byte[] image1 = getBytes(bitmap);
                 boolean insert = db.insertImage(image1);
-                if(insert)
-                    Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
+                db.updateImage(image1);
+//                if(insert)
+//                    Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_LONG).show();
+//                else
+//                    Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
