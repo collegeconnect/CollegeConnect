@@ -43,9 +43,10 @@ public class SignUp extends AppCompatActivity {
             public void onClick(final View view) {
                 InputMethodManager inputManager = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (getCurrentFocus()!=null)
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
 
-                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
                 progressBar.setVisibility(View.VISIBLE);
                 final String Strusername = username.getText().toString();
                 final String Strpassword = password.getText().toString();

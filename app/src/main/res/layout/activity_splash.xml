@@ -23,7 +23,7 @@
         android:id="@+id/subjectHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sc"
+        android:fontFamily="@font/sue_ellen_francisco"
         android:text="@string/display"
         android:textAlignment="viewStart"
         android:textColor="@color/colorAccent"

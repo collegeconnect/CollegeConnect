@@ -33,6 +33,10 @@
                 <!-- -<category android:Name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

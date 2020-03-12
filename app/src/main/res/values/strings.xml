@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">College Connect</string>
-    <string name="display">BVP CONNECT</string>
+    <string name="display">COLLEGE CONNECT</string>
     <string name="logo">Logo</string>
     <string name="log_in">Log In</string>
     <string name="password">Password</string>
@@ -23,4 +23,6 @@
     <string name="menu_send">Logout</string>
     <string name="email">Email</string>
     <string name="log_out">Log Out</string>
+    <string name="not_a_user_sign_up"><u>Not a user? Sign Up</u></string>
+    <string name="welcome_message">WELCOME TO COLLEGE CONNECT</string>
 </resources>
