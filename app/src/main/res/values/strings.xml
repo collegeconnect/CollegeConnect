@@ -25,4 +25,5 @@
     <string name="log_out">Log Out</string>
     <string name="not_a_user_sign_up"><u>Not a user? Sign Up</u></string>
     <string name="welcome_message">WELCOME TO COLLEGE CONNECT</string>
+    <string name="Internet"><u>Unable to Access Internet!</u></string>
 </resources>

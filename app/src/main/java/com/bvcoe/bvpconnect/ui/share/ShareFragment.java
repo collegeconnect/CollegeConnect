@@ -1,5 +1,8 @@
 package com.bvcoe.bvpconnect.ui.share;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,7 +27,10 @@ public class ShareFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
     WebView webView;
+    ImageView imageView;
+    TextView textView;
     WebSettings webSettings;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,6 +39,32 @@ public class ShareFragment extends Fragment {
         View view=  inflater.inflate(R.layout.fragment_loc,null);
 
         webView = view.findViewById(R.id.webView);
+        textView = view.findViewById(R.id.tv_error);
+        imageView = view.findViewById(R.id.imageView);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
+
+        ConnectivityManager manager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo i = manager.getActiveNetworkInfo();
+        boolean hasConnect = (i!= null && i.isConnected() && i.isAvailable());
+
+        if(hasConnect)
+        {
+            // show the webview
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl("https://rooms.dscbvp.dev/");
+            WebSettings webSettings = webView.getSettings();
+            webSettings.setJavaScriptEnabled(true);
+        }
+        else
+        {
+            // do what ever you need when when no internet connection
+            webView.setVisibility(View.GONE);
+            textView.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.VISIBLE);
+        }
+
+
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("https://rooms.dscbvp.dev/");
         WebSettings webSettings = webView.getSettings();

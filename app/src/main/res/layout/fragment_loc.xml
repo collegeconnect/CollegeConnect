@@ -10,5 +10,36 @@
    <WebView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:id="@+id/webView"/>
+       android:id="@+id/webView">
+
+
+   </WebView>
+
+
+   <ImageView
+       android:id="@+id/imageView"
+       android:layout_width="100dp"
+       android:layout_height="100dp"
+       app:layout_constraintBottom_toTopOf="@+id/tv_error"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.9"
+       app:srcCompat="@drawable/warning" />
+
+   <TextView
+       android:id="@+id/tv_error"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_x="182dp"
+       android:layout_y="360dp"
+       android:text="@string/Internet"
+       android:textColor="#636363"
+       android:textSize="20sp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.53" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
