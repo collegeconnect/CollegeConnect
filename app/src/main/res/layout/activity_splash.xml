@@ -7,18 +7,6 @@
     android:background="@drawable/gradientcolor"
     tools:context=".Splash">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="241dp"
-        android:layout_height="165dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintBottom_toTopOf="@id/subjectHeading"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888"
-        app:srcCompat="@drawable/bvdunew" />
-
     <TextView
         android:id="@+id/subjectHeading"
         android:layout_width="wrap_content"
@@ -31,8 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.26999998" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
