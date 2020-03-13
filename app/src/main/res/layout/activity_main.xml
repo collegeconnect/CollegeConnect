@@ -23,13 +23,13 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="@android:color/transparent"
+        android:background="@drawable/buttonlayout2"
         android:onClick="LogIn"
         android:text="@string/log_in"
         android:textColor="@color/design_default_color_on_secondary"
@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +45,7 @@
         android:background="@android:color/transparent"
         android:backgroundTint="@android:color/transparent"
         android:text="@string/not_a_user_sign_up"
+        android:textColor="@color/colorwhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -103,7 +104,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:backgroundTint="#50ffffff"
             android:hint="Email"
             android:inputType="textWebEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -121,23 +122,22 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:backgroundTint="#50ffffff"
             android:hint="Password"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/googleSign"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:background="@color/colorwhite"
-        android:backgroundTint="@color/colorwhite"
         android:drawableLeft="@drawable/google"
         android:onClick="LogIn"
+        android:padding="5dp"
         android:text="@string/common_signin_button_text"
         android:textColor="@color/design_default_color_on_secondary"
-        app:iconTint="@color/design_default_color_on_secondary"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
