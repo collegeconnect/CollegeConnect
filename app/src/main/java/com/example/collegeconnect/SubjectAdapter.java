@@ -1,8 +1,7 @@
-package com.bvcoe.bvpconnect;
+package com.example.collegeconnect;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,12 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bvcoe.bvpconnect.ui.attendance.AttendanceFragment;
+import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.github.lzyzsd.circleprogress.ArcProgress;
-import com.github.lzyzsd.circleprogress.CircleProgress;
 
 import java.util.ArrayList;
 

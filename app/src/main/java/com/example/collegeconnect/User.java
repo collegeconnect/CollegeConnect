@@ -1,4 +1,4 @@
-package com.bvcoe.bvpconnect;
+package com.example.collegeconnect;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

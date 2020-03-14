@@ -1,4 +1,4 @@
-package com.bvcoe.bvpconnect;
+package com.example.collegeconnect;
 
 import android.content.Context;
 import android.content.SharedPreferences;

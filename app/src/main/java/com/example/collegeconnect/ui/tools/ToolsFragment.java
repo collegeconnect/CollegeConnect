@@ -1,4 +1,4 @@
-package com.bvcoe.bvpconnect.ui.notes;
+package com.example.collegeconnect.ui.tools;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,26 +10,27 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.bvcoe.bvpconnect.R;
+
+import com.example.collegeconnect.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class NotesFragment extends Fragment {
+public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-
         tv=getActivity().findViewById(R.id.tvTitle);
-        tv.setText("Notes");
-        return inflater.inflate(R.layout.fragment_notes,null);
+        tv.setText("Tools");
+        return inflater.inflate(R.layout.fragment_tools,null);
     }
     @Override
     public void onStart() {
         super.onStart();
-        bottomNavigationView.getMenu().findItem(R.id.nav_notes).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
 }

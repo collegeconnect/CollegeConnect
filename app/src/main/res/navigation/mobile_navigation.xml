@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.bvcoe.bvpconnect.ui.home.HomeFragment"
+        android:name="com.example.collegeconnect.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.bvcoe.bvpconnect.ui.attendance.AttendanceFragment"
+        android:name="com.example.collegeconnect.ui.attendance.AttendanceFragment"
         android:label="@string/menu_attendance"
         tools:layout="@layout/fragment_attendance" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.bvcoe.bvpconnect.ui.notes.NotesFragment"
+        android:name="com.example.collegeconnect.ui.notes.NotesFragment"
         android:label="@string/menu_notes"
         tools:layout="@layout/fragment_notes" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.bvcoe.bvpconnect.ui.tools.ToolsFragment"
+        android:name="com.example.collegeconnect.ui.tools.ToolsFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_loc"
-        android:name="com.bvcoe.bvpconnect.ui.share.ShareFragment"
+        android:name="com.example.collegeconnect.ui.share.ShareFragment"
         android:label="@string/menu_loc"
         tools:layout="@layout/fragment_loc" />
 

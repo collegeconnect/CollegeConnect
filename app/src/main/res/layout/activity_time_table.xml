@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#000"
     android:padding="10dp"
-    tools:context=".TimeTable">
+    tools:context="com.example.collegeconnect.TimeTable">
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/imageView2"

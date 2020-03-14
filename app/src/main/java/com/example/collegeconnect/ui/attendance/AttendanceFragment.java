@@ -1,4 +1,4 @@
-package com.bvcoe.bvpconnect.ui.attendance;
+package com.example.collegeconnect.ui.attendance;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,11 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bvcoe.bvpconnect.DatabaseHelper;
-import com.bvcoe.bvpconnect.R;
-import com.bvcoe.bvpconnect.SubjectAdapter;
+import com.example.collegeconnect.DatabaseHelper;
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.SubjectAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;

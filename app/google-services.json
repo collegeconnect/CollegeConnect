@@ -1,50 +1,42 @@
 {
   "project_info": {
-    "project_number": "21216530797",
-    "firebase_url": "https://androiddevelopment-76e5f.firebaseio.com",
-    "project_id": "androiddevelopment-76e5f",
-    "storage_bucket": "androiddevelopment-76e5f.appspot.com"
+    "project_number": "808040496893",
+    "firebase_url": "https://college-connect-c3623.firebaseio.com",
+    "project_id": "college-connect-c3623",
+    "storage_bucket": "college-connect-c3623.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:21216530797:android:9431ada93a8fe6577aca64",
+        "mobilesdk_app_id": "1:808040496893:android:12572ebc7ad2e24200c894",
         "android_client_info": {
-          "package_name": "com.bvcoe.bvpconnect"
+          "package_name": "com.example.collegeconnect"
         }
       },
       "oauth_client": [
         {
-          "client_id": "21216530797-3k4gn7i66a6792msjav8r7ldldf556ak.apps.googleusercontent.com",
+          "client_id": "808040496893-gpmmqcl5j5i5sbkm7l221l0hec844jjd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.bvcoe.bvpconnect",
+            "package_name": "com.example.collegeconnect",
             "certificate_hash": "03ab3d1b7a76cdb33ca854c9084d4d1dc3875a86"
           }
         },
         {
-          "client_id": "21216530797-ncco8qd58q4cokgsf7jjscmb33bc4tq2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.bvcoe.bvpconnect",
-            "certificate_hash": "60112d63beafb04fd4624abaa99d5b2f0719e1f9"
-          }
-        },
-        {
-          "client_id": "21216530797-r64vanc1a2e1u2kv9uobp3frr03shccg.apps.googleusercontent.com",
+          "client_id": "808040496893-njuat9nh4rg6vi9mrbuqhkf0k8d6l906.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApVqUDlf70JDxN_8He-I-sZ1ZMwKI0tXA"
+          "current_key": "AIzaSyBXfS4REMcBmZ4SIQgIlGX5TH3xxZYnLmA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "21216530797-r64vanc1a2e1u2kv9uobp3frr03shccg.apps.googleusercontent.com",
+              "client_id": "808040496893-njuat9nh4rg6vi9mrbuqhkf0k8d6l906.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
