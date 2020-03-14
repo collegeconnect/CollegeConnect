@@ -144,29 +144,29 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/sue_ellen_francisco"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/leaguegothic_regular"
         android:text="WELCOME TO"
 
         android:textColor="@color/colorwhite"
-        android:textSize="36sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="342dp"
+        android:layout_width="wrap_content"
         android:gravity="center"
-        android:layout_height="84dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:fontFamily="@font/sue_ellen_francisco"
-        android:text="COLLEGE CONNECT."
+        android:fontFamily="@font/leaguegothic_regular"
+        android:text="COLLEGE CONNECT"
         android:textColor="@color/colorwhite"
-        android:textSize="36sp"
+        android:textSize="60sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
