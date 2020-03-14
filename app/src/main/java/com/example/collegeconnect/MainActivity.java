@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,14 +29,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.core.SyncTree;
 
 public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
+    TextInputLayout email, password;
     private Button register;
     int RC_SIGN_IN = 1  ;
     GoogleSignInClient mGoogleSignInClient;
+    TextView tv_forgetpass;
     private static final String TAG= "MainActivity";
 
 
@@ -46,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         final Intent i = new Intent(this, SignUp.class);
         register=findViewById(R.id.button2);
+        tv_forgetpass= findViewById(R.id.textView7);
+        email = findViewById(R.id.editText);
+        password = findViewById(R.id.editText2);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +83,33 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(signinintent,RC_SIGN_IN);
             }
         });
+
+        tv_forgetpass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgetpassword();
+            }
+        });
+    }
+
+    private void forgetpassword() {
+
+        String Stremail = email.getEditText().getText().toString();
+        if (Stremail.isEmpty())
+            email.setError("Enter your Email address");
+        else
+            FirebaseAuth.getInstance().sendPasswordResetEmail(Stremail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                        Toast.makeText(getApplicationContext(),"Password Reset Email sent. Check Inbox",Toast.LENGTH_LONG).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(),"Email not registered!",Toast.LENGTH_LONG).show();
+                }
+            });
     }
 
     @Override
@@ -140,8 +175,7 @@ public class MainActivity extends AppCompatActivity {
         register.setEnabled(false);
 
         progressBar.setVisibility(View.VISIBLE);
-        TextInputLayout email = findViewById(R.id.editText);
-        TextInputLayout password = findViewById(R.id.editText2);
+
         final String Stremail = email.getEditText().getText().toString();
         String Strpass = password.getEditText().getText().toString();
 
