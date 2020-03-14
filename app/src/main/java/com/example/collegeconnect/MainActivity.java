@@ -3,6 +3,8 @@ package com.example.collegeconnect;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -151,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
         final String Stremail = email.getEditText().getText().toString();
         String Strpass = password.getEditText().getText().toString();
 
+
+
         if (Stremail.isEmpty() && Strpass.isEmpty()) {
             email.setError("Enter your Email address");
             password.setError("Enter a Valid password");
@@ -203,6 +207,38 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        email.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                email.setError(null);
+            }
+        });
+        password.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                password.setError(null);
+            }
+        });
     }
 
     @Override
