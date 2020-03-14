@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private Button register;
     int RC_SIGN_IN = 1  ;
     GoogleSignInClient mGoogleSignInClient;
-    TextView tv_forgetpass;
     private static final String TAG= "MainActivity";
 
 
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         final Intent i = new Intent(this, SignUp.class);
         register=findViewById(R.id.button2);
-        tv_forgetpass= findViewById(R.id.textView7);
         email = findViewById(R.id.editText);
         password = findViewById(R.id.editText2);
         register.setOnClickListener(new View.OnClickListener() {
@@ -84,32 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tv_forgetpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                forgetpassword();
-            }
-        });
-    }
-
-    private void forgetpassword() {
-
-        String Stremail = email.getEditText().getText().toString();
-        if (Stremail.isEmpty())
-            email.setError("Enter your Email address");
-        else
-            FirebaseAuth.getInstance().sendPasswordResetEmail(Stremail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful())
-                        Toast.makeText(getApplicationContext(),"Password Reset Email sent. Check Inbox",Toast.LENGTH_LONG).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(),"Email not registered!",Toast.LENGTH_LONG).show();
-                }
-            });
     }
 
     @Override
@@ -252,4 +224,22 @@ public class MainActivity extends AppCompatActivity {
 //        firebaseAuth.addAuthStateListener(authStateListener );
     }
 
+    public void forgotpassword(View view) {
+        String Stremail = email.getEditText().getText().toString();
+        if (Stremail.isEmpty())
+            email.setError("Enter your Email address");
+        else
+            FirebaseAuth.getInstance().sendPasswordResetEmail(Stremail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                        Toast.makeText(getApplicationContext(),"Password Reset Email sent. Check Inbox",Toast.LENGTH_LONG).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(),"Email not registered!",Toast.LENGTH_LONG).show();
+                }
+            });
+    }
 }

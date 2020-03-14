@@ -176,6 +176,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:onClick="forgotpassword"
         android:text="@string/forgotpass"
         android:textColor="#272727"
         android:clickable="true"
