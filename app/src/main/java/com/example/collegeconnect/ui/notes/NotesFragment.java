@@ -1,5 +1,6 @@
 package com.example.collegeconnect.ui.notes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,16 @@ public class NotesFragment extends Fragment {
 
         tv=getActivity().findViewById(R.id.tvTitle);
         tv.setText("Notes");
-        return inflater.inflate(R.layout.fragment_notes,null);
+        View view = inflater.inflate(R.layout.fragment_notes,null);
+        view.findViewById(R.id.fab_upload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),UploadNotes.class));
+            }
+        });
+
+        return view;
+
     }
     @Override
     public void onStart() {
