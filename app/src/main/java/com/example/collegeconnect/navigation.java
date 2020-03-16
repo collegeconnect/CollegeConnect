@@ -102,10 +102,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(navigation.this,
-                        "Storage Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show();
+               
             } else {
                 Toast.makeText(navigation.this,
                         "Storage Permission Denied",
