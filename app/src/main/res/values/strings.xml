@@ -29,10 +29,10 @@
     <string name="forgotpass"><u>Forgot Password?</u></string>
 
     <string-array name="Semesters">
-    <item>"First Semester"</item>
-    <item>"Second Semester"</item>
-    <item>"Third Semester"</item>
-    <item>"Fourth Semester"</item>
+        <item>"First Semester"</item>
+        <item>"Second Semester"</item>
+        <item>"Third Semester"</item>
+        <item>"Fourth Semester"</item>
         <item>"Fifth Semester"</item>
         <item>"Sixth Semester"</item>
         <item>"Seventh Semester"</item>
@@ -51,4 +51,7 @@
     <string-array name="Course">
         <item>B.Tech</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
