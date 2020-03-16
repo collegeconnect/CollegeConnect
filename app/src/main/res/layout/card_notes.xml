@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="20dp">
-        <LinearLayout
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/pdfview"
+            android:src="@drawable/pdf_109"/>
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/pdfview"
+            android:id="@+id/title"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:text="File Name"/>
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/pdf_109" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:id="@+id/authorname"
+            android:layout_toEndOf="@id/pdfview"
+            android:text="- Author"
+            android:gravity="right"
+            android:textSize="18sp"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+        <TextView
+            android:id="@+id/down"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/authorname"
+            android:layout_toEndOf="@id/pdfview"
+            android:gravity="left"
+            android:text="No. of Downloads = 10"
+            android:textColor="#AAA8A8" />
 
-        </LinearLayout>
+    </RelativeLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
