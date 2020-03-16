@@ -10,8 +10,8 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
+        android:layout_height="40dp"
+        android:id="@+id/spinnerCourse"
         android:entries="@array/Course"
         android:layout_centerVertical="true"
         android:spinnerMode="dialog"
@@ -19,17 +19,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/spinner1"
-        android:layout_alignStart="@id/spinner1"
+        android:layout_above="@id/spinnerCourse"
+        android:layout_alignStart="@id/spinnerCourse"
         android:text="Select Course:"
         android:textSize="11sp"
         android:layout_marginBottom="-10dp"/>
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerBranch"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner1"
+        android:layout_height="40dp"
+        android:layout_below="@id/spinnerCourse"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -41,18 +41,18 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner2"
-        android:layout_alignStart="@+id/spinner2"
+        android:layout_above="@+id/spinnerBranch"
+        android:layout_alignStart="@+id/spinnerBranch"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Semester:"
         android:textSize="11sp" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerSem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner2"
+        android:layout_height="40dp"
+        android:layout_below="@id/spinnerBranch"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
@@ -65,15 +65,15 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner"
-        android:layout_alignStart="@+id/spinner"
+        android:layout_above="@+id/spinnerSem"
+        android:layout_alignStart="@+id/spinnerSem"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Subject:"
         android:textSize="11sp" />
 
     <android.widget.Button
-        android:id="@+id/button5"
+        android:id="@+id/viewnotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/FileName"
@@ -90,18 +90,18 @@
     <android.widget.Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button5"
+        android:layout_below="@id/viewnotes"
         android:text="Upload"
         android:layout_marginTop="10dp"
         android:background="@drawable/buttonlayout2"
         android:id="@+id/button6"
-        android:layout_alignStart="@id/button5"/>
+        android:layout_alignStart="@id/viewnotes"/>
 
     <EditText
         android:id="@+id/FileName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner"
+        android:layout_below="@id/spinnerSem"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
@@ -117,8 +117,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_below="@id/button6"
+        android:id="@+id/linearprog"
         android:orientation="vertical">
-
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -127,14 +128,16 @@
             android:layout_gravity="center_horizontal"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/textViewStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="No file selected"
-            android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:text="No file selected"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 </RelativeLayout>

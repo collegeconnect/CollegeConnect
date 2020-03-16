@@ -54,12 +54,12 @@ public class UploadNotes extends AppCompatActivity {
 
         //getting the views
         textViewStatus = findViewById(R.id.textViewStatus);
-        semester = findViewById(R.id.spinner);
-        branch = findViewById(R.id.spinner2);
-        course = findViewById(R.id.spinner1);
+        semester = findViewById(R.id.spinnerSem);
+        branch = findViewById(R.id.spinnerBranch);
+        course = findViewById(R.id.spinnerCourse);
         editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.progressbar);
-        upload = findViewById(R.id.button5);
+        upload = findViewById(R.id.viewnotes);
         upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

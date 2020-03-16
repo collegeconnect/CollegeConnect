@@ -1,90 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:padding="10dp"
+tools:context=".UploadNotes">
+
+<Spinner
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="40dp"
+    android:id="@+id/spinnerCourse"
+    android:entries="@array/Course"
+    android:layout_centerVertical="true"
+    android:spinnerMode="dialog"
+    android:layout_margin="10dp" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/spinnerCourse"
+    android:layout_alignStart="@id/spinnerCourse"
+    android:text="Select Course:"
+    android:textSize="11sp"
+    android:layout_marginBottom="-10dp"/>
+
+<Spinner
+    android:id="@+id/spinnerBranch"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_below="@id/spinnerCourse"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:entries="@array/Branch"
+    android:spinnerMode="dialog"
+    tools:layout_editor_absoluteY="144dp" />
+<TextView
+    android:id="@+id/textView9"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/spinnerBranch"
+    android:layout_alignStart="@+id/spinnerBranch"
+    android:layout_marginStart="0dp"
+    android:layout_marginBottom="-20dp"
+    android:text="Select Semester:"
+    android:textSize="11sp" />
+
+<Spinner
+    android:id="@+id/spinnerSem"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_below="@id/spinnerBranch"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:entries="@array/Semesters"
+    app:layout_constraintEnd_toEndOf="parent"
+    tools:layout_editor_absoluteY="290dp" />
+
+<TextView
+    android:id="@+id/textView10"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/spinnerSem"
+    android:layout_alignStart="@+id/spinnerSem"
+    android:layout_marginStart="0dp"
+    android:layout_marginBottom="-20dp"
+    android:text="Select Subject:"
+    android:textSize="11sp" />
+
+<android.widget.Button
+    android:id="@+id/viewnotes"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/spinnerSem"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/buttonlayout2"
     android:gravity="center"
-    android:padding="10dp"
-    tools:context=".UploadNotes">
+    android:text="  View Notes  "
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    tools:layout_editor_absoluteY="465dp" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner1"
-        android:entries="@array/Course"
-        android:layout_centerVertical="true"
-        android:spinnerMode="dialog"
-        android:layout_margin="10dp" />
-    <TextView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/spinner1"
-        android:layout_alignStart="@id/spinner1"
-        android:text="Select Course:"
-        android:textSize="11sp"
-        android:layout_marginBottom="-10dp"/>
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner1"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:entries="@array/Branch"
-        android:spinnerMode="dialog"
-        tools:layout_editor_absoluteY="144dp" />
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner2"
-        android:layout_alignStart="@+id/spinner2"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="-20dp"
-        android:text="Select Semester:"
-        android:textSize="11sp" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner2"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:entries="@array/Semesters"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="290dp" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner"
-        android:layout_alignStart="@+id/spinner"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="-20dp"
-        android:text="Select Subject:"
-        android:textSize="11sp" />
-
-    <android.widget.Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/buttonlayout2"
-        android:gravity="center"
-        android:text="  View Notes  "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="465dp" />
-
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-70dp"
+        android:backgroundTint="#fff"
+        app:borderWidth="0dp"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 </RelativeLayout>
