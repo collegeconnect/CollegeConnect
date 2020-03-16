@@ -33,7 +33,7 @@ public class UploadNotes extends AppCompatActivity {
 
     //these are the views
     TextView textViewStatus;
-    EditText editTextFilename;
+    EditText editTextFilename,author;
     ProgressBar progressBar;
     Button upload;
     Spinner semester, branch, course, unit;
@@ -61,6 +61,7 @@ public class UploadNotes extends AppCompatActivity {
         editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.progressbar);
         upload = findViewById(R.id.viewnotes);
+        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -155,6 +156,7 @@ public class UploadNotes extends AppCompatActivity {
                                                         course.getSelectedItem().toString(),
                                                           semester.getSelectedItem().toString(),
                                                             branch.getSelectedItem().toString(),
+                                                              author.getText().toString(),
                                                               unit.getSelectedItem().toString(), taskSnapshot.getStorage().getDownloadUrl().toString());
                         mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }

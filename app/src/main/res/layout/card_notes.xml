@@ -9,11 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"/>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/pdf_109" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

@@ -109,7 +109,7 @@
         android:id="@+id/viewnotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/FileName"
+        android:layout_below="@id/author"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:background="@drawable/buttonlayout2"
@@ -145,6 +145,17 @@
         android:hint="File Name"
         android:inputType="textPersonName"
         android:textSize="14sp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Author"
+        android:gravity="center"
+        android:ems="10"
+        android:layout_below="@id/FileName"
+        android:layout_alignStart="@id/FileName"
+        android:layout_alignEnd="@id/FileName"
+        android:id="@+id/author"/>
 
     <ProgressBar
         android:id="@+id/progressbar"
