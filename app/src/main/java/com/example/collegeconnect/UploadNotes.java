@@ -36,7 +36,7 @@ public class UploadNotes extends AppCompatActivity {
     EditText editTextFilename;
     ProgressBar progressBar;
     Button upload;
-    Spinner semester, branch, course;
+    Spinner semester, branch, course, unit;
 
     //the firebase objects for storage and database
     StorageReference mStorageReference;
@@ -57,6 +57,7 @@ public class UploadNotes extends AppCompatActivity {
         semester = findViewById(R.id.spinnerSem);
         branch = findViewById(R.id.spinnerBranch);
         course = findViewById(R.id.spinnerCourse);
+        unit = findViewById(R.id.spinnerUnit);
         editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.progressbar);
         upload = findViewById(R.id.viewnotes);
@@ -141,7 +142,7 @@ public class UploadNotes extends AppCompatActivity {
     //so we are not explaining it
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
@@ -152,8 +153,9 @@ public class UploadNotes extends AppCompatActivity {
 
                         Upload upload = new Upload(editTextFilename.getText().toString(),
                                                         course.getSelectedItem().toString(),
-                                                        semester.getSelectedItem().toString(),
-                                                            branch.getSelectedItem().toString(), taskSnapshot.getStorage().getDownloadUrl().toString());
+                                                          semester.getSelectedItem().toString(),
+                                                            branch.getSelectedItem().toString(),
+                                                              unit.getSelectedItem().toString(), taskSnapshot.getStorage().getDownloadUrl().toString());
                         mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }
                 })

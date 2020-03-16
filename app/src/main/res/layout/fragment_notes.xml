@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="10dp"
-    tools:context=".ui.notes.NotesFragment">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center"
+android:padding="10dp"
+tools:context=".UploadNotes">
 
     <Spinner
         android:id="@+id/spinnerCourse"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
         android:entries="@array/Course"
         android:spinnerMode="dialog" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/spinnerCourse"
-        android:layout_alignStart="@id/spinnerCourse"
-        android:layout_marginBottom="-10dp"
-        android:text="Select Course:"
-        android:textSize="11sp" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/spinnerCourse"
+    android:layout_alignStart="@id/spinnerCourse"
+    android:text="Select Course:"
+    android:textSize="11sp"
+    android:layout_marginBottom="-10dp"/>
 
     <Spinner
         android:id="@+id/spinnerBranch"
@@ -35,6 +38,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
         android:entries="@array/Branch"
         android:spinnerMode="dialog"
         tools:layout_editor_absoluteY="144dp" />
@@ -47,7 +51,7 @@
         android:layout_alignStart="@+id/spinnerBranch"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
-        android:text="Select Semester:"
+        android:text="Select Branch:"
         android:textSize="11sp" />
 
     <Spinner
@@ -59,7 +63,22 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
         android:entries="@array/Semesters"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="290dp" />
+
+    <Spinner
+        android:id="@+id/spinnerUnit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/spinnerSem"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
+        android:entries="@array/Unit"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="290dp" />
 
@@ -71,14 +90,25 @@
         android:layout_alignStart="@+id/spinnerSem"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
-        android:text="Select Subject:"
+        android:text="Select Semester:"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/spinnerUnit"
+        android:layout_alignStart="@id/spinnerUnit"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="-20dp"
+        android:text="Select Unit:"
         android:textSize="11sp" />
 
     <android.widget.Button
         android:id="@+id/viewnotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerSem"
+        android:layout_below="@id/spinnerUnit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:background="@drawable/buttonlayout2"
@@ -98,5 +128,45 @@
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
         app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/spinnerCourse"
+        android:layout_alignBottom="@id/spinnerCourse"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/spinnerSem"
+        android:layout_alignBottom="@id/spinnerSem"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/spinnerUnit"
+        android:layout_alignBottom="@id/spinnerUnit"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/spinnerBranch"
+        android:layout_alignBottom="@id/spinnerBranch"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 </RelativeLayout>
