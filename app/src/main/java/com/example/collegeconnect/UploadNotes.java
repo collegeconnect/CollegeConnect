@@ -106,7 +106,7 @@ public class UploadNotes extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getPDF();
 
             } else {
@@ -144,7 +144,7 @@ public class UploadNotes extends AppCompatActivity {
     //so we are not explaining it
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + editTextFilename.getText().toString().toLowerCase());
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
