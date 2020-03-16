@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "808040496893-gpmmqcl5j5i5sbkm7l221l0hec844jjd.apps.googleusercontent.com",
+          "client_id": "808040496893-ji29hor4p8ii8ttumij9bqqpf9es5jv2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.collegeconnect",
-            "certificate_hash": "03ab3d1b7a76cdb33ca854c9084d4d1dc3875a86"
+            "certificate_hash": "60112d63beafb04fd4624abaa99d5b2f0719e1f9"
           }
         },
         {

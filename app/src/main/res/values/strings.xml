@@ -27,4 +27,24 @@
     <string name="welcome_message">WELCOME TO COLLEGE CONNECT</string>
     <string name="Internet"><u>Unable to Access Internet!</u></string>
     <string name="forgotpass"><u>Forgot Password?</u></string>
+
+    <string-array name="Semesters">
+    <item>"First"</item>
+    <item>"Second"</item>
+    <item>"Third"</item>
+    <item>"Fourth"</item>
+        <item>"Fifth"</item>
+        <item>"Sixth"</item>
+        <item>"Seventh"</item>
+        <item>"Eighth"</item>
+    </string-array>
+
+
+    <string-array name="Branch">
+        <item>"CSE"</item>
+        <item>"IT"</item>
+        <item>"ECE"</item>
+        <item>"EEE"</item>
+        <item>"ICE"</item>
+    </string-array>
 </resources>
