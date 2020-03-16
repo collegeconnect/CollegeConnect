@@ -9,35 +9,55 @@
     tools:context=".UploadNotes">
 
     <Spinner
-        android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/spinner1"
+        android:entries="@array/Course"
         android:layout_centerVertical="true"
-        android:layout_margin="10dp"
-        android:entries="@array/Semesters"
+        android:spinnerMode="dialog"
+        android:layout_margin="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/spinner1"
+        android:layout_alignStart="@id/spinner1"
+        android:text="Select Course:"
+        android:textSize="11sp"
+        android:layout_marginBottom="-10dp"/>
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner1"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:entries="@array/Branch"
         android:spinnerMode="dialog"
         tools:layout_editor_absoluteY="144dp" />
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner"
-        android:layout_alignStart="@+id/spinner"
+        android:layout_above="@+id/spinner2"
+        android:layout_alignStart="@+id/spinner2"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginBottom="-20dp"
         android:text="Select Semester:"
         android:textSize="11sp" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner"
+        android:layout_below="@id/spinner2"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:entries="@array/Branch"
+        android:entries="@array/Semesters"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="290dp" />
 
@@ -45,10 +65,10 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinner2"
-        android:layout_alignStart="@+id/spinner2"
+        android:layout_above="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginBottom="-20dp"
         android:text="Select Subject:"
         android:textSize="11sp" />
 
@@ -81,7 +101,7 @@
         android:id="@+id/FileName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinner2"
+        android:layout_below="@id/spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"

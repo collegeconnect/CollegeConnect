@@ -9,9 +9,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +27,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.w3c.dom.Text;
-
 public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
@@ -40,7 +36,7 @@ public class UploadNotes extends AppCompatActivity {
     EditText editTextFilename;
     ProgressBar progressBar;
     Button upload;
-    Spinner semester, branch;
+    Spinner semester, branch, course;
 
     //the firebase objects for storage and database
     StorageReference mStorageReference;
@@ -60,6 +56,7 @@ public class UploadNotes extends AppCompatActivity {
         textViewStatus = findViewById(R.id.textViewStatus);
         semester = findViewById(R.id.spinner);
         branch = findViewById(R.id.spinner2);
+        course = findViewById(R.id.spinner1);
         editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.progressbar);
         upload = findViewById(R.id.button5);
@@ -144,7 +141,7 @@ public class UploadNotes extends AppCompatActivity {
     //so we are not explaining it
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
@@ -154,6 +151,7 @@ public class UploadNotes extends AppCompatActivity {
                         textViewStatus.setText("File Uploaded Successfully");
 
                         Upload upload = new Upload(editTextFilename.getText().toString(),
+                                                        course.getSelectedItem().toString(),
                                                         semester.getSelectedItem().toString(),
                                                             branch.getSelectedItem().toString(), taskSnapshot.getStorage().getDownloadUrl().toString());
                         mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);

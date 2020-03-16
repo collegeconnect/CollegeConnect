@@ -29,14 +29,14 @@
     <string name="forgotpass"><u>Forgot Password?</u></string>
 
     <string-array name="Semesters">
-    <item>"First"</item>
-    <item>"Second"</item>
-    <item>"Third"</item>
-    <item>"Fourth"</item>
-        <item>"Fifth"</item>
-        <item>"Sixth"</item>
-        <item>"Seventh"</item>
-        <item>"Eighth"</item>
+    <item>"First Semester"</item>
+    <item>"Second Semester"</item>
+    <item>"Third Semester"</item>
+    <item>"Fourth Semester"</item>
+        <item>"Fifth Semester"</item>
+        <item>"Sixth Semester"</item>
+        <item>"Seventh Semester"</item>
+        <item>"Eighth Semester"</item>
     </string-array>
 
 
@@ -46,5 +46,9 @@
         <item>"ECE"</item>
         <item>"EEE"</item>
         <item>"ICE"</item>
+    </string-array>
+
+    <string-array name="Course">
+        <item>B.Tech</item>
     </string-array>
 </resources>
