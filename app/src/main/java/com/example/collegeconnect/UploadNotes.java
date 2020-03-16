@@ -29,6 +29,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.w3c.dom.Text;
+
 public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
@@ -83,23 +85,55 @@ public class UploadNotes extends AppCompatActivity {
 //            startActivity(intent);
 //            return;
 //        }
+        if (ContextCompat.checkSelfPermission(UploadNotes.this,Manifest.permission.READ_EXTERNAL_STORAGE )
+                == PackageManager.PERMISSION_DENIED) {
 
-        //creating an intent for file chooser
-        Intent intent = new Intent();
-        intent.setType("application/pdf");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
+            // Requesting the permission
+            ActivityCompat.requestPermissions(UploadNotes.this,
+                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    100);
+        }
+        else {
+
+            //creating an intent for file chooser
+            Intent intent = new Intent();
+            intent.setType("application/pdf");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
+        }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+                Toast.makeText(UploadNotes.this,
+                        "Storage Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //when the user choses the file
         if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //if a file is selected
             if (data.getData() != null) {
+                editTextFilename.setText(data.getData().getLastPathSegment());
                 //uploading the file
-                uploadFile(data.getData());
+                findViewById(R.id.button6).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        uploadFile(data.getData());
+                    }
+                });
+
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
@@ -112,7 +146,7 @@ public class UploadNotes extends AppCompatActivity {
     //so we are not explaining it
     private void uploadFile(Uri data) {
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + editTextFilename.getText().toString().toLowerCase() + ".pdf");
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + editTextFilename.getText().toString().toLowerCase());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
