@@ -51,13 +51,14 @@ public class NotesFragment extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer, download)
+                        .addToBackStack(null)
                         .commit();
             }
         });
         return view;
 
     }
-    
+
     @Override
     public void onStart() {
         super.onStart();
