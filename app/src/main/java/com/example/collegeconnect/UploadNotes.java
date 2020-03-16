@@ -2,6 +2,7 @@ package com.example.collegeconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -73,14 +74,15 @@ public class UploadNotes extends AppCompatActivity {
     private void getPDF() {
         //for greater than lolipop versions we need the permissions asked on runtime
         //so if the permission is not available user will go to the screen to allow storage permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.parse("package:" + getPackageName()));
-            startActivity(intent);
-            return;
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M || ContextCompat.checkSelfPermission(this,
+//                Manifest.permission.READ_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED) {
+////            ActivityCompat.requestPermissions(UploadNotes.this, new String[]{"Manifest.permission.READ_EXTERNAL_STORAGE"},100);
+//            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+//                    Uri.parse("package:" + getPackageName()));
+//            startActivity(intent);
+//            return;
+//        }
 
         //creating an intent for file chooser
         Intent intent = new Intent();
@@ -88,7 +90,6 @@ public class UploadNotes extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
