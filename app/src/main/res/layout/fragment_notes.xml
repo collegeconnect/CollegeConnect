@@ -71,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
         app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -120,7 +121,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="false"
-        android:layout_centerVertical="true"
+        android:layout_centerVertical="false"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"

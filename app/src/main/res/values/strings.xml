@@ -54,12 +54,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-=======
+    =======
     <string-array name="Unit">
         <item>Unit 1</item>
         <item>Unit 2</item>
         <item>Unit 3</item>
         <item>Unit 4</item>
     </string-array>
->>>>>>> Stashed changes
+    >>>>>>> Stashed changes
 </resources>
