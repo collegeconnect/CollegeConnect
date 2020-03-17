@@ -25,7 +25,7 @@ public class DownloadNotes extends AppCompatActivity {
     public static final String EXTRA_BRANCH = "branch";
     public static final String EXTRA_SEMESTER = "semester";
     public static final String EXTRA_UNIT = "unit";
-    public static List<Upload> uploadList;
+    public static ArrayList<Upload> uploadList;
     static DatabaseReference mDatabaseReference;
     RecyclerView recyclerView;
     ListView listView;
@@ -77,10 +77,10 @@ public class DownloadNotes extends AppCompatActivity {
 
 
 
-//        recyclerView = findViewById(R.id.downloadRecycler);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        notesAdapter = new NotesAdapter(this, uploadList);
-//        recyclerView.setAdapter(notesAdapter);
+        recyclerView = findViewById(R.id.downloadRecycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        notesAdapter = new NotesAdapter(this, uploadList);
+        recyclerView.setAdapter(notesAdapter);
     }
 }
