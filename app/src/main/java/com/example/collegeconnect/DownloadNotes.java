@@ -43,7 +43,7 @@ public class DownloadNotes extends AppCompatActivity {
         String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
 
         Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
-        listView = findViewById(R.id.list);
+//        listView = findViewById(R.id.list);
 
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
@@ -58,15 +58,21 @@ public class DownloadNotes extends AppCompatActivity {
                     }
                 }
 
-                String[] uploads = new String[uploadList.size()];
+//                String[] uploads = new String[uploadList.size()];
+//
+//                for (int i = 0; i < uploads.length; i++) {
+//                    uploads[i] = uploadList.get(i).getName();
+//                }
+//
+//                //displaying it to list
+//                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, uploads);
+//                listView.setAdapter(adapter);
 
-                for (int i = 0; i < uploads.length; i++) {
-                    uploads[i] = uploadList.get(i).getName();
-                }
-
-                //displaying it to list
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, uploads);
-                listView.setAdapter(adapter);
+                recyclerView = findViewById(R.id.downloadRecycler);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
+                notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
+                recyclerView.setAdapter(notesAdapter);
             }
 
             @Override
@@ -75,12 +81,5 @@ public class DownloadNotes extends AppCompatActivity {
             }
         });
 
-
-
-        recyclerView = findViewById(R.id.downloadRecycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        notesAdapter = new NotesAdapter(this, uploadList);
-        recyclerView.setAdapter(notesAdapter);
     }
 }

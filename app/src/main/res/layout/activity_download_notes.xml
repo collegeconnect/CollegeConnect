@@ -7,14 +7,10 @@
     android:padding="10dp"
     tools:context=".DownloadNotes">
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/downloadRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/list" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

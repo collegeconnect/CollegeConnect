@@ -156,8 +156,8 @@ public class UploadNotes extends AppCompatActivity {
                                                         course.getSelectedItem().toString(),
                                                           semester.getSelectedItem().toString(),
                                                             branch.getSelectedItem().toString(),
-                                                              author.getText().toString(),
-                                                              unit.getSelectedItem().toString(), 0, taskSnapshot.getStorage().getDownloadUrl().toString());
+                                                              unit.getSelectedItem().toString(),
+                                                                author.getText().toString(),0, taskSnapshot.getStorage().getDownloadUrl().toString());
                         mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                     }
                 })
