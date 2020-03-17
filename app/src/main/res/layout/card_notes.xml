@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="false"
+    android:layout_marginTop="4dp"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/relate">
 
         <ImageView
             android:id="@+id/pdfview"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:padding="2dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/pdf_109" />
 
         <TextView
@@ -22,7 +31,7 @@
             android:gravity="center"
             android:text="File Name"
             android:textColor="#000"
-            android:textSize="22sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/authorname"
@@ -32,7 +41,7 @@
             android:layout_toEndOf="@id/pdfview"
             android:gravity="right"
             android:text="- Author"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/download"
@@ -44,6 +53,8 @@
             android:text="No. of Downloads = 10"
             android:textColor="#AAA8A8" />
 
+
     </RelativeLayout>
+
 
 </com.google.android.material.card.MaterialCardView>
