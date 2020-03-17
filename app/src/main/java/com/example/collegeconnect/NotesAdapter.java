@@ -9,14 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    Context context;
-    ArrayList<Notes> noteslist;
+    public static Context context;
+    List<Upload> noteslist;
 
-    public NotesAdapter(Context context, ArrayList<Notes> noteslist) {
+    public NotesAdapter(Context context, List<Upload> noteslist) {
         this.context = context;
         this.noteslist = noteslist;
     }
@@ -30,10 +30,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Notes notes = noteslist.get(position);
-        holder.title.setText(notes.getTitle());
+        Upload notes = noteslist.get(position);
+        holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText(notes.getDownloads());
+        holder.noOfDown.setText(notes.getDownload());
     }
 
     @Override
@@ -49,7 +49,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             super(itemView);
             title = itemView.findViewById(R.id.title);
             author = itemView.findViewById(R.id.authorname);
-            noOfDown = itemView.findViewById(R.id.down);
+            noOfDown = itemView.findViewById(R.id.download);
         }
     }
 }

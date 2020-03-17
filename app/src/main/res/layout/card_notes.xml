@@ -24,17 +24,17 @@
             android:text="File Name"/>
 
         <TextView
+            android:id="@+id/authorname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
-            android:id="@+id/authorname"
             android:layout_toEndOf="@id/pdfview"
-            android:text="- Author"
             android:gravity="right"
-            android:textSize="18sp"/>
+            android:text="- Author"
+            android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/down"
+            android:id="@+id/download"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/authorname"

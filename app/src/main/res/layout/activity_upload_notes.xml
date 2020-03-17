@@ -48,8 +48,8 @@
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinnerBranch"
-        android:layout_alignStart="@+id/spinnerBranch"
+        android:layout_above="@id/spinnerSem"
+        android:layout_alignStart="@id/spinnerSem"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Semester:"
@@ -87,11 +87,11 @@
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinnerSem"
-        android:layout_alignStart="@+id/spinnerSem"
+        android:layout_above="@id/spinnerBranch"
+        android:layout_alignStart="@id/spinnerBranch"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
-        android:text="Select Subject:"
+        android:text="Select Branch:"
         android:textSize="11sp" />
 
     <TextView

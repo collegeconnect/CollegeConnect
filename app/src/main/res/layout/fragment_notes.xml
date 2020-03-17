@@ -1,93 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:gravity="center"
-android:padding="10dp"
-tools:context=".UploadNotes">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="10dp"
+    tools:context=".UploadNotes">
 
-    <Spinner
-        android:id="@+id/spinnerCourse"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttonlayout2"
-        android:entries="@array/Course"
-        android:spinnerMode="dialog" />
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_above="@id/spinnerCourse"
-    android:layout_alignStart="@id/spinnerCourse"
-    android:text="Select Course:"
-    android:textSize="11sp"
-    android:layout_marginBottom="-10dp"/>
-
-    <Spinner
-        android:id="@+id/spinnerBranch"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/spinnerCourse"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttonlayout2"
-        android:entries="@array/Branch"
-        android:spinnerMode="dialog"
-        tools:layout_editor_absoluteY="144dp" />
+    <TextView
+        android:id="@+id/Course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/CourseN"
+        android:layout_alignStart="@id/CourseN"
+        android:layout_marginBottom="-50dp"
+        android:text="Select Course:"
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinnerBranch"
-        android:layout_alignStart="@+id/spinnerBranch"
+        android:layout_above="@id/BranchN"
+        android:layout_alignStart="@id/BranchN"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Branch:"
         android:textSize="11sp" />
 
-    <Spinner
-        android:id="@+id/spinnerSem"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/spinnerBranch"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttonlayout2"
-        android:entries="@array/Semesters"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="290dp" />
-
-    <Spinner
-        android:id="@+id/spinnerUnit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/spinnerSem"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/buttonlayout2"
-        android:entries="@array/Unit"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="290dp" />
-
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spinnerSem"
-        android:layout_alignStart="@+id/spinnerSem"
+        android:layout_above="@id/SemesterN"
+        android:layout_alignStart="@id/SemesterN"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Semester:"
@@ -97,8 +44,8 @@ tools:context=".UploadNotes">
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/spinnerUnit"
-        android:layout_alignStart="@id/spinnerUnit"
+        android:layout_above="@id/UnitN"
+        android:layout_alignStart="@id/UnitN"
         android:layout_marginStart="0dp"
         android:layout_marginBottom="-20dp"
         android:text="Select Unit:"
@@ -108,7 +55,7 @@ tools:context=".UploadNotes">
         android:id="@+id/viewnotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerUnit"
+        android:layout_below="@id/UnitN"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="12dp"
         android:background="@drawable/buttonlayout2"
@@ -124,7 +71,6 @@ tools:context=".UploadNotes">
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-70dp"
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
         app:srcCompat="@android:drawable/ic_menu_edit" />
@@ -133,8 +79,8 @@ tools:context=".UploadNotes">
         android:id="@+id/imageView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/spinnerCourse"
-        android:layout_alignBottom="@id/spinnerCourse"
+        android:layout_alignEnd="@id/CourseN"
+        android:layout_alignBottom="@id/CourseN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
@@ -143,8 +89,8 @@ tools:context=".UploadNotes">
         android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/spinnerSem"
-        android:layout_alignBottom="@id/spinnerSem"
+        android:layout_alignEnd="@id/SemesterN"
+        android:layout_alignBottom="@id/SemesterN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
@@ -153,8 +99,8 @@ tools:context=".UploadNotes">
         android:id="@+id/imageView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/spinnerUnit"
-        android:layout_alignBottom="@id/spinnerUnit"
+        android:layout_alignEnd="@id/UnitN"
+        android:layout_alignBottom="@id/UnitN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
@@ -163,10 +109,59 @@ tools:context=".UploadNotes">
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/spinnerBranch"
-        android:layout_alignBottom="@id/spinnerBranch"
+        android:layout_alignEnd="@id/BranchN"
+        android:layout_alignBottom="@id/BranchN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
         app:srcCompat="@android:drawable/arrow_down_float" />
+
+    <Spinner
+        android:id="@+id/CourseN"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="false"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
+        android:entries="@array/Course" />
+
+    <Spinner
+        android:id="@+id/BranchN"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/CourseN"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
+        android:entries="@array/Branch" />
+
+    <Spinner
+        android:id="@+id/SemesterN"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/BranchN"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
+        android:entries="@array/Semesters" />
+
+    <Spinner
+        android:id="@+id/UnitN"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/SemesterN"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttonlayout2"
+        android:entries="@array/Unit" />
 
 </RelativeLayout>
