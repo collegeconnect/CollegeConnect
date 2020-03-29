@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -42,6 +44,7 @@ public class UploadNotes extends AppCompatActivity {
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
 
+    final static String TAG = "uploadnotes";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +145,7 @@ public class UploadNotes extends AppCompatActivity {
     //the code is same as the previous tutorial
     //so we are not explaining it
     private void uploadFile(Uri data) {
+
         progressBar.setVisibility(View.VISIBLE);
         StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
         sRef.putFile(data)
@@ -150,15 +154,22 @@ public class UploadNotes extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         progressBar.setVisibility(View.GONE);
+//                        final Uri downloadi;
                         textViewStatus.setText("File Uploaded Successfully");
+                        Task<Uri> downlaoduri = taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                Upload upload = new Upload(editTextFilename.getText().toString(),
+                                        course.getSelectedItem().toString(),
+                                        semester.getSelectedItem().toString(),
+                                        branch.getSelectedItem().toString(),
+                                        unit.getSelectedItem().toString(),
+                                        author.getText().toString(),0, uri.toString());
+                                mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
+                            }
+                        });
 
-                        Upload upload = new Upload(editTextFilename.getText().toString(),
-                                                        course.getSelectedItem().toString(),
-                                                          semester.getSelectedItem().toString(),
-                                                            branch.getSelectedItem().toString(),
-                                                              unit.getSelectedItem().toString(),
-                                                                author.getText().toString(),0, taskSnapshot.getStorage().getDownloadUrl().toString());
-                        mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
