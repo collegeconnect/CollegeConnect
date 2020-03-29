@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.lzyzsd.circleprogress.CircleProgress;
+import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +65,8 @@ public class UploadNotes extends AppCompatActivity {
         unit = findViewById(R.id.spinnerUnit);
         editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.progressbar);
+        progressBar.setMax(100);
+        progressBar.setProgress(0);
         upload = findViewById(R.id.viewnotes);
         author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
@@ -183,8 +187,12 @@ public class UploadNotes extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressBar.setProgress(0);
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                        textViewStatus.setText((int) progress + "% Uploading...");
+//                        textViewStatus.setText((int) progress + "% Uploading...");
+                        textViewStatus.setText("");
+                        progressBar.setProgress((int)progress);
+
                     }
                 });
 

@@ -159,10 +159,13 @@
 
     <ProgressBar
         android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
+        android:progressTint="#00ff00"
         android:layout_height="wrap_content"
         android:layout_below="@id/button6"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        style="?android:attr/progressBarStyleHorizontal"
         android:visibility="gone" />
 
     <TextView
