@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int downloads = notes.getDownload()+1;
+
+                Upload upload = new Upload(notes.getName(),
+                        notes.getCourse(),
+                        notes.getSemester(),
+                        notes.getBranch(),
+                        notes.getUnit(),
+                        notes.getAuthor(),downloads, notes.getUrl());
+                DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+                mDatabaseReference.child(notes.getName()).setValue(upload);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(notes.getUrl()),"application/pdf");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

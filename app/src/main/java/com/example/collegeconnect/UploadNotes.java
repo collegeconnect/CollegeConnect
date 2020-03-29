@@ -165,7 +165,7 @@ public class UploadNotes extends AppCompatActivity {
                                         branch.getSelectedItem().toString(),
                                         unit.getSelectedItem().toString(),
                                         author.getText().toString(),0, uri.toString());
-                                mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
+                                mDatabaseReference.child(editTextFilename.getText().toString()).setValue(upload);
                             }
                         });
 
