@@ -3,6 +3,8 @@ package com.example.collegeconnect;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,13 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText username, password, name, email;
+    private TextInputLayout username, password, name, email;
     private Button button;
     private FirebaseAuth mAuth;
     private static String TAG = "Sign Up";
@@ -31,10 +34,10 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        username = findViewById(R.id.editText6);
-        password = findViewById(R.id.editText5);
-        name = findViewById(R.id.editText3);
-        email = findViewById(R.id.editText4);
+        username = findViewById(R.id.textuser);
+        password = findViewById(R.id.textpass);
+        name = findViewById(R.id.textname);
+        email = findViewById(R.id.textemail);
         button = findViewById(R.id.button3);
         final ProgressBar progressBar = findViewById(R.id.progressbar);
 
@@ -48,15 +51,15 @@ public class SignUp extends AppCompatActivity {
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
                 progressBar.setVisibility(View.VISIBLE);
-                final String Strusername = username.getText().toString();
-                final String Strpassword = password.getText().toString();
-                final String Strname = name.getText().toString();
-                final String Stremail = email.getText().toString();
+                final String Strusername = username.getEditText().getText().toString();
+                final String Strpassword = password.getEditText().getText().toString();
+                final String Strname = name.getEditText().getText().toString();
+                final String Stremail = email.getEditText().getText().toString();
 
                 if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()) {
                     username.setError("Enter your username");
                     password.setError("Enter a valid password");
-                    name.setError("Enter Username");
+                    name.setError("Enter your Full name");
                     email.setError("Enter your email address");
                     progressBar.setVisibility(View.GONE);
                 } else if (Stremail.isEmpty()) {
@@ -76,6 +79,7 @@ public class SignUp extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                 }
                 else {
+                    button.setVisibility(View.GONE);
                     mAuth = FirebaseAuth.getInstance();
                     mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                         @Override
@@ -112,6 +116,70 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
                 }
+                email.getEditText().addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        email.setError(null);
+                    }
+                });
+                password.getEditText().addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        password.setError(null);
+                    }
+                });
+                username.getEditText().addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        username.setError(null);
+                    }
+                });
+                name.getEditText().addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        name.setError(null);
+                    }
+                });
             }
         });
     }
