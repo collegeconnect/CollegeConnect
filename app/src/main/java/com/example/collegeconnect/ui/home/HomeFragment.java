@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent =new Intent();
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setAction(Intent.ACTION_PICK);
                 startActivityForResult(Intent.createChooser(intent,"Select an image"),GET_FROM_GALLERY);
             }
         });
@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                    progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();
 
 //                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //                        @Override
