@@ -32,7 +32,8 @@ public class User {
             User user = new User(username,email,name,password);
             firebaseDatabase=FirebaseDatabase.getInstance();
             DatabaseReference myRef = firebaseDatabase.getReference();
-            myRef.child(username).setValue(user);
+            int dot = email.indexOf(".");
+            myRef.child(email.substring(0,dot)).setValue(user);
             return true;
         }
 }
