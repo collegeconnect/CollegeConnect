@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressbar"
+        android:id="@+id/MainProgressBar"
         android:layout_width="4dp"
         android:layout_height="12dp"
         android:layout_centerHorizontal="true"

@@ -25,7 +25,7 @@ import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class SignUp extends AppCompatActivity {
 
-    private TextInputLayout username, password, name, email, clgname;
+    private TextInputLayout password, name, email;
     private Button button;
     private FirebaseAuth mAuth;
     private static String TAG = "Sign Up";
@@ -34,13 +34,11 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        clgname = findViewById(R.id.textclg);
-        username = findViewById(R.id.textuser);
         password = findViewById(R.id.textpass);
         name = findViewById(R.id.textname);
         email = findViewById(R.id.textemail);
-        button = findViewById(R.id.button3);
-        final ProgressBar progressBar = findViewById(R.id.progressbar);
+        button = findViewById(R.id.stepOneButton);
+        final ProgressBar progressBar = findViewById(R.id.StepOneProgressBar);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,18 +50,15 @@ public class SignUp extends AppCompatActivity {
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
                 progressBar.setVisibility(View.VISIBLE);
-                final String Strusername = username.getEditText().getText().toString();
                 final String Strpassword = password.getEditText().getText().toString();
                 final String Strname = name.getEditText().getText().toString();
                 final String Stremail = email.getEditText().getText().toString();
-                final String Strclg = clgname.getEditText().getText().toString();
 
-                if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty() && Strclg.isEmpty()) {
-                    username.setError("Enter your username");
+                if (Stremail.isEmpty() && Strpassword.isEmpty() && Strname.isEmpty()) {
+
                     password.setError("Enter a valid password");
                     name.setError("Enter your Full name");
                     email.setError("Enter your email address");
-                    clgname.setError("Enter your college name");
                     progressBar.setVisibility(View.GONE);
                 } else if (Stremail.isEmpty()) {
                     email.setError("Enter your Email address");
@@ -77,15 +72,8 @@ public class SignUp extends AppCompatActivity {
                     name.setError("Enter your name");
                     progressBar.setVisibility(View.GONE);
                 }
-                else if (Strusername.isEmpty()) {
-                    username.setError("Enter username ");
-                    progressBar.setVisibility(View.GONE);
-                }
-                else if(Strclg.isEmpty()){
-                    clgname.setError("Enter your college name");
-                }
                 else {
-                    button.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                     mAuth = FirebaseAuth.getInstance();
                     mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                         @Override
@@ -94,30 +82,44 @@ public class SignUp extends AppCompatActivity {
                             if (b) {
                                 Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
                             } else {
-                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
-                                mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful())
-                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
-                                                    else
-                                                        Toast.makeText(SignUp.this,task.getException().getMessage(),
-                                                        Toast.LENGTH_SHORT);
-                                                }
-                                            });
-                                            Log.d(TAG, "createUserWithEmail:success");
-//                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(SignUp.this, MainActivity.class);
-                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                        }
-                                    }
-                                });
+
+                                Intent intent = new Intent(SignUp.this, StepTwoSignUp.class);
+                                intent.putExtra(StepTwoSignUp.EXTRA_NAME,Strname);
+                                intent.putExtra(StepTwoSignUp.EXTRA_EMAIL,Stremail);
+                                intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD,Strpassword);
+                                intent.putExtra(StepTwoSignUp.EXTRA_PREV,"SignUp");
+                                progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.VISIBLE);
+                                startActivity(intent);
+
+//                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
+//                                mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                                        if (task.isSuccessful()) {
+//                                            // Sign in success, update UI with the signed-in user's information
+//                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<Void> task) {
+//                                                    if(task.isSuccessful())
+//                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
+//                                                    else
+//                                                        Toast.makeText(SignUp.this,task.getException().getMessage(),
+//                                                        Toast.LENGTH_SHORT);
+//                                                }
+//                                            });
+//                                            Log.d(TAG, "createUserWithEmail:success");
+////                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
+//                                            Intent intent = new Intent(SignUp.this, MainActivity.class);
+//                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                                        }
+//                                    }
+//                                });
+
+
                             }
+                            progressBar.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.VISIBLE);
 
                         }
                     });
@@ -154,22 +156,7 @@ public class SignUp extends AppCompatActivity {
                         password.setError(null);
                     }
                 });
-                username.getEditText().addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        username.setError(null);
-                    }
-                });
                 name.getEditText().addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -186,22 +173,7 @@ public class SignUp extends AppCompatActivity {
                         name.setError(null);
                     }
                 });
-                clgname.getEditText().addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        clgname.setError(null);
-                    }
-                });
             }
         });
     }

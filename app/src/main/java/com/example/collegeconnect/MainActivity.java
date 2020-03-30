@@ -114,12 +114,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                            SaveSharedPreference.setUserName(getApplicationContext(),user.getEmail());
-                            startActivity(new Intent(getApplicationContext(), navigation.class));
-                            finish();
+
+                            boolean newuser = task.getResult().getAdditionalUserInfo().isNewUser();
+                            if(newuser){
+
+                                startActivity(new Intent(getApplicationContext(),StepTwoSignUp.class));
+                                finish();
+
+                            }else{
+
+                                Log.d(TAG, "signInWithCredential:success");
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
+                                Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                                SaveSharedPreference.setUserName(getApplicationContext(),user.getEmail());
+                                startActivity(new Intent(getApplicationContext(), navigation.class));
+                                finish();
+                            }
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -143,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
-        final ProgressBar progressBar = findViewById(R.id.progressbar);
+        final ProgressBar progressBar = findViewById(R.id.MainProgressBar);
         final Button login =findViewById(R.id.button);
         login.setEnabled(false);
         register.setEnabled(false);

@@ -64,7 +64,7 @@ public class UploadNotes extends AppCompatActivity {
         course = findViewById(R.id.spinnerCourse);
         unit = findViewById(R.id.spinnerUnit);
         editTextFilename = findViewById(R.id.FileName);
-        progressBar =  findViewById(R.id.progressbar);
+        progressBar =  findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
         progressBar.setProgress(0);
         upload = findViewById(R.id.viewnotes);
