@@ -9,6 +9,7 @@ public class User {
         public String Email;
         public String Name;
         public String Password;
+        public String Clgname;
 
         private static FirebaseDatabase firebaseDatabase;
 
@@ -17,19 +18,21 @@ public class User {
             Email =null;
             Name =null;
             Password =null;
+            Clgname =null;
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
-        public User(String username, String email, String name, String password) {
+        public User(String username, String email, String name, String password, String clgname) {
             this.Username = username;
             this.Email = email;
             this.Name =name;
             this.Password =password;
+            this.Clgname=clgname;
         }
 
-        public static boolean addUser(String username, String email, String name, String password)
+        public static boolean addUser(String username, String email, String name, String password, String clgname)
         {
-            User user = new User(username,email,name,password);
+            User user = new User(username,email,name,password,clgname);
             firebaseDatabase=FirebaseDatabase.getInstance();
             DatabaseReference myRef = firebaseDatabase.getReference();
             int dot = email.indexOf(".");

@@ -25,7 +25,7 @@ import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class SignUp extends AppCompatActivity {
 
-    private TextInputLayout username, password, name, email;
+    private TextInputLayout username, password, name, email, clgname;
     private Button button;
     private FirebaseAuth mAuth;
     private static String TAG = "Sign Up";
@@ -34,6 +34,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        clgname = findViewById(R.id.textclg);
         username = findViewById(R.id.textuser);
         password = findViewById(R.id.textpass);
         name = findViewById(R.id.textname);
@@ -55,12 +56,14 @@ public class SignUp extends AppCompatActivity {
                 final String Strpassword = password.getEditText().getText().toString();
                 final String Strname = name.getEditText().getText().toString();
                 final String Stremail = email.getEditText().getText().toString();
+                final String Strclg = clgname.getEditText().getText().toString();
 
-                if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty()) {
+                if (Stremail.isEmpty() && Strpassword.isEmpty() && Strusername.isEmpty() && Strname.isEmpty() && Strclg.isEmpty()) {
                     username.setError("Enter your username");
                     password.setError("Enter a valid password");
                     name.setError("Enter your Full name");
                     email.setError("Enter your email address");
+                    clgname.setError("Enter your college name");
                     progressBar.setVisibility(View.GONE);
                 } else if (Stremail.isEmpty()) {
                     email.setError("Enter your Email address");
@@ -78,6 +81,9 @@ public class SignUp extends AppCompatActivity {
                     username.setError("Enter username ");
                     progressBar.setVisibility(View.GONE);
                 }
+                else if(Strclg.isEmpty()){
+                    clgname.setError("Enter your college name");
+                }
                 else {
                     button.setVisibility(View.GONE);
                     mAuth = FirebaseAuth.getInstance();
@@ -88,7 +94,7 @@ public class SignUp extends AppCompatActivity {
                             if (b) {
                                 Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
                             } else {
-                                User.addUser(Strusername, Stremail, Strname, Strpassword);
+                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
                                 mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -98,7 +104,7 @@ public class SignUp extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if(task.isSuccessful())
-                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
                                                     else
                                                         Toast.makeText(SignUp.this,task.getException().getMessage(),
                                                         Toast.LENGTH_SHORT);
@@ -178,6 +184,22 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void afterTextChanged(Editable editable) {
                         name.setError(null);
+                    }
+                });
+                clgname.getEditText().addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        clgname.setError(null);
                     }
                 });
             }
