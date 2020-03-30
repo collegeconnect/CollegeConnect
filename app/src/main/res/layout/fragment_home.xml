@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/nameField"
         android:layout_width="205dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <TextView
         android:id="@+id/textView4"

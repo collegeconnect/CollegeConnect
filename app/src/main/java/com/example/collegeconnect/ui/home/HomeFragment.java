@@ -21,6 +21,7 @@ import com.example.collegeconnect.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -35,12 +36,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv;
+    TextView tv,name;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
+    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
     private static final int GET_FROM_GALLERY = 1;
 
@@ -60,6 +62,9 @@ public class HomeFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
         prfileImage = view.findViewById(R.id.imageView3);
+        name = view.findViewById(R.id.nameField);
+
+        name.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
