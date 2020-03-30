@@ -30,10 +30,10 @@ public class DownloadNotes extends AppCompatActivity {
         setContentView(R.layout.activity_download_notes);
 
         Intent intent = getIntent();
-        String receivedCourse = intent.getStringExtra(EXTRA_COURSE);
+        final String receivedCourse = intent.getStringExtra(EXTRA_COURSE);
         final String receivedBranch = intent.getStringExtra(EXTRA_BRANCH);
-        String receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
-        String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
+        final String receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
+        final String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
 
         Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
 
@@ -45,9 +45,15 @@ public class DownloadNotes extends AppCompatActivity {
                 uploadList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
-                    if (upload.getBranch().equals(receivedBranch)) {
-                        uploadList.add(upload);
-                        Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
+                    if (upload.getCourse().equals(receivedCourse)) {
+                        if(upload.getBranch().equals(receivedBranch)) {
+                            if(upload.getSemester().equals(receivedSemester)) {
+                                if(upload.getUnit().equals(receivedUnit)) {
+                                    uploadList.add(upload);
+                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
                     }
                 }
 
