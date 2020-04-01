@@ -23,6 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
 
     private TextInputLayout password, name, email;
@@ -75,22 +78,23 @@ public class SignUp extends AppCompatActivity {
                 else {
                     progressBar.setVisibility(View.GONE);
                     mAuth = FirebaseAuth.getInstance();
-                    mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                            boolean b = !task.getResult().getSignInMethods().isEmpty();
-                            if (b) {
-                                Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
-                            } else {
+                    if(isEmailValid(Stremail)) {
+                        mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                                boolean b = !task.getResult().getSignInMethods().isEmpty();
+                                if (b) {
+                                    Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
+                                } else {
 
-                                Intent intent = new Intent(SignUp.this, StepTwoSignUp.class);
-                                intent.putExtra(StepTwoSignUp.EXTRA_NAME,Strname);
-                                intent.putExtra(StepTwoSignUp.EXTRA_EMAIL,Stremail);
-                                intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD,Strpassword);
-                                intent.putExtra(StepTwoSignUp.EXTRA_PREV,"SignUp");
-                                progressBar.setVisibility(View.GONE);
-                                progressBar.setVisibility(View.VISIBLE);
-                                startActivity(intent);
+                                    Intent intent = new Intent(SignUp.this, StepTwoSignUp.class);
+                                    intent.putExtra(StepTwoSignUp.EXTRA_NAME, Strname);
+                                    intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
+                                    intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
+                                    intent.putExtra(StepTwoSignUp.EXTRA_PREV, "SignUp");
+                                    progressBar.setVisibility(View.GONE);
+                                    progressBar.setVisibility(View.VISIBLE);
+                                    startActivity(intent);
 
 //                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
 //                                mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
@@ -117,12 +121,15 @@ public class SignUp extends AppCompatActivity {
 //                                });
 
 
-                            }
-                            progressBar.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.VISIBLE);
+                                }
+                                progressBar.setVisibility(View.GONE);
+                                progressBar.setVisibility(View.VISIBLE);
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(),"Enter a Valid Email Id",Toast.LENGTH_LONG).show();
                 }
                 email.getEditText().addTextChangedListener(new TextWatcher() {
                     @Override
@@ -176,6 +183,13 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }

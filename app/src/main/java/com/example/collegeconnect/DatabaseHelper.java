@@ -100,4 +100,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String args = Col2+" LIKE ?";
         return db.query(Table_name, new String[]{Col3, Col4},args, new String[]{name},null,null,null);
     }
+    public void deleteall(){
+        SQLiteDatabase db=this.getWritableDatabase();
+        // If whereClause is null, it will delete all rows.
+        db.delete(Table_name,null,null);
+        db.delete(Tablename,null,null);
+    }
 }

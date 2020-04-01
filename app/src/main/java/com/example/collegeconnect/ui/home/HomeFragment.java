@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment {
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
+    DatabaseHelper databaseHelper;
     private static final int GET_FROM_GALLERY = 1;
 
     @Nullable

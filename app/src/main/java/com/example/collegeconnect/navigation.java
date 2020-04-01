@@ -43,6 +43,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     TextView tv;
     GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
+    private  DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        db = new DatabaseHelper(this);
 
         loadFragments(new HomeFragment());
 
@@ -97,6 +99,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         {
             case R.id.action_logout :
                 Dialog();
+                db.deleteall();
                 return true;
 
             default:
@@ -108,7 +111,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         // Setting Dialog Title
         builder.setTitle("Confirm SignOut");
         // Setting Dialog Message
-        builder.setMessage("Are you sure you want to Signout?");
+        builder.setMessage("Are you sure you want to Signout?\nAll your saved data wil be lost");
 
         builder.setPositiveButton("Logout",
                 new DialogInterface.OnClickListener() {
