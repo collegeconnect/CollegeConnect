@@ -62,7 +62,8 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home,null);
 
         storageRef = storage.getReference();
-        databaseReference = firebaseDatabase.getReference("users");
+        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
+        databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(getContext()).substring(0,dot));
 
         prfileImage = view.findViewById(R.id.imageView3);
         nameField = view.findViewById(R.id.nameField);
@@ -94,18 +95,16 @@ public class HomeFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot post: dataSnapshot.getChildren()){
-                    Map<String, Object> map= (Map<String,Object>)post.getValue();
+
+                    Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
                     String mail = (String) map.get("Email");
-                    if (SaveSharedPreference.getUserName(getActivity()).equals(mail)) {
                         String name = (String) map.get("Name");
                         String rollNo = (String) map.get("Username");
                         String college = (String) map.get("Clgname");
                         nameField.setText(name);
                         enrollNo.setText(rollNo);
                         Brnach.setText(college);
-                    }
-                }
+
             }
 
             @Override

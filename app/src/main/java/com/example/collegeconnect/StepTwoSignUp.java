@@ -151,5 +151,12 @@ public class StepTwoSignUp extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+
+        Toast.makeText(this, "Please fill in the details and click submit!", Toast.LENGTH_SHORT).show();
+    }
 }
 
