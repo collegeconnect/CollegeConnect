@@ -34,7 +34,7 @@ public class User {
         {
             User user = new User(username,email,name,password,clgname);
             firebaseDatabase=FirebaseDatabase.getInstance();
-            DatabaseReference myRef = firebaseDatabase.getReference();
+            DatabaseReference myRef = firebaseDatabase.getReference("users");
             int dot = email.indexOf(".");
             myRef.child(email.substring(0,dot)).setValue(user);
             return true;

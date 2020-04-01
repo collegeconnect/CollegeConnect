@@ -101,9 +101,9 @@ public class StepTwoSignUp extends AppCompatActivity {
                                                 }
                                             });
                                             Log.d(TAG, "createUserWithEmail:success");
-//                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
                                             Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
                                             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                            finish();
                                         }
                                     }
                                 });

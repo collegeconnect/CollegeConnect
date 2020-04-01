@@ -8,7 +8,6 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,21 +21,25 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv,name;
+    TextView tv, nameField,enrollNo,Brnach;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -59,12 +62,14 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home,null);
 
         storageRef = storage.getReference();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference("users");
 
         prfileImage = view.findViewById(R.id.imageView3);
-        name = view.findViewById(R.id.nameField);
+        nameField = view.findViewById(R.id.nameField);
+        enrollNo = view.findViewById(R.id.textView3);
+        Brnach = view.findViewById(R.id.textView4);
 
-        name.setText(firebaseAuth.getCurrentUser().getDisplayName());
+//        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -84,6 +89,29 @@ public class HomeFragment extends Fragment {
 //                progressBar.setVisibility(View.GONE);
             }
 
+        });
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot post: dataSnapshot.getChildren()){
+                    Map<String, Object> map= (Map<String,Object>)post.getValue();
+                    String mail = (String) map.get("Email");
+                    if (SaveSharedPreference.getUserName(getActivity()).equals(mail)) {
+                        String name = (String) map.get("Name");
+                        String rollNo = (String) map.get("Username");
+                        String college = (String) map.get("Clgname");
+                        nameField.setText(name);
+                        enrollNo.setText(rollNo);
+                        Brnach.setText(college);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
