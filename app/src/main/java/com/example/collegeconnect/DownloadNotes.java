@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DownloadNotes extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class DownloadNotes extends AppCompatActivity {
 
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.orderByChild("download").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 uploadList.clear();
@@ -56,7 +57,7 @@ public class DownloadNotes extends AppCompatActivity {
                         }
                     }
                 }
-
+                Collections.reverse(uploadList);
                 recyclerView = findViewById(R.id.downloadRecycler);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
