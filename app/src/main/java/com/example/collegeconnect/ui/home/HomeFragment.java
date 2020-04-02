@@ -8,6 +8,8 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,9 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.collegeconnect.Constants;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
+import com.example.collegeconnect.Upload;
+import com.example.collegeconnect.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +45,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv, nameField,enrollNo,Brnach;
+    TextView tv;
+    EditText nameField,enrollNo, branch;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -48,6 +54,7 @@ public class HomeFragment extends Fragment {
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
+    Button btn;
     DatabaseHelper databaseHelper;
     private static final int GET_FROM_GALLERY = 1;
 
@@ -66,11 +73,14 @@ public class HomeFragment extends Fragment {
         storageRef = storage.getReference();
         int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
         databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(getContext()).substring(0,dot));
-
         prfileImage = view.findViewById(R.id.imageView3);
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);
-        Brnach = view.findViewById(R.id.textView4);
+        branch = view.findViewById(R.id.textView4);
+        btn = view.findViewById(R.id.editbuttton);
+        nameField.setEnabled(false);
+        enrollNo.setEnabled(false);
+        branch.setEnabled(false);
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
@@ -94,26 +104,7 @@ public class HomeFragment extends Fragment {
 
         });
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
-                    String mail = (String) map.get("Email");
-                        String name = (String) map.get("Name");
-                        String rollNo = (String) map.get("Username");
-                        String college = (String) map.get("Clgname");
-                        nameField.setText(name);
-                        enrollNo.setText(rollNo);
-                        Brnach.setText(college);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        datachange();
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,8 +116,56 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(btn.getText().equals("Edit")){
+                    nameField.setEnabled(true);
+                    enrollNo.setEnabled(true);
+                    branch.setEnabled(true);
+                    btn.setText("Submit");
+                }
+                else if(btn.getText().equals("Submit")){
+                    String name = nameField.getText().toString();
+                    String enroll = enrollNo.getText().toString();
+                    String clg = branch.getText().toString();
+                    User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
+                    nameField.setEnabled(false);
+                    enrollNo.setEnabled(false);
+                    branch.setEnabled(false);
+                    btn.setText("Edit");
+                    datachange();
+
+
+                }
+            }
+        });
+
         return view;
 
+    }
+
+    private void datachange() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                String mail = (String) map.get("Email");
+                String name = (String) map.get("Name");
+                String rollNo = (String) map.get("Username");
+                String college = (String) map.get("Clgname");
+                nameField.setText(name);
+                enrollNo.setText(rollNo);
+                branch.setText(college);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

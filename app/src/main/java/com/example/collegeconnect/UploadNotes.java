@@ -130,7 +130,12 @@ public class UploadNotes extends AppCompatActivity {
             //if a file is selected
             if (data.getData() != null) {
                 String str = data.getData().getLastPathSegment();
-                editTextFilename.setText(str.substring(0,str.length()-4));
+                if(str.contains(".")) {
+                    int dot = str.indexOf(".");
+                    editTextFilename.setText(str.substring(0, dot));
+                }
+                else
+                    editTextFilename.setText(str);
                 //uploading the file
                 findViewById(R.id.button6).setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -22,17 +22,19 @@
             android:layout_marginTop="70dp"
             android:src="@drawable/man1"
             app:civ_border_color="#8A8989"
+            android:clickable="false"
             app:civ_border_width="0.5dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"
             app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="@+id/guideline8"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/nameField"
         android:layout_width="205dp"
         android:layout_height="40dp"
         android:layout_marginTop="36dp"
+        android:textAllCaps="false"
         android:gravity="center"
         android:text="NAME"
         android:textAlignment="center"
@@ -42,7 +44,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView3"
         android:layout_width="205dp"
         android:layout_height="40dp"
@@ -51,18 +53,20 @@
         android:text="ENROLLMENT NUMBER"
         android:textAlignment="center"
         android:textStyle="bold"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
-    <TextView
+    <EditText
         android:id="@+id/textView4"
         android:layout_width="205dp"
         android:layout_height="40dp"
         android:layout_marginTop="35dp"
         android:gravity="center"
         android:text="BRANCH"
+        android:textAllCaps="false"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -70,18 +74,16 @@
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="205dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
-        android:text="@string/menu_attendance"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        <android.widget.Button
+            android:id="@+id/editbuttton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="Edit"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
