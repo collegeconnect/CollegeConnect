@@ -106,4 +106,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(Table_name,null,null);
         db.delete(Tablename,null,null);
     }
+
+    public Cursor getTotal()
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        return db.query(Table_name,new String[]{Col3, Col4},null,null,null,null,null);
+    }
+
+    public String calculateTotal()
+    {
+        Cursor res = getTotal();
+        int totalAttended=0, totalMissed=0;
+        while (res.moveToNext()) {
+            totalAttended +=  Integer.parseInt(res.getString(0));
+            totalMissed +=  Integer.parseInt(res.getString(1));
+        }
+        String percentage = String.format("%.2f",(float)totalAttended/(totalAttended+totalMissed)*100);
+        return percentage;
+    }
 }

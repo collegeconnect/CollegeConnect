@@ -45,12 +45,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv;
+    TextView tv,totalAttendance;
     EditText nameField,enrollNo, branch;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
+    private DatabaseHelper mydb;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
@@ -78,6 +79,7 @@ public class HomeFragment extends Fragment {
         enrollNo = view.findViewById(R.id.textView3);
         branch = view.findViewById(R.id.textView4);
         btn = view.findViewById(R.id.editbuttton);
+        totalAttendance = view.findViewById(R.id.aggregateAttendance);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
@@ -105,6 +107,10 @@ public class HomeFragment extends Fragment {
         });
 
         datachange();
+
+        mydb= new DatabaseHelper(getContext());
+        String pecentage = mydb.calculateTotal();
+        totalAttendance.setText(pecentage+"%");
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
