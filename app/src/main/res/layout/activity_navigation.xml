@@ -62,6 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="10dp"
+                android:background="@drawable/gradientcolor"
+                android:backgroundTint="@color/colorPrimary"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
         </FrameLayout>
 

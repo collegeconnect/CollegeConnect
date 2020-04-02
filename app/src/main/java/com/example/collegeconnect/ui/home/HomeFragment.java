@@ -2,6 +2,7 @@ package com.example.collegeconnect.ui.home;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,6 +27,7 @@ import com.example.collegeconnect.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +47,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv,totalAttendance;
-    EditText nameField,enrollNo, branch;
+    TextView tv;
+    EditText nameField,enrollNo, branch, totalAttendance;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -55,7 +57,7 @@ public class HomeFragment extends Fragment {
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
-    Button btn;
+    FloatingActionButton editDetails,submitDetails;
     DatabaseHelper databaseHelper;
     private static final int GET_FROM_GALLERY = 1;
 
@@ -78,8 +80,10 @@ public class HomeFragment extends Fragment {
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);
         branch = view.findViewById(R.id.textView4);
-        btn = view.findViewById(R.id.editbuttton);
+        editDetails = view.findViewById(R.id.editDetails);
+        submitDetails = view.findViewById(R.id.submitDetails);
         totalAttendance = view.findViewById(R.id.aggregateAttendance);
+        totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
@@ -110,7 +114,12 @@ public class HomeFragment extends Fragment {
 
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
-        totalAttendance.setText(pecentage+"%");
+        if (!pecentage.equals("NaN")){
+            totalAttendance.setText(pecentage+"%");
+        }
+        else {
+            totalAttendance.setText("0.00%");
+        }
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,28 +131,54 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        editDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btn.getText().equals("Edit")){
-                    nameField.setEnabled(true);
-                    enrollNo.setEnabled(true);
-                    branch.setEnabled(true);
-                    btn.setText("Submit");
-                }
-                else if(btn.getText().equals("Submit")){
-                    String name = nameField.getText().toString();
-                    String enroll = enrollNo.getText().toString();
-                    String clg = branch.getText().toString();
-                    User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
-                    nameField.setEnabled(false);
-                    enrollNo.setEnabled(false);
-                    branch.setEnabled(false);
-                    btn.setText("Edit");
-                    datachange();
 
+                nameField.setEnabled(true);
+                enrollNo.setEnabled(true);
+                branch.setEnabled(true);
+                editDetails.setEnabled(false);
+                editDetails.setVisibility(View.GONE);
+                submitDetails.setEnabled(true);
+                submitDetails.setVisibility(View.VISIBLE);
+                //                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+//                if (editDetails.getIm)
+//                if(editDetails.getAlpha() == 0.9){
+//                    nameField.setEnabled(true);
+//                    enrollNo.setEnabled(true);
+//                    branch.setEnabled(true);
+//                    editDetails.setAlpha((float) 1.0);
+//                    editDetails.setBackgroundColor(Color.parseColor("#ff99cc00"));
+//                }
+//                else if(editDetails.getAlpha() == 1.0){
+//                    String name = nameField.getText().toString();
+//                    String enroll = enrollNo.getText().toString();
+//                    String clg = branch.getText().toString();
+//                    User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
+//                    nameField.setEnabled(false);
+//                    enrollNo.setEnabled(false);
+//                    branch.setEnabled(false);
+//                    editDetails.setAlpha((float) 0.9);
+//                    datachange();
+//                }
+            }
+        });
 
-                }
+        submitDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = nameField.getText().toString();
+                String enroll = enrollNo.getText().toString();
+                String clg = branch.getText().toString();
+                User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
+                nameField.setEnabled(false);
+                enrollNo.setEnabled(false);
+                branch.setEnabled(false);
+                submitDetails.setEnabled(false);
+                submitDetails.setVisibility(View.GONE);
+                editDetails.setEnabled(true);
+                editDetails.setVisibility(View.VISIBLE);
             }
         });
 

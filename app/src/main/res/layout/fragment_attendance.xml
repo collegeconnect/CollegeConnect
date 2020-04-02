@@ -8,30 +8,28 @@
     android:background="@color/colorSurface">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/subjectNamemas"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="3dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_toStartOf="@id/addSubject"
-        app:errorEnabled="true"
-        android:backgroundTint="@color/colorSurface"
-        android:ems="10">
+        android:backgroundTint="@android:color/transparent"
+        android:ems="10"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subjectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:backgroundTint="#fff"
+            android:backgroundTint="@android:color/transparent"
             android:hint="Subject Name"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <android.widget.Button
         android:id="@+id/addSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +37,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="3dp"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_toEndOf="@id/subjectNamemas"
+        android:background="@drawable/buttonlayout2"
         android:text="Add Subject" />
 
     <androidx.recyclerview.widget.RecyclerView

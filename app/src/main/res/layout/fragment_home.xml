@@ -1,103 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView3"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="70dp"
-            android:src="@drawable/man1"
-            app:civ_border_color="#8A8989"
-            android:clickable="false"
-            app:civ_border_width="0.5dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="parent" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageView3"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:clickable="false"
+                android:src="@drawable/man1"
+                app:civ_border_color="#8A8989"
+                app:civ_border_width="0.5dp"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/nameField"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="35dp"
-            android:gravity="center"
-            android:text="NAME"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            <EditText
+                android:id="@+id/nameField"
+                android:layout_width="205dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/imageView3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/buttonlayout2"
+                android:gravity="center"
+                android:text="NAME"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <EditText
-            android:id="@+id/textView3"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="ENROLLMENT NUMBER"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/nameField" />
+            <EditText
+                android:id="@+id/textView3"
+                android:layout_width="205dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/nameField"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/buttonlayout2"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="ENROLLMENT NUMBER"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
-        <EditText
-            android:id="@+id/textView4"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:text="BRANCH"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            <EditText
+                android:id="@+id/textView4"
+                android:layout_width="205dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/textView3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/buttonlayout2"
+                android:gravity="center"
+                android:text="BRANCH"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <android.widget.Button
-            android:id="@+id/editbuttton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/buttonlayout2"
-            android:text="Edit"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/aggregateAttendance" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/editDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="85dp"
+                android:background="#fff"
+                android:backgroundTint="#fff"
+                app:borderWidth="0dp"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
 
-        <TextView
-            android:id="@+id/aggregateAttendance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Aggregate Attendance"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/submitDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="85dp"
+                android:background="@android:color/holo_green_light"
+                android:backgroundTint="@android:color/holo_green_light"
+                android:enabled="false"
+                android:visibility="gone"
+                app:borderWidth="0dp"
+                app:srcCompat="@drawable/check" />
 
+            <EditText
+                android:id="@+id/aggregateAttendance"
+                android:layout_width="205dp"
+                android:layout_height="40dp"
+                android:layout_below="@id/textView4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/buttonlayout2"
+                android:editable="false"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Aggregate Attendance"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</RelativeLayout>
