@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
+        prfileImage.setEnabled(false);
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
@@ -138,6 +139,7 @@ public class HomeFragment extends Fragment {
                 nameField.setEnabled(true);
                 enrollNo.setEnabled(true);
                 branch.setEnabled(true);
+                prfileImage.setEnabled(true);
                 editDetails.setEnabled(false);
                 editDetails.setVisibility(View.GONE);
                 submitDetails.setEnabled(true);
@@ -173,6 +175,7 @@ public class HomeFragment extends Fragment {
                 String clg = branch.getText().toString();
                 User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
                 nameField.setEnabled(false);
+                prfileImage.setEnabled(false);
                 enrollNo.setEnabled(false);
                 branch.setEnabled(false);
                 submitDetails.setEnabled(false);
