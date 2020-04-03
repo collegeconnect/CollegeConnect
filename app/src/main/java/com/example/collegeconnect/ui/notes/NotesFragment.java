@@ -31,7 +31,7 @@ public class NotesFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_notes,null);
 
         tv=getActivity().findViewById(R.id.tvTitle);
-        tv.setText("Notes");
+        tv.setText("NOTES");
 
         course = view.findViewById(R.id.CourseN);
         branch = view.findViewById(R.id.BranchN);
@@ -54,7 +54,7 @@ public class NotesFragment extends Fragment {
                 String selected_semester = semester.getSelectedItem().toString();
                 String selected_unit = unit.getSelectedItem().toString();
 
-                Toast.makeText(getActivity(), selected_branch, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), selected_branch, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), DownloadNotes.class);
                 intent.putExtra(DownloadNotes.EXTRA_COURSE,selected_course);

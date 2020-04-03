@@ -1,6 +1,8 @@
 package com.example.collegeconnect;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -36,7 +38,12 @@ public class DownloadNotes extends AppCompatActivity {
         final String receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
         final String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
 
-        Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+//        Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
 
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
@@ -51,7 +58,7 @@ public class DownloadNotes extends AppCompatActivity {
                             if(upload.getSemester().equals(receivedSemester)) {
                                 if(upload.getUnit().equals(receivedUnit)) {
                                     uploadList.add(upload);
-                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

@@ -73,9 +73,9 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
         holder.circleProgress.setProgress(per);
         if(per <= 77 && !percentage.equals("NaN"))
-            holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
-        else if(per > 78)
-            holder.tv_bunk.setText("You CAN BUNK Classes");
+            holder.tv_bunk.setText("You can\'t miss any more classes.");
+        else
+            holder.tv_bunk.setText("You can miss the next class.");
 
 
 //        if(percentage.equals("NaN")) {
@@ -101,9 +101,9 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 //                String s = holder.percecntage.getText().toString();
 //                percent = Float.parseFloat(s.substring(0,s.length()-1));
                 if(per <= 77)
-                    holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
-                else if(per > 78)
-                    holder.tv_bunk.setText("You CAN BUNK Classes");
+                    holder.tv_bunk.setText("You can\'t miss any more classes.");
+                else
+                    holder.tv_bunk.setText("You can miss the next class.");
                 holder.circleProgress.setProgress(per);
 //                holder.progressBar.setProgress((int)Float.parseFloat(percentage));
 
@@ -126,9 +126,9 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 //                String s = holder.percecntage.getText().toString();
 //                percent = Float.parseFloat(s.substring(0,s.length()-1));
                 if(per <= 77)
-                    holder.tv_bunk.setText("You CAN\'T BUNK any more classes");
-                else if(per > 78)
-                    holder.tv_bunk.setText("You CAN BUNK Classes");
+                    holder.tv_bunk.setText("You can\'t miss any more classes.");
+                else
+                    holder.tv_bunk.setText("You can miss the next class.");
 //                holder.progressBar.setProgress((int)Float.parseFloat(percentage));
                 holder.circleProgress.setProgress(per);
 

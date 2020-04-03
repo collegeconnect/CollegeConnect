@@ -15,12 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".StepTwoSignUp"></activity>
-        <activity android:name=".DownloadNotes" />
-        <activity android:name=".UploadNotes" />
+        <activity android:name=".DownloadNotes"
+            android:label=" "
+            android:parentActivityName=".navigation"/>
+        <activity android:name=".UploadNotes"
+            android:label="Upload"
+            android:parentActivityName=".navigation"/>
         <activity
             android:name=".TimeTable"
+            android:label="Time Table"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".navigation"/>
         <activity
             android:name=".navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -30,7 +36,8 @@
         <activity
             android:name=".SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:parentActivityName=".navigation"/>
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

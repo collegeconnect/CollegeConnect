@@ -23,19 +23,21 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent">
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:fontFamily="@font/ubuntu_regular"
 
+                android:gravity="center"
                 android:paddingStart="40dp"
+                android:paddingTop="15dp"
                 android:text="College"
                 android:textColor="@color/newBlue"
-                android:textSize="22sp"
+                android:textSize="36sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>

@@ -25,7 +25,7 @@ public class ToolsFragment extends Fragment {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         tv=getActivity().findViewById(R.id.tvTitle);
-        tv.setText("Tools");
+        tv.setText("TOOLS");
         return inflater.inflate(R.layout.fragment_tools,null);
     }
     @Override

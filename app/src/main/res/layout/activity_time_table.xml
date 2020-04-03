@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:padding="10dp"
+    android:background="@color/colorSurface"
     tools:context="com.example.collegeconnect.TimeTable">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar" />
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/imageView2"

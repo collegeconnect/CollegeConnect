@@ -1,7 +1,9 @@
 package com.example.collegeconnect;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -57,6 +59,11 @@ public class UploadNotes extends AppCompatActivity {
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         //getting the views
         textViewStatus = findViewById(R.id.textViewStatus);
         semester = findViewById(R.id.spinnerSem);
@@ -67,7 +74,7 @@ public class UploadNotes extends AppCompatActivity {
         progressBar =  findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
         progressBar.setProgress(0);
-        upload = findViewById(R.id.viewnotes);
+        upload = findViewById(R.id.selectNotes);
         author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -143,7 +150,7 @@ public class UploadNotes extends AppCompatActivity {
                 else
                     editTextFilename.setText(str);
                 //uploading the file
-                findViewById(R.id.button6).setOnClickListener(new View.OnClickListener() {
+                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         uploadFile(data.getData());

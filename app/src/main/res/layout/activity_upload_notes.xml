@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".UploadNotes">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar" />
 
     <Spinner
         android:id="@+id/spinnerCourse"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentTop="false"
         android:layout_centerVertical="false"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
@@ -106,33 +110,35 @@
         android:textSize="11sp" />
 
     <android.widget.Button
-        android:id="@+id/viewnotes"
-        android:layout_width="wrap_content"
+        android:id="@+id/selectNotes"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/author"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/buttonlayout2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_design3"
         android:gravity="center"
         android:text="Select"
+        android:textColor="@color/colorwhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="465dp" />
 
 
     <android.widget.Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
+        android:id="@+id/uploadNotes"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/viewnotes"
-        android:layout_alignStart="@id/viewnotes"
+        android:layout_below="@id/selectNotes"
+        android:layout_alignStart="@id/selectNotes"
         android:layout_marginTop="10dp"
-        android:background="@drawable/buttonlayout2"
-        android:text="Upload" />
+        android:background="@drawable/button_design3"
+        android:text="Upload"
+        android:textColor="@color/colorwhite" />
 
     <EditText
         android:id="@+id/FileName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/spinnerUnit"
         android:layout_centerHorizontal="true"
@@ -144,25 +150,25 @@
         android:gravity="center"
         android:hint="File Name"
         android:inputType="textPersonName"
-        android:textSize="14sp" />
+        android:textSize="18sp" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Author"
-        android:gravity="center"
-        android:ems="10"
         android:layout_below="@id/FileName"
         android:layout_alignStart="@id/FileName"
         android:layout_alignEnd="@id/FileName"
-        android:id="@+id/author"/>
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Author" />
 
     <ProgressBar
         android:id="@+id/UploadNotesProgressBar"
         android:layout_width="250dp"
         android:progressTint="#00ff00"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button6"
+        android:layout_below="@id/uploadNotes"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         style="?android:attr/progressBarStyleHorizontal"
@@ -176,7 +182,8 @@
         android:layout_marginEnd="0dp"
         android:text="No file selected"
         android:textAlignment="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="@color/newBlue" />
 
     <ImageView
         android:id="@+id/imageView4"

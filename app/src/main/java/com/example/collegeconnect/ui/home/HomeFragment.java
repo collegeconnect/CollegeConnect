@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextDrawable drawable;
     ArcProgress circleprog;
-    TextView tv;
-    EditText nameField,enrollNo, branch, totalAttendance;
+    TextView tv, totalAttendance;
+    EditText nameField,enrollNo, branch;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
         tv=getActivity().findViewById(R.id.tvTitle);
-        tv.setText("College");
+        tv.setText("HOME");
 
         View view =  inflater.inflate(R.layout.fragment_home,null);
 
@@ -148,11 +148,11 @@ public class HomeFragment extends Fragment {
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
         if (!pecentage.equals("NaN")){
-            totalAttendance.setText("Attendance: "+pecentage+"%");
+            totalAttendance.setText("Aggregate\nAttendance: "+pecentage+"%");
             circleprog.setProgress((int)Float.parseFloat(pecentage));
         }
         else {
-            totalAttendance.setText("Attendance: 0.00%");
+            totalAttendance.setText("Aggregate\nAttendance: 0.00%");
             circleprog.setProgress(0);
         }
 
@@ -173,6 +173,9 @@ public class HomeFragment extends Fragment {
                 nameField.setEnabled(true);
                 enrollNo.setEnabled(true);
                 branch.setEnabled(true);
+                nameField.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
+                enrollNo.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
+                branch.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
                 prfileImage.setEnabled(true);
                 editDetails.setEnabled(false);
                 editDetails.setVisibility(View.GONE);
@@ -212,6 +215,9 @@ public class HomeFragment extends Fragment {
                 prfileImage.setEnabled(false);
                 enrollNo.setEnabled(false);
                 branch.setEnabled(false);
+                nameField.setTextColor(R.color.newBlue);
+                enrollNo.setTextColor(R.color.newBlue);
+                branch.setTextColor(R.color.newBlue);
                 submitDetails.setEnabled(false);
                 submitDetails.setVisibility(View.GONE);
                 editDetails.setEnabled(true);

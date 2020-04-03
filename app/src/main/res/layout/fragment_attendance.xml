@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="10dp">
+    android:padding="10dp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/subjectNamemas"
-        android:layout_width="250dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -17,7 +17,10 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
-        app:errorEnabled="true">
+        android:textColorHint="@color/newBlue"
+        app:boxStrokeColor="@color/newBlue"
+        app:errorEnabled="true"
+        app:hintTextColor="@color/newBlue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subjectName"
@@ -25,7 +28,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/transparent"
             android:hint="Subject Name"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textColor="@color/newBlue" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <android.widget.Button
@@ -34,20 +38,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="5dp"
         android:layout_toEndOf="@id/subjectNamemas"
-        android:background="@drawable/buttonlayout2"
-        android:text="Add Subject" />
+        android:background="@drawable/button_design3"
+        android:text="Add Subject"
+        android:textColor="@color/colorwhite" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjectRecyclerView"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_height="match_parent"
         android:layout_below="@id/subjectNamemas"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp" />
 
 

@@ -53,14 +53,15 @@
 
     <android.widget.Button
         android:id="@+id/viewnotes"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/UnitN"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/buttonlayout2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_design3"
         android:gravity="center"
         android:text="  View Notes  "
+        android:textColor="@color/colorwhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="465dp" />
@@ -74,7 +75,7 @@
         android:layout_marginBottom="70dp"
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:srcCompat="@drawable/upload" />
 
     <ImageView
         android:id="@+id/imageView7"

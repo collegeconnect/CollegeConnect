@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/newBlue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:homeAsUpIndicator">@drawable/backblue</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -35,12 +37,6 @@
 
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/colorPrimary</item>
-    </style>
-
-    <style name="TextInput" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorControlNormal">#c5c5c5</item>
-        <item name="colorControlActivated">@color/colorwhite</item>
-        <item name="colorControlHighlight">@color/colorwhite</item>
     </style>
 
 </resources>
