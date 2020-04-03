@@ -31,6 +31,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     private TextInputLayout rollno, clgname;
     private FirebaseAuth mAuth;
     private Button signup;
+    private String receivedPRev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class StepTwoSignUp extends AppCompatActivity {
         final String receivedName = intent.getStringExtra(EXTRA_NAME);
         final String receivedEmail = intent.getStringExtra(EXTRA_EMAIL);
         final String receivedPassword = intent.getStringExtra(EXTRA_PASSWORD);
-        final String receivedPRev = intent.getStringExtra(EXTRA_PREV);
+         receivedPRev = intent.getStringExtra(EXTRA_PREV);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,8 +155,9 @@ public class StepTwoSignUp extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
-
+        if (receivedPRev != null)
+        super.onBackPressed();
+        else
         Toast.makeText(this, "Please fill in the details and click submit!", Toast.LENGTH_SHORT).show();
     }
 }

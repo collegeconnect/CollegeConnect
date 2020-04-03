@@ -37,4 +37,10 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="TextInput" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/colorwhite</item>
+        <item name="colorControlHighlight">@color/colorwhite</item>
+    </style>
+
 </resources>

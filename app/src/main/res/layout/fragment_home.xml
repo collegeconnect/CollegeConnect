@@ -15,7 +15,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="150dp"
                 android:src="@drawable/man1"
                 app:civ_border_color="#8A8989"
                 app:civ_border_width="0.5dp"
@@ -33,7 +33,7 @@
                 android:text="NAME"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/newBlue"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -50,7 +50,7 @@
                 android:text="ENROLLMENT NUMBER"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/newBlue"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
@@ -66,7 +66,7 @@
                 android:text="BRANCH"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/newBlue"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -111,7 +111,7 @@
                 android:inputType="textPersonName"
                 android:text="Aggregate Attendance"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/newBlue"
                 android:textStyle="bold" />
         </RelativeLayout>
 
