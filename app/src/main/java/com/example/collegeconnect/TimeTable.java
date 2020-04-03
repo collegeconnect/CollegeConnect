@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -47,7 +49,7 @@ public class TimeTable extends AppCompatActivity {
         setContentView(R.layout.activity_time_table);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(R.color.newBlue);
+        toolbar.setTitleTextColor(Color.parseColor("#138FF7"));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -55,6 +57,8 @@ public class TimeTable extends AppCompatActivity {
         imageView = findViewById(R.id.imageView2);
         progressBar = findViewById(R.id.progressBarTT);
         storageRef = storage.getReference();
+        FloatingActionButton fab = findViewById(R.id.button4);
+        fab.setColorFilter(Color.parseColor("#ffffff"));
         databaseReference = firebaseDatabase.getReference();
 //        progressBar.setVisibility(View.VISIBLE);
         db= new DatabaseHelper(this);

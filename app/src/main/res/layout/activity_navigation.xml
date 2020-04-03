@@ -64,11 +64,11 @@
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:tint="@null"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="10dp"
-                android:background="@drawable/gradientcolor"
                 android:backgroundTint="#47ABFF"
-                app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                app:srcCompat="@drawable/time2" />
         </FrameLayout>
 
 </RelativeLayout>

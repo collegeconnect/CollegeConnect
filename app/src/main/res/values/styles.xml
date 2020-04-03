@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:homeAsUpIndicator">@drawable/backblue</item>
+
+    </style>
+    <style name="MyEditTextTheme">
+        <item name="colorControlNormal">@color/colorwhite</item>
+        <item name="colorControlActivated">@color/colorwhite</item>
+        <item name="colorControlHighlight">@color/colorwhite</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

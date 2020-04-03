@@ -2,6 +2,8 @@ package com.example.collegeconnect.ui.attendance;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,23 @@ public class AttendanceFragment extends Fragment {
         subject = view.findViewById(R.id.subjectNamemas);
         addSubject = view.findViewById(R.id.addSubject);
 
+        subject.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                subject.setError(null);
+            }
+        });
+
         addSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +116,6 @@ public class AttendanceFragment extends Fragment {
             subjectAdapter.notifyDataSetChanged();
             subject.getEditText().setText("");
             subject.clearFocus();
-            subject.setErrorEnabled(false);
         }
     }
 

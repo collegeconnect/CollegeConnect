@@ -79,43 +79,43 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/CourseN"
         android:layout_alignBottom="@id/CourseN"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/SemesterN"
         android:layout_alignBottom="@id/SemesterN"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/UnitN"
         android:layout_alignBottom="@id/UnitN"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/BranchN"
         android:layout_alignBottom="@id/BranchN"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <Spinner
         android:id="@+id/CourseN"

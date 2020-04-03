@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,6 +97,7 @@ public class HomeFragment extends Fragment {
         prfileImage.setEnabled(false);
         circleprog.setMax(100);
         circleprog.setProgress(0);
+        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
@@ -215,9 +217,9 @@ public class HomeFragment extends Fragment {
                 prfileImage.setEnabled(false);
                 enrollNo.setEnabled(false);
                 branch.setEnabled(false);
-                nameField.setTextColor(R.color.newBlue);
-                enrollNo.setTextColor(R.color.newBlue);
-                branch.setTextColor(R.color.newBlue);
+                nameField.setTextColor(Color.parseColor("#138FF7"));
+                enrollNo.setTextColor(Color.parseColor("#138FF7"));
+                branch.setTextColor(Color.parseColor("#138FF7"));
                 submitDetails.setEnabled(false);
                 submitDetails.setVisibility(View.GONE);
                 editDetails.setEnabled(true);

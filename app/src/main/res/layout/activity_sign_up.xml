@@ -11,6 +11,7 @@
         android:id="@+id/textname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/MyEditTextTheme"
         android:textColorHint="@color/colorwhite"
         app:boxStrokeColor="@color/colorwhite"
         app:hintTextColor="@color/colorwhite"
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:ems="15"
+            style="@style/MyEditTextTheme"
             android:hint="FULL NAME"
             android:inputType="textCapWords"
             android:textColor="@color/colorwhite" />

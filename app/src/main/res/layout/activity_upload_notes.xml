@@ -187,42 +187,42 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/spinnerCourse"
         android:layout_alignBottom="@id/spinnerCourse"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/spinnerBranch"
         android:layout_alignBottom="@id/spinnerBranch"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/spinnerSem"
         android:layout_alignBottom="@id/spinnerSem"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/spinnerUnit"
         android:layout_alignBottom="@id/spinnerUnit"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:srcCompat="@android:drawable/arrow_down_float" />
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/down" />
 
 </RelativeLayout>

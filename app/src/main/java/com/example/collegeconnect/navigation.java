@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +59,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         TextView tv=findViewById(R.id.tvTitle);
         FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setColorFilter(getResources().getColor(R.color.colorwhite));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,7 +201,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             finish();
         }
 
-        else if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStackImmediate();
         }
 
@@ -211,6 +213,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     {
         if (fragment!=null)
         {
+            Log.d("navigation", "loadFragments: Frag is loaded");
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentContainer,fragment)

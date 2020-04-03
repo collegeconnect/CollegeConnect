@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="newBlue">#138FF7</color>
     <color name="colorPrimary">#86bbd8</color>
     <color name="colorPrimaryDark">#138FF7</color>
     <color name="colorAccent">#D81B60</color>
@@ -7,5 +8,4 @@
     <color name="endColor">#336699</color>
     <color name="colorSurface">#F3F9FE</color>
     <color name="colorwhite">#ffffff</color>
-    <color name="newBlue">#138FF7</color>
 </resources>
