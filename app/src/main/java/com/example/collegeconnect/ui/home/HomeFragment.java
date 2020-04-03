@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.Constants;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
@@ -42,12 +43,14 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
+    TextDrawable drawable;
     ArcProgress circleprog;
     TextView tv;
     EditText nameField,enrollNo, branch, totalAttendance;
@@ -93,6 +96,7 @@ public class HomeFragment extends Fragment {
         prfileImage.setEnabled(false);
         circleprog.setMax(100);
         circleprog.setProgress(0);
+
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -107,7 +111,31 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception exception) {
 
-                // Handle any errors
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                        String name = (String) map.get("Name");
+                        int space = name.indexOf(" ");
+
+                        Random random  = new Random();
+                        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+                        drawable = TextDrawable.builder().beginConfig()
+                                .width(150)
+                                .height(150)
+                                .bold()
+                                .endConfig()
+                                .buildRound(name.substring(0,1)+name.substring(space+1,space+2),color);
+                        prfileImage.setImageDrawable(drawable);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
 
                 Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
 //                progressBar.setVisibility(View.GONE);
@@ -208,6 +236,7 @@ public class HomeFragment extends Fragment {
                 nameField.setText(name);
                 enrollNo.setText(rollNo);
                 branch.setText(college);
+
 
             }
 

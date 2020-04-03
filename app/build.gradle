@@ -48,5 +48,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
 }

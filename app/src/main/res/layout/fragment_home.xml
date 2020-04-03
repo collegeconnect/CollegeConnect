@@ -16,9 +16,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="120dp"
-                android:src="@drawable/man1"
                 app:civ_border_color="#8A8989"
-                app:civ_border_width="0.5dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
@@ -30,6 +28,7 @@
                 android:layout_marginTop="35dp"
                 android:background="@drawable/buttonlayout2"
                 android:gravity="center"
+                android:inputType="textCapWords"
                 android:text="NAME"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -65,7 +64,7 @@
                 android:gravity="center"
                 android:text="BRANCH"
                 android:textAlignment="center"
-                android:textAllCaps="false"
+                android:inputType="textCapCharacters"
                 android:textColor="@color/newBlue"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />

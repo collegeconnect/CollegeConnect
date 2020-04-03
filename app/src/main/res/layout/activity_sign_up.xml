@@ -24,7 +24,7 @@
             android:background="@android:color/transparent"
             android:ems="15"
             android:hint="FULL NAME"
-            android:inputType="textPersonName"
+            android:inputType="textCapWords"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
 

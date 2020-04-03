@@ -25,7 +25,7 @@
             android:background="@android:color/transparent"
             android:ems="15"
             android:hint="@string/collegename"
-            android:inputType="text"
+            android:inputType="textCapCharacters"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
 

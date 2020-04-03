@@ -130,9 +130,15 @@ public class UploadNotes extends AppCompatActivity {
             //if a file is selected
             if (data.getData() != null) {
                 String str = data.getData().getLastPathSegment();
-                if(str.contains(".")) {
-                    int dot = str.indexOf(".");
-                    editTextFilename.setText(str.substring(0, dot));
+                int slash =-1;
+                if(str.contains("/")){
+                    slash = str.indexOf("/");
+//                    editTextFilename.setText(str.substring(slash,str.length()-1));
+                }
+                String str1  = str.substring(slash+1,str.length()-1);
+                if(str1.contains(".")) {
+                    int dot = str1.indexOf(".");
+                    editTextFilename.setText(str1.substring(0, dot));
                 }
                 else
                     editTextFilename.setText(str);
