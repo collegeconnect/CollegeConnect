@@ -42,7 +42,6 @@ public class SignUp extends AppCompatActivity {
         name = findViewById(R.id.textname);
         email = findViewById(R.id.textemail);
         button = findViewById(R.id.stepOneButton);
-        final ProgressBar progressBar = findViewById(R.id.StepOneProgressBar);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +52,6 @@ public class SignUp extends AppCompatActivity {
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
-                progressBar.setVisibility(View.VISIBLE);
                 final String Strpassword = password.getEditText().getText().toString();
                 final String Strname = name.getEditText().getText().toString();
                 final String Stremail = email.getEditText().getText().toString();
@@ -63,21 +61,16 @@ public class SignUp extends AppCompatActivity {
                     password.setError("Enter a valid password");
                     name.setError("Enter your Full name");
                     email.setError("Enter your email address");
-                    progressBar.setVisibility(View.GONE);
                 } else if (Stremail.isEmpty()) {
                     email.setError("Enter your Email address");
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if (Strpassword.isEmpty()) {
                     password.setError("Enter a valid password");
-                    progressBar.setVisibility(View.GONE);
                 }
                 else if (Strname.isEmpty()) {
                     name.setError("Enter your name");
-                    progressBar.setVisibility(View.GONE);
                 }
                 else {
-                    progressBar.setVisibility(View.GONE);
                     mAuth = FirebaseAuth.getInstance();
                     if(isEmailValid(Stremail)) {
                         mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -93,8 +86,6 @@ public class SignUp extends AppCompatActivity {
                                     intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
                                     intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
                                     intent.putExtra(StepTwoSignUp.EXTRA_PREV, "SignUp");
-                                    progressBar.setVisibility(View.GONE);
-                                    progressBar.setVisibility(View.VISIBLE);
                                     startActivity(intent);
 
 //                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
@@ -123,8 +114,6 @@ public class SignUp extends AppCompatActivity {
 
 
                                 }
-                                progressBar.setVisibility(View.GONE);
-                                progressBar.setVisibility(View.VISIBLE);
 
                             }
                         });

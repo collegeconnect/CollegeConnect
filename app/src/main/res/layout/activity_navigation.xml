@@ -2,11 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:elevation="0dp"
     android:id="@+id/naivgation_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:id="@+id/app_bar">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -21,13 +32,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
 
-                android:paddingStart="50dp"
+                android:paddingStart="40dp"
                 android:text="College"
                 android:textColor="@color/newBlue"
-                android:textSize="30sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
@@ -35,7 +48,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/newBlue"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/activity_navigation_drawer" />
 
@@ -53,7 +65,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="10dp"
                 android:background="@drawable/gradientcolor"
-                android:backgroundTint="@color/newBlue"
+                android:backgroundTint="#47ABFF"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
         </FrameLayout>
 

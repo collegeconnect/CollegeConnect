@@ -15,7 +15,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="150dp"
+                android:layout_marginTop="120dp"
                 android:src="@drawable/man1"
                 app:civ_border_color="#8A8989"
                 app:civ_border_width="0.5dp"
@@ -102,17 +102,36 @@
                 android:id="@+id/aggregateAttendance"
                 android:layout_width="205dp"
                 android:layout_height="40dp"
+                android:background="@drawable/buttonlayout2"
+                android:editable="false"
                 android:layout_below="@id/textView4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
-                android:background="@drawable/buttonlayout2"
-                android:editable="false"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Aggregate Attendance"
                 android:textAlignment="center"
                 android:textColor="@color/newBlue"
                 android:textStyle="bold" />
+
+            <com.github.lzyzsd.circleprogress.ArcProgress
+                android:id="@+id/cicleprog"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/textView4"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@+id/aggregateAttendance"
+                android:background="#214193"
+                android:backgroundTint="#fff"
+                app:arc_suffix_text_size="10dp"
+                app:arc_suffix_text_padding="-2dp"
+                app:arc_finished_color="#00FF00"
+                app:arc_max="100"
+                app:arc_progress="50"
+                app:arc_text_size="15sp"
+                app:arc_unfinished_color="#FF0000" />
+
         </RelativeLayout>
 
 </RelativeLayout>

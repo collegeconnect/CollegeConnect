@@ -24,6 +24,7 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
 import com.example.collegeconnect.Upload;
 import com.example.collegeconnect.User;
+import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,6 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
+    ArcProgress circleprog;
     TextView tv;
     EditText nameField,enrollNo, branch, totalAttendance;
     CircleImageView prfileImage;
@@ -83,12 +85,14 @@ public class HomeFragment extends Fragment {
         editDetails = view.findViewById(R.id.editDetails);
         submitDetails = view.findViewById(R.id.submitDetails);
         totalAttendance = view.findViewById(R.id.aggregateAttendance);
+        circleprog = view.findViewById(R.id.cicleprog);
         totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
         prfileImage.setEnabled(false);
-
+        circleprog.setMax(100);
+        circleprog.setProgress(0);
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -116,10 +120,12 @@ public class HomeFragment extends Fragment {
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
         if (!pecentage.equals("NaN")){
-            totalAttendance.setText(pecentage+"%");
+            totalAttendance.setText("Attendance: "+pecentage+"%");
+            circleprog.setProgress((int)Float.parseFloat(pecentage));
         }
         else {
-            totalAttendance.setText("0.00%");
+            totalAttendance.setText("Attendance: 0.00%");
+            circleprog.setProgress(0);
         }
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
