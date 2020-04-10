@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,7 @@ public class ShareFragment extends Fragment {
     ImageView imageView;
     TextView textView;
     WebSettings webSettings;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -42,6 +44,8 @@ public class ShareFragment extends Fragment {
         imageView = view.findViewById(R.id.imageView);
         imageView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
+        progressBar = view.findViewById(R.id.prog);
+        progressBar.setVisibility(View.VISIBLE);
 
         ConnectivityManager manager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo i = manager.getActiveNetworkInfo();
@@ -49,6 +53,12 @@ public class ShareFragment extends Fragment {
 
         if(hasConnect)
         {
+            progressBar.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setVisibility(View.GONE);
+                }
+            },500);
             // show the webview
             webView.setWebViewClient(new WebViewClient());
             webView.loadUrl("https://rooms.dscbvp.dev/");
@@ -58,6 +68,7 @@ public class ShareFragment extends Fragment {
         else
         {
             // do what ever you need when when no internet connection
+            progressBar.setVisibility(View.GONE);
             webView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.VISIBLE);

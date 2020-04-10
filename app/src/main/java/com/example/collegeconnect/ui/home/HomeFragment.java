@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
     TextDrawable drawable;
-    ArcProgress circleprog;
+//    ArcProgress circleprog;
     TextView tv, totalAttendance;
     EditText nameField,enrollNo, branch;
     CircleImageView prfileImage;
@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private DatabaseHelper mydb;
+    Uri url;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
@@ -91,14 +92,14 @@ public class HomeFragment extends Fragment {
         editDetails = view.findViewById(R.id.editDetails);
         submitDetails = view.findViewById(R.id.submitDetails);
         totalAttendance = view.findViewById(R.id.aggregateAttendance);
-        circleprog = view.findViewById(R.id.cicleprog);
+//        circleprog = view.findViewById(R.id.cicleprog);
         totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
         prfileImage.setEnabled(false);
-        circleprog.setMax(100);
-        circleprog.setProgress(0);
+//        circleprog.setMax(100);
+//        circleprog.setProgress(0);
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
@@ -119,7 +120,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
-                Picasso.get().load(uri).into(prfileImage);
+                url=uri;
 //                progressBar.setVisibility(View.GONE);
 
             }
@@ -132,18 +133,21 @@ public class HomeFragment extends Fragment {
             }
 
         });
+        if(url!=null)
+            Picasso.get().load(url).into(prfileImage);
+
 
         datachange();
 
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
         if (!pecentage.equals("NaN")){
-            totalAttendance.setText("Aggregate\nAttendance: "+pecentage+"%");
-            circleprog.setProgress((int)Float.parseFloat(pecentage));
+            totalAttendance.setText("Aggregate Attendance: "+pecentage+"%");
+//            circleprog.setProgress((int)Float.parseFloat(pecentage));
         }
         else {
-            totalAttendance.setText("Aggregate\nAttendance: 0.00%");
-            circleprog.setProgress(0);
+            totalAttendance.setText("Aggregate Attendance: 0.00%");
+//            circleprog.setProgress(0);
         }
 
         prfileImage.setOnClickListener(new View.OnClickListener() {
@@ -232,7 +236,8 @@ public class HomeFragment extends Fragment {
                 nameField.setText(name);
                 enrollNo.setText(rollNo);
                 branch.setText(college);
-
+                if(url!=null)
+                    Picasso.get().load(url).into(prfileImage);
 
             }
 
