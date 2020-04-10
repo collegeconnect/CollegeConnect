@@ -124,7 +124,6 @@
                 android:layout_below="@+id/textView4"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:layout_toEndOf="@+id/cicleprog"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Aggregate \nAttendance"
                 android:textColor="@color/newBlue"
