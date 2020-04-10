@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +38,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Random;
+
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -44,12 +47,19 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     TextView tv;
     GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
+    static int color;
     private  DatabaseHelper db;
+    Fragment homefrag = new HomeFragment();
+    Fragment attenfrag = new AttendanceFragment();
+    Fragment notefrag = new NotesFragment();
+    Fragment toolsfrag = new ToolsFragment();
+    Fragment locfrag = new ShareFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        SaveSharedPreference.setUser(getApplicationContext(),firebaseAuth.getCurrentUser().getDisplayName());
 
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
@@ -66,12 +76,14 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 timetable();
             }
         });
+        Random random  = new Random();
+        color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         db = new DatabaseHelper(this);
 
-        loadFragments(new HomeFragment());
+        loadFragments(homefrag);
 
         /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -86,6 +98,11 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);  */
+    }
+
+    public static int generatecolor(){
+
+        return color;
     }
 
     @Override
@@ -174,19 +191,19 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         switch (menuItem.getItemId()){
             case R.id.nav_home:
-                fragment = new HomeFragment();
+                fragment = homefrag;
                 break;
             case R.id.nav_attendance:
-                fragment = new AttendanceFragment();
+                fragment = attenfrag;
                 break;
             case R.id.nav_notes:
-                fragment = new NotesFragment();
+                fragment = notefrag;
                 break;
             case R.id.nav_tools:
-                fragment = new ToolsFragment();
+                fragment = toolsfrag;
                 break;
             case  R.id.nav_loc:
-                fragment=new ShareFragment();
+                fragment=locfrag;
                 break;
         }
         return loadFragments(fragment);

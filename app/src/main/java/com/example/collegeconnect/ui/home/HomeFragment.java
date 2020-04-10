@@ -26,6 +26,7 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
 import com.example.collegeconnect.Upload;
 import com.example.collegeconnect.User;
+import com.example.collegeconnect.navigation;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -100,6 +102,18 @@ public class HomeFragment extends Fragment {
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
+        String name = SaveSharedPreference.getUser(getActivity().getApplicationContext());
+        int space = name.indexOf(" ");
+        int color = navigation.generatecolor();
+        drawable = TextDrawable.builder().beginConfig()
+                .width(150)
+                .height(150)
+                .bold()
+                .endConfig()
+                .buildRound(name.substring(0,1)+name.substring(space+1,space+2),color);
+        prfileImage.setImageDrawable(drawable);
+
+
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -107,39 +121,13 @@ public class HomeFragment extends Fragment {
                 // Got the download URL for 'users/me/profile.png'
                 Picasso.get().load(uri).into(prfileImage);
 //                progressBar.setVisibility(View.GONE);
+
             }
 
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-
-                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
-                        String name = (String) map.get("Name");
-                        int space = name.indexOf(" ");
-
-                        Random random  = new Random();
-                        int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
-                        drawable = TextDrawable.builder().beginConfig()
-                                .width(150)
-                                .height(150)
-                                .bold()
-                                .endConfig()
-                                .buildRound(name.substring(0,1)+name.substring(space+1,space+2),color);
-                        prfileImage.setImageDrawable(drawable);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
 //                progressBar.setVisibility(View.GONE);
             }
 
