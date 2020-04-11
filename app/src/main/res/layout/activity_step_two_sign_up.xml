@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:ems="15"
-            android:hint="@string/collegename"
+            android:hint="BRANCH"
             android:inputType="textCapCharacters"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>

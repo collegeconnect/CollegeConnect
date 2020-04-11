@@ -6,28 +6,22 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.example.collegeconnect.Constants;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
-import com.example.collegeconnect.Upload;
 import com.example.collegeconnect.User;
 import com.example.collegeconnect.navigation;
-import com.github.lzyzsd.circleprogress.ArcProgress;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,13 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.util.Map;
-import java.util.Random;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
@@ -57,6 +47,7 @@ public class HomeFragment extends Fragment {
 //    ArcProgress circleprog;
     TextView tv, totalAttendance;
     EditText nameField,enrollNo, branch;
+    ImageButton imageButton;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -72,7 +63,7 @@ public class HomeFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
@@ -89,6 +80,7 @@ public class HomeFragment extends Fragment {
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);
         branch = view.findViewById(R.id.textView4);
+        imageButton = view.findViewById(R.id.imageButton);
         editDetails = view.findViewById(R.id.editDetails);
         submitDetails = view.findViewById(R.id.submitDetails);
         totalAttendance = view.findViewById(R.id.aggregateAttendance);
@@ -98,6 +90,7 @@ public class HomeFragment extends Fragment {
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
         prfileImage.setEnabled(false);
+        imageButton.setEnabled(false);
 //        circleprog.setMax(100);
 //        circleprog.setProgress(0);
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
@@ -150,7 +143,7 @@ public class HomeFragment extends Fragment {
 //            circleprog.setProgress(0);
         }
 
-        prfileImage.setOnClickListener(new View.OnClickListener() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent();
@@ -167,10 +160,11 @@ public class HomeFragment extends Fragment {
                 nameField.setEnabled(true);
                 enrollNo.setEnabled(true);
                 branch.setEnabled(true);
-                nameField.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
-                enrollNo.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
-                branch.setTextColor(R.color.common_google_signin_btn_text_dark_focused);
-                prfileImage.setEnabled(true);
+                nameField.setTextColor(Color.parseColor("#000000"));
+                enrollNo.setTextColor(Color.parseColor("#000000"));
+                branch.setTextColor(Color.parseColor("#000000"));
+                imageButton.setEnabled(true);
+                imageButton.setVisibility(View.VISIBLE);
                 editDetails.setEnabled(false);
                 editDetails.setVisibility(View.GONE);
                 submitDetails.setEnabled(true);
@@ -206,7 +200,8 @@ public class HomeFragment extends Fragment {
                 String clg = branch.getText().toString();
                 User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
                 nameField.setEnabled(false);
-                prfileImage.setEnabled(false);
+                imageButton.setEnabled(false);
+                imageButton.setVisibility(View.GONE);
                 enrollNo.setEnabled(false);
                 branch.setEnabled(false);
                 nameField.setTextColor(Color.parseColor("#138FF7"));

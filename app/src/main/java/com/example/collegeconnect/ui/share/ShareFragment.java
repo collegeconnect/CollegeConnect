@@ -103,7 +103,7 @@ public class ShareFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        bottomNavigationView.getMenu().findItem(R.id.nav_loc).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
 
 

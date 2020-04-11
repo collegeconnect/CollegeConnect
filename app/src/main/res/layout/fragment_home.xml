@@ -66,7 +66,7 @@
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
                 android:inputType="textCapCharacters"
-                android:text="COLLEGE"
+                android:text="BRANCH"
                 android:textAlignment="center"
                 android:textColor="@color/newBlue"
                 android:textStyle="bold"
@@ -128,6 +128,16 @@
                 android:text="Aggregate \nAttendance"
                 android:textColor="@color/newBlue"
                 android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@id/imageView3"
+                android:layout_alignBottom="@id/imageView3"
+                android:background="@android:color/transparent"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_add_circle_24px" />
 
         </RelativeLayout>
 

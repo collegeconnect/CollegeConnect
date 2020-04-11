@@ -194,9 +194,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             case R.id.nav_tools:
                 fragment = toolsfrag;
                 break;
-            case  R.id.nav_loc:
-                fragment=locfrag;
-                break;
         }
         return loadFragments(fragment);
     }
