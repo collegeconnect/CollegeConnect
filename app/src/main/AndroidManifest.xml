@@ -14,12 +14,15 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StepTwoSignUp"></activity>
+        <activity android:name=".StepTwoSignUp"
+            android:screenOrientation="portrait" />
         <activity android:name=".DownloadNotes"
-            android:label=" "
+            android:label="DownloadNotes"
+            android:screenOrientation="portrait"
             android:parentActivityName=".navigation"/>
         <activity android:name=".UploadNotes"
             android:label="Upload"
+            android:screenOrientation="portrait"
             android:parentActivityName=".navigation"/>
         <activity
             android:name=".TimeTable"
@@ -38,7 +41,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:parentActivityName=".navigation"/>
-        <activity android:name=".Splash">
+        <activity android:name=".Splash"  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
