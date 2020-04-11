@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,7 +29,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
-import com.google.firebase.database.core.SyncTree;
 
 public class MainActivity extends AppCompatActivity {
 //    private FirebaseAuth.AuthStateListener authStateListener;
@@ -67,15 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
-//        authStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (firebaseAuth.getCurrentUser()!=null) {
-//                    Intent intent = new Intent(MainActivity.this,navigation.class);
-//                    startActivity(intent);
-//                }
-//            }
-//        };
         findViewById(R.id.googleSign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
 //                            updateUI(null);
                         }
 
-                        // ...
                     }
                 });
     }
@@ -267,8 +254,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
-
-//        firebaseAuth.addAuthStateListener(authStateListener );
     }
 
     public void forgotpassword(View view) {

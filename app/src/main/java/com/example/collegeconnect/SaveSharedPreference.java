@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.util.ConcurrentModificationException;
-
 public class SaveSharedPreference {
     private static final String PREF_USER_NAME= "username";
     private static final String USER = "user";

@@ -48,8 +48,10 @@
         android:id="@+id/bottomNav"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bottom_nav"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/activity_navigation_drawer" />
 
@@ -59,16 +61,21 @@
             android:layout_height="match_parent"
             android:layout_above="@id/bottomNav"
             android:layout_below="@+id/app_bar">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tint="@null"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="10dp"
-                android:backgroundTint="#47ABFF"
-                app:srcCompat="@drawable/time2" />
         </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomNav"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#47ABFF"
+        android:tint="@null"
+        app:srcCompat="@drawable/time2" />
 
 </RelativeLayout>

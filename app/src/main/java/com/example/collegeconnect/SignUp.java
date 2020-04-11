@@ -5,24 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +24,6 @@ public class SignUp extends AppCompatActivity {
     private TextInputLayout password, name, email;
     private Button button;
     private FirebaseAuth mAuth;
-    private static String TAG = "Sign Up";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

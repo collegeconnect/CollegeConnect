@@ -1,9 +1,7 @@
 package com.example.collegeconnect;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.example.collegeconnect.ui.home.HomeFragment;
 import com.example.collegeconnect.ui.notes.NotesFragment;
@@ -37,7 +30,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Random;
 
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -130,7 +122,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         // Setting Dialog Title
         builder.setTitle("Confirm SignOut");
         // Setting Dialog Message
-        builder.setMessage("Are you sure you want to Signout?\nAll your saved data wil be lost");
+        builder.setMessage("Are you sure you want to Signout?\nAll your saved data wil be lost!");
 
         builder.setPositiveButton("Logout",
                 new DialogInterface.OnClickListener() {
@@ -207,9 +199,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 break;
         }
         return loadFragments(fragment);
-    }
-    public void setTitle(String title) {
-        tv.setText(title);
     }
 
     @Override

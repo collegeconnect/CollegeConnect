@@ -9,15 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.github.lzyzsd.circleprogress.ArcProgress;
-
 import java.util.ArrayList;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHolder> {
@@ -25,7 +21,6 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     private ArrayList<String> subjects;
     private Context context;
     private DatabaseHelper dB;
-    public float percent;
     public int per;
 
     public SubjectAdapter(ArrayList<String> subjects, Context context) {
@@ -173,8 +168,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageButton increase, decrease, delete;
-        public TextView ratio, percecntage, heading, tv_bunk;
-        public ProgressBar progressBar;
+        public TextView ratio, heading, tv_bunk;
         public ArcProgress circleProgress;
 
         public ViewHolder(@NonNull View itemView) {

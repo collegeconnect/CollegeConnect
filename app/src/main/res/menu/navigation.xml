@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_logout"
-        android:icon="@drawable/log"
+        android:icon="@drawable/lg"
         android:orderInCategory="1"
         android:title="@string/log_out"
         app:showAsAction="ifRoom" />

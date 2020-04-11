@@ -171,4 +171,17 @@
         app:layout_constraintStart_toStartOf="@+id/editText2"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="249dp"
+        android:layout_height="151dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/ubuntu_regular"
+        android:text="College \nConnect."
+        android:textColor="@color/colorwhite"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

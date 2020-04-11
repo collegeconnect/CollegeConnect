@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,7 +25,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ortiz.touchview.TouchImageView;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -40,7 +38,6 @@ public class TimeTable extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     private StorageReference storageRef;
-    private int dot;
     private Uri filePath;
 
     @Override
