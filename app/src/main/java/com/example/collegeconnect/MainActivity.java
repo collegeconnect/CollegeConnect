@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                             SaveSharedPreference.setUserName(MainActivity.this, Stremail);
                             Intent intent = new Intent(MainActivity.this, navigation.class);
                             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
                         } else
                             Toast.makeText(MainActivity.this, "Email Not Verified! Please verify before continuing", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
