@@ -158,6 +158,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                         SaveSharedPreference.clearUserName(getApplication());
 
                         startActivity(i);
+                        finish();
                     }
                 });
 

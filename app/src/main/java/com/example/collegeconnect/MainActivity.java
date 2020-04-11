@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                             if(newuser){
 
                                 startActivity(new Intent(getApplicationContext(),StepTwoSignUp.class));
+                                finish();
 
                             }else{
 
