@@ -54,22 +54,27 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(navigation.this).substring(0,dot));
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
-                String name = (String) map.get("Name");
-                SaveSharedPreference.setUser(getApplicationContext(),name);
-            }
+        if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
+            SaveSharedPreference.setUser(navigation.this,FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        else {
+            int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
+            databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(navigation.this).substring(0, dot));
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    String name = (String) map.get("Name");
+                    SaveSharedPreference.setUser(navigation.this, name);
+                }
 
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
