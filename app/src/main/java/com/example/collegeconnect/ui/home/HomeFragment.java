@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
     TextDrawable drawable;
-//    ArcProgress circleprog;
     TextView tv, totalAttendance;
     EditText nameField,enrollNo, branch;
     ImageButton imageButton;
@@ -53,7 +52,7 @@ public class HomeFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private DatabaseHelper mydb;
-    Uri url;
+    Uri uri;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
@@ -89,7 +88,6 @@ public class HomeFragment extends Fragment {
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
-        prfileImage.setEnabled(false);
         imageButton.setEnabled(false);
 //        circleprog.setMax(100);
 //        circleprog.setProgress(0);
@@ -113,7 +111,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
-                url=uri;
+                HomeFragment.this.uri = uri;
+                Picasso.get().load(uri).into(prfileImage);
 //                progressBar.setVisibility(View.GONE);
 
             }
@@ -126,9 +125,6 @@ public class HomeFragment extends Fragment {
             }
 
         });
-        if(url!=null)
-            Picasso.get().load(url).into(prfileImage);
-
 
         datachange();
 
@@ -224,15 +220,12 @@ public class HomeFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
-                String mail = (String) map.get("Email");
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
                 String college = (String) map.get("Clgname");
                 nameField.setText(name);
                 enrollNo.setText(rollNo);
                 branch.setText(college);
-                if(url!=null)
-                    Picasso.get().load(url).into(prfileImage);
 
             }
 
@@ -299,5 +292,6 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+        Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
     }
 }
