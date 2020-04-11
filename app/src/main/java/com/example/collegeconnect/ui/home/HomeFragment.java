@@ -112,6 +112,7 @@ public class HomeFragment extends Fragment {
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
                 HomeFragment.this.uri = uri;
+                if (uri!=null)
                 Picasso.get().load(uri).into(prfileImage);
 //                progressBar.setVisibility(View.GONE);
 
@@ -131,11 +132,11 @@ public class HomeFragment extends Fragment {
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
         if (!pecentage.equals("NaN")){
-            totalAttendance.setText("Aggregate Attendance: "+pecentage+"%");
+            totalAttendance.setText("Aggregate\nAttendance: "+pecentage+"%");
 //            circleprog.setProgress((int)Float.parseFloat(pecentage));
         }
         else {
-            totalAttendance.setText("Aggregate Attendance: 0.00%");
+            totalAttendance.setText("Aggregate\nAttendance: 0.00%");
 //            circleprog.setProgress(0);
         }
 
@@ -292,6 +293,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+        if (HomeFragment.this.uri!=null)
         Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
     }
 }

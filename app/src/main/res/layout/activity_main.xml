@@ -173,8 +173,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="249dp"
-        android:layout_height="151dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/ubuntu_regular"
         android:text="College \nConnect."

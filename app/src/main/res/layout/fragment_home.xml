@@ -15,7 +15,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="90dp"
                 app:civ_border_color="#8A8989"
                 app:layout_constraintTop_toTopOf="parent" />
 
