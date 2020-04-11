@@ -10,7 +10,6 @@
         android:id="@+id/roomLocator"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_below="@id/subjectName"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"

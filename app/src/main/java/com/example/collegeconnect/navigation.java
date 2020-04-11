@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.example.collegeconnect.ui.home.HomeFragment;
 import com.example.collegeconnect.ui.notes.NotesFragment;
-import com.example.collegeconnect.ui.share.ShareFragment;
 import com.example.collegeconnect.ui.tools.ToolsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,13 +28,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.util.Map;
 import java.util.Random;
 
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-    TextView tv;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference;
     GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
     static int color;
@@ -45,21 +49,33 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     Fragment attenfrag = new AttendanceFragment();
     Fragment notefrag = new NotesFragment();
     Fragment toolsfrag = new ToolsFragment();
-    Fragment locfrag = new ShareFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        SaveSharedPreference.setUser(getApplicationContext(),firebaseAuth.getCurrentUser().getDisplayName());
+        int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
+        databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(navigation.this).substring(0,dot));
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                String name = (String) map.get("Name");
+                SaveSharedPreference.setUser(getApplicationContext(),name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
-
-        TextView tv=findViewById(R.id.tvTitle);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setColorFilter(getResources().getColor(R.color.colorwhite));
         fab.setOnClickListener(new View.OnClickListener() {
