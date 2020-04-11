@@ -293,7 +293,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-        if (HomeFragment.this.uri!=null)
-        Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
+//        if (HomeFragment.this.uri!=null)
+//        Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
     }
 }
