@@ -110,7 +110,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         {
             case R.id.action_logout :
                 Dialog();
-                db.deleteall();
                 return true;
 
             default:
@@ -134,6 +133,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        db.deleteall();
                         SaveSharedPreference.clearUserName(getApplication());
 
                         startActivity(i);

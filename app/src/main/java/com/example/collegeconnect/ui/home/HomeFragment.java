@@ -94,16 +94,21 @@ public class HomeFragment extends Fragment {
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
-        String name = SaveSharedPreference.getUser(getActivity().getApplicationContext());
-        int space = name.indexOf(" ");
-        int color = navigation.generatecolor();
-        drawable = TextDrawable.builder().beginConfig()
-                .width(150)
-                .height(150)
-                .bold()
-                .endConfig()
-                .buildRound(name.substring(0,1)+name.substring(space+1,space+2),color);
-        prfileImage.setImageDrawable(drawable);
+        try {
+            String name = SaveSharedPreference.getUser(getActivity());
+            int space = name.indexOf(" ");
+            int color = navigation.generatecolor();
+            drawable = TextDrawable.builder().beginConfig()
+                    .width(150)
+                    .height(150)
+                    .bold()
+                    .endConfig()
+                    .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+            prfileImage.setImageDrawable(drawable);
+        }
+        catch (Exception e){
+
+        }
 
 
 
