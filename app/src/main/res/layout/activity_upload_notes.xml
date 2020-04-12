@@ -113,62 +113,24 @@
         android:id="@+id/selectNotes"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/author"
+        android:layout_below="@id/spinnerUnit"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_design3"
         android:gravity="center"
-        android:text="Select"
+        android:text="Select File"
         android:textColor="@color/colorwhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="465dp" />
 
 
-    <android.widget.Button
-        android:id="@+id/uploadNotes"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/selectNotes"
-        android:layout_alignStart="@id/selectNotes"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button_design3"
-        android:text="Upload"
-        android:textColor="@color/colorwhite" />
-
-    <EditText
-        android:id="@+id/FileName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinnerUnit"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="File Name"
-        android:inputType="textPersonName"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/FileName"
-        android:layout_alignStart="@id/FileName"
-        android:layout_alignEnd="@id/FileName"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Author" />
-
     <ProgressBar
         android:id="@+id/UploadNotesProgressBar"
         android:layout_width="250dp"
         android:progressTint="#00ff00"
         android:layout_height="wrap_content"
-        android:layout_below="@id/uploadNotes"
+        android:layout_below="@id/selectNotes"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         style="?android:attr/progressBarStyleHorizontal"

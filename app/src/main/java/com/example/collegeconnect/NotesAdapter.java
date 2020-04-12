@@ -36,7 +36,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Downloads = " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Views = " + String.valueOf(notes.getDownload()));
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,9 +48,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         notes.getSemester(),
                         notes.getBranch(),
                         notes.getUnit(),
-                        notes.getAuthor(), downloads, notes.getUrl());
+                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp());
                 DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-                mDatabaseReference.child(notes.getName()).setValue(upload);
+                mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(Uri.parse(notes.getUrl()), "application/pdf");
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -28,13 +28,14 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class UploadNotes extends AppCompatActivity {
+public class UploadNotes extends AppCompatActivity implements NotesDialog.uploadFileListener{
 
     final static int PICK_PDF_CODE = 2342;
+    private Intent Data;
 
     //these are the views
     TextView textViewStatus;
-    EditText editTextFilename,author;
+//    EditText editTextFilename,author;
     ProgressBar progressBar;
     Button upload;
     Spinner semester, branch, course, unit;
@@ -63,12 +64,12 @@ public class UploadNotes extends AppCompatActivity {
         branch = findViewById(R.id.spinnerBranch);
         course = findViewById(R.id.spinnerCourse);
         unit = findViewById(R.id.spinnerUnit);
-        editTextFilename = findViewById(R.id.FileName);
+//        editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
         progressBar.setProgress(0);
         upload = findViewById(R.id.selectNotes);
-        author=findViewById(R.id.author);
+//        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -138,17 +139,21 @@ public class UploadNotes extends AppCompatActivity {
                 String str1  = str.substring(slash+1,str.length()-1);
                 if(str1.contains(".")) {
                     int dot = str1.indexOf(".");
-                    editTextFilename.setText(str1.substring(0, dot));
+//                    editTextFilename.setText(str1.substring(0, dot));
                 }
                 else
-                    editTextFilename.setText(str);
+//                    editTextFilename.setText(str);
                 //uploading the file
-                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        uploadFile(data.getData());
-                    }
-                });
+                UploadNotes.this.Data = data;
+                NotesDialog notesDialog = new NotesDialog();
+                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
+
+//                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        uploadFile(data.getData());
+//                    }
+//                });
 
             }else{
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
@@ -160,7 +165,7 @@ public class UploadNotes extends AppCompatActivity {
     //this method is uploading the file
     //the code is same as the previous tutorial
     //so we are not explaining it
-    private void uploadFile(Uri data) {
+    private void uploadFile(Uri data, final String filename, final String authorname) {
 
         progressBar.setVisibility(View.VISIBLE);
         StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + System.currentTimeMillis());
@@ -175,12 +180,13 @@ public class UploadNotes extends AppCompatActivity {
                         Task<Uri> downlaoduri = taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                Upload upload = new Upload(editTextFilename.getText().toString(),
+                                Upload upload = new Upload(filename,
                                         course.getSelectedItem().toString(),
                                         semester.getSelectedItem().toString(),
                                         branch.getSelectedItem().toString(),
                                         unit.getSelectedItem().toString(),
-                                        author.getText().toString(),0, uri.toString());
+                                        authorname,0, uri.toString(),
+                                        System.currentTimeMillis());
                                 mDatabaseReference.child(System.currentTimeMillis()+"").setValue(upload);
                             }
                         });
@@ -207,6 +213,16 @@ public class UploadNotes extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void applyTexts(String filename, String authorname) {
+
+        if (UploadNotes.this.Data.getData() == null){
+            Toast.makeText(this, "data is null", Toast.LENGTH_SHORT).show();
+        }
+        else
+        uploadFile(UploadNotes.this.Data.getData(),filename,authorname);
     }
 }
 

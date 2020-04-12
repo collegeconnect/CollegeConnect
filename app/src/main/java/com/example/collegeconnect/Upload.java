@@ -3,6 +3,7 @@ package com.example.collegeconnect;
 public class Upload {
 
     public String name;
+    public long timestamp;
     public String course;
     public String semester;
     public String branch;
@@ -16,7 +17,7 @@ public class Upload {
     public Upload() {
     }
 
-    public Upload(String name, String course, String semester, String branch, String unit,String author, int download, String url) {
+    public Upload(String name, String course, String semester, String branch, String unit,String author, int download, String url, long timestamp) {
         this.name = name;
         this.course = course;
         this.semester = semester;
@@ -25,6 +26,7 @@ public class Upload {
         this.author = author;
         this.download = download;
         this.url = url;
+        this.timestamp = timestamp;
     }
 
     public String getCourse() {
@@ -57,5 +59,9 @@ public class Upload {
 
     public String getUrl() {
         return url;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 }
