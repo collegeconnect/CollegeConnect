@@ -1,8 +1,18 @@
 package com.example.collegeconnect;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +36,8 @@ import com.example.collegeconnect.ui.tools.ToolsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +47,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 import java.util.Map;
 import java.util.Random;
 
@@ -49,11 +66,38 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     Fragment attenfrag = new AttendanceFragment();
     Fragment notefrag = new NotesFragment();
     Fragment toolsfrag = new ToolsFragment();
+    public static String CHANNEL_ID = "Notification";
+    private static String CHANNEL_NAME= "Notification Channel";
+    private static String CHANNEL_DESC = "app notification";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+            channel.setLightColor(Color.WHITE);
+            channel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.setShowBadge(true);
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_COMMUNICATION_INSTANT)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+            channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), audioAttributes);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        
+        if(getIntent().getStringExtra("fragment")!=null && getIntent().getStringExtra("fragment").equals("attenfrag")){
+            Log.d("navigation", "onCreate: attenfrag called from notificaion");
+            loadFragments(new AttendanceFragment());
+        }
+
 
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
             SaveSharedPreference.setUser(navigation.this,FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
@@ -89,6 +133,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             @Override
             public void onClick(View view) {
                 timetable();
+//                Notification.displayNotificaton(getApplicationContext(),"Title","body");
             }
         });
 
@@ -113,6 +158,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);  */
     }
+
 
     public static int generatecolor(){
 

@@ -77,7 +77,8 @@ public class TimeTable extends AppCompatActivity {
                 image = res.getBlob(1);
                 bit = getImage(image);
                 imageView.setImageBitmap(bit);
-                imageView.setMaxZoom(3);
+//                imageView.setImageBitmap(bit);
+//                imageView.setMaxZoom(3);
             }
         }
 
@@ -165,7 +166,7 @@ public class TimeTable extends AppCompatActivity {
     }
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         return stream.toByteArray();
     }
 
