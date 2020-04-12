@@ -163,7 +163,7 @@ public class UploadNotes extends AppCompatActivity {
     private void uploadFile(Uri data) {
 
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + editTextFilename.getText().toString().toLowerCase());
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + System.currentTimeMillis());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
@@ -181,7 +181,7 @@ public class UploadNotes extends AppCompatActivity {
                                         branch.getSelectedItem().toString(),
                                         unit.getSelectedItem().toString(),
                                         author.getText().toString(),0, uri.toString());
-                                mDatabaseReference.child(editTextFilename.getText().toString()).setValue(upload);
+                                mDatabaseReference.child(System.currentTimeMillis()+"").setValue(upload);
                             }
                         });
 
