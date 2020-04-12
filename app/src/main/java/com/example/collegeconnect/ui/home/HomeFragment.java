@@ -94,23 +94,22 @@ public class HomeFragment extends Fragment {
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
-        try {
-            String name = SaveSharedPreference.getUser(getActivity());
-            int space = name.indexOf(" ");
-            int color = navigation.generatecolor();
-            drawable = TextDrawable.builder().beginConfig()
-                    .width(150)
-                    .height(150)
-                    .bold()
-                    .endConfig()
-                    .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-            prfileImage.setImageDrawable(drawable);
-        }
-        catch (Exception e){
-
-        }
-
-
+//        try {
+//            String name = SaveSharedPreference.getUser(getActivity());
+//            int space = name.indexOf(" ");
+//            int color = navigation.generatecolor();
+//            drawable = TextDrawable.builder().beginConfig()
+//                    .width(150)
+//                    .height(150)
+//                    .bold()
+//                    .endConfig()
+//                    .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+//            prfileImage.setImageDrawable(drawable);
+//        }
+//        catch (Exception e){
+//
+//        }
+        datachange();
 
         storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -131,8 +130,6 @@ public class HomeFragment extends Fragment {
             }
 
         });
-
-        datachange();
 
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
@@ -232,6 +229,21 @@ public class HomeFragment extends Fragment {
                 nameField.setText(name);
                 enrollNo.setText(rollNo);
                 branch.setText(college);
+                try {
+                    int space = name.indexOf(" ");
+                    int color = navigation.generatecolor();
+                    drawable = TextDrawable.builder().beginConfig()
+                            .width(150)
+                            .height(150)
+                            .bold()
+                            .endConfig()
+                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                    prfileImage.setImageDrawable(drawable);
+                }
+                catch (Exception e){
+
+                }
+
 
             }
 
