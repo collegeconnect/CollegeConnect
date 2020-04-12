@@ -84,7 +84,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setVisibility(View.INVISIBLE);
         fab.setColorFilter(getResources().getColor(R.color.colorwhite));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
