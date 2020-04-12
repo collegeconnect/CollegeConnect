@@ -84,7 +84,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="10dp"
         android:background="#fff"
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
@@ -96,14 +96,14 @@
         android:id="@+id/submitDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@android:color/holo_green_light"
+        app:borderWidth="0dp"
         android:enabled="false"
         android:visibility="gone"
-        app:borderWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/check" />
 
     <!--            <com.github.lzyzsd.circleprogress.ArcProgress-->
@@ -144,8 +144,8 @@
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/imageView3"
-        android:layout_alignBottom="@id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
+        app:layout_constraintEnd_toEndOf="@id/imageView3"
         android:background="@android:color/transparent"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_add_circle_24px" />

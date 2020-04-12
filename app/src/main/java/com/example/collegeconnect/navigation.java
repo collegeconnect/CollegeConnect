@@ -75,6 +75,8 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 }
             });
         }
+        Random random  = new Random();
+        color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
@@ -82,6 +84,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         Toolbar toolbar = findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
         fab.setColorFilter(getResources().getColor(R.color.colorwhite));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +92,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 timetable();
             }
         });
-        Random random  = new Random();
-        color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);

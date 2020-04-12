@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +18,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -25,7 +31,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.ortiz.touchview.TouchImageView;
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 public class TimeTable extends AppCompatActivity {
@@ -76,20 +85,45 @@ public class TimeTable extends AppCompatActivity {
 //                progressBar.setVisibility(View.GONE);
 //            }
 //        });
-        byte[] image;
-        Bitmap bit;
-        //load from sqlite
-        Cursor res=db.viewAllImage();
-        if(res.getCount()==0)
-            Toast.makeText(getApplicationContext(),"No time table found",Toast.LENGTH_LONG).show();
-        else{
-            while(res.moveToNext()) {
-                image = res.getBlob(1);
-                bit = getImage(image);
-                imageView.setImageBitmap(bit);
-                imageView.setMaxZoom(3);
+        if (ContextCompat.checkSelfPermission(TimeTable.this, Manifest.permission.READ_EXTERNAL_STORAGE )
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(TimeTable.this,
+                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    100);
+        }
+        else {
+            if (SaveSharedPreference.getTt(TimeTable.this).equals("")) {
+                Toast.makeText(getApplicationContext(), "No time table found", Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    Toast.makeText(getApplicationContext(),SaveSharedPreference.getTt(TimeTable.this),Toast.LENGTH_LONG).show();
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(SaveSharedPreference.getTt(TimeTable.this)));
+//                Picasso.get().load(bitmap).into(imageView);
+                    imageView.setImageBitmap(bitmap);
+                } catch (Exception e) {
+                    Log.d("TT", "onCreate: " + e.getMessage());
+                }
+
             }
         }
+//        }
+//        byte[] image;
+//        Bitmap bit;
+//        //load from sqlite
+//        Cursor res=db.viewAllImage();
+//        if(res.getCount()==0)
+//            Toast.makeText(getApplicationContext(),"No time table found",Toast.LENGTH_LONG).show();
+//        else{
+//            while(res.moveToNext()) {
+//                image = res.getBlob(1);
+//                bit = getImage(image);
+//                imageView.setImageBitmap(bit);
+//                imageView.setMaxZoom(3);
+//            }
+//        }
 
 
 
@@ -120,7 +154,7 @@ public class TimeTable extends AppCompatActivity {
     {
         Intent intent =new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_PICK);
         startActivityForResult(Intent.createChooser(intent,"Select an image"),GET_FROM_GALLERY);
     }
 
@@ -191,20 +225,29 @@ public class TimeTable extends AppCompatActivity {
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null) {
             filePath = data.getData();
+//            String path = data.getData().getPath();
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+//                imageView.setImageBitmap(bitmap);
+////                UploadImage();
+//                byte[] image1 = getBytes(bitmap);
+//                boolean insert = db.insertImage(image1);
+//                db.updateImage(image1);
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+//                Log.d("TT", "onActivityResult: " + path);
+                SaveSharedPreference.setTt(TimeTable.this, filePath.toString());
+//            File f = new File(SaveSharedPreference.getTt(TimeTable.this));
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(SaveSharedPreference.getTt(TimeTable.this)));
+                Toast.makeText(getApplicationContext(),SaveSharedPreference.getTt(TimeTable.this),Toast.LENGTH_LONG).show();
+//                Picasso.get().load(bitmap).into(imageView);
                 imageView.setImageBitmap(bitmap);
-//                UploadImage();
-                byte[] image1 = getBytes(bitmap);
-                boolean insert = db.insertImage(image1);
-                db.updateImage(image1);
+            }catch (Exception e){
+
+            }
 //                if(insert)
 //                    Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_LONG).show();
 //                else
 //                    Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 }

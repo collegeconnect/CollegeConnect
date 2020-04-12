@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,12 +66,19 @@ public class DownloadNotes extends AppCompatActivity {
                         }
                     }
                 }
-                Collections.reverse(uploadList);
-                recyclerView = findViewById(R.id.downloadRecycler);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
-                notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
-                recyclerView.setAdapter(notesAdapter);
+                if(uploadList.isEmpty()){
+//                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.relativeshit),"No PDFs Found",Snackbar.LENGTH_LONG).show();
+                }
+                else {
+
+                    Collections.reverse(uploadList);
+                    recyclerView = findViewById(R.id.downloadRecycler);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
+                    notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
+                    recyclerView.setAdapter(notesAdapter);
+                }
             }
 
             @Override
