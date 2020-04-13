@@ -186,8 +186,9 @@ public class UploadNotes extends AppCompatActivity implements NotesDialog.upload
                                         branch.getSelectedItem().toString(),
                                         unit.getSelectedItem().toString(),
                                         authorname,0, uri.toString(),
-                                        System.currentTimeMillis());
-                                mDatabaseReference.child(System.currentTimeMillis()+"").setValue(upload);
+                                        System.currentTimeMillis(),
+                                        SaveSharedPreference.getUserName(UploadNotes.this));
+                                mDatabaseReference.child(upload.getTimestamp()+"").setValue(upload);
                             }
                         });
 

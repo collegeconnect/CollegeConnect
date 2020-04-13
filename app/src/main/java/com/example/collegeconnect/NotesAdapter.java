@@ -63,7 +63,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         notes.getSemester(),
                         notes.getBranch(),
                         notes.getUnit(),
-                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp());
+                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail());
                 DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
                 mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
                 Intent intent = new Intent(Intent.ACTION_VIEW);

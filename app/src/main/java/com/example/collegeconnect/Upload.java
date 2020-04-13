@@ -5,6 +5,7 @@ public class Upload {
     public String name;
     public long timestamp;
     public String course;
+    public String uploaderMail;
     public String semester;
     public String branch;
     public String unit;
@@ -17,7 +18,7 @@ public class Upload {
     public Upload() {
     }
 
-    public Upload(String name, String course, String semester, String branch, String unit,String author, int download, String url, long timestamp) {
+    public Upload(String name, String course, String semester, String branch, String unit,String author, int download, String url, long timestamp, String mail) {
         this.name = name;
         this.course = course;
         this.semester = semester;
@@ -27,6 +28,7 @@ public class Upload {
         this.download = download;
         this.url = url;
         this.timestamp = timestamp;
+        this.uploaderMail = mail;
     }
 
     public String getCourse() {
@@ -55,6 +57,10 @@ public class Upload {
 
     public String getName() {
         return name;
+    }
+
+    public String getUploaderMail() {
+        return uploaderMail;
     }
 
     public String getUrl() {
