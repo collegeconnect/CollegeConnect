@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -15,13 +16,10 @@ import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
@@ -94,6 +92,59 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 popup.show();
             }
         });
+
+        holder.tags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
+                View view = inflater.inflate(R.layout.layout_tag_dialog, null);
+                final ArrayList<String> selectedTags;
+                selectedTags = new ArrayList<>();
+                Button etu = view.findViewById(R.id.etuTag);
+                Button shortt = view.findViewById(R.id.shortTag);
+                Button longt = view.findViewById(R.id.longTag);
+                Button ttp = view.findViewById(R.id.ttpTag);
+                Button doneButton = view.findViewById(R.id.doneButton);
+
+                etu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedTags.add("Easy to understand");
+                    }
+                });
+                shortt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedTags.add("Short");
+                    }
+                });
+                longt.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedTags.add("Long");
+                    }
+                });
+                ttp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        selectedTags.add("To the point");
+                    }
+                });
+                doneButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(context, selectedTags.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
     }
 
     @Override
@@ -105,6 +156,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         TextView title,author,noOfDown;
         ImageButton report;
+        Button tags;
         RelativeLayout itv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -114,6 +166,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             report = itemView.findViewById(R.id.reportButton);
             noOfDown = itemView.findViewById(R.id.download);
             itv = itemView.findViewById(R.id.relate);
+            tags = itemView.findViewById(R.id.addTags);
         }
     }
     @Override
