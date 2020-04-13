@@ -8,6 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -22,14 +24,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
     private Context context;
     private ArrayList<Upload> noteslist;
+    private ArrayList<Upload> noteslistfull;
 
     public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
         this.context = context;
         this.noteslist = noteslist;
+        noteslistfull = new ArrayList<>(noteslist);
     }
 
     @NonNull
@@ -108,4 +112,37 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             itv = itemView.findViewById(R.id.relate);
         }
     }
+    @Override
+    public Filter getFilter() {
+        return notesfilter;
+    }
+    private Filter notesfilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<Upload> filteredList = new ArrayList<>();
+            if(constraint == null || constraint.length()==0){
+                filteredList.addAll(noteslistfull);
+            }
+            else
+            {
+                String filterpattern = constraint.toString().toLowerCase().trim();
+                for (Upload item: noteslistfull){
+                    if(item.getName().toLowerCase().contains(filterpattern) || item.getAuthor().toLowerCase().contains(filterpattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+             FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            noteslist.clear();
+            noteslist.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
 }
