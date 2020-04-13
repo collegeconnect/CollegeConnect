@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DownloadNotes extends AppCompatActivity {
+public class DownloadNotes extends AppCompatActivity implements ReportsDialog.reportNotesListener{
 
     public static final String EXTRA_COURSE = "course";
     public static final String EXTRA_BRANCH = "branch";
@@ -35,6 +36,8 @@ public class DownloadNotes extends AppCompatActivity {
     static DatabaseReference mDatabaseReference;
     RecyclerView recyclerView;
     NotesAdapter notesAdapter;
+    private DatabaseReference DatabaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +107,10 @@ public class DownloadNotes extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.search_action);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setQueryHint("Search by Topic name or Author");
+        searchView.setQueryHint("Search by Name or Author");
         EditText searchedittext = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchedittext.setTextColor(Color.BLACK);
-        searchedittext.setHintTextColor(Color.GRAY);
+        searchedittext.setTextColor(Color.WHITE);
+        searchedittext.setHintTextColor(Color.parseColor("#50F3F9FE"));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -121,5 +124,14 @@ public class DownloadNotes extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    public void submitReport(String text, long timeStamp) {
+        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
+        NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(this),text,timeStamp);
+        DatabaseReference.child(System.currentTimeMillis()+"").setValue(notesReports);
+        Snackbar.make(findViewById(R.id.relativeshit),"Your issues has been reported.",Snackbar.LENGTH_LONG).show();
+//        Toast.makeText(this, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
     }
 }

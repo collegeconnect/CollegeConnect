@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
@@ -49,7 +51,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Views = " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Downloads = " + String.valueOf(notes.getDownload()));
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +84,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
                             case R.id.report:
-                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
+                                ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
+                                reportsDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"Report Dialog");
                         }
                         return true;
                     }

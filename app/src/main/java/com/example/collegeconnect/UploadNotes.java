@@ -219,7 +219,7 @@ public class UploadNotes extends AppCompatActivity implements NotesDialog.upload
     public void applyTexts(String filename, String authorname) {
 
         if (UploadNotes.this.Data.getData() == null){
-            Toast.makeText(this, "data is null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Data is null", Toast.LENGTH_SHORT).show();
         }
         else
         uploadFile(UploadNotes.this.Data.getData(),filename,authorname);

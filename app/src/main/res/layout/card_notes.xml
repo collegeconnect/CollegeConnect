@@ -59,7 +59,7 @@
                 android:layout_below="@id/authorname"
                 android:layout_toEndOf="@id/pdfview"
                 android:gravity="left"
-                android:text="No. of Downloads = 10"
+                android:text="No. of Downloads = 0"
                 android:textColor="#AAA8A8" />
         </RelativeLayout>
 
