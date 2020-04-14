@@ -1,6 +1,7 @@
 package com.example.collegeconnect;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,14 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String tag = tags.get(position);
 //        Toast.makeText(context, tag, Toast.LENGTH_SHORT).show();
+        if(tag.toLowerCase().equals("long"))
+            holder.textView.setBackgroundColor(Color.RED);
+        if(tag.toLowerCase().equals("easy to understand"))
+            holder.textView.setBackgroundColor(Color.GREEN);
+        if(tag.toLowerCase().equals("short"))
+            holder.textView.setBackgroundColor(Color.YELLOW);
+        if(tag.toLowerCase().equals("to the point"))
+            holder.textView.setBackgroundColor(Color.CYAN);
         holder.textView.setText(tag);
     }
 

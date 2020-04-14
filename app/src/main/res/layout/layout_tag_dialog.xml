@@ -42,15 +42,15 @@
         android:background="@drawable/button_design"
         android:text="To the point" />
 
-    <android.widget.Button
-        android:id="@+id/doneButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ttpTag"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_design2"
-        android:text="Done" />
+<!--    <android.widget.Button-->
+<!--        android:id="@+id/doneButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/ttpTag"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/button_design2"-->
+<!--        android:text="Done" />-->
 
     <TextView
         android:id="@+id/tagsHeading"

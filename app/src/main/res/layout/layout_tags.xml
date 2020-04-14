@@ -11,6 +11,7 @@
         android:background="@drawable/buttonlayout2"
         android:gravity="center"
         android:padding="5dp"
+        android:textColor="@android:color/black"
         android:drawableLeft="@drawable/tag"
         android:text="TAG"
         android:textAlignment="center"

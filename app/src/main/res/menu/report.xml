@@ -5,7 +5,7 @@
         android:id="@+id/report"
         android:title="Report" />
     <item
-        android:id="@+id/tag"
+        android:id="@+id/tagover"
         android:title="Tag"/>
 
 </menu>

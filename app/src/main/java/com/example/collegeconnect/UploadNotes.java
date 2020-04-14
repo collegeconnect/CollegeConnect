@@ -33,6 +33,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+
 public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
@@ -280,7 +282,7 @@ public class UploadNotes extends AppCompatActivity {
                                         unit.getSelectedItem().toString(),
                                         authorname,0, uri.toString(),
                                         System.currentTimeMillis(),
-                                        SaveSharedPreference.getUserName(UploadNotes.this));
+                                        SaveSharedPreference.getUserName(UploadNotes.this),new ArrayList(){});
                                 mDatabaseReference.child(upload.getTimestamp()+"").setValue(upload);
                             }
                         });
