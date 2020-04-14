@@ -2,15 +2,20 @@ package com.example.collegeconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,10 +33,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class UploadNotes extends AppCompatActivity implements NotesDialog.uploadFileListener{
+public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
     private Intent Data;
+    private EditText fileName, author;
 
     //these are the views
     TextView textViewStatus;
@@ -129,24 +135,111 @@ public class UploadNotes extends AppCompatActivity implements NotesDialog.upload
         //when the user choses the file
         if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //if a file is selected
+            StringBuilder filenaam = new StringBuilder();
             if (data.getData() != null) {
                 String str = data.getData().getLastPathSegment();
                 int slash =-1;
                 if(str.contains("/")){
                     slash = str.indexOf("/");
-//                    editTextFilename.setText(str.substring(slash,str.length()-1));
+                    filenaam.append(str.substring(slash,str.length()-1));
                 }
                 String str1  = str.substring(slash+1,str.length()-1);
                 if(str1.contains(".")) {
                     int dot = str1.indexOf(".");
-//                    editTextFilename.setText(str1.substring(0, dot));
+                    filenaam.append(str1.substring(0, dot));
                 }
-                else
+
 //                    editTextFilename.setText(str);
                 //uploading the file
                 UploadNotes.this.Data = data;
-                NotesDialog notesDialog = new NotesDialog();
-                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
+//                NotesDialog notesDialog = new NotesDialog();
+//                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
+                AlertDialog.Builder builder = new AlertDialog.Builder(UploadNotes.this);
+
+                LayoutInflater inflater = getLayoutInflater().from(UploadNotes.this);
+                final View view = inflater.inflate(R.layout.layout_dialog_notes,null);
+
+
+
+                builder.setView(view)
+                        .setTitle("Set File Name")
+                        .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                fileName = view.findViewById(R.id.fileName);
+                author = view.findViewById(R.id.authorName);
+
+
+
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                fileName.setText(filenaam);
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        boolean isError = false;
+                        String file = fileName.getText().toString();
+                        String authorName = author.getText().toString();
+//                        isError=true;
+                        if(file.isEmpty() && authorName.isEmpty()){
+                            fileName.setError("Filename cannot be empty");
+                            author.setError("Author name cannot be empty");
+                        }
+                        else if(file.isEmpty()){
+//                            isError = true;
+                            fileName.setError("Filename cannot be empty");
+                        }
+                        else if(authorName.isEmpty()){
+//                            isError = true;
+                            author.setError("Author name cannot be empty");
+                        }
+                        else {
+                            applyTexts(file, authorName);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                fileName.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        fileName.setError(null);
+                    }
+                });
+                author.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        author.setError(null);
+                    }
+                });
 
 //                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -216,7 +309,6 @@ public class UploadNotes extends AppCompatActivity implements NotesDialog.upload
 
     }
 
-    @Override
     public void applyTexts(String filename, String authorname) {
 
         if (UploadNotes.this.Data.getData() == null){
