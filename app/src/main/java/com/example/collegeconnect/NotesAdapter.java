@@ -17,18 +17,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
     private Context context;
+    private DatabaseReference DatabaseReference;
     private ArrayList<Upload> noteslist;
     private ArrayList<Upload> noteslistfull;
+    private ArrayList<String> selectedTags;
 
     public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
         this.context = context;
@@ -44,8 +57,34 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        Toast.makeText(context, position, Toast.LENGTH_SHORT).show();
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+        holder.recyclerView.setHasFixedSize(true);
+        holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+
+        final RecyclerView.Adapter[] recyclerAdapter = new RecyclerView.Adapter[1];
+        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesTags/tags");
+        DatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+
+                if (arrayList != null) {
+
+                    recyclerAdapter[0] = new TagsAdapter(context, arrayList);
+                    holder.recyclerView.setAdapter(recyclerAdapter[0]);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//        Toast.makeText(context, tags[0], Toast.LENGTH_SHORT).show();
+
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
@@ -93,6 +132,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             }
         });
 
+
         holder.tags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,8 +140,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
                 LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
                 View view = inflater.inflate(R.layout.layout_tag_dialog, null);
-                final ArrayList<String> selectedTags;
-                selectedTags = new ArrayList<>();
                 Button etu = view.findViewById(R.id.etuTag);
                 Button shortt = view.findViewById(R.id.shortTag);
                 Button longt = view.findViewById(R.id.longTag);
@@ -135,14 +173,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 doneButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, selectedTags.toString(), Toast.LENGTH_SHORT).show();
+                        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesTags");
+                        DatabaseReference.child("tags").setValue(selectedTags);
+//                        Toast.makeText(context, selectedTags.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 builder.setView(view);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-
             }
         });
     }
@@ -158,6 +197,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         ImageButton report;
         Button tags;
         RelativeLayout itv;
+        RecyclerView recyclerView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -167,6 +207,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             noOfDown = itemView.findViewById(R.id.download);
             itv = itemView.findViewById(R.id.relate);
             tags = itemView.findViewById(R.id.addTags);
+            recyclerView = itemView.findViewById(R.id.tagsRecycler);
         }
     }
     @Override
