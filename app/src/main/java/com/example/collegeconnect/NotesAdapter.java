@@ -126,6 +126,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 //                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
                                 ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
                                 reportsDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"Report Dialog");
+                                break;
+                            case R.id.tag:
+                                getTags();
                         }
                         return true;
                     }
@@ -135,12 +138,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
 
 
-        holder.tags.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getTags();
-            }
-        });
+//        holder.tags.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getTags();
+//            }
+//        });
     }
 
     public void getTags()
@@ -251,7 +254,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             report = itemView.findViewById(R.id.reportButton);
             noOfDown = itemView.findViewById(R.id.download);
             itv = itemView.findViewById(R.id.relate);
-            tags = itemView.findViewById(R.id.addTags);
+//            tags = itemView.findViewById(R.id.addTags);
             recyclerView = itemView.findViewById(R.id.tagsRecycler);
         }
     }

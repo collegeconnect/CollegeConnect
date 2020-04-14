@@ -6,13 +6,14 @@
     <TextView
         android:id="@+id/tag"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="2dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
         android:background="@drawable/buttonlayout2"
         android:gravity="center"
-        android:padding="1dp"
+        android:padding="5dp"
+        android:drawableLeft="@drawable/tag"
         android:text="TAG"
         android:textAlignment="center"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
 </RelativeLayout>
