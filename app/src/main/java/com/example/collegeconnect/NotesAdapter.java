@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +48,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private ArrayList<Upload> noteslist;
     private ArrayList<Upload> noteslistfull;
     private ArrayList<String> selectedTags;
+    private EditText answer;
 
     public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
         this.context = context;
@@ -68,6 +71,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final RecyclerView.Adapter[] recyclerAdapter = new RecyclerView.Adapter[1];
 
         selectedTags = new ArrayList<>();
+
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
@@ -99,7 +103,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
 
                 if (arrayList != null) {
-
+                    selectedTags.clear();
+                    selectedTags = (ArrayList<String>) arrayList.clone();
                     recyclerAdapter[0] = new TagsAdapter(context, arrayList);
                     holder.recyclerView.setAdapter(recyclerAdapter[0]);
 
@@ -122,11 +127,50 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()){
-                            case R.id.report:
+                            case R.id.report: {
 //                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
-                                ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
-                                reportsDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"Report Dialog");
+//                                ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
+//                                reportsDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"Report Dialog");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                                LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+                                final View view = inflater.inflate(R.layout.layout_dialog_report, null);
+
+                                builder.setView(view)
+                                        .setTitle("State Your Concern")
+                                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        })
+                                        .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                            }
+                                        });
+
+                                answer = view.findViewById(R.id.answer);
+                                final AlertDialog dialog = builder.create();
+                                dialog.show();
+                                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String text = answer.getText().toString();
+                                        if(text.isEmpty())
+                                            answer.setError("Please enter your problem");
+                                        else if(text.length()<20)
+                                                answer.setError("Please elaborate more");
+                                        else {
+                                            submitReport(text, notes.getTimestamp());
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+                            }
                                 break;
+
                             case R.id.tagover:
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
@@ -216,24 +260,25 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     public void onClick(DialogInterface dialog, int which) {
                                         DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp());
                                         DatabaseReference.child("tags").setValue(selectedTags);
+                                        selectedTags.clear();
 
-                                        if (!etuB[0]){
-                                            etuB[0]=true;
-                                            etu.setBackgroundResource(R.drawable.button_design);
-                                        }
-                                        if (!shortB[0]){
-                                            shortB[0]=true;
-                                            shortt.setBackgroundResource(R.drawable.button_design);
-                                        }
-                                        if (!longB[0]){
-                                            longB[0]=true;
-                                            longt.setBackgroundResource(R.drawable.button_design);
-                                        }
-                                        if (!ttpB[0]){
-                                            ttpB[0]=true;
-                                            ttp.setBackgroundResource(R.drawable.button_design);
-
-                                        }
+//                                        if (!etuB[0]){
+//                                            etuB[0]=true;
+//                                            etu.setBackgroundResource(R.drawable.button_design);
+//                                        }
+//                                        if (!shortB[0]){
+//                                            shortB[0]=true;
+//                                            shortt.setBackgroundResource(R.drawable.button_design);
+//                                        }
+//                                        if (!longB[0]){
+//                                            longB[0]=true;
+//                                            longt.setBackgroundResource(R.drawable.button_design);
+//                                        }
+//                                        if (!ttpB[0]){
+//                                            ttpB[0]=true;
+//                                            ttp.setBackgroundResource(R.drawable.button_design);
+//
+//                                        }
                                     }
                                 });
 
@@ -315,5 +360,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             notifyDataSetChanged();
         }
     };
+
+    public void submitReport(String text, long timeStamp) {
+        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
+        NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context),text,timeStamp);
+        DatabaseReference.child(System.currentTimeMillis()+"").setValue(notesReports);
+//        Snackbar.make(,"Your issues has been reported.",Snackbar.LENGTH_LONG).show();
+        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
+    }
 
 }

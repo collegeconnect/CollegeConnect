@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DownloadNotes extends AppCompatActivity implements ReportsDialog.reportNotesListener{
+public class DownloadNotes extends AppCompatActivity{
 
     public static final String EXTRA_COURSE = "course";
     public static final String EXTRA_BRANCH = "branch";
@@ -126,12 +126,4 @@ public class DownloadNotes extends AppCompatActivity implements ReportsDialog.re
         return true;
     }
 
-    @Override
-    public void submitReport(String text, long timeStamp) {
-        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
-        NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(this),text,timeStamp);
-        DatabaseReference.child(System.currentTimeMillis()+"").setValue(notesReports);
-        Snackbar.make(findViewById(R.id.relativeshit),"Your issues has been reported.",Snackbar.LENGTH_LONG).show();
-//        Toast.makeText(this, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
-    }
 }
