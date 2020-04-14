@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tagsHeading"
+        android:layout_margin="2dp"
+        android:background="@drawable/button_design"
         android:text="Easy to understand" />
 
     <android.widget.Button
@@ -16,7 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tagsHeading"
+        android:layout_margin="2dp"
         android:layout_toEndOf="@id/etuTag"
+        android:background="@drawable/button_design"
         android:text="Short" />
 
     <android.widget.Button
@@ -24,7 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tagsHeading"
+        android:layout_margin="2dp"
         android:layout_toEndOf="@id/shortTag"
+        android:background="@drawable/button_design"
         android:text="long" />
 
     <android.widget.Button
@@ -32,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/etuTag"
+        android:layout_margin="2dp"
+        android:background="@drawable/button_design"
         android:text="To the point" />
 
     <android.widget.Button
@@ -41,6 +49,7 @@
         android:layout_below="@id/ttpTag"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
+        android:background="@drawable/button_design2"
         android:text="Done" />
 
     <TextView

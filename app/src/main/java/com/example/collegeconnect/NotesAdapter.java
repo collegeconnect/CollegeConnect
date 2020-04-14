@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.example.collegeconnect.R.drawable.button_design3;
+
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
     private Context context;
@@ -61,8 +63,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-
         final RecyclerView.Adapter[] recyclerAdapter = new RecyclerView.Adapter[1];
+
+        selectedTags = new ArrayList<>();
+
         DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesTags/tags");
         DatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,8 +86,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
             }
         });
-
-//        Toast.makeText(context, tags[0], Toast.LENGTH_SHORT).show();
 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
@@ -136,54 +138,97 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.tags.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
-                View view = inflater.inflate(R.layout.layout_tag_dialog, null);
-                Button etu = view.findViewById(R.id.etuTag);
-                Button shortt = view.findViewById(R.id.shortTag);
-                Button longt = view.findViewById(R.id.longTag);
-                Button ttp = view.findViewById(R.id.ttpTag);
-                Button doneButton = view.findViewById(R.id.doneButton);
-
-                etu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedTags.add("Easy to understand");
-                    }
-                });
-                shortt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedTags.add("Short");
-                    }
-                });
-                longt.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedTags.add("Long");
-                    }
-                });
-                ttp.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectedTags.add("To the point");
-                    }
-                });
-                doneButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesTags");
-                        DatabaseReference.child("tags").setValue(selectedTags);
-//                        Toast.makeText(context, selectedTags.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                builder.setView(view);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                getTags();
             }
         });
+    }
+
+    public void getTags()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.layout_tag_dialog, null);
+        final boolean[] etuB = {true};
+        final boolean[] shortB = {true};
+        final boolean[] longB = {true};
+        final boolean[] ttpB = {true};
+        final Button etu = view.findViewById(R.id.etuTag);
+        final Button shortt = view.findViewById(R.id.shortTag);
+        final Button longt = view.findViewById(R.id.longTag);
+        final Button ttp = view.findViewById(R.id.ttpTag);
+        Button doneButton = view.findViewById(R.id.doneButton);
+
+        etu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                etuB[0] = !etuB[0];
+                if (!etuB[0] && !selectedTags.contains("Easy to understand")){
+                    selectedTags.add("Easy to understand");
+                }
+                v.setBackgroundResource(etuB[0] ? R.drawable.button_design : R.drawable.button_design3);
+
+            }
+        });
+        shortt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shortB[0] = !shortB[0];
+                if (!shortB[0] && !selectedTags.contains("Short")){
+                    selectedTags.add("Short");
+                }
+                v.setBackgroundResource(shortB[0] ? R.drawable.button_design : R.drawable.button_design3);
+            }
+        });
+        longt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                longB[0] = !longB[0];
+                if (!longB[0] && !selectedTags.contains("Long")){
+                    selectedTags.add("Long");
+                }
+                v.setBackgroundResource(longB[0] ? R.drawable.button_design : R.drawable.button_design3);
+            }
+        });
+        ttp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ttpB[0] = !ttpB[0];
+                if (!ttpB[0] && !selectedTags.contains("To the point")){
+                    selectedTags.add("To the point");
+                }
+                v.setBackgroundResource(ttpB[0] ? R.drawable.button_design : R.drawable.button_design3);
+            }
+        });
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesTags");
+                DatabaseReference.child("tags").setValue(selectedTags);
+
+                if (!etuB[0]){
+                    etuB[0]=true;
+                    etu.setBackgroundResource(R.drawable.button_design);
+                }
+                if (!shortB[0]){
+                    shortB[0]=true;
+                    shortt.setBackgroundResource(R.drawable.button_design);
+                }
+                if (!longB[0]){
+                    longB[0]=true;
+                    longt.setBackgroundResource(R.drawable.button_design);
+                }
+                if (!ttpB[0]){
+                    ttpB[0]=true;
+                    ttp.setBackgroundResource(R.drawable.button_design);
+                }
+            }
+        });
+
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
