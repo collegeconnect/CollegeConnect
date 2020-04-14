@@ -76,10 +76,19 @@
             android:id="@+id/addTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relate"
+            android:layout_below="@id/tagsRecycler"
             android:layout_alignParentEnd="true"
             android:background="@android:color/transparent"
             android:text="Add Tag" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tagsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relate"
+            android:orientation="horizontal"
+            android:text="Tags"
+            android:textAlignment="center" />
 
     </RelativeLayout>
 
