@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
     TextInputLayout email, password;
-    private Button register;
+    private Button register, login;
     int RC_SIGN_IN = 1  ;
     GoogleSignInClient mGoogleSignInClient;
     private static final String TAG= "MainActivity";
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent i = new Intent(this, SignUp.class);
         register=findViewById(R.id.button2);
         email = findViewById(R.id.editText);
+        login = findViewById(R.id.button);
         password = findViewById(R.id.editText2);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +73,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent signinintent= mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signinintent,RC_SIGN_IN);
+            }
+        });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogIn();
+            }
+        });
+        password.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE)
+                    LogIn();
+                    return false;
             }
         });
 
@@ -131,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void LogIn(View view) {
+    public void LogIn() {
         try {
             InputMethodManager inputManager = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -142,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
         final ProgressBar progressBar = findViewById(R.id.MainProgressBar);
-        final Button login =findViewById(R.id.button);
         login.setEnabled(false);
         register.setEnabled(false);
+
 
         progressBar.setVisibility(View.VISIBLE);
 
