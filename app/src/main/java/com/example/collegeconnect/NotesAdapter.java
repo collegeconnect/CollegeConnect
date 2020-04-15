@@ -3,6 +3,8 @@ package com.example.collegeconnect;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -194,7 +196,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if (!etuB[0] && !finalSelectedTags1.contains("Easy to understand")){
                                             finalSelectedTags1.add("Easy to understand");
                                         }
-                                        v.setBackgroundResource(etuB[0] ? R.drawable.button_design : R.drawable.button_design3);
+                                        v.setBackgroundColor(etuB[0] ? Color.parseColor("#6FFF6F") : Color.parseColor("#506FFF6F"));
 
                                     }
                                 });
@@ -205,7 +207,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if (!shortB[0] && !finalSelectedTags2.contains("Short")){
                                             finalSelectedTags2.add("Short");
                                         }
-                                        v.setBackgroundResource(shortB[0] ? R.drawable.button_design : R.drawable.button_design3);
+                                        v.setBackgroundColor(shortB[0] ? Color.parseColor("#FBFF61") : Color.parseColor("#50FBFF61"));
                                     }
                                 });
                                 longt.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +217,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if (!longB[0] && !finalSelectedTags3.contains("Long")){
                                             finalSelectedTags3.add("Long");
                                         }
-                                        v.setBackgroundResource(longB[0] ? R.drawable.button_design : R.drawable.button_design3);
+                                        v.setBackgroundColor(longB[0] ? Color.parseColor("#FF6A6A") : Color.parseColor("#50FF6A6A"));
                                     }
                                 });
                                 ttp.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +227,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if (!ttpB[0] && !finalSelectedTags4.contains("To the point")){
                                             finalSelectedTags4.add("To the point");
                                         }
-                                        v.setBackgroundResource(ttpB[0] ? R.drawable.button_design : R.drawable.button_design3);
+                                        v.setBackgroundColor(ttpB[0] ? Color.parseColor("#6AFFEC") : Color.parseColor("#506AFFEC"));
                                     }
                                 });
 

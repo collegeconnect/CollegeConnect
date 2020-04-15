@@ -1,6 +1,7 @@
 package com.example.collegeconnect;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +34,22 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String tag = tags.get(position);
 //        Toast.makeText(context, tag, Toast.LENGTH_SHORT).show();
-        if(tag.toLowerCase().equals("long"))
-            holder.textView.setBackgroundColor(Color.parseColor("#FF6A6A"));
-        if(tag.toLowerCase().equals("easy to understand"))
-            holder.textView.setBackgroundColor(Color.parseColor("#6FFF6F"));
-        if(tag.toLowerCase().equals("short"))
-            holder.textView.setBackgroundColor(Color.parseColor("#FBFF61"));
-        if(tag.toLowerCase().equals("to the point"))
-            holder.textView.setBackgroundColor(Color.parseColor("#6AFFEC"));
+        if(tag.toLowerCase().equals("long")) {
+            holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6A6A")));
+            holder.textView.setBackgroundResource(R.drawable.button_design);
+        }
+        if(tag.toLowerCase().equals("easy to understand")) {
+            holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#6FFF6F")));
+            holder.textView.setBackgroundResource(R.drawable.button_design);
+        }
+        if(tag.toLowerCase().equals("short")) {
+            holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FBFF61")));
+            holder.textView.setBackgroundResource(R.drawable.button_design);
+        }
+        if(tag.toLowerCase().equals("to the point")) {
+            holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#6AFFEC")));
+            holder.textView.setBackgroundResource(R.drawable.button_design);
+        }
         holder.textView.setText(tag);
     }
 

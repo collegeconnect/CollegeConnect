@@ -8,4 +8,8 @@
     <color name="endColor">#336699</color>
     <color name="colorSurface">#F3F9FE</color>
     <color name="colorwhite">#ffffff</color>
+    <color name="shortTag">#FBFF61</color>
+    <color name="longTag">#FF6A6A</color>
+    <color name="etuTag">#6FFF6F</color>
+        <color name="ttpTag">#6AFFEC</color>
 </resources>
