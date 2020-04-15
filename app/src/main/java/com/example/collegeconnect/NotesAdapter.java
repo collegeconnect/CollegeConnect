@@ -61,7 +61,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Downloads = " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Downloads - " + String.valueOf(notes.getDownload()));
 
         ArrayList<String> selectedTags = new ArrayList<>();
         if (notes.getTags()!=null)
@@ -163,7 +163,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         if(text.isEmpty())
                                             answer.setError("Please enter your problem");
                                         else if(text.length()<20)
-                                                answer.setError("Please elaborate more");
+                                                answer.setError("Minimum 20 characters required");
                                         else {
                                             submitReport(text, notes.getTimestamp());
                                             dialog.dismiss();
