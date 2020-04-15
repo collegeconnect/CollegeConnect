@@ -3,9 +3,9 @@
 
     <item
         android:id="@+id/report"
-        android:title="Report" />
+        android:title="Report an Issue" />
     <item
         android:id="@+id/tagover"
-        android:title="Tag"/>
+        android:title="Add Tags"/>
 
 </menu>

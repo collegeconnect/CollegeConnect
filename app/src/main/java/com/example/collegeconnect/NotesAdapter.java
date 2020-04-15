@@ -19,27 +19,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
-
-import static com.example.collegeconnect.R.drawable.button_design3;
-import static com.example.collegeconnect.R.drawable.upload;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
@@ -47,7 +33,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private DatabaseReference DatabaseReference;
     private ArrayList<Upload> noteslist;
     private ArrayList<Upload> noteslistfull;
-    private ArrayList<String> selectedTags;
     private EditText answer;
 
     public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
@@ -66,28 +51,34 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        holder.recyclerView.setHasFixedSize(true);
-        holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-        final RecyclerView.Adapter[] recyclerAdapter = new RecyclerView.Adapter[1];
-
-        selectedTags = new ArrayList<>();
-
+        //Set Values in card
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
         holder.noOfDown.setText("No. of Downloads = " + String.valueOf(notes.getDownload()));
+
+        ArrayList<String> selectedTags = new ArrayList<>();
+        if (notes.getTags()!=null)
+            selectedTags = (ArrayList<String>) notes.getTags().clone();
+
+        //Tags Recycler View
+        holder.recyclerView.setHasFixedSize(true);
+        holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+        TagsAdapter recyclerAdapter = new TagsAdapter(context, selectedTags);
+        holder.recyclerView.setAdapter(recyclerAdapter);
+
+        final ArrayList<String> finalSelectedTags = selectedTags;
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 int downloads = notes.getDownload() + 1;
-
                 Upload upload = new Upload(notes.getName(),
                         notes.getCourse(),
                         notes.getSemester(),
                         notes.getBranch(),
                         notes.getUnit(),
-                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(),notes.getTags());
+                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(), finalSelectedTags);
                 DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
                 mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -96,33 +87,38 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 context.startActivity(Intent.createChooser(intent, "Choose an Application:"));
             }
         });
-        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp()+"/tags");
-        DatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+//        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp()+"/tags");
+//        DatabaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+//
+//                if (arrayList != null) {
+//                    selectedTags.clear();
+//                    selectedTags = (ArrayList<String>) arrayList.clone();
+//                    recyclerAdapter[0] = new TagsAdapter(context, arrayList);
+//                    holder.recyclerView.setAdapter(recyclerAdapter[0]);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
-                if (arrayList != null) {
-                    selectedTags.clear();
-                    selectedTags = (ArrayList<String>) arrayList.clone();
-                    recyclerAdapter[0] = new TagsAdapter(context, arrayList);
-                    holder.recyclerView.setAdapter(recyclerAdapter[0]);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        final ArrayList<String> finalSelectedTags1 = selectedTags;
+        final ArrayList<String> finalSelectedTags2 = selectedTags;
+        final ArrayList<String> finalSelectedTags3 = selectedTags;
+        final ArrayList<String> finalSelectedTags4 = selectedTags;
+        final ArrayList<String> finalSelectedTags5 = selectedTags;
         holder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final PopupMenu popup = new PopupMenu(context,v);
                 MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.report, popup.getMenu());
+                inflater.inflate(R.menu.notes_overflow, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
@@ -191,8 +187,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     public void onClick(View v) {
 
                                         etuB[0] = !etuB[0];
-                                        if (!etuB[0] && !selectedTags.contains("Easy to understand")){
-                                            selectedTags.add("Easy to understand");
+                                        if (!etuB[0] && !finalSelectedTags1.contains("Easy to understand")){
+                                            finalSelectedTags1.add("Easy to understand");
                                         }
                                         v.setBackgroundResource(etuB[0] ? R.drawable.button_design : R.drawable.button_design3);
 
@@ -202,8 +198,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         shortB[0] = !shortB[0];
-                                        if (!shortB[0] && !selectedTags.contains("Short")){
-                                            selectedTags.add("Short");
+                                        if (!shortB[0] && !finalSelectedTags2.contains("Short")){
+                                            finalSelectedTags2.add("Short");
                                         }
                                         v.setBackgroundResource(shortB[0] ? R.drawable.button_design : R.drawable.button_design3);
                                     }
@@ -212,8 +208,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         longB[0] = !longB[0];
-                                        if (!longB[0] && !selectedTags.contains("Long")){
-                                            selectedTags.add("Long");
+                                        if (!longB[0] && !finalSelectedTags3.contains("Long")){
+                                            finalSelectedTags3.add("Long");
                                         }
                                         v.setBackgroundResource(longB[0] ? R.drawable.button_design : R.drawable.button_design3);
                                     }
@@ -222,45 +218,30 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         ttpB[0] = !ttpB[0];
-                                        if (!ttpB[0] && !selectedTags.contains("To the point")){
-                                            selectedTags.add("To the point");
+                                        if (!ttpB[0] && !finalSelectedTags4.contains("To the point")){
+                                            finalSelectedTags4.add("To the point");
                                         }
                                         v.setBackgroundResource(ttpB[0] ? R.drawable.button_design : R.drawable.button_design3);
                                     }
                                 });
 
-//                                doneButton.setOnClickListener(new View.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(View v) {
-//                                        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp());
-//                                        DatabaseReference.child("tags").setValue(selectedTags);
-//
-//                                        if (!etuB[0]){
-//                                            etuB[0]=true;
-//                                            etu.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!shortB[0]){
-//                                            shortB[0]=true;
-//                                            shortt.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!longB[0]){
-//                                            longB[0]=true;
-//                                            longt.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!ttpB[0]){
-//                                            ttpB[0]=true;
-//                                            ttp.setBackgroundResource(R.drawable.button_design);
-//
-//                                        }
-//                                        click=true;
-//                                    }
-//                                });
                                 builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp());
-                                        DatabaseReference.child("tags").setValue(selectedTags);
-                                        selectedTags.clear();
+                                        ArrayList<String> stringUpload = new ArrayList<>();
+                                        if (finalSelectedTags5.isEmpty()){
+                                            stringUpload = notes.getTags();
+                                        }
+                                        else
+                                            stringUpload = finalSelectedTags5;
+                                        Upload upload = new Upload(notes.getName(),
+                                                notes.getCourse(),
+                                                notes.getSemester(),
+                                                notes.getBranch(),
+                                                notes.getUnit(),
+                                                notes.getAuthor(), notes.getDownload(), notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(),stringUpload);
+                                        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+                                        mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
 
 //                                        if (!etuB[0]){
 //                                            etuB[0]=true;
@@ -295,13 +276,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             }
         });
 
-
-//        holder.tags.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getTags();
-//            }
-//        });
     }
 
     @Override
@@ -313,7 +287,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         TextView title,author,noOfDown;
         ImageButton report;
-        Button tags;
         RelativeLayout itv;
         RecyclerView recyclerView;
 
@@ -324,7 +297,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             report = itemView.findViewById(R.id.reportButton);
             noOfDown = itemView.findViewById(R.id.download);
             itv = itemView.findViewById(R.id.relate);
-//            tags = itemView.findViewById(R.id.addTags);
             recyclerView = itemView.findViewById(R.id.tagsRecycler);
         }
     }
