@@ -277,7 +277,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     }
                 });
                 if(notes.getUploaderMail().equals(user.getEmail()))
-                    popup.getMenu().findItem(R.id.tagover).setVisible(false);
+                    popup.getMenu().findItem(R.id.tagover).setEnabled(false);
                 popup.show();
             }
         });

@@ -34,13 +34,13 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
         String tag = tags.get(position);
 //        Toast.makeText(context, tag, Toast.LENGTH_SHORT).show();
         if(tag.toLowerCase().equals("long"))
-            holder.textView.setBackgroundColor(Color.RED);
+            holder.textView.setBackgroundColor(Color.parseColor("#FF6A6A"));
         if(tag.toLowerCase().equals("easy to understand"))
-            holder.textView.setBackgroundColor(Color.GREEN);
+            holder.textView.setBackgroundColor(Color.parseColor("#6FFF6F"));
         if(tag.toLowerCase().equals("short"))
-            holder.textView.setBackgroundColor(Color.YELLOW);
+            holder.textView.setBackgroundColor(Color.parseColor("#FBFF61"));
         if(tag.toLowerCase().equals("to the point"))
-            holder.textView.setBackgroundColor(Color.CYAN);
+            holder.textView.setBackgroundColor(Color.parseColor("#6AFFEC"));
         holder.textView.setText(tag);
     }
 
