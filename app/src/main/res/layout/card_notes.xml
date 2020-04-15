@@ -18,8 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@id/reportButton">
+            android:layout_alignParentTop="true">
 
             <ImageView
                 android:id="@+id/pdfview"
@@ -61,17 +60,18 @@
                 android:gravity="left"
                 android:text="No. of Downloads = 0"
                 android:textColor="#AAA8A8" />
+
+
+            <ImageButton
+                android:id="@+id/reportButton"
+                style="?android:attr/actionOverflowButtonStyle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_above="@id/authorname"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
         </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/reportButton"
-            style="?android:attr/actionOverflowButtonStyle"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_above="@id/authorname"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
-
 <!--        <android.widget.Button-->
 <!--            android:id="@+id/addTags"-->
 <!--            android:layout_width="wrap_content"-->
