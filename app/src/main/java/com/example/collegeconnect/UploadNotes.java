@@ -60,12 +60,7 @@ public class UploadNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_notes);
 
-        if(onSharedIntent()) {
-            if (recievedUri!=null) {
-                Log.i("Upload Notes", "onCreate: "+ recievedUri);
-                UploadNotes.this.Data=receiverdIntent;
-            }
-        }
+
 
         //getting firebase objects
         mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -87,6 +82,13 @@ public class UploadNotes extends AppCompatActivity {
         progressBar.setMax(100);
         progressBar.setProgress(0);
         upload = findViewById(R.id.selectNotes);
+        if(onSharedIntent()) {
+            if (recievedUri!=null) {
+                Log.i("Upload Notes", "onCreate: "+ recievedUri);
+                UploadNotes.this.Data=receiverdIntent;
+                upload.setText("Upload");
+            }
+        }
 //        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
                 @Override
