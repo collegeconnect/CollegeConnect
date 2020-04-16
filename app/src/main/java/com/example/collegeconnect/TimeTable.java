@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +31,7 @@ import com.ortiz.touchview.TouchImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.sql.Time;
 
 public class TimeTable extends AppCompatActivity {
 
@@ -112,16 +117,46 @@ public class TimeTable extends AppCompatActivity {
 //
 //            }
 //        });
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploaddp();
+            }
+        });
 
 
     }
 
-    public void uploaddp(View view)
+    public void uploaddp()
     {
-        Intent intent =new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(Intent.createChooser(intent,"Select an image"),GET_FROM_GALLERY);
+        if (ContextCompat.checkSelfPermission(TimeTable.this, Manifest.permission.READ_EXTERNAL_STORAGE )
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(TimeTable.this,
+                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    100);
+        }
+        else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_PICK);
+            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
+        }
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            uploaddp();
+
+        } else {
+            Toast.makeText(TimeTable.this,
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     private void uploadImage()

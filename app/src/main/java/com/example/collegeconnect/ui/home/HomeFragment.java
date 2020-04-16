@@ -1,11 +1,14 @@
 package com.example.collegeconnect.ui.home;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
+import com.example.collegeconnect.UploadNotes;
 import com.example.collegeconnect.User;
 import com.example.collegeconnect.navigation;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,6 +42,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.IOException;
 import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,7 +64,6 @@ public class HomeFragment extends Fragment {
     Uri uri;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-    private Uri filePath;
     FloatingActionButton editDetails,submitDetails;
     DatabaseHelper databaseHelper;
     private static final int GET_FROM_GALLERY = 1;
@@ -147,12 +155,10 @@ public class HomeFragment extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent,"Select an image"),GET_FROM_GALLERY);
+               getprfpic();
             }
         });
+
 
         editDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,6 +225,38 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private void getprfpic() {
+         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    100);
+        }
+        else {
+            CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1,1)
+                    .start(getContext(),this);
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_PICK);
+//            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getprfpic();
+
+        } else {
+            Toast.makeText(getActivity(),
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
     private void datachange() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -262,26 +300,42 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                prfileImage.setImageBitmap(bitmap);
-                uploadImage();
-            } catch (IOException e) {
-                e.printStackTrace();
+//        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+//
+//            filePath = data.getData();
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+//                prfileImage.setImageBitmap(bitmap);
+//                uploadImage();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == getActivity().RESULT_OK) {
+                Uri resultUri = result.getUri();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+                    prfileImage.setImageBitmap(bitmap);
+                    uploadImage(resultUri);
+                }
+                catch (Exception e){
+                    Log.d("Home fragment", "onActivityResult: CropImage failed");
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
             }
         }
     }
 
-    private void uploadImage()
+    private void uploadImage(Uri resultUri)
     {
-        if (filePath!=null){
+        if (resultUri!=null){
 //            progressBar.setVisibility(View.VISIBLE);
             StorageReference unique = storageRef.child("User/");
             final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(getContext())+"/DP.jpeg");
-            timeTableref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                    progressBar.setVisibility(View.GONE);

@@ -54,7 +54,6 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/newBlue"
         android:clickable="true"
-        android:onClick="uploaddp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/plus" />

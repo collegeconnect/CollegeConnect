@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.github.MikeOrtiz:TouchImageView:2.3.3'
     implementation 'com.google.firebase:firebase-auth:19.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
