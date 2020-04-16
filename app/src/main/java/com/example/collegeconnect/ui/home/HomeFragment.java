@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
     Uri uri;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+    private Uri filePath;
     FloatingActionButton editDetails,submitDetails;
     DatabaseHelper databaseHelper;
     private static final int GET_FROM_GALLERY = 1;
@@ -235,12 +236,10 @@ public class HomeFragment extends Fragment {
                     100);
         }
         else {
-            CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1,1)
-                    .start(getContext(),this);
-//            Intent intent = new Intent();
-//            intent.setType("image/*");
-//            intent.setAction(Intent.ACTION_PICK);
-//            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_PICK);
+            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
         }
     }
     @Override
@@ -300,17 +299,12 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-//
-//            filePath = data.getData();
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-//                prfileImage.setImageBitmap(bitmap);
-//                uploadImage();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+
+            filePath = data.getData();
+            CropImage.activity(filePath).setAspectRatio(1,1)
+                    .start(getContext(),this);
+        }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == getActivity().RESULT_OK) {
