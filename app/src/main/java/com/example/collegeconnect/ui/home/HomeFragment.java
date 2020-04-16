@@ -130,6 +130,8 @@ public class HomeFragment extends Fragment {
             }
 
         });
+        if (uri!=null)
+            Picasso.get().load(uri).into(prfileImage);
 
         mydb= new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
@@ -243,6 +245,8 @@ public class HomeFragment extends Fragment {
                 catch (Exception e){
 
                 }
+                if (uri!=null)
+                    Picasso.get().load(uri).into(prfileImage);
 
 
             }
