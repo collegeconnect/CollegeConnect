@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -38,9 +39,12 @@ import java.util.ArrayList;
 public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
-    private Intent Data;
+    private Intent Data = null;
     private EditText fileName, author;
-
+    Intent receiverdIntent;
+    String receivedAction;
+    String receivedType;
+    Uri recievedUri;
     //these are the views
     TextView textViewStatus;
 //    EditText editTextFilename,author;
@@ -56,6 +60,12 @@ public class UploadNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_notes);
 
+        if(onSharedIntent()) {
+            if (recievedUri!=null) {
+                Log.i("Upload Notes", "onCreate: "+ recievedUri);
+                UploadNotes.this.Data=receiverdIntent;
+            }
+        }
 
         //getting firebase objects
         mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -100,22 +110,39 @@ public class UploadNotes extends AppCompatActivity {
 //            startActivity(intent);
 //            return;
 //        }
-        if (ContextCompat.checkSelfPermission(UploadNotes.this,Manifest.permission.READ_EXTERNAL_STORAGE )
-                == PackageManager.PERMISSION_DENIED) {
+        if(UploadNotes.this.Data == null) {
+            if (ContextCompat.checkSelfPermission(UploadNotes.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED) {
 
-            // Requesting the permission
-            ActivityCompat.requestPermissions(UploadNotes.this,
-                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                    100);
-        }
-        else {
+                // Requesting the permission
+                ActivityCompat.requestPermissions(UploadNotes.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        100);
+            } else {
 
-            //creating an intent for file chooser
-            Intent intent = new Intent();
-            intent.setType("application/pdf");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
+                //creating an intent for file chooser
+                Intent intent = new Intent();
+                intent.setType("application/pdf");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
+            }
         }
+        else{
+            StringBuilder filenaam = new StringBuilder();
+            String str = recievedUri.getLastPathSegment();
+            int slash =-1;
+            if(str.contains("/")){
+                slash = str.indexOf("/");
+                filenaam.append(str.substring(slash,str.length()-1));
+            }
+            String str1  = str.substring(slash+1,str.length()-1);
+            if(str1.contains(".")) {
+                int dot = str1.indexOf(".");
+                filenaam.append(str1.substring(0, dot));
+            }
+            alertDialog(filenaam.toString());
+        }
+
     }
 
     @Override
@@ -153,95 +180,11 @@ public class UploadNotes extends AppCompatActivity {
 
 //                    editTextFilename.setText(str);
                 //uploading the file
-                UploadNotes.this.Data = data;
+                    UploadNotes.this.Data = data;
 //                NotesDialog notesDialog = new NotesDialog();
 //                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
-                AlertDialog.Builder builder = new AlertDialog.Builder(UploadNotes.this);
+                alertDialog(filenaam.toString());
 
-                LayoutInflater inflater = getLayoutInflater().from(UploadNotes.this);
-                final View view = inflater.inflate(R.layout.layout_dialog_notes,null);
-
-
-
-                builder.setView(view)
-                        .setTitle("Set File Name")
-                        .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                fileName = view.findViewById(R.id.fileName);
-                author = view.findViewById(R.id.authorName);
-
-
-
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-                fileName.setText(filenaam);
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        boolean isError = false;
-                        String file = fileName.getText().toString();
-                        String authorName = author.getText().toString();
-//                        isError=true;
-                        if(file.isEmpty() && authorName.isEmpty()){
-                            fileName.setError("Filename cannot be empty");
-                            author.setError("Author name cannot be empty");
-                        }
-                        else if(file.isEmpty()){
-//                            isError = true;
-                            fileName.setError("Filename cannot be empty");
-                        }
-                        else if(authorName.isEmpty()){
-//                            isError = true;
-                            author.setError("Author name cannot be empty");
-                        }
-                        else {
-                            applyTexts(file, authorName);
-                            dialog.dismiss();
-                        }
-                    }
-                });
-                fileName.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        fileName.setError(null);
-                    }
-                });
-                author.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        author.setError(null);
-                    }
-                });
 
 //                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
 //                    @Override
@@ -254,6 +197,95 @@ public class UploadNotes extends AppCompatActivity {
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void alertDialog(String filenaam) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(UploadNotes.this);
+
+        LayoutInflater inflater = getLayoutInflater().from(UploadNotes.this);
+        final View view = inflater.inflate(R.layout.layout_dialog_notes,null);
+
+
+
+        builder.setView(view)
+                .setTitle("Set File Name")
+                .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        fileName = view.findViewById(R.id.fileName);
+        author = view.findViewById(R.id.authorName);
+
+
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        fileName.setText(filenaam);
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                        boolean isError = false;
+                String file = fileName.getText().toString();
+                String authorName = author.getText().toString();
+//                        isError=true;
+                if(file.isEmpty() && authorName.isEmpty()){
+                    fileName.setError("Filename cannot be empty");
+                    author.setError("Author name cannot be empty");
+                }
+                else if(file.isEmpty()){
+//                            isError = true;
+                    fileName.setError("Filename cannot be empty");
+                }
+                else if(authorName.isEmpty()){
+//                            isError = true;
+                    author.setError("Author name cannot be empty");
+                }
+                else {
+                    applyTexts(file, authorName);
+                    dialog.dismiss();
+                }
+            }
+        });
+        fileName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                fileName.setError(null);
+            }
+        });
+        author.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                author.setError(null);
+            }
+        });
     }
 
 
@@ -318,6 +350,26 @@ public class UploadNotes extends AppCompatActivity {
         }
         else
         uploadFile(UploadNotes.this.Data.getData(),filename,authorname);
+    }
+    public boolean onSharedIntent(){
+        receiverdIntent = getIntent();
+        Bundle bundle = receiverdIntent.getExtras();
+        if(bundle!=null) {
+            receivedAction = receiverdIntent.getAction();
+            receivedType = receiverdIntent.getType();
+            if (receiverdIntent != null) {
+                Log.i("Upload Notes", "onSharedIntent: " + receivedType + "::::" + receivedAction);
+                if (receivedType.contains("pdf")) {
+                    recievedUri = receiverdIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+                    if (recievedUri != null) {
+                        Log.i("Upload Notes", "onSharedIntent: " + recievedUri.toString());
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
     }
 }
 

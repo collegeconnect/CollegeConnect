@@ -24,7 +24,14 @@
         <activity android:name=".UploadNotes"
             android:label="Upload"
             android:screenOrientation="portrait"
-            android:parentActivityName=".navigation"/>
+            android:parentActivityName=".navigation">
+            <intent-filter android:icon="@mipmap/icon_round" android:label="Upload Notes" android:priority="1000">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".TimeTable"
             android:label="Time Table"
