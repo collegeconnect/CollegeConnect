@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.collegeconnect.CovidFragment;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.ui.share.ShareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -19,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
-    CardView cardView;
+    CardView cardView ,cardcovid;
 
 
     @Nullable
@@ -36,6 +37,19 @@ public class ToolsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new ShareFragment();
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer,fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        cardcovid = view.findViewById(R.id.covid);
+        cardcovid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new CovidFragment();
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
