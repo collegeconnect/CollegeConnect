@@ -44,12 +44,18 @@
         <item>"CSE"</item>
         <item>"IT"</item>
         <item>"ECE"</item>
+        <item>"ME"</item>
         <item>"EEE"</item>
+        <item>"EE"</item>
         <item>"ICE"</item>
+        <item>"Civil"</item>
+        <item>"MAE"</item>
+        <item>"Mechantronics"</item>
+        <item>"Tool"</item>
     </string-array>
 
     <string-array name="Course">
-        <item>B.Tech</item>
+        <item>"B.Tech"</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

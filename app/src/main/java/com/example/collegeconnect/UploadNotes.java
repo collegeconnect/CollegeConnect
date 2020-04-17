@@ -89,6 +89,7 @@ public class UploadNotes extends AppCompatActivity {
                     unit.setVisibility(View.INVISIBLE);
                     tv8.setVisibility(View.INVISIBLE);
                     imageView.setVisibility(View.INVISIBLE);
+                    unit.setSelection(0);
                 }
                 else{
                     unit.setVisibility(View.VISIBLE);
