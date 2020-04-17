@@ -18,8 +18,10 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,6 +44,8 @@ public class UploadNotes extends AppCompatActivity {
     private Intent Data = null;
     private EditText fileName, author;
     Intent receiverdIntent;
+    TextView tv8;
+    ImageView imageView;
     String receivedAction;
     String receivedType;
     Uri recievedUri;
@@ -60,7 +64,8 @@ public class UploadNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_notes);
 
-
+        tv8 = findViewById(R.id.textView11);
+        imageView=findViewById(R.id.imageView11);
 
         //getting firebase objects
         mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -77,6 +82,26 @@ public class UploadNotes extends AppCompatActivity {
         branch = findViewById(R.id.spinnerBranch);
         course = findViewById(R.id.spinnerCourse);
         unit = findViewById(R.id.spinnerUnit);
+        semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(semester.getSelectedItem().toString().equals("Syllabus")){
+                    unit.setVisibility(View.INVISIBLE);
+                    tv8.setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    unit.setVisibility(View.VISIBLE);
+                    tv8.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 //        editTextFilename = findViewById(R.id.FileName);
         progressBar =  findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
@@ -86,6 +111,7 @@ public class UploadNotes extends AppCompatActivity {
             if (recievedUri!=null) {
                 Log.i("Upload Notes", "onCreate: "+ recievedUri);
                 UploadNotes.this.Data=receiverdIntent;
+                UploadNotes.this.Data.setData(recievedUri);
                 upload.setText("Upload");
             }
         }

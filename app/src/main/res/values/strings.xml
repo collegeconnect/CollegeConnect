@@ -37,6 +37,7 @@
         <item>"Sixth Semester"</item>
         <item>"Seventh Semester"</item>
         <item>"Eighth Semester"</item>
+        <item>"Syllabus"</item>
     </string-array>
 
     <string-array name="Branch">

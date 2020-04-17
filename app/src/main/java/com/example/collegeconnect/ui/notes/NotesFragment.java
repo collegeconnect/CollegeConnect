@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +20,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NotesFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv;
+    TextView tv,tv8;
+    ImageView imageView;
     Spinner course, branch, semester, unit;
 
 
@@ -37,6 +40,8 @@ public class NotesFragment extends Fragment {
         branch = view.findViewById(R.id.BranchN);
         semester = view.findViewById(R.id.SemesterN);
         unit = view.findViewById(R.id.UnitN);
+        tv8 = view.findViewById(R.id.textView8);
+        imageView=view.findViewById(R.id.imageView10);
 
         view.findViewById(R.id.fab_upload).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +50,26 @@ public class NotesFragment extends Fragment {
             }
         });
 
+        semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(semester.getSelectedItem().toString().equals("Syllabus")){
+                    unit.setVisibility(View.INVISIBLE);
+                    tv8.setVisibility(View.INVISIBLE);
+                    imageView.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    unit.setVisibility(View.VISIBLE);
+                    tv8.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         view.findViewById(R.id.viewnotes).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
