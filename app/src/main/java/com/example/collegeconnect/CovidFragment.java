@@ -18,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,6 +34,7 @@ public class CovidFragment extends Fragment {
     TextView textView;
     WebSettings webSettings;
     ProgressBar progressBar;
+    private AdView mAdView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +45,16 @@ public class CovidFragment extends Fragment {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
             fab = getActivity().findViewById(R.id.fab);
         }
+        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        mAdView = view.findViewById(R.id.adViewcovid);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         webView = view.findViewById(R.id.webViewcovid);
         textView = view.findViewById(R.id.tv_errorcovid);
         imageView = view.findViewById(R.id.imageViewcovid);
@@ -81,6 +97,9 @@ public class CovidFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
     }
 
     @Override
@@ -96,5 +115,20 @@ public class CovidFragment extends Fragment {
         bottomNavigationView.setVisibility(View.GONE);
         fab.setVisibility(View.INVISIBLE);
         bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
+    }
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 }

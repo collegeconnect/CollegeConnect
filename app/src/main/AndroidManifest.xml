@@ -15,6 +15,9 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/banner_ad_app_id_test"/>
         <activity android:name=".StepTwoSignUp"
             android:screenOrientation="portrait" />
         <activity android:name=".DownloadNotes"

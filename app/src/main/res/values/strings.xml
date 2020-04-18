@@ -13,6 +13,10 @@
     <string name="nav_header_title">College Connect</string>
     <string name="nav_header_desc">Navigation Header</string>
     <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4985326901968234/1415426085</string>
+    <string name="banner_ad_app_id">ca-app-pub-4985326901968234~2222075446</string>
+    <string name="banner_ad_app_id_test">ca-app-pub-3940256099942544~3347511713</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_attendance">Attendance</string>
