@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +21,10 @@ import android.widget.TextView;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.MainActivity;
+import com.example.collegeconnect.NotesAdapter;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
+import com.example.collegeconnect.SettingsAdapter;
 import com.example.collegeconnect.navigation;
 import com.example.collegeconnect.ui.home.Home1Fragment;
 import com.example.collegeconnect.ui.home.HomeFragment;
@@ -30,6 +34,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 
 public class SettingsMenu extends Fragment {
 
@@ -37,9 +43,11 @@ public class SettingsMenu extends Fragment {
     GoogleSignInClient mgoogleSignInClient;
     TextView tv;
     private Button logout;
-    Fragment homefrag = new Home1Fragment();
-    Fragment aboutfrag = new AboutFragment();
-    Fragment uploadfrag = new UploadListFragment();
+//    Fragment homefrag = new Home1Fragment();
+//    Fragment aboutfrag = new AboutFragment();
+//    Fragment uploadfrag = new UploadListFragment();
+    private RecyclerView recyclerView;
+    private SettingsAdapter settingsAdapter;
 
     public SettingsMenu() {
         // Required empty public constructor
@@ -51,33 +59,43 @@ public class SettingsMenu extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_settings_menu, container, false);
 
-        ListView listView = view.findViewById(R.id.settings_options);
+//        ListView listView = view.findViewById(R.id.settings_options);
         db = new DatabaseHelper(getActivity());
 
+        ArrayList<String> options= new ArrayList<>();
+        options.add("Update Profile");
+        options.add("My Upload List");
+        options.add("About");
 
-        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i)
-                {
-                    case 0: loadFragment(homefrag);
-                            break;
-                    case 1: loadFragment(uploadfrag);
-                            break;
-                    case 2: loadFragment(aboutfrag);
+        recyclerView = view.findViewById(R.id.settings_recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        settingsAdapter = new SettingsAdapter(options, getActivity());
+        recyclerView.setAdapter(settingsAdapter);
 
-//                    getActivity().getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .replace(R.id.settings_frag_container,new HomeFragment())
-//                            .commit();
-//                    Intent intent = new Intent(getActivity(), navigation.class);
-//                    intent.putExtra(navigation.SETTINGS,"settings");
-//                    startActivity(intent);
-//                    getActivity().finish();
-                }
-            }
-        };
-        listView.setOnItemClickListener(itemClickListener);
+//        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                switch (i)
+//                {
+//                    case 0: loadFragment(homefrag);
+//                            break;
+//                    case 1: loadFragment(uploadfrag);
+//                            break;
+//                    case 2: loadFragment(aboutfrag);
+//
+////                    getActivity().getSupportFragmentManager()
+////                            .beginTransaction()
+////                            .replace(R.id.settings_frag_container,new HomeFragment())
+////                            .commit();
+////                    Intent intent = new Intent(getActivity(), navigation.class);
+////                    intent.putExtra(navigation.SETTINGS,"settings");
+////                    startActivity(intent);
+////                    getActivity().finish();
+//                }
+//            }
+//        };
+//        listView.setOnItemClickListener(itemClickListener);
 
         logout = view.findViewById(R.id.logoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -125,21 +143,21 @@ public class SettingsMenu extends Fragment {
         AlertDialog alertDialog = builder.create();
         builder.show();
     }
-    private boolean loadFragment(Fragment fragment)
-    {
-        if (fragment!=null)
-        {
-            Log.d("Settings", "loadFragmentsInSettings: Frag is loaded");
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.settings_frag_container,fragment)
-                    .addToBackStack(null)
-                    .commit();
-
-            return true;
-        }
-        return false;
-    }
+//    public boolean loadFragment(Fragment fragment)
+//    {
+//        if (fragment!=null)
+//        {
+//            Log.d("Settings", "loadFragmentsInSettings: Frag is loaded");
+//            getActivity().getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.settings_frag_container,fragment)
+//                    .addToBackStack(null)
+//                    .commit();
+//
+//            return true;
+//        }
+//        return false;
+//    }
 
     private void signOut() {
         mgoogleSignInClient.signOut();
