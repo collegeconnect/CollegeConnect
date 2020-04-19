@@ -29,6 +29,7 @@
     <string name="email">EMAIL</string>
     <string name="collegename">COLLEGE NAME</string>
     <string name="log_out">Log Out</string>
+    <string name="settings">Settings</string>
     <string name="not_a_user_sign_up">Not a user? Sign Up</string>
     <string name="welcome_message">WELCOME TO COLLEGE CONNECT</string>
     <string name="Internet"><u>Unable to Access Internet!</u></string>

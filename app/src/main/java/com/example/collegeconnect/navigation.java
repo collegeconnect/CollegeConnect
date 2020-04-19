@@ -177,7 +177,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId())
         {
-            case R.id.action_logout :
+            case R.id.action_settings :
                 startActivity(new Intent(navigation.this,SettingsActivity.class));
 //                Dialog();
                 return true;

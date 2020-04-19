@@ -11,7 +11,7 @@ import android.util.Log;
 import com.example.collegeconnect.ui.SettingsMenu;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    Fragment fragment = new SettingsMenu();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Fragment fragment = new SettingsMenu();
+
         loadFragment(fragment);
     }
 
