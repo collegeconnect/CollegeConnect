@@ -33,7 +33,7 @@
                 android:paddingTop="15dp"
                 android:text="Settings"
                 android:textColor="@color/newBlue"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
         </androidx.appcompat.widget.Toolbar>

@@ -7,12 +7,14 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.DownloadNotes;
@@ -20,6 +22,7 @@ import com.example.collegeconnect.MainActivity;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
 import com.example.collegeconnect.navigation;
+import com.example.collegeconnect.ui.home.Home1Fragment;
 import com.example.collegeconnect.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,7 +35,9 @@ public class SettingsMenu extends Fragment {
 
     private DatabaseHelper db;
     GoogleSignInClient mgoogleSignInClient;
+    TextView tv;
     private Button logout;
+    Fragment homefrag = new Home1Fragment();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +54,7 @@ public class SettingsMenu extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i==0)
                 {
+                    loadFragment(homefrag);
 //                    getActivity().getSupportFragmentManager()
 //                            .beginTransaction()
 //                            .replace(R.id.settings_frag_container,new HomeFragment())
@@ -108,6 +114,21 @@ public class SettingsMenu extends Fragment {
         AlertDialog alertDialog = builder.create();
         builder.show();
     }
+    private boolean loadFragment(Fragment fragment)
+    {
+        if (fragment!=null)
+        {
+            Log.d("Settings", "loadFragmentsInSettings: Frag is loaded");
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.settings_frag_container,fragment)
+                    .addToBackStack(null)
+                    .commit();
+
+            return true;
+        }
+        return false;
+    }
 
     private void signOut() {
         mgoogleSignInClient.signOut();
@@ -115,10 +136,20 @@ public class SettingsMenu extends Fragment {
 
     @Override
     public void onStart() {
+        super.onStart();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         mgoogleSignInClient = GoogleSignIn.getClient(getActivity(),gso);
-        super.onStart();
+            tv = getActivity().findViewById(R.id.settingTitle);
+            tv.setText("Settings");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tv = getActivity().findViewById(R.id.settingTitle);
+        tv.setText("Settings");
     }
 }

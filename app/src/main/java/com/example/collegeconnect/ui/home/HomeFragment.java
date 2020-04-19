@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
     TextDrawable drawable;
     TextView tv, totalAttendance;
     EditText nameField,enrollNo, branch;
-    ImageButton imageButton;
+//    ImageButton imageButton;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -66,8 +66,7 @@ public class HomeFragment extends Fragment {
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
     private Uri filePath;
-    FloatingActionButton editDetails,submitDetails;
-    DatabaseHelper databaseHelper;
+//    FloatingActionButton editDetails,submitDetails;
     private static final int GET_FROM_GALLERY = 1;
 
     @Nullable
@@ -77,13 +76,8 @@ public class HomeFragment extends Fragment {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
-        if (getActivity().getApplicationContext().equals(navigation.class)) {
-            edit();
-        }
-        else{
-            tv = getActivity().findViewById(R.id.tvTitle);
-            tv.setText("HOME");
-        }
+        tv = getActivity().findViewById(R.id.tvTitle);
+        tv.setText("HOME");
 
 
         View view =  inflater.inflate(R.layout.fragment_home,null);
@@ -95,19 +89,19 @@ public class HomeFragment extends Fragment {
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);
         branch = view.findViewById(R.id.textView4);
-        imageButton = view.findViewById(R.id.imageButton);
-        editDetails = view.findViewById(R.id.editDetails);
-        submitDetails = view.findViewById(R.id.submitDetails);
+//        imageButton = view.findViewById(R.id.imageButton);
+//        editDetails = view.findViewById(R.id.editDetails);
+//        submitDetails = view.findViewById(R.id.submitDetails);
         totalAttendance = view.findViewById(R.id.aggregateAttendance);
 //        circleprog = view.findViewById(R.id.cicleprog);
         totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
-        imageButton.setEnabled(false);
+//        imageButton.setEnabled(false);
 //        circleprog.setMax(100);
 //        circleprog.setProgress(0);
-        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
+//        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 
 //        nameField.setText(firebaseAuth.getCurrentUser().getDisplayName());
 //        try {
@@ -160,123 +154,104 @@ public class HomeFragment extends Fragment {
 //            circleprog.setProgress(0);
         }
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               getprfpic();
-            }
-        });
+//        imageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               getprfpic();
+//            }
+//        });
 
 
-        editDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        editDetails.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                nameField.setEnabled(true);
+//                enrollNo.setEnabled(true);
+//                branch.setEnabled(true);
+//                nameField.setTextColor(Color.parseColor("#000000"));
+//                enrollNo.setTextColor(Color.parseColor("#000000"));
+//                branch.setTextColor(Color.parseColor("#000000"));
+//                imageButton.setEnabled(true);
+//                imageButton.setVisibility(View.VISIBLE);
+//                editDetails.setEnabled(false);
+//                editDetails.setVisibility(View.GONE);
+//                submitDetails.setEnabled(true);
+//                submitDetails.setVisibility(View.VISIBLE);
+//
+//            }
+//        });
 
-                nameField.setEnabled(true);
-                enrollNo.setEnabled(true);
-                branch.setEnabled(true);
-                nameField.setTextColor(Color.parseColor("#000000"));
-                enrollNo.setTextColor(Color.parseColor("#000000"));
-                branch.setTextColor(Color.parseColor("#000000"));
-                imageButton.setEnabled(true);
-                imageButton.setVisibility(View.VISIBLE);
-                editDetails.setEnabled(false);
-                editDetails.setVisibility(View.GONE);
-                submitDetails.setEnabled(true);
-                submitDetails.setVisibility(View.VISIBLE);
-                //                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-//                if (editDetails.getIm)
-//                if(editDetails.getAlpha() == 0.9){
-//                    nameField.setEnabled(true);
-//                    enrollNo.setEnabled(true);
-//                    branch.setEnabled(true);
-//                    editDetails.setAlpha((float) 1.0);
-//                    editDetails.setBackgroundColor(Color.parseColor("#ff99cc00"));
-//                }
-//                else if(editDetails.getAlpha() == 1.0){
-//                    String name = nameField.getText().toString();
-//                    String enroll = enrollNo.getText().toString();
-//                    String clg = branch.getText().toString();
-//                    User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
-//                    nameField.setEnabled(false);
-//                    enrollNo.setEnabled(false);
-//                    branch.setEnabled(false);
-//                    editDetails.setAlpha((float) 0.9);
-//                    datachange();
-//                }
-            }
-        });
-
-        submitDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = nameField.getText().toString();
-                String enroll = enrollNo.getText().toString();
-                String clg = branch.getText().toString();
-                User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
-                nameField.setEnabled(false);
-                imageButton.setEnabled(false);
-                imageButton.setVisibility(View.GONE);
-                enrollNo.setEnabled(false);
-                branch.setEnabled(false);
-                nameField.setTextColor(Color.parseColor("#138FF7"));
-                enrollNo.setTextColor(Color.parseColor("#138FF7"));
-                branch.setTextColor(Color.parseColor("#138FF7"));
-                submitDetails.setEnabled(false);
-                submitDetails.setVisibility(View.GONE);
-                editDetails.setEnabled(true);
-                editDetails.setVisibility(View.VISIBLE);
-            }
-        });
+//        submitDetails.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String name = nameField.getText().toString();
+//                String enroll = enrollNo.getText().toString();
+//                String clg = branch.getText().toString();
+//                User.addUser(enroll,firebaseAuth.getCurrentUser().getEmail(),name,null,clg);
+//                nameField.setEnabled(false);
+//                imageButton.setEnabled(false);
+//                imageButton.setVisibility(View.GONE);
+//                enrollNo.setEnabled(false);
+//                branch.setEnabled(false);
+//                nameField.setTextColor(Color.parseColor("#138FF7"));
+//                enrollNo.setTextColor(Color.parseColor("#138FF7"));
+//                branch.setTextColor(Color.parseColor("#138FF7"));
+//                submitDetails.setEnabled(false);
+//                submitDetails.setVisibility(View.GONE);
+//                editDetails.setEnabled(true);
+//                editDetails.setVisibility(View.VISIBLE);
+//            }
+//        });
 
         return view;
 
     }
 
-    private void getprfpic() {
-         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
-                == PackageManager.PERMISSION_DENIED) {
+//    private void getprfpic() {
+//         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
+//                == PackageManager.PERMISSION_DENIED) {
+//
+//            // Requesting the permission
+//            ActivityCompat.requestPermissions(getActivity(),
+//                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+//                    100);
+//        }
+//        else {
+//            Intent intent = new Intent();
+//            intent.setType("image/*");
+//            intent.setAction(Intent.ACTION_PICK);
+//            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
+//        }
+//    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//            getprfpic();
+//
+//        } else {
+//            Toast.makeText(getActivity(),
+//                    "Storage Permission Denied",
+//                    Toast.LENGTH_SHORT)
+//                    .show();
+//        }
+//    }
 
-            // Requesting the permission
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                    100);
-        }
-        else {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_PICK);
-            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
-        }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getprfpic();
-
-        } else {
-            Toast.makeText(getActivity(),
-                    "Storage Permission Denied",
-                    Toast.LENGTH_SHORT)
-                    .show();
-        }
-    }
-
-    private void edit(){
-        nameField.setEnabled(true);
-        enrollNo.setEnabled(true);
-        branch.setEnabled(true);
-        nameField.setTextColor(Color.parseColor("#000000"));
-        enrollNo.setTextColor(Color.parseColor("#000000"));
-        branch.setTextColor(Color.parseColor("#000000"));
-        imageButton.setEnabled(true);
-        imageButton.setVisibility(View.VISIBLE);
-        editDetails.setEnabled(false);
-        editDetails.setVisibility(View.GONE);
-        submitDetails.setEnabled(true);
-        submitDetails.setVisibility(View.VISIBLE);
-    }
+//    private void edit(){
+//        nameField.setEnabled(true);
+//        enrollNo.setEnabled(true);
+//        branch.setEnabled(true);
+//        nameField.setTextColor(Color.parseColor("#000000"));
+//        enrollNo.setTextColor(Color.parseColor("#000000"));
+//        branch.setTextColor(Color.parseColor("#000000"));
+//        imageButton.setEnabled(true);
+//        imageButton.setVisibility(View.VISIBLE);
+//        editDetails.setEnabled(false);
+//        editDetails.setVisibility(View.GONE);
+//        submitDetails.setEnabled(true);
+//        submitDetails.setVisibility(View.VISIBLE);
+//    }
 
     private void datachange() {
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -317,68 +292,68 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
-
-            filePath = data.getData();
-            CropImage.activity(filePath).setAspectRatio(1,1)
-                    .start(getContext(),this);
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == getActivity().RESULT_OK) {
-                Uri resultUri = result.getUri();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
-                    prfileImage.setImageBitmap(bitmap);
-                    uploadImage(resultUri);
-                }
-                catch (Exception e){
-                    Log.d("Home fragment", "onActivityResult: CropImage failed");
-                }
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
-        }
-    }
-
-    private void uploadImage(Uri resultUri)
-    {
-        if (resultUri!=null){
-//            progressBar.setVisibility(View.VISIBLE);
-            StorageReference unique = storageRef.child("User/");
-            final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(getContext())+"/DP.jpeg");
-            timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    progressBar.setVisibility(View.GONE);
-
-//                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();
-
-//                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-////                        Toast.makeText(TimeTable.this, uri.toString(), Toast.LENGTH_SHORT).show();
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
 //
-//                        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
-//                        databaseReference.child(SaveSharedPreference.getUserName(getActivity()).substring(0,dot)).child("TimeTable").setValue(uri.toString());
-//                        }
-//                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+//        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+//
+//            filePath = data.getData();
+//            CropImage.activity(filePath).setAspectRatio(1,1)
+//                    .start(getContext(),this);
+//        }
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (resultCode == getActivity().RESULT_OK) {
+//                Uri resultUri = result.getUri();
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+//                    prfileImage.setImageBitmap(bitmap);
+//                    uploadImage(resultUri);
+//                }
+//                catch (Exception e){
+//                    Log.d("Home fragment", "onActivityResult: CropImage failed");
+//                }
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                Exception error = result.getError();
+//            }
+//        }
+//    }
 
-                @Override
-                public void onFailure(@NonNull Exception e) {
-//                    progressBar.setVisibility(View.GONE);
-
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
+//    private void uploadImage(Uri resultUri)
+//    {
+//        if (resultUri!=null){
+////            progressBar.setVisibility(View.VISIBLE);
+//            StorageReference unique = storageRef.child("User/");
+//            final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(getContext())+"/DP.jpeg");
+//            timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+////                    progressBar.setVisibility(View.GONE);
+//
+////                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();
+//
+////                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+////                        @Override
+////                        public void onSuccess(Uri uri) {
+//////                        Toast.makeText(TimeTable.this, uri.toString(), Toast.LENGTH_SHORT).show();
+////
+////                        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
+////                        databaseReference.child(SaveSharedPreference.getUserName(getActivity()).substring(0,dot)).child("TimeTable").setValue(uri.toString());
+////                        }
+////                    });
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+////                    progressBar.setVisibility(View.GONE);
+//
+//                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//    }
 
     @Override
     public void onStart() {
