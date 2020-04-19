@@ -66,6 +66,10 @@ public class Home1Fragment extends Fragment {
     FloatingActionButton submitDetails;
     private static final int GET_FROM_GALLERY = 1;
 
+    public Home1Fragment() {
+            // Required empty public constructor
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -35,6 +35,10 @@ public class AttendanceFragment extends Fragment {
     static SubjectAdapter subjectAdapter;
     TextView tv;
 
+    public AttendanceFragment() {
+        // Required empty public constructor
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

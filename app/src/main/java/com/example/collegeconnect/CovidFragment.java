@@ -36,6 +36,10 @@ public class CovidFragment extends Fragment {
     ProgressBar progressBar;
     private AdView mAdView;
 
+    public CovidFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

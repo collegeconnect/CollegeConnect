@@ -38,6 +38,12 @@ public class SettingsMenu extends Fragment {
     TextView tv;
     private Button logout;
     Fragment homefrag = new Home1Fragment();
+    Fragment aboutfrag = new AboutFragment();
+    Fragment uploadfrag = new UploadListFragment();
+
+    public SettingsMenu() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +58,14 @@ public class SettingsMenu extends Fragment {
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i==0)
+                switch (i)
                 {
-                    loadFragment(homefrag);
+                    case 0: loadFragment(homefrag);
+                            break;
+                    case 1: loadFragment(uploadfrag);
+                            break;
+                    case 2: loadFragment(aboutfrag);
+
 //                    getActivity().getSupportFragmentManager()
 //                            .beginTransaction()
 //                            .replace(R.id.settings_frag_container,new HomeFragment())

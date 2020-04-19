@@ -64,10 +64,14 @@ public class HomeFragment extends Fragment {
     private DatabaseHelper mydb;
     Uri uri;
     private StorageReference storageRef;
-    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
-    private Uri filePath;
-//    FloatingActionButton editDetails,submitDetails;
-    private static final int GET_FROM_GALLERY = 1;
+//    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
+//    private Uri filePath;
+////    FloatingActionButton editDetails,submitDetails;
+//    private static final int GET_FROM_GALLERY = 1;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
 
     @Nullable
     @Override

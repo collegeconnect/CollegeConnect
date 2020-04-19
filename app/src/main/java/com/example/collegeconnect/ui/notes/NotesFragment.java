@@ -24,6 +24,10 @@ public class NotesFragment extends Fragment {
     ImageView imageView;
     Spinner course, branch, semester, unit;
 
+    public NotesFragment() {
+        // Required empty public constructor
+    }
+
 
     @Nullable
     @Override

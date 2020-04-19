@@ -40,6 +40,10 @@ public class ShareFragment extends Fragment {
     WebSettings webSettings;
     ProgressBar progressBar;
     private AdView mAdView;
+
+    public ShareFragment() {
+        // Required empty public constructor
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
