@@ -75,6 +75,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESC);
@@ -98,7 +99,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             loadFragments(new AttendanceFragment());
         }
 
-
+        //Set initials and dp
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
             SaveSharedPreference.setUser(navigation.this,FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         else {
@@ -177,7 +178,8 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         switch (item.getItemId())
         {
             case R.id.action_logout :
-                Dialog();
+                startActivity(new Intent(navigation.this,SettingsActivity.class));
+//                Dialog();
                 return true;
 
             default:

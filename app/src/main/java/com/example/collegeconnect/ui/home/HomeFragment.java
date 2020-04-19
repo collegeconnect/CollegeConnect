@@ -25,6 +25,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.SaveSharedPreference;
+import com.example.collegeconnect.SettingsActivity;
 import com.example.collegeconnect.UploadNotes;
 import com.example.collegeconnect.User;
 import com.example.collegeconnect.navigation;
@@ -76,8 +77,14 @@ public class HomeFragment extends Fragment {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
-        tv=getActivity().findViewById(R.id.tvTitle);
-        tv.setText("HOME");
+        if (getActivity().getApplicationContext().equals(navigation.class)) {
+            edit();
+        }
+        else{
+            tv = getActivity().findViewById(R.id.tvTitle);
+            tv.setText("HOME");
+        }
+
 
         View view =  inflater.inflate(R.layout.fragment_home,null);
 
@@ -254,6 +261,21 @@ public class HomeFragment extends Fragment {
                     Toast.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private void edit(){
+        nameField.setEnabled(true);
+        enrollNo.setEnabled(true);
+        branch.setEnabled(true);
+        nameField.setTextColor(Color.parseColor("#000000"));
+        enrollNo.setTextColor(Color.parseColor("#000000"));
+        branch.setTextColor(Color.parseColor("#000000"));
+        imageButton.setEnabled(true);
+        imageButton.setVisibility(View.VISIBLE);
+        editDetails.setEnabled(false);
+        editDetails.setVisibility(View.GONE);
+        submitDetails.setEnabled(true);
+        submitDetails.setVisibility(View.VISIBLE);
     }
 
     private void datachange() {
