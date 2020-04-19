@@ -1,0 +1,13 @@
+College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.
+
+It aims to create a helpful platform for all college students.
+
+The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time.
+
+This idea was developed for Ideathon held in BVCOE, New Delhi where it was presented to be a college app for BVCOE.
+
+Later it was converted to be a app for every college and course in India.
+
+The app is in currently in development phase.
+
+It's is being build by @saksham0804 and @sjain30
