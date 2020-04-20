@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -292,5 +293,7 @@ public class Home1Fragment extends Fragment {
         super.onStart();
         tv = getActivity().findViewById(R.id.settingTitle);
         tv.setText("Edit details");
+        tv.setPadding(0,0,0,0);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
     }
 }

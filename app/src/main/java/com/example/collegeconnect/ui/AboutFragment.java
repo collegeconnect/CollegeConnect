@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,5 +69,7 @@ public class AboutFragment extends Fragment {
         super.onStart();
         tv = getActivity().findViewById(R.id.settingTitle);
         tv.setText("About");
+        tv.setPadding(0,0,0,0);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
     }
 }

@@ -7,5 +7,8 @@
     <item
         android:id="@+id/tagover"
         android:title="Add Tags"/>
+    <item
+        android:id="@+id/deletenotes"
+        android:title="Delete"/>
 
 </menu>

@@ -1,4 +1,4 @@
-College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.
+College Connect was brought up as a vision, which aims to be a one stop shop for all the college needs irrespective of college and course.
 
 It aims to create a helpful platform for all college students.
 

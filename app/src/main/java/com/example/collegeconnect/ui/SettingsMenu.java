@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -141,7 +142,7 @@ public class SettingsMenu extends Fragment {
                     }
                 });
         AlertDialog alertDialog = builder.create();
-        builder.show();
+        alertDialog.show();
     }
 //    public boolean loadFragment(Fragment fragment)
 //    {
@@ -180,5 +181,7 @@ public class SettingsMenu extends Fragment {
         super.onResume();
         tv = getActivity().findViewById(R.id.settingTitle);
         tv.setText("Settings");
+        tv.setPadding(0,15,0,0);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
     }
 }
