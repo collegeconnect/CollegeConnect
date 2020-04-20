@@ -126,7 +126,7 @@ public class UploadListFragment extends Fragment {
         super.onStart();
         tv = getActivity().findViewById(R.id.settingTitle);
         tv.setText("My Uploads");
-        tv.setPadding(110,0,0,0);
+        tv.setPadding(140,0,0,0);
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
     }
 }

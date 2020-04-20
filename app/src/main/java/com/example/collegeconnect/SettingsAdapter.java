@@ -22,6 +22,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private ArrayList<String> options;
     private Context context;
     List frag_list;
+    Fragment homegfrag = new Home1Fragment();
+    Fragment uploadlistfrag = new UploadListFragment();
+    Fragment contactfrag = new ContactFragment();
+    Fragment aboutfrag = new AboutFragment();
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -70,9 +74,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView.findViewById(R.id.relate_settings);
             frag_list = new ArrayList<Fragment>();
-            frag_list.add(new Home1Fragment());
-            frag_list.add(new UploadListFragment());
-            frag_list.add(new AboutFragment());
+            frag_list.add(homegfrag);
+            frag_list.add(uploadlistfrag);
+            frag_list.add(contactfrag);
+            frag_list.add(aboutfrag);
         }
     }
 }

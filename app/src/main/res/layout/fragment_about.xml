@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.AboutFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/cc1" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="50dp"
+            android:layout_below="@id/imageView13"
+            android:layout_marginTop="0dp"
             android:background="?android:attr/listDivider" />
 
         <EditText
             android:id="@+id/about_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_below="@id/divider2"
             android:background="@android:color/transparent"
             android:clickable="false"
             android:editable="false"
-            android:ems="10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+            android:ems="10" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="32dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:text="Made with ❤\nVersion 2.0"
             android:textAlignment="center" />
 
-    </LinearLayout>
-</ScrollView>
+</RelativeLayout>

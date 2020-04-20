@@ -66,6 +66,7 @@ public class SettingsMenu extends Fragment {
         ArrayList<String> options= new ArrayList<>();
         options.add("Update Profile");
         options.add("My Upload List");
+        options.add("Contact Us");
         options.add("About");
 
         recyclerView = view.findViewById(R.id.settings_recycler);

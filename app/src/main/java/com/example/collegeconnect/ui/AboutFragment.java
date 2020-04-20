@@ -61,6 +61,8 @@ public class AboutFragment extends Fragment {
 
             EditText output = view.findViewById(R.id.about_text);
             output.setText((CharSequence) text);
+            output.setTextColor(R.color.colorAccent);
+            output.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         }
         return view;
     }
