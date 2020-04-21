@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.collegeconnect.ui.AboutFragment;
+import com.example.collegeconnect.ui.ContactFragment;
 import com.example.collegeconnect.ui.UploadListFragment;
 import com.example.collegeconnect.ui.home.Home1Fragment;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     Fragment uploadlistfrag = new UploadListFragment();
     Fragment contactfrag = new ContactFragment();
     Fragment aboutfrag = new AboutFragment();
+    int images[] ={R.drawable.ic_profile ,R.drawable.ic_uploadlist, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -42,6 +44,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.textView.setText(options.get(position));
+        holder.imageView.setBackgroundResource(images[position]);
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

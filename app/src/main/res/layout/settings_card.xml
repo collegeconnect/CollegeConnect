@@ -21,11 +21,13 @@
 
             <ImageView
                 android:id="@+id/setting_icon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:padding="2dp"
-                app:srcCompat="@drawable/cc1" />
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
+                android:padding="10dp" />
 
             <TextView
                 android:id="@+id/option"
