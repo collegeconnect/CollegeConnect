@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.collegeconnect.Constants;
+import com.example.collegeconnect.DividerItemDecoration;
 import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.NotesAdapter;
 import com.example.collegeconnect.R;
@@ -74,7 +75,7 @@ public class UploadListFragment extends Fragment {
                 }
                 if(uploadList.isEmpty()){
 //                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
-                    Snackbar.make(view.findViewById(R.id.fragmentContainer),"No PDFs Found",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view,"You have not uploaded anything!",Snackbar.LENGTH_LONG).show();
                 }
                 else {
 

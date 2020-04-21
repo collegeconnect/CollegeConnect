@@ -48,12 +48,17 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    AppCompatActivity activity = (AppCompatActivity)context;
-                    activity.getSupportFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.settings_frag_container, (Fragment) frag_list.get(position))
-                            .addToBackStack(null)
-                            .commit();
+                v.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        AppCompatActivity activity = (AppCompatActivity)context;
+                        activity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.settings_frag_container, (Fragment) frag_list.get(position))
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                },165);
 
             }
         });
@@ -68,14 +73,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
         TextView textView;
         ImageView imageView;
-        RelativeLayout relativeLayout;
+        View relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.option);
             imageView = itemView.findViewById(R.id.setting_icon);
-            relativeLayout = itemView.findViewById(R.id.relate_settings);
+            relativeLayout = itemView;
             frag_list = new ArrayList<Fragment>();
             frag_list.add(homegfrag);
             frag_list.add(uploadlistfrag);

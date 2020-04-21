@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    app:cardElevation="0dp"
     android:focusable="true"
-    app:cardElevation="3dp"
     app:cardUseCompatPadding="false">
 
     <RelativeLayout

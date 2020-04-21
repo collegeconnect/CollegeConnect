@@ -61,7 +61,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Downloads - " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
 
         ArrayList<String> selectedTags = new ArrayList<>();
         if (notes.getTags()!=null)

@@ -61,7 +61,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Downloads - " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
 
         ArrayList<String> selectedTags = new ArrayList<>();
         if (notes.getTags()!=null)
@@ -296,7 +296,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         TextView title,author,noOfDown;
         ImageButton report;
-        RelativeLayout itv;
+        View itv;
         RecyclerView recyclerView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -305,7 +305,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             author = itemView.findViewById(R.id.authorname);
             report = itemView.findViewById(R.id.reportButton);
             noOfDown = itemView.findViewById(R.id.download);
-            itv = itemView.findViewById(R.id.relate);
+            itv = itemView;
             recyclerView = itemView.findViewById(R.id.tagsRecycler);
         }
     }

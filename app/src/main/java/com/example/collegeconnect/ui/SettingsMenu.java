@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.collegeconnect.DatabaseHelper;
+import com.example.collegeconnect.DividerItemDecoration;
 import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.MainActivity;
 import com.example.collegeconnect.NotesAdapter;
@@ -74,6 +75,8 @@ public class SettingsMenu extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         settingsAdapter = new SettingsAdapter(options, getActivity());
         recyclerView.setAdapter(settingsAdapter);
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL_LIST,80,0);
+        recyclerView.addItemDecoration(decoration);
 
 //        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
 //            @Override

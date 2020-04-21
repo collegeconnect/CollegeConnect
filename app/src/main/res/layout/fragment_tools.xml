@@ -10,10 +10,10 @@
         android:id="@+id/roomLocator"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="7dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="7dp"
+        app:cardCornerRadius="5dp"
         app:cardElevation="3dp">
 
         <LinearLayout
@@ -63,11 +63,11 @@
         android:layout_below="@id/roomLocator"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="7dp"
-        app:cardElevation="3dp">
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="7dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
 
         <LinearLayout
             android:id="@+id/cardcovid"

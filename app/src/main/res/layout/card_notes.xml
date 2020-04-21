@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
-    app:cardElevation="3dp"
+    app:cardElevation="1.25dp"
     app:cardUseCompatPadding="false"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="3dp"
     android:clickable="true">
 
     <RelativeLayout
