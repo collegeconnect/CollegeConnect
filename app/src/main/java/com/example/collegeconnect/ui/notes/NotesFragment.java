@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SaveSharedPreference;
 import com.example.collegeconnect.UploadNotes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -46,6 +47,10 @@ public class NotesFragment extends Fragment {
         unit = view.findViewById(R.id.UnitN);
         tv8 = view.findViewById(R.id.textView8);
         imageView=view.findViewById(R.id.imageView10);
+        course.setSelection(SaveSharedPreference.getCourse(getContext()));
+        branch.setSelection(SaveSharedPreference.getBranch(getContext()));
+        semester.setSelection(SaveSharedPreference.getSemester(getContext()));
+        unit.setSelection(SaveSharedPreference.getUnit(getContext()));
 
         view.findViewById(R.id.fab_upload).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +67,7 @@ public class NotesFragment extends Fragment {
                     tv8.setVisibility(View.INVISIBLE);
                     imageView.setVisibility(View.INVISIBLE);
                     unit.setSelection(0);
+
                 }
                 else{
                     unit.setVisibility(View.VISIBLE);
@@ -84,6 +90,10 @@ public class NotesFragment extends Fragment {
                 String selected_semester = semester.getSelectedItem().toString();
                 String selected_unit = unit.getSelectedItem().toString();
 
+                SaveSharedPreference.setCourse(getContext(),course.getSelectedItemPosition());
+                SaveSharedPreference.setBranch(getContext(),branch.getSelectedItemPosition());
+                SaveSharedPreference.setSemester(getContext(),semester.getSelectedItemPosition());
+                SaveSharedPreference.setUnit(getContext(),unit.getSelectedItemPosition());
 //                Toast.makeText(getActivity(), selected_branch, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), DownloadNotes.class);
