@@ -1,20 +1,15 @@
 package com.example.collegeconnect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.collegeconnect.ui.AboutFragment;
-import com.example.collegeconnect.ui.ContactFragment;
-import com.example.collegeconnect.ui.UploadListFragment;
-import com.example.collegeconnect.ui.home.Home1Fragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +17,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private ArrayList<String> options;
     private Context context;
-    List frag_list;
-    Fragment homegfrag = new Home1Fragment();
-    Fragment uploadlistfrag = new UploadListFragment();
-    Fragment contactfrag = new ContactFragment();
-    Fragment aboutfrag = new AboutFragment();
+    List act_list;
+    Class homeedit = HomeEditActivity.class;
+    Class myuploads = MyUploadsActivity.class;
+    Class contactus = ContactActivity.class;
+    Class about = AboutActivity.class;
     int images[] ={R.drawable.ic_profile ,R.drawable.ic_uploadlist, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
@@ -51,12 +46,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        AppCompatActivity activity = (AppCompatActivity)context;
-                        activity.getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.settings_frag_container, (Fragment) frag_list.get(position))
-                                .addToBackStack(null)
-                                .commit();
+                        context.startActivity(new Intent(context,(Class) act_list.get(position)));
                     }
                 },165);
 
@@ -81,11 +71,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             textView = itemView.findViewById(R.id.option);
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView;
-            frag_list = new ArrayList<Fragment>();
-            frag_list.add(homegfrag);
-            frag_list.add(uploadlistfrag);
-            frag_list.add(contactfrag);
-            frag_list.add(aboutfrag);
+            act_list = new ArrayList<Class>();
+            act_list.add(homeedit);
+            act_list.add(myuploads);
+            act_list.add(contactus);
+            act_list.add(about);
         }
     }
 }

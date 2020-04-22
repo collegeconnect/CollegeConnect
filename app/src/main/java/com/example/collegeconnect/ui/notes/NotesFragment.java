@@ -37,7 +37,7 @@ public class NotesFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_notes,null);
 
-        tv=getActivity().findViewById(R.id.tvTitle);
+        tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("NOTES");
 
         course = view.findViewById(R.id.CourseN);

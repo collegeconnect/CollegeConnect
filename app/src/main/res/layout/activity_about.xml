@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AboutFragment">
+    tools:context=".AboutActivity">
+
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbarabout"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarabout">
 
 
         <ImageView
             android:id="@+id/imageView13"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_centerHorizontal="true"
             android:src="@drawable/cc1" />
 
@@ -43,4 +53,5 @@
             android:text="Made with ❤\nVersion 2.0"
             android:textAlignment="center" />
 
+    </RelativeLayout>
 </RelativeLayout>

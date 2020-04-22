@@ -1,34 +1,24 @@
-package com.example.collegeconnect.ui;
-
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
+package com.example.collegeconnect;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.collegeconnect.Constants;
-import com.example.collegeconnect.DividerItemDecoration;
-import com.example.collegeconnect.DownloadNotes;
-import com.example.collegeconnect.NotesAdapter;
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.Upload;
-import com.example.collegeconnect.UploadlistAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,9 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class UploadListFragment extends Fragment {
+public class MyUploadsActivity extends AppCompatActivity {
 
     TextView tv;
     public static ArrayList<Upload> uploadList;
@@ -50,18 +39,17 @@ public class UploadListFragment extends Fragment {
     UploadlistAdapter notesAdapter;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-    public UploadListFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view =  inflater.inflate(R.layout.fragment_upload_list, container, false);
-        tv = getActivity().findViewById(R.id.settingTitle);
-        setHasOptionsMenu(true);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_uploads);
+
+        Toolbar toolbar = findViewById(R.id.toolbarcom);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        tv = findViewById(R.id.tvtitle);
+        tv.setText("My Uploads");
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -75,14 +63,14 @@ public class UploadListFragment extends Fragment {
                 }
                 if(uploadList.isEmpty()){
 //                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
-                    Snackbar.make(view,"You have not uploaded anything!",Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(findViewById(R.id.recycle),"You have not uploaded anything!",Snackbar.LENGTH_LONG).show();
                 }
                 else {
 
-                    recyclerView = view.findViewById(R.id.uploadrecyler);
+                    recyclerView = findViewById(R.id.uploadrecyler);
                     recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    notesAdapter = new UploadlistAdapter(getContext(), uploadList);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MyUploadsActivity.this));
+                    notesAdapter = new UploadlistAdapter(MyUploadsActivity.this, uploadList);
                     recyclerView.setAdapter(notesAdapter);
                 }
             }
@@ -92,22 +80,19 @@ public class UploadListFragment extends Fragment {
 
             }
         });
-        return view;
     }
-
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.search_view,menu);
-        Drawable drawable = menu.getItem(0).getIcon(); // change 0 with 1,2 ...
-        drawable.mutate();
-        drawable.setColorFilter(getResources().getColor(R.color.newBlue), PorterDuff.Mode.SRC_IN);
         MenuItem searchItem = menu.findItem(R.id.search_action);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setQueryHint("Search by Name");
+        searchView.setQueryHint("Search by Name or Author");
+        searchView.setIconifiedByDefault(true);
         EditText searchedittext = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
-        searchedittext.setTextColor(Color.BLACK);
-        searchedittext.setHintTextColor(Color.GRAY);
+        searchedittext.setTextColor(Color.WHITE);
+        searchedittext.setHintTextColor(Color.parseColor("#50F3F9FE"));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -116,18 +101,38 @@ public class UploadListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                notesAdapter.getFilter().filter(newText);
+                try {
+                    notesAdapter.getFilter().filter(newText);
+                }
+                catch (Exception e )
+                {
+                }
                 return false;
             }
         });
-    }
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                tv.setVisibility(View.GONE);
+                return true;
+            }
 
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                tv.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
+
+        return true;
+    }
     @Override
-    public void onStart() {
-        super.onStart();
-        tv = getActivity().findViewById(R.id.settingTitle);
-        tv.setText("My Uploads");
-        tv.setPadding(140,0,0,0);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

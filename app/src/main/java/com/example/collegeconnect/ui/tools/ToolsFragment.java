@@ -30,7 +30,7 @@ public class ToolsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tools,null);
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-        tv=getActivity().findViewById(R.id.tvTitle);
+        tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
         cardView = view.findViewById(R.id.roomLocator);
         cardView.setOnClickListener(new View.OnClickListener() {

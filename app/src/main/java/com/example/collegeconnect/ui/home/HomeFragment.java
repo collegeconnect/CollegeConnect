@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
         if(getActivity()!=null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
-        tv = getActivity().findViewById(R.id.tvTitle);
+        tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("HOME");
 
 

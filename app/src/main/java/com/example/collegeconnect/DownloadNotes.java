@@ -1,9 +1,12 @@
 package com.example.collegeconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
@@ -12,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -37,6 +41,7 @@ public class DownloadNotes extends AppCompatActivity{
     RecyclerView recyclerView;
     NotesAdapter notesAdapter;
     private DatabaseReference DatabaseReference;
+    TextView tv;
 
 
     @Override
@@ -50,11 +55,12 @@ public class DownloadNotes extends AppCompatActivity{
         final String receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
         final String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Notes");
+        tv = findViewById(R.id.tvtitle);
+        tv.setText("Notes");
 
 //        Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
 
@@ -109,6 +115,7 @@ public class DownloadNotes extends AppCompatActivity{
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setQueryHint("Search by Name or Author");
         EditText searchedittext = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+
         searchedittext.setTextColor(Color.WHITE);
         searchedittext.setHintTextColor(Color.parseColor("#50F3F9FE"));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -119,11 +126,38 @@ public class DownloadNotes extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                notesAdapter.getFilter().filter(newText);
+                try {
+                    notesAdapter.getFilter().filter(newText);
+                }
+                catch (Exception e )
+                {
+                }
                 return false;
             }
         });
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                tv.setVisibility(View.GONE);
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                tv.setVisibility(View.VISIBLE);
+                return true;
+            }
+        });
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

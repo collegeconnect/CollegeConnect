@@ -126,7 +126,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
 //        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
 
-        Toolbar toolbar = findViewById(R.id.appbar);
+        Toolbar toolbar = findViewById(R.id.toolbarnav);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setColorFilter(getResources().getColor(R.color.colorwhite));

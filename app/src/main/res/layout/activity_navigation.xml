@@ -17,30 +17,31 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:background="@android:color/transparent"
-        android:id="@+id/app_bar">
-
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/appbar"
+        android:id="@+id/tool_bar">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvTitle"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarnav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu_regular"
+                app:title=" "
+                android:background="@android:color/transparent"/>
 
-                android:gravity="center"
-                android:paddingStart="40dp"
+            <TextView
+                android:id="@+id/navTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_regular"
+                android:layout_centerInParent="true"
                 android:paddingTop="15dp"
-                android:text="College"
+                android:text="Settings"
                 android:textColor="@color/newBlue"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-        </androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -62,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/bottomNav"
-            android:layout_below="@+id/app_bar">
+            android:layout_below="@+id/tool_bar">
         </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,4 +1,12 @@
-package com.example.collegeconnect.ui.home;
+package com.example.collegeconnect;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
@@ -7,33 +15,18 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.example.collegeconnect.DatabaseHelper;
-import com.example.collegeconnect.R;
-import com.example.collegeconnect.SaveSharedPreference;
-import com.example.collegeconnect.User;
-import com.example.collegeconnect.navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +44,8 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Home1Fragment extends Fragment {
+public class HomeEditActivity extends AppCompatActivity {
+
     TextDrawable drawable;
     TextView tv;
     EditText nameField, enrollNo, branch;
@@ -67,43 +61,22 @@ public class Home1Fragment extends Fragment {
     FloatingActionButton submitDetails;
     private static final int GET_FROM_GALLERY = 1;
 
-    public Home1Fragment() {
-            // Required empty public constructor
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home1, container, false);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home_edit);
+        Toolbar toolbar = findViewById(R.id.toolbarcom);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView tv = findViewById(R.id.tvtitle);
+        tv.setText("Edit Details");
         storageRef = storage.getReference();
-        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(getContext()).substring(0, dot));
-        prfileImage = view.findViewById(R.id.imageView3copy);
-        nameField = view.findViewById(R.id.nameFieldcopy);
-        enrollNo = view.findViewById(R.id.textView3copy);
-        branch = view.findViewById(R.id.textView4copy);
-        imageButton = view.findViewById(R.id.imageButtoncopy);
-//        editDetails = view.findViewById(R.id.editDetailscopy);
-        submitDetails = view.findViewById(R.id.submitDetailscopy);
-//        totalAttendance = view.findViewById(R.id.aggregateAttendancecopy);
-//        circleprog = view.findViewById(R.id.cicleprog);
-//        totalAttendance.setEnabled(false);
-        nameField.setEnabled(false);
-        enrollNo.setEnabled(false);
-        branch.setEnabled(false);
-        imageButton.setEnabled(false);
-//        circleprog.setMax(100);
-//        circleprog.setProgress(0);
-        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
-        datachange();
-
-        storageRef.child("User/" + SaveSharedPreference.getUserName(getActivity()) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageRef.child("User/" + SaveSharedPreference.getUserName(this) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 // Got the download URL for 'users/me/profile.png'
-                Home1Fragment.this.uri = uri;
+                HomeEditActivity.this.uri = uri;
                 if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
 //                progressBar.setVisibility(View.GONE);
@@ -120,6 +93,28 @@ public class Home1Fragment extends Fragment {
         });
         if (uri != null)
             Picasso.get().load(uri).into(prfileImage);
+        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
+        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
+        prfileImage = findViewById(R.id.imageView3copy);
+        nameField = findViewById(R.id.nameFieldcopy);
+        enrollNo = findViewById(R.id.textView3copy);
+        branch = findViewById(R.id.textView4copy);
+        imageButton = findViewById(R.id.imageButtoncopy);
+//        editDetails = view.findViewById(R.id.editDetailscopy);
+        submitDetails = findViewById(R.id.submitDetailscopy);
+//        totalAttendance = view.findViewById(R.id.aggregateAttendancecopy);
+//        circleprog = view.findViewById(R.id.cicleprog);
+//        totalAttendance.setEnabled(false);
+        nameField.setEnabled(false);
+        enrollNo.setEnabled(false);
+        branch.setEnabled(false);
+        imageButton.setEnabled(false);
+//        circleprog.setMax(100);
+//        circleprog.setProgress(0);
+        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
+        datachange();
+
+
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,17 +131,16 @@ public class Home1Fragment extends Fragment {
                 String enroll = enrollNo.getText().toString();
                 String clg = branch.getText().toString();
                 User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, clg);
-                getActivity().getSupportFragmentManager().popBackStack();
+                finish();
             }
         });
-        return view;
     }
     private void getprfpic() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
+        if (ContextCompat.checkSelfPermission(HomeEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE )
                 == PackageManager.PERMISSION_DENIED) {
 
             // Requesting the permission
-            ActivityCompat.requestPermissions(getActivity(),
+            ActivityCompat.requestPermissions(HomeEditActivity.this,
                     new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
                     100);
         }
@@ -164,7 +158,7 @@ public class Home1Fragment extends Fragment {
             getprfpic();
 
         } else {
-            Toast.makeText(getActivity(),
+            Toast.makeText(this,
                     "Storage Permission Denied",
                     Toast.LENGTH_SHORT)
                     .show();
@@ -229,18 +223,18 @@ public class Home1Fragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GET_FROM_GALLERY && resultCode == getActivity().RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == this.RESULT_OK && data != null && data.getData() != null) {
 
             filePath = data.getData();
             CropImage.activity(filePath).setAspectRatio(1,1)
-                    .start(getContext(),this);
+                    .start(this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == getActivity().RESULT_OK) {
+            if (resultCode == this.RESULT_OK) {
                 Uri resultUri = result.getUri();
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                     prfileImage.setImageBitmap(bitmap);
                     uploadImage(resultUri);
                 }
@@ -258,7 +252,7 @@ public class Home1Fragment extends Fragment {
         if (resultUri!=null){
 //            progressBar.setVisibility(View.VISIBLE);
             StorageReference unique = storageRef.child("User/");
-            final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(getContext())+"/DP.jpeg");
+            final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(this)+"/DP.jpeg");
             timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -282,18 +276,18 @@ public class Home1Fragment extends Fragment {
                 public void onFailure(@NonNull Exception e) {
 //                    progressBar.setVisibility(View.GONE);
 
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomeEditActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
-
     @Override
-    public void onStart() {
-        super.onStart();
-        tv = getActivity().findViewById(R.id.settingTitle);
-        tv.setText("Edit details");
-        tv.setPadding(0,0,0,0);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

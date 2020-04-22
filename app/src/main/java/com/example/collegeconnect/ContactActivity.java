@@ -1,46 +1,40 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.TypedValue;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.collegeconnect.R;
 
 import java.util.List;
 
-
-public class ContactFragment extends Fragment {
-    TextView tv;
-
-    public ContactFragment() {
-        // Required empty public constructor
-    }
-
+public class ContactActivity extends AppCompatActivity {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view =  inflater.inflate(R.layout.fragment_contact, container, false);
-        tv = getActivity().findViewById(R.id.settingTitle);
-
-        view.findViewById(R.id.email_contact).setOnClickListener(new View.OnClickListener() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_contact);
+        Toolbar toolbar = findViewById(R.id.toolbarcom);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        TextView tv = findViewById(R.id.tvtitle);
+        tv.setText("Contact Us");
+        findViewById(R.id.email_contact).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String[] recipients={"bvp.connect@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                final PackageManager pm = getActivity().getPackageManager();
+                final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
                 ResolveInfo best = null;
                 for (final ResolveInfo info : matches)
@@ -52,18 +46,18 @@ public class ContactFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.sendMail).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.sendMail).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TextView textView = view.findViewById(R.id.message_body);
+                TextView textView = findViewById(R.id.message_body);
                 String mesaage = textView.getText().toString();
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String[] recipients={"bvp.connect@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
                 intent.putExtra(android.content.Intent.EXTRA_TEXT,mesaage);
-                final PackageManager pm = getActivity().getPackageManager();
+                final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
                 ResolveInfo best = null;
                 for (final ResolveInfo info : matches)
@@ -74,14 +68,14 @@ public class ContactFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        return view;
     }
     @Override
-    public void onStart() {
-        super.onStart();
-        tv = getActivity().findViewById(R.id.settingTitle);
-        tv.setText("Contact Us");
-        tv.setPadding(0,0,0,0);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
