@@ -4,34 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fragmentbackground"
     tools:context=".SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settings_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
-        android:id="@+id/settings_bar">
+        app:elevation="0dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/settingbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title=" "
-            android:background="@android:color/transparent"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/settingbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:title=" " />
 
             <TextView
                 android:id="@+id/settingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu_regular"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/ubuntu_regular"
                 android:text="Settings"
                 android:textColor="@color/newBlue"
                 android:textSize="25sp"

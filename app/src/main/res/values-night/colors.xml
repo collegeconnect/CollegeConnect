@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="textcolor">#86bbd8</color>
-    <color name="fragmentbackground">#202020</color>
+    <color name="fragmentbackground">#121212</color>
     <color name="cardbackground">#343633</color>
     <color name="arctext">#86bbd8</color>
     <color name="cardtext">#86bbd8</color>
+    <color name="colorAccent">#138FF7</color>
 </resources>
