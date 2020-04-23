@@ -46,6 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         ArrayList<String> options= new ArrayList<>();
         options.add("Update Profile");
+        options.add("Theme");
         options.add("My Upload List");
         options.add("Contact Us");
         options.add("About");

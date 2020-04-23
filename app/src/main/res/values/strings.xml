@@ -83,6 +83,12 @@
         <item>About</item>
     </string-array>
 
+    <string-array name="themes">
+        <item>System Default</item>
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+
     <string name="title_activity_settings2">Settings</string>
 
     <!-- Preference Titles -->

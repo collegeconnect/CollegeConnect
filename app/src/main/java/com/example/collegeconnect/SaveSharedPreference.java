@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 public class SaveSharedPreference {
     private static final String PREF_USER_NAME= "username";
     private static final String USER = "user";
-    private static final String TT="Timetable";
+    private static final String CHECKED_ITEM="checked_item";
     private static final String COURSE = "course";
     private static final String BRANCH = "branch";
     private static final String SEMESTER = "semester";
@@ -29,10 +29,10 @@ public class SaveSharedPreference {
         editor.putString(USER, user);
         editor.commit();
     }
-    public static void setTt(Context ctx, String path)
+    public static void setCheckedItem(Context ctx, int path)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(TT, path);
+        editor.putInt(CHECKED_ITEM, path);
         editor.commit();
     }
     public static void setCourse(Context ctx, int num)
@@ -69,9 +69,9 @@ public class SaveSharedPreference {
     {
         return  getSharedPreferences(ctx).getString(USER, "");
     }
-    public static String getTt(Context ctx)
+    public static int getCheckedItem(Context ctx)
     {
-        return getSharedPreferences(ctx).getString(TT, "");
+        return getSharedPreferences(ctx).getInt(CHECKED_ITEM, 0);
     }
     public static int getCourse(Context ctx)
     {
