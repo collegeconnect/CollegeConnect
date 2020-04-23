@@ -77,18 +77,29 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 selection = theme[which];
+
                 checked_item = which;
             }
         });
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(selection.equals(theme[0]))
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                else if(selection.equals(theme[1]))
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                else if(selection.equals(theme[2]))
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                if(selection==null) {
+                    checked_item=SaveSharedPreference.getCheckedItem(context);
+                    selection = theme[checked_item];
+
+                }
+                switch (selection) {
+                    case "System Default":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        break;
+                    case "Dark":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        break;
+                    case "Light":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        break;
+                }
                 SaveSharedPreference.setCheckedItem(context,checked_item);
             }
         });
