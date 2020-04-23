@@ -71,10 +71,12 @@ public class UploadNotes extends AppCompatActivity {
         mStorageReference = FirebaseStorage.getInstance().getReference();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        tv8 = findViewById(R.id.tvtitle);
+        tv8.setText("Upload Notes");
 
         //getting the views
         textViewStatus = findViewById(R.id.textViewStatus);

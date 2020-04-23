@@ -11,5 +11,10 @@
     <color name="shortTag">#FBFF61</color>
     <color name="longTag">#FF6A6A</color>
     <color name="etuTag">#6FFF6F</color>
-        <color name="ttpTag">#6AFFEC</color>
+    <color name="ttpTag">#6AFFEC</color>
+    <color name="textcolor">#000</color>
+    <color name="fragmentbackground">#ffffff</color>
+    <color name="cardbackground">#ffffff</color>
+    <color name="arctext">#138FF7</color>
+    <color name="cardtext">#000</color>
 </resources>

@@ -2,22 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:elevation="0dp"
     android:id="@+id/naivgation_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fragmentbackground"
+    android:elevation="0dp"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
-        android:id="@+id/tool_bar">
+        app:elevation="0dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,15 +28,15 @@
                 android:id="@+id/toolbarnav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title=" "
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent"
+                app:title=" " />
 
             <TextView
                 android:id="@+id/navTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu_regular"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/ubuntu_regular"
                 android:paddingTop="15dp"
                 android:text="Settings"
                 android:textColor="@color/newBlue"
@@ -58,13 +60,12 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/activity_navigation_drawer" />
 
-        <FrameLayout
-            android:id="@+id/fragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottomNav"
-            android:layout_below="@+id/tool_bar">
-        </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomNav"
+        android:layout_below="@+id/tool_bar"></FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

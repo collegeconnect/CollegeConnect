@@ -74,6 +74,7 @@
             android:layout_marginBottom="32dp"
             android:text="Made with ❤\nVersion 2.0"
             android:textAlignment="center"
+            android:textColor="@color/textcolor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline25"
             app:layout_constraintStart_toStartOf="@+id/guideline25" />
