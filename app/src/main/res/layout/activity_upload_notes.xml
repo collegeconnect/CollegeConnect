@@ -155,7 +155,7 @@
         android:layout_alignBottom="@id/spinnerCourse"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -165,7 +165,7 @@
         android:layout_alignBottom="@id/spinnerBranch"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -175,7 +175,7 @@
         android:layout_alignBottom="@id/spinnerSem"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -185,6 +185,6 @@
         android:layout_alignBottom="@id/spinnerUnit"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
 </RelativeLayout>

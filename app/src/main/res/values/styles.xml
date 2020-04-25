@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/newBlue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
 
     </style>

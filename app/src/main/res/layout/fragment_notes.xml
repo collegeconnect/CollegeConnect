@@ -85,7 +85,7 @@
         android:layout_alignBottom="@id/CourseN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -95,7 +95,7 @@
         android:layout_alignBottom="@id/SemesterN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView10"
@@ -105,7 +105,7 @@
         android:layout_alignBottom="@id/UnitN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -115,7 +115,7 @@
         android:layout_alignBottom="@id/BranchN"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/down" />
+        android:background="@drawable/ic_arrow_down" />
 
     <Spinner
         android:id="@+id/CourseN"

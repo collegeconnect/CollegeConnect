@@ -36,12 +36,16 @@
             android:id="@+id/about_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_below="@id/divider2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
             android:clickable="false"
             android:editable="false"
-            android:ems="10" />
+            android:ems="10"
+            android:textColor="@color/cardtext" />
 
         <TextView
             android:id="@+id/textView15"
