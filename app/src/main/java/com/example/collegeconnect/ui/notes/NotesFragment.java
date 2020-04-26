@@ -115,4 +115,9 @@ public class NotesFragment extends Fragment {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_notes).setChecked(true);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomNavigationView.getMenu().findItem(R.id.nav_notes).setChecked(true);
+    }
 }

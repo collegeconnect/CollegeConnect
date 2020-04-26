@@ -66,4 +66,9 @@ public class ToolsFragment extends Fragment {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
+    }
 }

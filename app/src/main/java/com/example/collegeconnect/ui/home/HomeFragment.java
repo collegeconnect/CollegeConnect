@@ -347,4 +347,10 @@ public class HomeFragment extends Fragment {
 //        if (HomeFragment.this.uri!=null)
 //        Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+    }
 }

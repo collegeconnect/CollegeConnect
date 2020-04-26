@@ -94,6 +94,11 @@ public class AttendanceFragment extends Fragment {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_attendance).setChecked(true);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        bottomNavigationView.getMenu().findItem(R.id.nav_attendance).setChecked(true);
+    }
 
     public void loadData()
     {
