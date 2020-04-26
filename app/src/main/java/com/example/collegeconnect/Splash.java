@@ -7,6 +7,8 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
+
 
 public class Splash extends AppCompatActivity {
 

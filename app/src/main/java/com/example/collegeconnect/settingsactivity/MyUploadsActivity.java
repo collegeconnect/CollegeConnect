@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.settingsactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -17,8 +17,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.adapters.UploadlistAdapter;
+import com.example.collegeconnect.datamodels.Constants;
+import com.example.collegeconnect.datamodels.Upload;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

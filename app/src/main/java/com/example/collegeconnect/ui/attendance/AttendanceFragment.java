@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.SubjectAdapter;
+import com.example.collegeconnect.adapters.SubjectAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 

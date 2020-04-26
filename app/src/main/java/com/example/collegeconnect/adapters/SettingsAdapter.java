@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,16 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.datepicker.MaterialStyledDatePickerDialog;
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
+import com.example.collegeconnect.settingsactivity.AboutActivity;
+import com.example.collegeconnect.settingsactivity.ContactActivity;
+import com.example.collegeconnect.settingsactivity.HomeEditActivity;
+import com.example.collegeconnect.settingsactivity.MyUploadsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.dialog.MaterialDialogs;
 
 import java.util.ArrayList;
 import java.util.List;

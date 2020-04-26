@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.settingsactivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +12,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
+import com.example.collegeconnect.datamodels.User;
+import com.example.collegeconnect.navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -169,9 +172,9 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField.setEnabled(true);
         enrollNo.setEnabled(true);
         branch.setEnabled(true);
-        nameField.setTextColor(Color.parseColor("#000000"));
-        enrollNo.setTextColor(Color.parseColor("#000000"));
-        branch.setTextColor(Color.parseColor("#000000"));
+        nameField.setTextColor(getColor(R.color.blackToWhite));
+        enrollNo.setTextColor(getColor(R.color.blackToWhite));
+        branch.setTextColor(getColor(R.color.blackToWhite));
         imageButton.setEnabled(true);
         imageButton.setVisibility(View.VISIBLE);
 //        editDetails.setEnabled(false);

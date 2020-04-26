@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.datamodels;
 
 import java.util.ArrayList;
 

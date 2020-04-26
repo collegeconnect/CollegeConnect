@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.settingsactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.collegeconnect.R;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,15 +25,16 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         TextView tv = findViewById(R.id.tvtitle);
         tv.setText("About");
 
         BufferedReader reader = null;
-
         try {
             reader = new BufferedReader(
                     new InputStreamReader(this.getAssets().open("about_text.txt")));
@@ -55,8 +58,7 @@ public class AboutActivity extends AppCompatActivity {
             }
 
             EditText output = findViewById(R.id.about_text);
-            output.setText((CharSequence) text);
-            output.setTextColor(R.color.colorAccent);
+            output.setText(text);
             output.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
         }
     }

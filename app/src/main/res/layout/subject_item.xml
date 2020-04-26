@@ -19,7 +19,6 @@
         android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
         android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
         android:layout_marginBottom="@dimen/cardview_compat_inset_shadow"
-        app:cardBackgroundColor="@color/cardbackground"
         app:cardCornerRadius="7dp"
         app:cardElevation="3dp">
 
@@ -36,8 +35,6 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/cardbackground"
-                android:backgroundTint="@color/cardbackground"
                 app:arc_bottom_text="Attendance"
                 app:arc_finished_color="#00FF00"
                 app:arc_max="100"
@@ -66,7 +63,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Subject Name"
-                        android:textColor="@color/cardtext"
+                        android:textColor="@color/blackToWhite"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -110,7 +107,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="0"
-                        android:textColor="@color/cardtext"
+                        android:textColor="@color/blackToWhite"
                         android:textSize="20sp" />
 
                     <ImageView
@@ -131,7 +128,7 @@
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"
                     android:text="Add attendance"
-                    android:textColor="@color/cardtext"
+                    android:textColor="@color/blackToWhite"
                     android:textSize="13sp" />
             </LinearLayout>
 

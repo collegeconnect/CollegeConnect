@@ -1,9 +1,8 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -26,6 +24,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegeconnect.datamodels.Constants;
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
+import com.example.collegeconnect.datamodels.NotesReports;
+import com.example.collegeconnect.datamodels.Upload;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

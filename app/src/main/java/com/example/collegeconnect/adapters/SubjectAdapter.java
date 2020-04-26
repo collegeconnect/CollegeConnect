@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -13,6 +13,9 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.collegeconnect.DatabaseHelper;
+import com.example.collegeconnect.R;
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import java.util.ArrayList;

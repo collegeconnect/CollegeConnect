@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,6 @@ import com.ortiz.touchview.TouchImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.Time;
 
 public class TimeTable extends AppCompatActivity {
 

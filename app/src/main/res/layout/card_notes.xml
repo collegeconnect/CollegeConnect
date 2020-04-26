@@ -37,7 +37,7 @@
                 android:layout_toEndOf="@id/pdfview"
                 android:gravity="center"
                 android:text="File Name"
-                android:textColor="#000"
+                android:textColor="@color/blackToWhite"
                 android:textSize="16sp" />
 
             <TextView

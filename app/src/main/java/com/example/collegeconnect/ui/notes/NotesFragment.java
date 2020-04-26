@@ -9,12 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.SaveSharedPreference;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.UploadNotes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

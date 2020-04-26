@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.datamodels;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

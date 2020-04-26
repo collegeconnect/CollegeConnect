@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Room Locator"
-                    android:textColor="@color/cardtext"
+                    android:textColor="@color/blackToWhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="Covid-19 Tracker"
-                    android:textColor="@color/cardtext"
+                    android:textColor="@color/blackToWhite"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

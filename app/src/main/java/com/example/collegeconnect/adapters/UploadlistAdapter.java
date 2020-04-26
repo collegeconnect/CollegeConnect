@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,13 +23,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegeconnect.datamodels.Constants;
+import com.example.collegeconnect.R;
+import com.example.collegeconnect.datamodels.Upload;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;

@@ -2,7 +2,7 @@
 <resources>
     <color name="textcolor">#138FF7</color>
     <color name="fragmentbackground">#121212</color>
-    <color name="cardbackground">#343633</color>
+    <color name="cardbackground">#373737</color>
     <color name="arctext">#9AD1EF</color>
     <color name="cardtext">#9AD1EF</color>
     <color name="colorAccent">#138FF7</color>
@@ -10,6 +10,6 @@
     <color name="bottomBoundary">#50121212</color>
     <color name="bottomNav">#000</color>
     <color name="bottomNavItem">#138FF7</color>
-    <color name="bottomNavInactive">#80138FF7</color>
+
     <color name="blackToWhite">#fff</color>
 </resources>
