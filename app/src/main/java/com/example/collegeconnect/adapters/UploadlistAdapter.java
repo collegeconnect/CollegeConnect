@@ -1,9 +1,16 @@
 package com.example.collegeconnect.adapters;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -20,9 +27,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.datamodels.Constants;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.Upload;
@@ -36,6 +45,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.ViewHolder> implements Filterable {
@@ -71,16 +81,21 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         //Tags Recycler View
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-        TagsAdapter recyclerAdapter = new TagsAdapter(context, selectedTags);
+        final TagsAdapter recyclerAdapter = new TagsAdapter(context, selectedTags);
         holder.recyclerView.setAdapter(recyclerAdapter);
 
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(notes.getUrl()), "application/pdf");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(Intent.createChooser(intent, "Choose an Application:"));
+                File file = new File("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
+                if(file.isFile()) {
+                    openfile("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
+                    Log.d("upload", "onClick: already exists");
+                }
+                else {
+                    downloadfile(notes.getUrl(),notes.getName());
+                    Log.d("upload", "onClick: download");
+                }
             }
         });
 
@@ -148,6 +163,45 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
             }
         });
 
+    }
+    public void downloadfile(String url, String name) {
+        final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setMimeType("application/pdf");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
+        request.allowScanningByMediaScanner();
+        final long id = downloadManager.enqueue(request);
+        Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
+        BroadcastReceiver onComplete = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
+                if (c != null) {
+                    c.moveToFirst();
+                    try {
+                        String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                        File mFile = new File(Uri.parse(fileUri).getPath());
+                        String fileName = mFile.getAbsolutePath();
+                        openfile(fileName);
+                    } catch (Exception e) {
+                        Log.e("error", "Could not open the downloaded file");
+                    }
+                }
+            }
+        };
+        context.registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    public void openfile(String path){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
+        Log.d("Notesada", "openfile: "+uri);
+        intent.setDataAndType(uri, "application/pdf");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.startActivity(Intent.createChooser(intent,"Choose an application"));
     }
 
 

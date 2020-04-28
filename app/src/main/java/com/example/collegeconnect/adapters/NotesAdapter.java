@@ -1,10 +1,18 @@
 package com.example.collegeconnect.adapters;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +29,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.datamodels.Constants;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
@@ -33,7 +43,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.File;
 import java.util.ArrayList;
+
+import io.reactivex.schedulers.SchedulerRunnableIntrospection;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
@@ -43,6 +57,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private ArrayList<Upload> noteslistfull;
     private EditText answer;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String name;
 
     public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
         this.context = context;
@@ -65,6 +80,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
         holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
+        name=notes.getName();
 
         ArrayList<String> selectedTags = new ArrayList<>();
         if (notes.getTags()!=null)
@@ -80,20 +96,26 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                File file = new File("/storage/emulated/0/Download"+File.separator+name+".pdf");
+                if(file.isFile()) {
+                    openfile("/storage/emulated/0/Download"+File.separator+name+".pdf");
+                    Log.d("upload", "onClick: already exists");
+                }
+                else {
+                    downloadfile(notes.getUrl());
+                    int downloads = notes.getDownload() + 1;
+                    Upload upload = new Upload(notes.getName(),
+                            notes.getCourse(),
+                            notes.getSemester(),
+                            notes.getBranch(),
+                            notes.getUnit(),
+                            notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(), finalSelectedTags);
+                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+                    mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
+                    Log.d("upload", "onClick: download");
+                }
 
-                int downloads = notes.getDownload() + 1;
-                Upload upload = new Upload(notes.getName(),
-                        notes.getCourse(),
-                        notes.getSemester(),
-                        notes.getBranch(),
-                        notes.getUnit(),
-                        notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(), finalSelectedTags);
-                DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-                mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.parse(notes.getUrl()), "application/pdf");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(Intent.createChooser(intent, "Choose an Application:"));
+
             }
         });
 //        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp()+"/tags");
@@ -288,6 +310,46 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             }
         });
 
+    }
+    public void downloadfile(String url) {
+        final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setMimeType("application/pdf");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
+        request.allowScanningByMediaScanner();
+        final long id = downloadManager.enqueue(request);
+        Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
+        BroadcastReceiver onComplete = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
+                if (c != null) {
+                    c.moveToFirst();
+                    try {
+                        String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                        File mFile = new File(Uri.parse(fileUri).getPath());
+                        String fileName = mFile.getAbsolutePath();
+                        openfile(fileName);
+                    } catch (Exception e) {
+                        Log.e("error", "Could not open the downloaded file");
+                    }
+                }
+            }
+        };
+        context.registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
+    public void openfile(String path){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
+        Log.d("Notesada", "openfile: "+uri);
+        intent.setDataAndType(uri, "application/pdf");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        context.startActivity(Intent.createChooser(intent,"Choose an application"));
     }
 
     @Override
