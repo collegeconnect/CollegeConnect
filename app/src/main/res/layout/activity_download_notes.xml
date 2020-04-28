@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeshit"
     android:layout_height="match_parent"
     tools:context=".DownloadNotes">
@@ -19,4 +20,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="false"
         android:padding="10dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewNotes"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

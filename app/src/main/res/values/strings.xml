@@ -18,7 +18,7 @@
 
     <string name="banner_ad_unit_id">ca-app-pub-8070451574255752/4557428890</string>
     <string name="banner_ad_app_id">ca-app-pub-8070451574255752~8496673908</string>
-
+    <string name="banner_ad_unit_id_notes">ca-app-pub-8070451574255752/3824007124</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_attendance">Attendance</string>

@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private DatabaseHelper mydb;
-    Uri uri;
+    public Uri uri;
     private StorageReference storageRef;
 //    private FirebaseAuth firebaseAuth= FirebaseAuth.getInstance();
 //    private Uri filePath;

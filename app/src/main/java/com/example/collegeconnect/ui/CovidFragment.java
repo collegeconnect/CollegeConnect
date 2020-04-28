@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.ui;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.collegeconnect.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;

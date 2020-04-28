@@ -21,6 +21,11 @@ import android.widget.TextView;
 import com.example.collegeconnect.adapters.NotesAdapter;
 import com.example.collegeconnect.datamodels.Constants;
 import com.example.collegeconnect.datamodels.Upload;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +46,7 @@ public class DownloadNotes extends AppCompatActivity{
     RecyclerView recyclerView;
     NotesAdapter notesAdapter;
     private DatabaseReference DatabaseReference;
+    private AdView mAdView;
     TextView tv;
 
 
@@ -63,6 +69,16 @@ public class DownloadNotes extends AppCompatActivity{
         tv.setText("Notes");
 
 //        Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+        mAdView = findViewById(R.id.adViewNotes);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
