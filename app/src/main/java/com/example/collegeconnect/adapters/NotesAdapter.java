@@ -97,7 +97,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 File file = new File("/storage/emulated/0/Download"+File.separator+name+".pdf");
-                if(file.isFile()) {
+                if(file.exists()) {
                     openfile("/storage/emulated/0/Download"+File.separator+name+".pdf");
                     Log.d("upload", "onClick: already exists");
                 }

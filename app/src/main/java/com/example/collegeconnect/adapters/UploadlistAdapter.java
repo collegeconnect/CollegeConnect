@@ -88,7 +88,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
             @Override
             public void onClick(View view) {
                 File file = new File("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
-                if(file.isFile()) {
+                if(file.exists()) {
                     openfile("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
                     Log.d("upload", "onClick: already exists");
                 }
