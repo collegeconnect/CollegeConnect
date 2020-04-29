@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -63,6 +64,8 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
     @Override
     public UploadlistAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notes,parent,false);
+//        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+//        StrictMode.setVmPolicy(builder.build());
         return new UploadlistAdapter.ViewHolder(view);
     }
     @Override
@@ -89,7 +92,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
             public void onClick(View view) {
                 File file = new File("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
                 if(file.exists()) {
-                    openfile("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
+                    openfile(notes.getName());
                     Log.d("upload", "onClick: already exists");
                 }
                 else {
@@ -195,13 +198,16 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
     }
 
     public void openfile(String path){
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
-        Log.d("Notesada", "openfile: "+uri);
-        intent.setDataAndType(uri, "application/pdf");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),path+".pdf"));
+        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
+        context.getApplicationContext().grantUriPermission(context.getPackageName(),uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        context.startActivity(Intent.createChooser(intent,"Choose an application"));
+        intent.setDataAndType(uri, "application/pdf");
+        context.startActivity(intent);
     }
 
 
