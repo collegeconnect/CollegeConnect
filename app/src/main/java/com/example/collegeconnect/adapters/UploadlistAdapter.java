@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,9 +91,9 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File file = new File("/storage/emulated/0/Download"+File.separator+notes.getName()+".pdf");
+                File file = new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Upload Notes"+File.separator+notes.getName()+".pdf");
                 if(file.exists()) {
-                    openfile(notes.getName());
+                    openfile(file.getAbsolutePath());
                     Log.d("upload", "onClick: already exists");
                 }
                 else {
@@ -173,7 +174,8 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setMimeType("application/pdf");
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
+        request.setDestinationInExternalFilesDir(context,"Notes/Upload Notes",name+".pdf");
+//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
         request.allowScanningByMediaScanner();
         final long id = downloadManager.enqueue(request);
         Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
@@ -198,14 +200,15 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
     }
 
     public void openfile(String path){
-        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),path+".pdf"));
-        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
+//        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
         context.getApplicationContext().grantUriPermission(context.getPackageName(),uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.putExtra(Intent.EXTRA_STREAM,uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Log.d("Upload", "openfile: "+ path);
         intent.setDataAndType(uri, "application/pdf");
         context.startActivity(intent);
     }

@@ -96,13 +96,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File file = new File("/storage/emulated/0/Download"+File.separator+name+".pdf");
+                File file = new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Download Notes"+File.separator+notes.getName()+".pdf");
                 if(file.exists()) {
-                    openfile("/storage/emulated/0/Download"+File.separator+name+".pdf");
+                    openfile(file.getAbsolutePath());
                     Log.d("upload", "onClick: already exists");
                 }
                 else {
-                    downloadfile(notes.getUrl());
+                    downloadfile(notes.getUrl(),notes.getName());
                     int downloads = notes.getDownload() + 1;
                     Upload upload = new Upload(notes.getName(),
                             notes.getCourse(),
@@ -311,13 +311,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         });
 
     }
-    public void downloadfile(String url) {
+    public void downloadfile(String url, String name) {
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setMimeType("application/pdf");
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
+        request.setDestinationInExternalFilesDir(context,"Notes/Download Notes",name+".pdf");
+//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
         request.allowScanningByMediaScanner();
         final long id = downloadManager.enqueue(request);
         Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
@@ -342,14 +343,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     }
 
     public void openfile(String path){
-        Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
-        Log.d("Notesada", "openfile: "+uri);
-        intent.setDataAndType(uri, "application/pdf");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
+        context.getApplicationContext().grantUriPermission(context.getPackageName(),uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        context.startActivity(Intent.createChooser(intent,"Choose an application"));
+        Log.d("Upload", "openfile: "+ path);
+        intent.setDataAndType(uri, "application/pdf");
+        context.startActivity(intent);
     }
 
     @Override
