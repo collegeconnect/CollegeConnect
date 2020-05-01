@@ -9,8 +9,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,16 +23,21 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SettingsActivity;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.datamodels.User;
 import com.example.collegeconnect.navigation;
+import com.example.collegeconnect.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,9 +50,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.io.File;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -63,6 +75,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private Uri filePath;
     FloatingActionButton submitDetails;
     private static final int GET_FROM_GALLERY = 1;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,38 +86,29 @@ public class HomeEditActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         TextView tv = findViewById(R.id.tvtitle);
-        tv.setText("Edit Details");
-        storageRef = storage.getReference();
-        storageRef.child("User/" + SaveSharedPreference.getUserName(this) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                HomeEditActivity.this.uri = uri;
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-//                progressBar.setVisibility(View.GONE);
-
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-            }
-
-        });
-        if (uri != null)
-            Picasso.get().load(uri).into(prfileImage);
-        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
         prfileImage = findViewById(R.id.imageView3copy);
         nameField = findViewById(R.id.nameFieldcopy);
         enrollNo = findViewById(R.id.textView3copy);
         branch = findViewById(R.id.textView4copy);
         imageButton = findViewById(R.id.imageButtoncopy);
-//        editDetails = view.findViewById(R.id.editDetailscopy);
         submitDetails = findViewById(R.id.submitDetailscopy);
+        progressBar = findViewById(R.id.progress);
+        progressBar.setVisibility(View.GONE);
+        tv.setText("Edit Details");
+        storageRef = storage.getReference();
+        File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+        if(file.exists()) {
+            HomeEditActivity.this.uri = Uri.fromFile(file);
+
+        }
+        if (uri != null)
+            Picasso.get().load(uri).memoryPolicy(MemoryPolicy.NO_CACHE).into(prfileImage);
+
+        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
+        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
+
+//        editDetails = view.findViewById(R.id.editDetailscopy);
+
 //        totalAttendance = view.findViewById(R.id.aggregateAttendancecopy);
 //        circleprog = view.findViewById(R.id.cicleprog);
 //        totalAttendance.setEnabled(false);
@@ -116,7 +120,7 @@ public class HomeEditActivity extends AppCompatActivity {
 //        circleprog.setProgress(0);
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
         datachange();
-
+        edit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +128,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 getprfpic();
             }
         });
-        edit();
+
 
 
         submitDetails.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +142,33 @@ public class HomeEditActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void download_dp() {
+        final DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(HomeEditActivity.this.uri);
+        request.setDestinationInExternalFilesDir(this,"Display Picture","dp.jpeg");
+        request.setVisibleInDownloadsUi(false);
+        final long id = downloadManager.enqueue(request);
+        BroadcastReceiver onComplete = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
+                if (c != null) {
+                    c.moveToFirst();
+                    try {
+                        String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                        HomeEditActivity.this.uri = Uri.parse(fileUri);
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        progressBar.setVisibility(View.GONE);
+                    } catch (Exception e) {
+                        Log.e("error", "Could not open the downloaded file");
+                    }
+                }
+            }
+        };
+        registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
     private void getprfpic() {
         if (ContextCompat.checkSelfPermission(HomeEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE )
                 == PackageManager.PERMISSION_DENIED) {
@@ -239,6 +270,9 @@ public class HomeEditActivity extends AppCompatActivity {
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
                     prfileImage.setImageBitmap(bitmap);
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     uploadImage(resultUri);
                 }
                 catch (Exception e){
@@ -259,6 +293,28 @@ public class HomeEditActivity extends AppCompatActivity {
             timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+                    if(file.exists())
+                        if(file.delete())
+
+                    storageRef.child("User/" + SaveSharedPreference.getUserName(HomeEditActivity.this) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Got the download URL for 'users/me/profile.png'
+                            HomeEditActivity.this.uri = uri;
+                            download_dp();
+                            SaveSharedPreference.setClearall(HomeEditActivity.this,true);
+                            SaveSharedPreference.setClearall1(HomeEditActivity.this,true);
+
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                        }
+
+                    });
 //                    progressBar.setVisibility(View.GONE);
 
 //                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();

@@ -12,6 +12,8 @@ public class SaveSharedPreference {
     private static final String BRANCH = "branch";
     private static final String SEMESTER = "semester";
     private static final String UNIT = "unit";
+    private static final String CLEARALL = "clearall";
+    private static final String CLEARALL1 = "clearall1";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -59,6 +61,18 @@ public class SaveSharedPreference {
         editor.putInt(UNIT, num);
         editor.commit();
     }
+    public static void setClearall(Context ctx , boolean value)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(CLEARALL,value);
+        editor.commit();
+    }
+    public static void setClearall1(Context ctx , boolean value)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(CLEARALL1,value);
+        editor.commit();
+    }
 
     public static String getUserName(Context ctx)
     {
@@ -88,6 +102,14 @@ public class SaveSharedPreference {
     public static int getUnit(Context ctx)
     {
         return getSharedPreferences(ctx).getInt(UNIT,0);
+    }
+    public static  boolean getClearall(Context ctx)
+    {
+        return getSharedPreferences(ctx).getBoolean(CLEARALL,false);
+    }
+    public static  boolean getClearall1(Context ctx)
+    {
+        return getSharedPreferences(ctx).getBoolean(CLEARALL1,false);
     }
 
 

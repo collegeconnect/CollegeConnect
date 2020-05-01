@@ -35,6 +35,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -397,5 +398,14 @@ private void download_dp() {
     public void onResume() {
         super.onResume();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+        if(SaveSharedPreference.getClearall1(getContext())) {
+            File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Display Picture/dp.jpeg");
+            if (file.exists()) {
+                HomeFragment.this.uri = Uri.fromFile(file);
+                Picasso.get().invalidate(uri);
+                SaveSharedPreference.setClearall1(getContext(),false);
+                Picasso.get().load(uri).into(prfileImage);
+            }
+        }
     }
 }

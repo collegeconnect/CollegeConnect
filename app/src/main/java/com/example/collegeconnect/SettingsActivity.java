@@ -45,6 +45,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -197,7 +198,20 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//    private boolean loadFragment(Fragment fragment)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(SaveSharedPreference.getClearall(this)) {
+            File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Display Picture/dp.jpeg");
+            if (file.exists()) {
+                SettingsActivity.this.uri = Uri.fromFile(file);
+                Picasso.get().invalidate(uri);
+                SaveSharedPreference.setClearall(SettingsActivity.this,false);
+                Picasso.get().load(uri).into(prfileImage);
+            }
+        }
+    }
+    //    private boolean loadFragment(Fragment fragment)
 //    {
 //        if (fragment!=null)
 //        {
