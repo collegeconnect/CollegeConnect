@@ -55,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     CircleImageView prfileImage;
+    TextDrawable drawable;
     TextView nameField;
     Uri uri;
 
@@ -105,22 +106,22 @@ public class SettingsActivity extends AppCompatActivity {
 
                 nameField.setText(name);
 
-//                try {
-//                    int space = name.indexOf(" ");
-//                    int color = navigation.generatecolor();
-//                    drawable = TextDrawable.builder().beginConfig()
-//                            .width(150)
-//                            .height(150)
-//                            .bold()
-//                            .endConfig()
-//                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-//                    prfileImage.setImageDrawable(drawable);
-//                }
-//                catch (Exception e){
-//
-////                }
-//                if (uri!=null)
-//                    Picasso.get().load(uri).into(prfileImage);
+                try {
+                    int space = name.indexOf(" ");
+                    int color = navigation.generatecolor();
+                    drawable = TextDrawable.builder().beginConfig()
+                            .width(150)
+                            .height(150)
+                            .bold()
+                            .endConfig()
+                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                    prfileImage.setImageDrawable(drawable);
+                }
+                catch (Exception e){
+
+                }
+                if (uri!=null)
+                    Picasso.get().load(uri).into(prfileImage);
 
 
             }
