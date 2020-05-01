@@ -1,7 +1,14 @@
 package com.example.collegeconnect.ui.home;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +19,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.SettingsActivity;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.navigation;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -105,26 +115,36 @@ public class HomeFragment extends Fragment {
 //
 //        }
         datachange();
+        File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+        if(file.exists()) {
+            HomeFragment.this.uri = Uri.fromFile(file);
+            Picasso.get().load(uri).into(prfileImage);
+            Log.d("HomeFrag", "onClick: already exists");
+        }
+        else {
 
-        storageRef.child("User/"+SaveSharedPreference.getUserName(getActivity())+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                HomeFragment.this.uri = uri;
-                if (uri!=null)
-                Picasso.get().load(uri).into(prfileImage);
+            storageRef.child("User/" + SaveSharedPreference.getUserName(getActivity()) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    // Got the download URL for 'users/me/profile.png'
+                    HomeFragment.this.uri = uri;
+                    download_dp();
+//                    if (uri != null)
+//                        Picasso.get().load(uri).into(prfileImage);
 //                progressBar.setVisibility(View.GONE);
 
-            }
+                }
 
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
 //                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
 //                progressBar.setVisibility(View.GONE);
-            }
+                }
 
-        });
+            });
+        }
+
         if (uri!=null)
             Picasso.get().load(uri).into(prfileImage);
 
@@ -237,6 +257,30 @@ public class HomeFragment extends Fragment {
 //        submitDetails.setEnabled(true);
 //        submitDetails.setVisibility(View.VISIBLE);
 //    }
+private void download_dp() {
+    final DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(getContext().DOWNLOAD_SERVICE);
+    DownloadManager.Request request = new DownloadManager.Request(HomeFragment.this.uri);
+    request.setDestinationInExternalFilesDir(getContext(),"Display Picture","dp.jpeg");
+    request.setVisibleInDownloadsUi(false);
+    final long id = downloadManager.enqueue(request);
+    BroadcastReceiver onComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
+            if (c != null) {
+                c.moveToFirst();
+                try {
+                    String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                    HomeFragment.this.uri = Uri.parse(fileUri);
+                    Picasso.get().load(uri).into(prfileImage);
+                } catch (Exception e) {
+                    Log.e("error", "Could not open the downloaded file");
+                }
+            }
+        }
+    };
+    getContext().registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+}
 
     private void datachange() {
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -247,7 +291,8 @@ public class HomeFragment extends Fragment {
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
                 String college = (String) map.get("Clgname");
-                nameField.setText(name);
+                SaveSharedPreference.setUser(getContext(),name);
+                nameField.setText(SaveSharedPreference.getUser(getContext()));
                 enrollNo.setText(rollNo);
                 branch.setText(college);
                 try {

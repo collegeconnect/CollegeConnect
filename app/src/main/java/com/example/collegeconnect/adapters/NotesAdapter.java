@@ -315,11 +315,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setMimeType("application/pdf");
         request.setDestinationInExternalFilesDir(context,"Notes/Download Notes",name+".pdf");
-//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name + ".pdf");
         request.allowScanningByMediaScanner();
+        request.setVisibleInDownloadsUi(false);
         final long id = downloadManager.enqueue(request);
         Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
         BroadcastReceiver onComplete = new BroadcastReceiver() {

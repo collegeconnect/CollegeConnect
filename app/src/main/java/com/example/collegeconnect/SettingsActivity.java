@@ -8,15 +8,23 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.adapters.SettingsAdapter;
@@ -39,6 +47,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -74,64 +83,30 @@ public class SettingsActivity extends AppCompatActivity {
 
         prfileImage = findViewById(R.id.settings_dp);
         nameField = findViewById(R.id.textView16);
-        storageRef.child("User/"+SaveSharedPreference.getUserName(this)+"/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                // Got the download URL for 'users/me/profile.png'
-                SettingsActivity.this.uri = uri;
-                if (uri!=null)
-                    Picasso.get().load(uri).into(prfileImage);
-//                progressBar.setVisibility(View.GONE);
-
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
-            }
-
-        });
-        if (uri!=null)
+        String name = SaveSharedPreference.getUser(this);
+        nameField.setText(name);
+        File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+        if(file.exists()) {
+            SettingsActivity.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
-        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(this).substring(0,dot));
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
-                String name = (String) map.get("Name");
-
-                nameField.setText(name);
-
-                try {
-                    int space = name.indexOf(" ");
-                    int color = navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                }
-                catch (Exception e){
-
-                }
-                if (uri!=null)
-                    Picasso.get().load(uri).into(prfileImage);
-
+        }
+        else {
+            try {
+                int space = name.indexOf(" ");
+                int color = navigation.generatecolor();
+                drawable = TextDrawable.builder().beginConfig()
+                        .width(150)
+                        .height(150)
+                        .bold()
+                        .endConfig()
+                        .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                prfileImage.setImageDrawable(drawable);
+            }
+            catch (Exception e){
 
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        }
         ArrayList<String> options= new ArrayList<>();
 //        options.add("Update Profile");
         options.add("Theme");
@@ -162,6 +137,8 @@ public class SettingsActivity extends AppCompatActivity {
         });
 //        loadFragment(fragment);
     }
+
+
     public void logOutDialog(){
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         // Setting Dialog Title
