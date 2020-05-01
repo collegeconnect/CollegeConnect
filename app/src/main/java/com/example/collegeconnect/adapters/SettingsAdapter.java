@@ -32,11 +32,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private Context context;
     List act_list;
     int checked_item = 0;
-    Class homeedit = HomeEditActivity.class;
     Class myuploads = MyUploadsActivity.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int images[] ={R.drawable.ic_profile ,R.drawable.ic_brightness_24dp ,R.drawable.ic_uploadlist, R.drawable.ic_contactus, R.drawable.ic_about};
+    int images[] ={R.drawable.ic_brightness_24dp ,R.drawable.ic_uploadlist, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -61,7 +60,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(position==1)
+                        if(position==0)
                             dialog();
                         else
                         context.startActivity(new Intent(context,(Class) act_list.get(position)));
@@ -135,7 +134,6 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView;
             act_list = new ArrayList<>();
-            act_list.add(homeedit);
             act_list.add(1);
             act_list.add(myuploads);
             act_list.add(contactus);

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.adapters.SettingsAdapter;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
+import com.example.collegeconnect.settingsactivity.HomeEditActivity;
 import com.example.collegeconnect.ui.home.HomeFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -131,7 +132,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         ArrayList<String> options= new ArrayList<>();
-        options.add("Update Profile");
+//        options.add("Update Profile");
         options.add("Theme");
         options.add("My Upload List");
         options.add("Contact Us");
@@ -144,6 +145,12 @@ public class SettingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(settingsAdapter);
         DividerItemDecoration decoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST,80,0);
         recyclerView.addItemDecoration(decoration);
+        findViewById(R.id.profile_card).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SettingsActivity.this, HomeEditActivity.class));
+            }
+        });
 
         logout = findViewById(R.id.logoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
