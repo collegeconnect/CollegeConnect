@@ -1,9 +1,12 @@
 package com.example.collegeconnect;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -13,6 +16,7 @@ import com.example.collegeconnect.datamodels.SaveSharedPreference;
 public class Splash extends AppCompatActivity {
 
 //    private static int splash_screen=2000;
+    ImageView imageView ;
 
 
     @Override
@@ -29,6 +33,14 @@ public class Splash extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         setContentView(R.layout.activity_splash);
+        imageView = findViewById(R.id.imageView12);
+
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        if(nightModeFlags==Configuration.UI_MODE_NIGHT_NO)
+            imageView.setImageDrawable(getDrawable(R.drawable.cc2));
+
 
 
 
