@@ -41,7 +41,7 @@ public class UpcomingEvents extends Fragment {
     DatabaseReference databaseReference;
     private RecyclerView recyclerView;
     static EventsAdapter eventsAdapter;
-    ArrayList<Events> eventsList;
+    ArrayList<Events> eventsList = new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +53,6 @@ public class UpcomingEvents extends Fragment {
             fab = getActivity().findViewById(R.id.fab);
         }
 
-        eventsList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
