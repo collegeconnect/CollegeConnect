@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.collegeconnect.ui.UpcomingEvents;
 import com.example.collegeconnect.ui.CovidFragment;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.ui.share.ShareFragment;
@@ -20,7 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
-    CardView cardView ,cardcovid;
+    CardView cardView ,cardcovid, events;
 
 
     @Nullable
@@ -51,6 +52,18 @@ public class ToolsFragment extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new CovidFragment();
 
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer,fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        events = view.findViewById(R.id.events);
+        events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new UpcomingEvents();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer,fragment)
