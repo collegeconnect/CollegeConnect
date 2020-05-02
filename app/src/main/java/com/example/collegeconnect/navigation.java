@@ -50,7 +50,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
-    GoogleSignInClient mgoogleSignInClient;
+    private GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
     static int color;
     private  DatabaseHelper db;
@@ -178,41 +178,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 return super.onOptionsItemSelected(item);
         }
     }
-    public void Dialog(){
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-        // Setting Dialog Title
-        builder.setTitle("Confirm SignOut");
-        // Setting Dialog Message
-        builder.setMessage("Are you sure you want to Signout?\nAll your saved data wil be lost!");
 
-        builder.setPositiveButton("Logout",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog
-
-                        FirebaseAuth.getInstance().signOut();
-                        signOut();
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        db.deleteall();
-                        SaveSharedPreference.clearUserName(getApplication());
-
-                        startActivity(i);
-                        finish();
-                    }
-                });
-
-        // Setting Negative "NO" Btn
-        builder.setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        builder.show();
-    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -225,9 +191,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     {
         Intent intent1 = new Intent(this, TimeTable.class);
         startActivity(intent1);
-    }
-    private void signOut() {
-        mgoogleSignInClient.signOut();
     }
 
     @Override

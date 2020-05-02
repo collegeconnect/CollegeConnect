@@ -157,6 +157,24 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                         });
                                 AlertDialog alertDialog = builder.create();
                                 alertDialog.show();
+                            case R.id.details:
+                                MaterialAlertDialogBuilder builder2 = new MaterialAlertDialogBuilder(context);
+                                // Setting Dialog Title
+                                builder2.setTitle("Details");
+                                // Setting Dialog Message
+                                builder2.setMessage("\nCourse: "+notes.getCourse()+"\nBranch: "+notes.getBranch()+
+                                        "\nSemester: "+notes.getSemester()+"\nUnit: "+notes.getUnit());
+
+                                builder2.setPositiveButton("Dismiss",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Write your code here to execute after dialog
+                                            }
+                                        });
+
+                                AlertDialog alertDialog2 = builder2.create();
+                                alertDialog2.show();
+
                         }
                         return true;
                     }

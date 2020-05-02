@@ -107,6 +107,10 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="120dp"
+        android:background="#fff"
+        android:textColorHint="#80000000"
+        app:boxStrokeColor="@color/newBlue"
+        app:hintTextColor="@color/newBlue"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
@@ -117,7 +121,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#50ffffff"
             android:hint="Email"
-            android:inputType="textWebEmailAddress" />
+            android:inputType="textWebEmailAddress"
+            android:textColor="#000" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -125,17 +130,23 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="#fff"
+        android:textColorHint="#80000000"
+        app:boxStrokeColor="@color/newBlue"
+        app:hintTextColor="@color/newBlue"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#80000000">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#50ffffff"
+            android:backgroundTint="#fff"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="#000" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <android.widget.Button

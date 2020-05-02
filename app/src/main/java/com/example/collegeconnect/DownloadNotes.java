@@ -43,9 +43,8 @@ public class DownloadNotes extends AppCompatActivity{
     public static final String EXTRA_UNIT = "unit";
     public static ArrayList<Upload> uploadList;
     static DatabaseReference mDatabaseReference;
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     NotesAdapter notesAdapter;
-    private DatabaseReference DatabaseReference;
     private AdView mAdView;
     TextView tv;
 
@@ -68,8 +67,7 @@ public class DownloadNotes extends AppCompatActivity{
         tv = findViewById(R.id.tvtitle);
         tv.setText("Notes");
 
-//        Toast.makeText(this, receivedSemester, Toast.LENGTH_SHORT).show();
-
+        //AdMob
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {

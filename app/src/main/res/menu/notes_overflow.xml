@@ -10,5 +10,8 @@
     <item
         android:id="@+id/deletenotes"
         android:title="Delete"/>
+    <item
+        android:id="@+id/details"
+        android:title="Details"/>
 
 </menu>

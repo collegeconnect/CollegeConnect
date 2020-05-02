@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -29,15 +28,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.SettingsActivity;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.datamodels.User;
 import com.example.collegeconnect.navigation;
-import com.example.collegeconnect.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,7 +49,6 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -61,24 +56,22 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeEditActivity extends AppCompatActivity {
 
-    TextDrawable drawable;
-    TextView tv;
-    EditText nameField, enrollNo, branch;
-    ImageButton imageButton;
-    CircleImageView prfileImage;
+    private TextDrawable drawable;
+    private EditText nameField, enrollNo, branch;
+    private ImageButton imageButton;
+    private CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
-    Uri uri;
+    private Uri uri;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Uri filePath;
-    FloatingActionButton submitDetails;
+    private FloatingActionButton submitDetails;
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
 
@@ -86,19 +79,24 @@ public class HomeEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_edit);
+
+        //Set up toolbar
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        //Initialize views
         TextView tv = findViewById(R.id.tvtitle);
         prfileImage = findViewById(R.id.imageView3copy);
         nameField = findViewById(R.id.nameFieldcopy);
         enrollNo = findViewById(R.id.textView3copy);
         branch = findViewById(R.id.textView4copy);
-        imageButton = findViewById(R.id.imageButtoncopy);
+        imageButton = findViewById(R.id.edit_dp);
         submitDetails = findViewById(R.id.submitDetailscopy);
         progressBar = findViewById(R.id.progress);
         progressBar.setVisibility(View.GONE);
+
         tv.setText("Edit Details");
         storageRef = storage.getReference();
         File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
@@ -106,25 +104,20 @@ public class HomeEditActivity extends AppCompatActivity {
             HomeEditActivity.this.uri = Uri.fromFile(file);
 
         }
+
         if (uri != null)
             Picasso.get().load(uri).memoryPolicy(MemoryPolicy.NO_CACHE).into(prfileImage);
 
         int dot = SaveSharedPreference.getUserName(this).indexOf(".");
         databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
 
-//        editDetails = view.findViewById(R.id.editDetailscopy);
-
-//        totalAttendance = view.findViewById(R.id.aggregateAttendancecopy);
-//        circleprog = view.findViewById(R.id.cicleprog);
-//        totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
         imageButton.setEnabled(false);
-//        circleprog.setMax(100);
-//        circleprog.setProgress(0);
+
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
-        datachange();
+        setValues();
         edit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +126,6 @@ public class HomeEditActivity extends AppCompatActivity {
                 getprfpic();
             }
         });
-
 
 
         submitDetails.setOnClickListener(new View.OnClickListener() {
@@ -162,10 +154,10 @@ public class HomeEditActivity extends AppCompatActivity {
                     try {
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        progressBar.setVisibility(View.GONE);
                         copyFile("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files","/dp.jpeg",getFilesDir().getAbsolutePath());
                         new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                        progressBar.setVisibility(View.GONE);
                     } catch (Exception e) {
                         Log.e("error", "Could not open the downloaded file");
                     }
@@ -252,13 +244,11 @@ public class HomeEditActivity extends AppCompatActivity {
         branch.setTextColor(getColor(R.color.blackToWhite));
         imageButton.setEnabled(true);
         imageButton.setVisibility(View.VISIBLE);
-//        editDetails.setEnabled(false);
-//        editDetails.setVisibility(View.GONE);
         submitDetails.setEnabled(true);
         submitDetails.setVisibility(View.VISIBLE);
     }
 
-    private void datachange() {
+    private void setValues() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -286,7 +276,6 @@ public class HomeEditActivity extends AppCompatActivity {
                 }
                 if (uri!=null)
                     Picasso.get().load(uri).into(prfileImage);
-
 
             }
 
@@ -331,7 +320,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private void uploadImage(Uri resultUri)
     {
         if (resultUri!=null){
-//            progressBar.setVisibility(View.VISIBLE);
+
             StorageReference unique = storageRef.child("User/");
             final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(this)+"/DP.jpeg");
             timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

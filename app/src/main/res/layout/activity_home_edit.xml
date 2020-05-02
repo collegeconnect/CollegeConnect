@@ -18,8 +18,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView3copy"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             app:civ_border_color="#8A8989"
@@ -143,14 +143,13 @@
         <!--        app:layout_constraintTop_toBottomOf="@+id/textView4" />-->
 
         <ImageButton
-            android:id="@+id/imageButtoncopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/imageView3copy"
-            app:layout_constraintEnd_toEndOf="@id/imageView3copy"
-            android:background="@android:color/transparent"
+            android:id="@+id/edit_dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/ic_update_dp"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_add_circle_24px" />
+            app:layout_constraintBottom_toBottomOf="@id/imageView3copy"
+            app:layout_constraintEnd_toEndOf="@id/imageView3copy" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"

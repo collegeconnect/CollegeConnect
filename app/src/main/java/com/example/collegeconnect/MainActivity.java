@@ -36,10 +36,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
 public class MainActivity extends AppCompatActivity {
-//    private FirebaseAuth.AuthStateListener authStateListener;
+
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
-    TextInputLayout email, password;
+    private TextInputLayout email, password;
     private Button register, login;
     int RC_SIGN_IN = 1  ;
     GoogleSignInClient mGoogleSignInClient;
