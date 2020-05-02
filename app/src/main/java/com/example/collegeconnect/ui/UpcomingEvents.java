@@ -56,8 +56,6 @@ public class UpcomingEvents extends Fragment {
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        eventsAdapter = new EventsAdapter(getActivity(),eventsList);
-        recyclerView.setAdapter(eventsAdapter);
         loadEvents();
 
         createEvent = view.findViewById(R.id.createEvent);
@@ -81,11 +79,14 @@ public class UpcomingEvents extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventsList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Events events = postSnapshot.getValue(Events.class);
 //                    Toast.makeText(getContext(), events.getEventName(), Toast.LENGTH_SHORT).show();
                     eventsList.add(events);
                 }
+                eventsAdapter = new EventsAdapter(getActivity(),eventsList);
+                recyclerView.setAdapter(eventsAdapter);
             }
 
             @Override
@@ -93,7 +94,7 @@ public class UpcomingEvents extends Fragment {
 
             }
         });
-        eventsAdapter.notifyDataSetChanged();
+
     }
 
     @Override
