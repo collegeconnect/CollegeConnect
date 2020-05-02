@@ -86,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
         nameField = findViewById(R.id.textView16);
         String name = SaveSharedPreference.getUser(this);
         nameField.setText(name);
-        File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+        File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
         if(file.exists()) {
             SettingsActivity.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
@@ -158,6 +158,9 @@ public class SettingsActivity extends AppCompatActivity {
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         db.deleteall();
+                        File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
+                        if(file.exists())
+                            file.delete();
                         SaveSharedPreference.clearUserName(SettingsActivity.this);
 
                         startActivity(i);
@@ -202,7 +205,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(SaveSharedPreference.getClearall(this)) {
-            File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Display Picture/dp.jpeg");
+            File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
             if (file.exists()) {
                 SettingsActivity.this.uri = Uri.fromFile(file);
                 Picasso.get().invalidate(uri);

@@ -55,6 +55,11 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -96,7 +101,7 @@ public class HomeEditActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         tv.setText("Edit Details");
         storageRef = storage.getReference();
-        File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+        File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
         if(file.exists()) {
             HomeEditActivity.this.uri = Uri.fromFile(file);
 
@@ -146,8 +151,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private void download_dp() {
         final DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(HomeEditActivity.this.uri);
-        request.setDestinationInExternalFilesDir(this,"Display Picture","dp.jpeg");
-        request.setVisibleInDownloadsUi(false);
+        request.setDestinationInExternalFilesDir(this,"","dp.jpeg");
         final long id = downloadManager.enqueue(request);
         BroadcastReceiver onComplete = new BroadcastReceiver() {
             @Override
@@ -160,6 +164,8 @@ public class HomeEditActivity extends AppCompatActivity {
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
+                        copyFile("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files","/dp.jpeg",getFilesDir().getAbsolutePath());
+                        new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
                     } catch (Exception e) {
                         Log.e("error", "Could not open the downloaded file");
                     }
@@ -167,6 +173,44 @@ public class HomeEditActivity extends AppCompatActivity {
             }
         };
         registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+    private void copyFile(String inputPath, String inputFile, String outputPath) {
+
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+
+            //create output directory if it doesn't exist
+            File dir = new File (outputPath);
+            if (!dir.exists())
+            {
+                dir.mkdirs();
+            }
+
+
+            in = new FileInputStream(inputPath + inputFile);
+            out = new FileOutputStream(outputPath + inputFile);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+
+            // write the output file (You have now copied the file)
+            out.flush();
+            out.close();
+            out = null;
+
+        }  catch (FileNotFoundException fnfe1) {
+            Log.e("tag", fnfe1.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
+
     }
 
     private void getprfpic() {
@@ -294,7 +338,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    File file = new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files/Display Picture/dp.jpeg");
+                    File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
                     if(file.exists())
                         if(file.delete())
 
