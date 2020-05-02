@@ -15,6 +15,6 @@
         android:drawableLeft="@drawable/tag"
         android:text="TAG"
         android:textAlignment="center"
-        android:textSize="10sp" />
+        android:textSize="9sp" />
 
 </RelativeLayout>

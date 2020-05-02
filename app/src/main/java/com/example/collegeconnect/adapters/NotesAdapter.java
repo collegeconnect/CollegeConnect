@@ -297,6 +297,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     }
                 });
                 popup.getMenu().findItem(R.id.deletenotes).setVisible(false);
+                popup.getMenu().findItem(R.id.details).setVisible(false);
                 if(notes.getUploaderMail().equals(user.getEmail()))
                     popup.getMenu().findItem(R.id.tagover).setEnabled(false);
                 popup.show();
