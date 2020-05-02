@@ -5,10 +5,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import java.io.InputStreamReader;
 public class AboutActivity extends AppCompatActivity {
 
     private StringBuilder text = new StringBuilder();
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +36,12 @@ public class AboutActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.tvtitle);
         tv.setText("About");
+        imageView=findViewById(R.id.imageView13);
+        int nightModeFlags =
+                getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        if(nightModeFlags==Configuration.UI_MODE_NIGHT_NO)
+            imageView.setImageDrawable(getDrawable(R.drawable.cc2));
 
         BufferedReader reader = null;
         try {

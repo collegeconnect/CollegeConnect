@@ -8,4 +8,4 @@ This idea was developed for Intra Society Ideathon where it was presented as an 
 
 The app is in currently in development phase.
 
-It's is being build by Saksham Pruthi and Sajal Jain
+It's is being build by Saksham Pruthi and Sajal Jain, both pursuing B.Tech

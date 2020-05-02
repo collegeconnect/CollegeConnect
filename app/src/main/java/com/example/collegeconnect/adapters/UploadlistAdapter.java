@@ -157,6 +157,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                         });
                                 AlertDialog alertDialog = builder.create();
                                 alertDialog.show();
+                                break;
                             case R.id.details:
                                 MaterialAlertDialogBuilder builder2 = new MaterialAlertDialogBuilder(context);
                                 // Setting Dialog Title
