@@ -125,8 +125,8 @@
             <ImageView
                 android:id="@+id/imageViewEvent"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/cc2" />
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/upcoming_event" />
 
             <LinearLayout
                 android:layout_width="match_parent"

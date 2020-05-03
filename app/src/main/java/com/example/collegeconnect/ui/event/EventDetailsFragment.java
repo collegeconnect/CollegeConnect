@@ -3,25 +3,33 @@ package com.example.collegeconnect.ui.event;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.Constants;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private ImageView banner;
+    private TextView evntName;
+    private FloatingActionButton floatingActionButton;
 
     public EventDetailsFragment() {
         // Required empty public constructor
@@ -33,6 +41,13 @@ public class EventDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event, container, false);
+
+        if(getActivity()!=null) {
+            floatingActionButton = getActivity().findViewById(R.id.createEvent);
+        }
+        banner = view.findViewById(R.id.eventBanner);
+        evntName = view.findViewById(R.id.eventName);
+
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("Name");
         if(desired_string != null)
@@ -55,6 +70,8 @@ public class EventDetailsFragment extends Fragment {
                 String registrationurl = (String)map.get("registrationUrl");
                 String date = (String)map.get("date");
 
+                Picasso.get().load(imageurl).into(banner);
+                evntName.setText(name);
             }
 
             @Override
@@ -62,5 +79,17 @@ public class EventDetailsFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        floatingActionButton.setVisibility(View.VISIBLE);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        floatingActionButton.setVisibility(View.INVISIBLE);
     }
 }
