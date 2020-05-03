@@ -37,7 +37,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Events event = eventsArrayList.get(position);
-        Toast.makeText(context, event.getEventName(), Toast.LENGTH_SHORT).show();
         holder.textView.setText(event.getEventName());
     }
 

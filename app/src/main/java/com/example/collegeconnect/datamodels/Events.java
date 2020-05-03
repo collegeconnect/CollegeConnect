@@ -6,21 +6,19 @@ public class Events {
     private String eventDescription;
     private String imageUrl;
     private String registrationUrl;
+    private String date;
+    private String organizer;
 
     public Events() {
     }
 
-    public Events(String eventName, String eventDescription, String imageUrl, String registrationUrl) {
+    public Events(String eventName, String eventDescription, String imageUrl, String registrationUrl, String date, String organizer) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.imageUrl = imageUrl;
         this.registrationUrl = registrationUrl;
-    }
-
-    public Events(String eventName, String eventDescription, String registrationUrl) {
-        this.eventName = eventName;
-        this.eventDescription = eventDescription;
-        this.registrationUrl = registrationUrl;
+        this.date = date;
+        this.organizer = organizer;
     }
 
     public void setEventName(String eventName) {
