@@ -66,7 +66,6 @@ public class UpcomingEvents extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragmentContainer,fragment)
-                        .addToBackStack(null)
                         .commit();
             }
         });

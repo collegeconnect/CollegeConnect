@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
@@ -166,10 +167,10 @@ public class CreateEvent extends DialogFragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             CreateEvent.this.imageUrl = uri.toString();
-                            Toast.makeText(getActivity(), imageUrl, Toast.LENGTH_SHORT).show();
+
                             databaseReference = firebaseDatabase.getReference("Events");
 
-                            Toast.makeText(getActivity(), date+" "+organizer.getText().toString(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), date+" "+organizer.getText().toString(), Toast.LENGTH_SHORT).show();
                             Events event = new Events(name.getText().toString(),
                                     description.getText().toString(),
                                     imageUrl,
@@ -181,7 +182,17 @@ public class CreateEvent extends DialogFragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(getActivity(), "Event created successfully!", Toast.LENGTH_SHORT).show();
-
+                                    Fragment fragment = new UpcomingEvents();
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.fragmentContainer,fragment)
+                                            .addToBackStack(null)
+                                            .commit();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), "Event not created!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -191,7 +202,7 @@ public class CreateEvent extends DialogFragment {
 
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                    Toast.makeText(getActivity(), "Error in uplaoding image!", Toast.LENGTH_SHORT).show();
                 }
             });
 

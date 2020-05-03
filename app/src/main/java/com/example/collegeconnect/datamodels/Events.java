@@ -21,6 +21,14 @@ public class Events {
         this.organizer = organizer;
     }
 
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
@@ -51,5 +59,13 @@ public class Events {
 
     public String getRegistrationUrl() {
         return registrationUrl;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getOrganizer() {
+        return organizer;
     }
 }
