@@ -6,18 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.Events;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import com.example.collegeconnect.ui.EventsFragment;
 import com.example.collegeconnect.ui.event.EventDetailsFragment;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder>{
 
@@ -39,7 +42,22 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Events event = eventsArrayList.get(position);
+
         holder.textView.setText(event.getEventName());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date strDate = df.parse(event.getDate());
+            //If date has passed
+            if (new Date().after(strDate)) {
+
+            }
+//            else    //If event is yet to occur
+//                holder.relativeLayout.setBackgroundColor(R.color.eventPassed);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         holder.organiser.setText("By " + event.getOrganizer());
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +85,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
+        RelativeLayout relativeLayout;
         TextView textView,organiser;
         View itv;
 
@@ -75,6 +94,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
             imageView = itemView.findViewById(R.id.imageView15);
             textView = itemView.findViewById(R.id.eventName);
+            relativeLayout = itemView.findViewById(R.id.eventCardLayout);
             organiser = itemView.findViewById(R.id.organiser);
             itv=itemView;
         }

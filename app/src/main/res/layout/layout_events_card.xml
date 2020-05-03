@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/eventCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:padding="5dp">
-
 
     <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="5dp"
-        app:cardElevation="1.25dp">
+        app:cardElevation="1.25dp"
+        app:cardUseCompatPadding="false"
+        android:layout_marginTop="5dp"
+        android:clickable="true">
 
         <RelativeLayout
+            android:id="@+id/eventCardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -52,4 +49,3 @@
             </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
-</RelativeLayout>
