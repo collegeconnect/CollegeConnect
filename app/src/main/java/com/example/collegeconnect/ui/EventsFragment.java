@@ -50,20 +50,6 @@ public class EventsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         loadEvents();
-
-        createEvent = view.findViewById(R.id.createEvent);
-        createEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new CreateEvent();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frameupcomingevents,fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
         return view;
     }
 

@@ -38,6 +38,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Events event = eventsArrayList.get(position);
         holder.textView.setText(event.getEventName());
+        holder.organiser.setText("By " + event.getOrganizer());
+        holder.itv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -48,13 +55,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView textView;
+        TextView textView,organiser;
+        View itv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.imageView15);
             textView = itemView.findViewById(R.id.eventName);
+            organiser = itemView.findViewById(R.id.organiser);
+            itv=itemView;
         }
     }
 }

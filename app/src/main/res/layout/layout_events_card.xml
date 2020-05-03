@@ -11,6 +11,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
         app:cardCornerRadius="5dp"
         app:cardElevation="1.25dp">
 
@@ -23,13 +25,31 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 app:srcCompat="@drawable/cc2" />
-
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:textColor="@color/blackToWhite"
+                android:textSize="18sp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:text="TextView" />
+
+            <TextView
+                android:id="@+id/organiser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eventName"
+                android:textSize="15sp"
+                android:textColor="#959595"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:text="organiser" />
+            </RelativeLayout>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
