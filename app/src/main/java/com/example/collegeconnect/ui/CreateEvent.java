@@ -20,11 +20,13 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
@@ -57,6 +59,7 @@ public class CreateEvent extends DialogFragment {
     private ImageButton addImage;
     private static final int GET_FROM_GALLERY = 1;
     private static String date;
+    private LinearLayout blurr;
     private Uri filePath;
     public String imageUrl;
     private ImageView imageView;
@@ -82,6 +85,7 @@ public class CreateEvent extends DialogFragment {
         addImage = view.findViewById(R.id.addEventImage);
         imageView = view.findViewById(R.id.viewEventImage);
         organizer = view.findViewById(R.id.addOrganizer);
+        blurr = view.findViewById(R.id.blurrScreenEvent);
 
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +132,9 @@ public class CreateEvent extends DialogFragment {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                blurr.setVisibility(View.VISIBLE);
                 uploadEvent();
 
             }
@@ -181,6 +187,8 @@ public class CreateEvent extends DialogFragment {
                             databaseReference.child(name.getText().toString()).setValue(event).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    blurr.setVisibility(View.GONE);
                                     Toast.makeText(getActivity(), "Event created successfully!", Toast.LENGTH_SHORT).show();
                                     Fragment fragment = new UpcomingEvents();
                                     getActivity().getSupportFragmentManager()
