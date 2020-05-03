@@ -44,7 +44,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateEvent extends AppCompatActivity {
 
@@ -53,14 +56,15 @@ public class CreateEvent extends AppCompatActivity {
     private StorageReference storageRef;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private Button create;
-    private EditText name, description, url, eventDate, organizer;
+    private EditText name, description, url, eventDate, organizer, endeventDate;
     private ImageButton addImage;
     private static final int GET_FROM_GALLERY = 1;
-    private String date;
+    private String date, endDate;
     private LinearLayout blurr;
-    private Uri filePath;
+    private Uri filePath ;
     public String imageUrl;
     private ImageView imageView;
+    private long millis = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,7 @@ public class CreateEvent extends AppCompatActivity {
         imageView = findViewById(R.id.viewEventImage);
         organizer = findViewById(R.id.addOrganizer);
         blurr = findViewById(R.id.blurrScreenEvent);
+        endeventDate = findViewById(R.id.addendEventDate);
         imageUrl = "";
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +105,7 @@ public class CreateEvent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplication(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month = month+1;
@@ -117,24 +122,67 @@ public class CreateEvent extends AppCompatActivity {
 
 
                         date = day+"/"+mon+"/"+year;
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        try {
+                            Date dates = simpleDateFormat.parse(date);
+                            millis = dates.getTime();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         eventDate.setText(date);
                     }
                 }, year, month, day);
 //                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
                 datePickerDialog.show();
             }
         });
+        endeventDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        month = month+1;
+                        String mon;
+                        String day;
+                        if(month<10)
+                            mon = "0"+month;
+                        else
+                            mon = String.valueOf(month);
+                        if(dayOfMonth<10)
+                            day = "0"+dayOfMonth;
+                        else
+                            day = String.valueOf(dayOfMonth);
 
-        final String Ename = name.getText().toString();
-        final String Edescription = description.getText().toString();
-        final String Eurl = url.getText().toString();
-        final String Eorganizer = organizer.getText().toString();
-        final String Edate = eventDate.getText().toString();
+
+                        endDate = day+"/"+mon+"/"+year;
+                        endeventDate.setText(endDate);
+                    }
+                }, year, month, day);
+//                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if(millis == 0)
+                    datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                else
+                    datePickerDialog.getDatePicker().setMinDate(millis);
+                datePickerDialog.show();
+
+            }
+        });
+
+
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String Ename = name.getText().toString();
+                final String Edescription = description.getText().toString();
+                final String Eurl = url.getText().toString();
+                final String Eorganizer = organizer.getText().toString();
+                final String Edate = eventDate.getText().toString();
+                final String EndDate = endeventDate.getText().toString();
 
-                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || Eorganizer.isEmpty() || imageUrl.equals("")){
+                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || EndDate.isEmpty() || Eorganizer.isEmpty() ){
                     if (Ename.isEmpty())
                         name.setError("Field cannot be empty");
                     if (Edescription.isEmpty())
@@ -143,10 +191,10 @@ public class CreateEvent extends AppCompatActivity {
                         url.setError("Field cannot be empty");
                     if (Edate.isEmpty())
                         eventDate.setError("Field cannot be empty");
+                    if(EndDate.isEmpty())
+                        endeventDate.setError("Field cannot be empty");
                     if (Eorganizer.isEmpty())
                         organizer.setError("Field cannot be empty");
-                    if (imageUrl.equals(""))
-                        Toast.makeText(getApplicationContext(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -237,6 +285,22 @@ public class CreateEvent extends AppCompatActivity {
                 eventDate.setError(null);
             }
         });
+        endeventDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                endeventDate.setError(null);
+            }
+        });
     }
 
     public void imageadd(){
@@ -313,7 +377,7 @@ public class CreateEvent extends AppCompatActivity {
                                     imageUrl,
                                     url.getText().toString(),
                                     date,
-                                    organizer.getText().toString());
+                                    organizer.getText().toString(),endDate);
 
                             databaseReference.child(name.getText().toString()).setValue(event).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -338,7 +402,7 @@ public class CreateEvent extends AppCompatActivity {
 
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error in uplaoding image!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Error in uploading image!", Toast.LENGTH_SHORT).show();
                 }
             });
 

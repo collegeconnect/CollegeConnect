@@ -23,6 +23,8 @@ import com.example.collegeconnect.adapters.NotesAdapter;
 import com.example.collegeconnect.datamodels.Constants;
 import com.example.collegeconnect.datamodels.Events;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,9 +74,9 @@ public class EventsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Events events = postSnapshot.getValue(Events.class);
 //                    Toast.makeText(getContext(), events.getEventName(), Toast.LENGTH_SHORT).show();
-                    if(events.getDate().compareTo(dateInString)>=0)
+                    if(events.getEndDate().compareTo(dateInString)>=0)
                         eventsList.add(events);
-                    if(events.getDate().compareTo(dateInString) < 0) {
+                    if(events.getEndDate().compareTo(dateInString) < 0) {
                         DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
                         mDatabaserefernce.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -80,6 +84,8 @@ public class EventsFragment extends Fragment {
                                 Log.d("EventsFragment", "onComplete: Event Removed");
                             }
                         });
+                        StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(events.getImageUrl());
+                        delete.delete();
                     }
                 }
                 eventsAdapter = new EventsAdapter(getActivity(),eventsList);

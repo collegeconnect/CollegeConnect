@@ -1,5 +1,7 @@
 package com.example.collegeconnect.datamodels;
 
+import com.google.firebase.storage.StorageReference;
+
 public class Events {
 
     private String eventName;
@@ -8,17 +10,19 @@ public class Events {
     private String registrationUrl;
     private String date;
     private String organizer;
+    private String endDate;
 
     public Events() {
     }
 
-    public Events(String eventName, String eventDescription, String imageUrl, String registrationUrl, String date, String organizer) {
+    public Events(String eventName, String eventDescription, String imageUrl, String registrationUrl, String date, String organizer, String endDate) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.imageUrl = imageUrl;
         this.registrationUrl = registrationUrl;
         this.date = date;
         this.organizer = organizer;
+        this.endDate = endDate;
     }
 
     public void setDate(String date) {
@@ -44,6 +48,9 @@ public class Events {
     public void setRegistrationUrl(String registrationUrl) {
         this.registrationUrl = registrationUrl;
     }
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
     public String getEventName() {
         return eventName;
@@ -68,4 +75,9 @@ public class Events {
     public String getOrganizer() {
         return organizer;
     }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
 }

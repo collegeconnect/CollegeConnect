@@ -102,17 +102,30 @@
 
         <EditText
             android:id="@+id/addEventDate"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:clickable="false"
             android:editable="false"
             android:ems="10"
-            android:inputType="date"
             android:focusable="false"
-            android:hint="Event Date"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:hint="Start Date"
+            android:inputType="date"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addEventUrl" />
+
+        <EditText
+            android:id="@+id/addendEventDate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clickable="false"
+            android:editable="false"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="End Date"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addEventUrl" />
 
         <EditText
