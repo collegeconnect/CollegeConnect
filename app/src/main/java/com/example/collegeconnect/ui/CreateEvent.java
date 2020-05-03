@@ -20,6 +20,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.TimeTable;
 import com.example.collegeconnect.datamodels.Events;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,8 +48,6 @@ import java.util.Calendar;
 
 public class CreateEvent extends DialogFragment {
 
-    BottomNavigationView bottomNavigationView;
-    FloatingActionButton fab;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
@@ -67,11 +67,6 @@ public class CreateEvent extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_event, container, false);
 
-        if(getActivity()!=null) {
-            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-            fab = getActivity().findViewById(R.id.fab);
-        }
-
         storageRef = storage.getReference();
 
         create = view.findViewById(R.id.createEventButton);
@@ -86,20 +81,7 @@ public class CreateEvent extends DialogFragment {
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
-                        == PackageManager.PERMISSION_DENIED) {
-
-                    // Requesting the permission
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                            100);
-                }
-                else {
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_PICK);
-                    startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
-                }
+                imageadd();
             }
         });
 
@@ -117,7 +99,19 @@ public class CreateEvent extends DialogFragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         month = month+1;
-                        date = dayOfMonth+"/"+month+"/"+year;
+                        String mon;
+                        String day;
+                        if(month<10)
+                            mon = "0"+month;
+                        else
+                            mon = String.valueOf(month);
+                        if(dayOfMonth<10)
+                            day = "0"+dayOfMonth;
+                        else
+                            day = String.valueOf(dayOfMonth);
+
+
+                        date = day+"/"+mon+"/"+year;
                         eventDate.setText(date);
                     }
                 }, year, month, day);
@@ -130,11 +124,43 @@ public class CreateEvent extends DialogFragment {
             public void onClick(View v) {
 
                 uploadEvent();
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             }
         });
 
         return view;
+    }
+    public void imageadd(){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE )
+                == PackageManager.PERMISSION_DENIED) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    100);
+        }
+        else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_PICK);
+            startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            imageadd();
+
+        } else {
+            Toast.makeText(getContext(),
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT)
+                    .show();
+        }
     }
 
     @Override
@@ -182,11 +208,8 @@ public class CreateEvent extends DialogFragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(getActivity(), "Event created successfully!", Toast.LENGTH_SHORT).show();
-                                    Fragment fragment = new UpcomingEvents();
-                                    getActivity().getSupportFragmentManager()
-                                            .beginTransaction()
-                                            .replace(R.id.fragmentContainer,fragment)
-                                            .commit();
+                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                    getActivity().getSupportFragmentManager().popBackStack();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -206,20 +229,6 @@ public class CreateEvent extends DialogFragment {
             });
 
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        fab.setVisibility(View.VISIBLE);
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        bottomNavigationView.setVisibility(View.GONE);
-        fab.setVisibility(View.INVISIBLE);
-        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
+//        getActivity().getSupportFragmentManager().popBackStack();
     }
 }

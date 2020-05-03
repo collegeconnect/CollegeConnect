@@ -1,5 +1,6 @@
 package com.example.collegeconnect.ui.tools;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.collegeconnect.ui.UpcomingEvents;
+import com.example.collegeconnect.ui.EventsFragment;
 import com.example.collegeconnect.ui.CovidFragment;
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.ui.UpcomingEvents;
 import com.example.collegeconnect.ui.share.ShareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -63,12 +65,7 @@ public class ToolsFragment extends Fragment {
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new UpcomingEvents();
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentContainer,fragment)
-                        .addToBackStack(null)
-                        .commit();
+                startActivity(new Intent(getContext(), UpcomingEvents.class));
             }
         });
 

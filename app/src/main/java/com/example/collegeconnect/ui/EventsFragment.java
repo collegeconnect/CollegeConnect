@@ -32,11 +32,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class UpcomingEvents extends Fragment {
+public class EventsFragment extends Fragment {
 
     private FloatingActionButton createEvent;
-    BottomNavigationView bottomNavigationView;
-    FloatingActionButton fab;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     private RecyclerView recyclerView;
@@ -47,11 +45,6 @@ public class UpcomingEvents extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
-
-        if(getActivity()!=null) {
-            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-            fab = getActivity().findViewById(R.id.fab);
-        }
 
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
@@ -65,7 +58,8 @@ public class UpcomingEvents extends Fragment {
                 Fragment fragment = new CreateEvent();
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragmentContainer,fragment)
+                        .replace(R.id.frameupcomingevents,fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -75,7 +69,7 @@ public class UpcomingEvents extends Fragment {
 
     public void loadEvents(){
         databaseReference = firebaseDatabase.getReference("Events");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventsList.clear();
@@ -94,20 +88,5 @@ public class UpcomingEvents extends Fragment {
             }
         });
 
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        bottomNavigationView.setVisibility(View.VISIBLE);
-        fab.setVisibility(View.VISIBLE);
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        bottomNavigationView.setVisibility(View.GONE);
-        fab.setVisibility(View.INVISIBLE);
-        bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
 }

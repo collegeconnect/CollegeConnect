@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".ui.CreateEvent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,6 +46,8 @@
         <EditText
             android:id="@+id/addEventName"
             android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:ems="10"
@@ -59,6 +60,8 @@
         <EditText
             android:id="@+id/addEventDescription"
             android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_height="150dp"
             android:layout_marginTop="24dp"
             android:ems="10"
@@ -72,6 +75,8 @@
         <EditText
             android:id="@+id/addEventUrl"
             android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:ems="10"
@@ -98,6 +103,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:clickable="false"
             android:editable="false"
             android:ems="10"
@@ -112,6 +119,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:ems="10"
             android:hint="Organized By"
             android:inputType="textPersonName"
