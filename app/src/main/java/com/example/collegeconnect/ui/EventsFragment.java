@@ -15,11 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.collegeconnect.DatabaseHelper;
 import com.example.collegeconnect.DownloadNotes;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.EventsAdapter;
 import com.example.collegeconnect.adapters.NotesAdapter;
+import com.example.collegeconnect.datamodels.Constants;
 import com.example.collegeconnect.datamodels.Events;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
@@ -29,7 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class EventsFragment extends Fragment {
@@ -58,11 +64,23 @@ public class EventsFragment extends Fragment {
         databaseReference.orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String pattern = "dd/MM/yyyy";
+                String dateInString = new SimpleDateFormat(pattern).format(new Date());
                 eventsList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Events events = postSnapshot.getValue(Events.class);
 //                    Toast.makeText(getContext(), events.getEventName(), Toast.LENGTH_SHORT).show();
-                    eventsList.add(events);
+                    if(events.getDate().compareTo(dateInString)>=0)
+                        eventsList.add(events);
+                    if(events.getDate().compareTo(dateInString) < 0) {
+                        DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
+                        mDatabaserefernce.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("EventsFragment", "onComplete: Event Removed");
+                            }
+                        });
+                    }
                 }
                 eventsAdapter = new EventsAdapter(getActivity(),eventsList);
                 recyclerView.setAdapter(eventsAdapter);

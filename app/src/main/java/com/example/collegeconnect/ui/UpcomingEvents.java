@@ -36,7 +36,7 @@ public class UpcomingEvents extends AppCompatActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(UpcomingEvents.this, CreateEvents.class));
+               startActivity(new Intent(UpcomingEvents.this, CreateEvent.class));
             }
         });
 
