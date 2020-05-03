@@ -57,7 +57,7 @@ public class CreateEvent extends DialogFragment {
     private EditText name, description, url, eventDate, organizer;
     private ImageButton addImage;
     private static final int GET_FROM_GALLERY = 1;
-    private static String date;
+    private String date;
     private LinearLayout blurr;
     private Uri filePath;
     public String imageUrl;
@@ -80,7 +80,7 @@ public class CreateEvent extends DialogFragment {
         imageView = view.findViewById(R.id.viewEventImage);
         organizer = view.findViewById(R.id.addOrganizer);
         blurr = view.findViewById(R.id.blurrScreenEvent);
-
+        imageUrl = "";
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,7 +92,6 @@ public class CreateEvent extends DialogFragment {
         final int year = myCalendar.get(Calendar.YEAR);
         final int month = myCalendar.get(Calendar.MONTH);
         final int day = myCalendar.get(Calendar.DAY_OF_MONTH);
-
         eventDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -122,16 +121,36 @@ public class CreateEvent extends DialogFragment {
                 datePickerDialog.show();
             }
         });
+
+        final String Ename = name.getText().toString();
+        final String Edescription = description.getText().toString();
+        final String Eurl = url.getText().toString();
+        final String Eorganizer = organizer.getText().toString();
+        final String Edate = eventDate.getText().toString();
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                blurr.setVisibility(View.VISIBLE);
-                uploadEvent();
-                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || Eorganizer.isEmpty() || imageUrl.equals("")){
+                    if (Ename.isEmpty())
+                        name.setError("Field cannot be empty");
+                    if (Edescription.isEmpty())
+                        description.setError("Field cannot be empty");
+                    if (Eurl.isEmpty())
+                        url.setError("Field cannot be empty");
+                    if (Edate.isEmpty())
+                        eventDate.setError("Field cannot be empty");
+                    if (Eorganizer.isEmpty())
+                        organizer.setError("Field cannot be empty");
+                    if (imageUrl.equals(""))
+                        Toast.makeText(getActivity(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    blurr.setVisibility(View.VISIBLE);
+                    uploadEvent();
+                }
             }
         });
 
@@ -212,11 +231,12 @@ public class CreateEvent extends DialogFragment {
                             databaseReference.child(name.getText().toString()).setValue(event).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+
                                     getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     blurr.setVisibility(View.GONE);
                                     Toast.makeText(getActivity(), "Event created successfully!", Toast.LENGTH_SHORT).show();
-                                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                     getActivity().getSupportFragmentManager().popBackStack();
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
