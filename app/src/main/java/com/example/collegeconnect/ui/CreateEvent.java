@@ -186,7 +186,6 @@ public class CreateEvent extends DialogFragment {
                                     getActivity().getSupportFragmentManager()
                                             .beginTransaction()
                                             .replace(R.id.fragmentContainer,fragment)
-                                            .addToBackStack(null)
                                             .commit();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

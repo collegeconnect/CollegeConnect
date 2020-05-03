@@ -83,10 +83,12 @@
 
         <android.widget.Button
             android:id="@+id/createEventButton"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="@drawable/button_design3"
             android:text="Create Event"
+            android:textColor="@color/colorwhite"
             app:layout_constraintEnd_toStartOf="@+id/guideline26"
             app:layout_constraintStart_toStartOf="@+id/guideline26"
             app:layout_constraintTop_toBottomOf="@+id/addOrganizer" />
