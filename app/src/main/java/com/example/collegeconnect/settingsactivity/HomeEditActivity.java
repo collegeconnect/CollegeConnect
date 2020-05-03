@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private Uri filePath;
     private FloatingActionButton submitDetails;
+    private LinearLayout blurr;
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
 
@@ -96,6 +98,7 @@ public class HomeEditActivity extends AppCompatActivity {
         submitDetails = findViewById(R.id.submitDetailscopy);
         progressBar = findViewById(R.id.progress);
         progressBar.setVisibility(View.GONE);
+        blurr = findViewById(R.id.blurrScreen);
 
         tv.setText("Edit Details");
         storageRef = storage.getReference();
@@ -158,6 +161,7 @@ public class HomeEditActivity extends AppCompatActivity {
                         new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
+                        blurr.setVisibility(View.GONE);
                     } catch (Exception e) {
                         Log.e("error", "Could not open the downloaded file");
                     }
@@ -306,6 +310,7 @@ public class HomeEditActivity extends AppCompatActivity {
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     progressBar.setVisibility(View.VISIBLE);
+                    blurr.setVisibility(View.VISIBLE);
                     uploadImage(resultUri);
                 }
                 catch (Exception e){
