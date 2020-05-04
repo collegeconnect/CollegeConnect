@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui.share;
+package com.example.collegeconnect.ui.RoomLocator;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.collegeconnect.R;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -30,7 +29,7 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class ShareFragment extends Fragment {
+public class RoomLocFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
     FloatingActionButton fab;
@@ -41,7 +40,7 @@ public class ShareFragment extends Fragment {
     ProgressBar progressBar;
     private AdView mAdView;
 
-    public ShareFragment() {
+    public RoomLocFragment() {
         // Required empty public constructor
     }
     @Nullable

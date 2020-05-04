@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.collegeconnect.ui.CovidFragment;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.ui.event.UpcomingEvents;
-import com.example.collegeconnect.ui.share.ShareFragment;
+import com.example.collegeconnect.ui.RoomLocator.RoomLocFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ToolsFragment extends Fragment {
@@ -38,7 +38,7 @@ public class ToolsFragment extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new ShareFragment();
+                Fragment fragment = new RoomLocFragment();
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
