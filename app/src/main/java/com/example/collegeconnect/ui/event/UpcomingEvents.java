@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.ui.event;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.bumptech.glide.signature.ObjectKey;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,10 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 public class UpcomingEvents extends AppCompatActivity {
     private FloatingActionButton createEvent;

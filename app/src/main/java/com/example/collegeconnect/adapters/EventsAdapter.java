@@ -16,7 +16,7 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.Events;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import com.example.collegeconnect.ui.EventsFragment;
+
 import com.example.collegeconnect.ui.event.EventDetailsFragment;
 
 import java.util.ArrayList;

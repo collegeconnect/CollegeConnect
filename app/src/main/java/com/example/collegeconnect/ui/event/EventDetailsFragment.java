@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +29,8 @@ public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private ImageView banner;
-    private TextView evntName;
+    private TextView evntName, startingDate, endingDate;
+    private EditText description;
     private FloatingActionButton floatingActionButton;
 
     public EventDetailsFragment() {
@@ -47,6 +49,9 @@ public class EventDetailsFragment extends Fragment {
         }
         banner = view.findViewById(R.id.eventBanner);
         evntName = view.findViewById(R.id.eventName);
+        startingDate = view.findViewById(R.id.StartingDate);
+        endingDate = view.findViewById(R.id.EndingDate);
+        description = view.findViewById(R.id.eventDescription);
 
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("Name");
@@ -69,9 +74,14 @@ public class EventDetailsFragment extends Fragment {
                 String imageurl = (String)map.get("imageUrl");
                 String registrationurl = (String)map.get("registrationUrl");
                 String date = (String)map.get("date");
+                String endDate = (String)map.get("endDate");
 
                 Picasso.get().load(imageurl).into(banner);
                 evntName.setText(name);
+                description.setText(Description);
+                startingDate.setText(date);
+                endingDate.setText(endDate);
+
             }
 
             @Override

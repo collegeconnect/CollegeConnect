@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.ui.event;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -195,6 +195,8 @@ public class CreateEvent extends AppCompatActivity {
                         endeventDate.setError("Field cannot be empty");
                     if (Eorganizer.isEmpty())
                         organizer.setError("Field cannot be empty");
+                    if (imageUrl.equals(""))
+                        Toast.makeText(getApplicationContext(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,

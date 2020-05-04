@@ -13,10 +13,9 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
-import com.example.collegeconnect.ui.EventsFragment;
 import com.example.collegeconnect.ui.CovidFragment;
 import com.example.collegeconnect.R;
-import com.example.collegeconnect.ui.UpcomingEvents;
+import com.example.collegeconnect.ui.event.UpcomingEvents;
 import com.example.collegeconnect.ui.share.ShareFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

@@ -1,4 +1,4 @@
-package com.example.collegeconnect.ui;
+package com.example.collegeconnect.ui.event;
 
 import android.os.Bundle;
 

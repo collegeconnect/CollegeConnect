@@ -16,8 +16,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.CreateEvent"></activity>
-        <activity android:name=".ui.UpcomingEvents" />
+        <activity android:name=".ui.event.CreateEvent"></activity>
+        <activity android:name=".ui.event.UpcomingEvents" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
