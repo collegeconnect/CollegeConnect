@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -36,7 +38,7 @@ public class CovidFragment extends Fragment {
     FloatingActionButton fab;
     WebView webView;
     ImageView imageView;
-    TextView textView;
+    TextView textView, textslow;
     WebSettings webSettings;
     ProgressBar progressBar;
     private AdView mAdView;
@@ -72,6 +74,9 @@ public class CovidFragment extends Fragment {
         textView.setVisibility(View.GONE);
         progressBar = view.findViewById(R.id.progcovid);
         progressBar.setVisibility(View.GONE);
+        textslow = view.findViewById(R.id.texterrorcovid);
+        textslow.setVisibility(View.GONE);
+        textslow.setVisibility(View.GONE);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -109,12 +114,19 @@ public class CovidFragment extends Fragment {
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
+                    textslow.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            textslow.setVisibility(View.VISIBLE);
+                        }
+                    },3500);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
                     progressBar.setVisibility(View.GONE);
+                    textslow.setVisibility(View.GONE);
                 }
             });
             webView.loadUrl("https://www.covid19india.org/");

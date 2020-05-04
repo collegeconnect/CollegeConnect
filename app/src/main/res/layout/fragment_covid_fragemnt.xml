@@ -40,6 +40,13 @@
         android:textSize="20sp"
         android:layout_below="@id/imageViewcovid"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/texterrorcovid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/progcovid"
+        android:text="Unstable Connection. PLease Wait...." />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewcovid"

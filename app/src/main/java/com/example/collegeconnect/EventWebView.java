@@ -37,7 +37,7 @@ public class EventWebView extends Fragment {
     WebSettings webSettings;
     FloatingActionButton floatingActionButton;
     ImageView imageView;
-    TextView textView;
+    TextView textView, textslow;
     boolean hasConnect;
     private AdView mAdView;
     String finalUrl;
@@ -69,6 +69,9 @@ public class EventWebView extends Fragment {
         imageView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
+        textslow = view.findViewById(R.id.texterrorevent);
+        textslow.setVisibility(View.GONE);
+        textslow.setVisibility(View.GONE);
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("Url");
         if (desired_string.contains("https://"))
@@ -118,12 +121,19 @@ public class EventWebView extends Fragment {
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
+                    textslow.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            textslow.setVisibility(View.VISIBLE);
+                        }
+                    },3500);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
                     progressBar.setVisibility(View.GONE);
+                    textslow.setVisibility(View.GONE);
                 }
             });
             webView.loadUrl(finalUrl);

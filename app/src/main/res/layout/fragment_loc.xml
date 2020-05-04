@@ -40,6 +40,14 @@
        android:layout_below="@id/imageView"
        android:layout_centerHorizontal="true"/>
 
+   <TextView
+       android:id="@+id/texterror"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_below="@id/prog"
+       android:text="Unstable Connection. PLease Wait...." />
+
    <com.google.android.gms.ads.AdView
        android:id="@+id/adView"
        ads:adSize="BANNER"
