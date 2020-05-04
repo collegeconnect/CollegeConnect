@@ -10,11 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.collegeconnect.EventWebView;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ortiz.touchview.TouchImageView;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -33,7 +31,7 @@ import java.util.Map;
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private ImageView banner;
+    private TouchImageView banner;
     private TextView evntName, startingDate, endingDate;
     private TextView description;
     private Button register;

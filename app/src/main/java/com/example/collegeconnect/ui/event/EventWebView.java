@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.ui.event;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.collegeconnect.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -70,7 +71,6 @@ public class EventWebView extends Fragment {
         textView.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         textslow = view.findViewById(R.id.texterrorevent);
-        textslow.setVisibility(View.GONE);
         textslow.setVisibility(View.GONE);
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("Url");
@@ -121,12 +121,12 @@ public class EventWebView extends Fragment {
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
-                    textslow.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            textslow.setVisibility(View.VISIBLE);
-                        }
-                    },3500);
+//                    textslow.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            textslow.setVisibility(View.VISIBLE);
+//                        }
+//                    },3500);
                 }
 
                 @Override

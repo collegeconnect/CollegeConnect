@@ -46,8 +46,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.textView.setText(event.getEventName());
         if(event.getOrganizer().toLowerCase().contains("dsc"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.dsc));
-        if(event.getOrganizer().toLowerCase().contains("ieee"))
+        else if(event.getOrganizer().toLowerCase().contains("ieee"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.bvpieee));
+        else if(event.getOrganizer().toLowerCase().contains("csi"))
+            holder.imageView.setImageDrawable(context.getDrawable(R.drawable.bvpcsi));
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {

@@ -75,7 +75,6 @@ public class RoomLocFragment extends Fragment {
         progressBar.setVisibility(View.GONE);
         textslow = view.findViewById(R.id.texterror);
         textslow.setVisibility(View.GONE);
-        textslow.setVisibility(View.GONE);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -113,12 +112,12 @@ public class RoomLocFragment extends Fragment {
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
                     progressBar.setVisibility(View.VISIBLE);
-                    textslow.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            textslow.setVisibility(View.VISIBLE);
-                        }
-                    },3500);
+//                    textslow.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            textslow.setVisibility(View.VISIBLE);
+//                        }
+//                    },3500);
                 }
 
                 @Override

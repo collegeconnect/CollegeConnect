@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".EventWebView">
+    tools:context=".ui.event.EventWebView">
 
     <WebView
         android:id="@+id/eventWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/adView"/>
+        android:layout_above="@id/adViewevent" />
 
     <ProgressBar
         android:layout_width="wrap_content"
