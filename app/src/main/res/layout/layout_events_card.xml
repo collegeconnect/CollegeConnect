@@ -19,19 +19,23 @@
 
             <ImageView
                 android:id="@+id/imageView15"
+                android:layout_centerVertical="true"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:paddingLeft="5dp"
                 app:srcCompat="@drawable/cc2" />
             <RelativeLayout
                 android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/imageView15"
                 android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/eventName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageView15"
                 android:textColor="@color/blackToWhite"
                 android:textSize="18sp"
+                android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:text="TextView" />
@@ -41,11 +45,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/eventName"
+                android:paddingBottom="10dp"
                 android:textSize="15sp"
                 android:textColor="#959595"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:text="organiser" />
             </RelativeLayout>
         </RelativeLayout>

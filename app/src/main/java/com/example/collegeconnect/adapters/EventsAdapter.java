@@ -46,6 +46,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         holder.textView.setText(event.getEventName());
         if(event.getOrganizer().toLowerCase().contains("dsc"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.dsc));
+        if(event.getOrganizer().toLowerCase().contains("ieee"))
+            holder.imageView.setImageDrawable(context.getDrawable(R.drawable.bvpieee));
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         try {
@@ -67,14 +69,18 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 Bundle arguments = new Bundle();
                 arguments.putString( "Name",event.getEventName());
 
-                EventDetailsFragment eventDetailsFragment = new EventDetailsFragment();
+                final EventDetailsFragment eventDetailsFragment = new EventDetailsFragment();
                 eventDetailsFragment.setArguments(arguments);
-
-                ((AppCompatActivity)context).getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.frameupcomingevents,eventDetailsFragment)
-                        .addToBackStack(null)
-                        .commit();
+                v.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((AppCompatActivity)context).getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.frameupcomingevents,eventDetailsFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                },150);
             }
         });
     }

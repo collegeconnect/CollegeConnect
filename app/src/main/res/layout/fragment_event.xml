@@ -30,7 +30,8 @@
           android:text="Event Name"
           android:textAllCaps="true"
           android:textColor="@color/newBlue"
-          android:textSize="36sp"
+          android:textSize="30sp"
+          android:gravity="center"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
