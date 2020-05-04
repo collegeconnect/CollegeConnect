@@ -14,7 +14,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
@@ -95,6 +97,7 @@ public class TimeTable extends AppCompatActivity {
                 image = res.getBlob(1);
                 bit = getImage(image);
                 imageView.setImageBitmap(bit);
+                imageView.setRotateImageToFitScreen(true);
 //                imageView.setImageBitmap(bit);
 //                imageView.setMaxZoom(3);
             }
@@ -231,8 +234,13 @@ public class TimeTable extends AppCompatActivity {
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null) {
             filePath = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+                Bitmap bitmap;
+                if(Build.VERSION.SDK_INT<28)
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                else
+                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(),filePath));
                 imageView.setImageBitmap(bitmap);
+                imageView.setRotateImageToFitScreen(true);
 //                UploadImage();
                 byte[] image1 = getBytes(bitmap);
                 boolean insert = db.insertImage(image1);
