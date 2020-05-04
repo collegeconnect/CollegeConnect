@@ -1,10 +1,12 @@
 package com.example.collegeconnect.ui.event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,6 +32,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.net.URISyntaxException;
 
 
 public class EventWebView extends Fragment {
@@ -134,6 +139,31 @@ public class EventWebView extends Fragment {
                     super.onPageFinished(view, url);
                     progressBar.setVisibility(View.GONE);
                     textslow.setVisibility(View.GONE);
+                }
+
+                @Override
+                public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                    Uri uri = request.getUrl();
+                    if(uri.toString().startsWith("intent://")) {
+                        Intent intent = null;
+                        try {
+                            intent = Intent.parseUri(uri.toString(),Intent.URI_INTENT_SCHEME);
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        }
+                        if(intent!=null){
+                            String fallbackurl = intent.getStringExtra("browser_fallback_url");
+                            if(fallbackurl!=null){
+                                webView.loadUrl(fallbackurl);
+                                return true;
+                            }
+                            else
+                                return false;
+
+                        }
+                    }
+                    return super.shouldOverrideUrlLoading(view, request);
+
                 }
             });
             webView.loadUrl(finalUrl);
