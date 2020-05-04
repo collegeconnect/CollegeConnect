@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.collegeconnect.DatabaseHelper;
@@ -50,12 +51,13 @@ public class EventsFragment extends Fragment {
     private RecyclerView recyclerView;
     static EventsAdapter eventsAdapter;
     ArrayList<Events> eventsList = new ArrayList<>();
+    TextView textView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
-
+        textView = view.findViewById(R.id.tv_noEvent);
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -88,6 +90,10 @@ public class EventsFragment extends Fragment {
                         delete.delete();
                     }
                 }
+                if(eventsList.isEmpty())
+                    textView.setVisibility(View.VISIBLE);
+                else
+                    textView.setVisibility(View.GONE);
                 eventsAdapter = new EventsAdapter(getActivity(),eventsList);
                 recyclerView.setAdapter(eventsAdapter);
             }
