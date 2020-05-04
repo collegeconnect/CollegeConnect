@@ -15,64 +15,69 @@
           android:layout_width="match_parent"
           android:layout_height="200dp"
           android:layout_marginStart="8dp"
-          android:layout_marginTop="32dp"
           android:layout_marginEnd="8dp"
           android:adjustViewBounds="true"
           android:focusableInTouchMode="true"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+          app:layout_constraintTop_toBottomOf="@id/eventName" />
 
       <TextView
           android:id="@+id/eventName"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="24dp"
+          android:layout_marginTop="22dp"
           android:text="Event Name"
+          android:textAllCaps="true"
           android:textColor="@color/newBlue"
           android:textSize="36sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/eventBanner" />
+          app:layout_constraintTop_toTopOf="parent" />
 
-      <EditText
+      <TextView
           android:id="@+id/eventDescription"
           android:layout_width="0dp"
-          android:layout_height="250dp"
+          android:layout_height="wrap_content"
           android:layout_marginStart="10dp"
-          android:layout_marginTop="24dp"
           android:layout_marginEnd="10dp"
           android:clickable="false"
           android:editable="false"
           android:ems="10"
-          android:fadeScrollbars="false"
+          android:fadeScrollbars="true"
           android:gravity="top"
           android:hint="Event Description"
           android:scrollbarThumbVertical="@color/newBlue"
           android:scrollbars="vertical"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/eventName" />
+          app:layout_constraintTop_toBottomOf="@id/eventBanner" />
 
       <TextView
           android:id="@+id/StartingDate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="36dp"
+          android:layout_marginTop="4dp"
+          android:layout_marginEnd="20dp"
           android:text="Starting Date"
           android:textSize="18sp"
-          app:layout_constraintStart_toStartOf="@+id/eventDescription"
-          app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+          app:layout_constraintEnd_toStartOf="@+id/divider4"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
       <TextView
           android:id="@+id/EndingDate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="36dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginTop="4dp"
           android:text="Ending Date"
           android:textSize="18sp"
           app:layout_constraintEnd_toEndOf="@+id/eventDescription"
-          app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toEndOf="@+id/divider4"
+          app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
       <android.widget.Button
           android:id="@+id/registerButton"
@@ -81,6 +86,8 @@
           android:layout_marginTop="24dp"
           android:background="@drawable/button_design3"
           android:text="Register"
+          app:layout_constraintBottom_toBottomOf="parent"
+          android:layout_marginBottom="20dp"
           android:textColor="@color/colorwhite"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -90,19 +97,21 @@
           android:id="@+id/textView19"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="1dp"
-          android:text="Starting Date"
-          app:layout_constraintBottom_toTopOf="@+id/StartingDate"
-          app:layout_constraintStart_toStartOf="@+id/StartingDate" />
+          android:layout_marginTop="16dp"
+          android:text="Event Duration"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
 
-      <TextView
-          android:id="@+id/textView20"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="1dp"
-          android:text="Ending Date"
-          app:layout_constraintBottom_toTopOf="@+id/EndingDate"
-          app:layout_constraintEnd_toEndOf="@+id/EndingDate" />
+      <View
+          android:id="@+id/divider4"
+          android:layout_width="15dp"
+          android:layout_height="1dp"
+          android:background="@android:color/darker_gray"
+          app:layout_constraintBottom_toBottomOf="@+id/EndingDate"
+          app:layout_constraintEnd_toEndOf="@+id/textView19"
+          app:layout_constraintStart_toStartOf="@+id/textView19"
+          app:layout_constraintTop_toTopOf="@+id/StartingDate" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 

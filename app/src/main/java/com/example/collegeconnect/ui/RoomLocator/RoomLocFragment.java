@@ -1,9 +1,13 @@
 package com.example.collegeconnect.ui.RoomLocator;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +43,7 @@ public class RoomLocFragment extends Fragment {
     WebSettings webSettings;
     ProgressBar progressBar;
     private AdView mAdView;
+    boolean hasConnect;
 
     public RoomLocFragment() {
         // Required empty public constructor
@@ -67,22 +72,52 @@ public class RoomLocFragment extends Fragment {
         imageView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
         progressBar = view.findViewById(R.id.prog);
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
 
-        ConnectivityManager manager = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo i = manager.getActiveNetworkInfo();
-        boolean hasConnect = (i!= null && i.isConnected() && i.isAvailable());
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+
+
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+                if (capabilities != null) {
+                    if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                        hasConnect = true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                        hasConnect = true;
+                    } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                        hasConnect = true;
+                    }
+                }
+            } else {
+                try {
+                    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                    if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
+                        hasConnect = true;
+                    }
+                } catch (Exception e) {
+                    Log.i("update_status", "" + e.getMessage());
+                }
+            }
+        }
 
         if(hasConnect)
         {
-            progressBar.postDelayed(new Runnable() {
+
+            // show the webview
+            webView.setWebViewClient(new WebViewClient(){
                 @Override
-                public void run() {
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
                     progressBar.setVisibility(View.GONE);
                 }
-            },500);
-            // show the webview
-            webView.setWebViewClient(new WebViewClient());
+            });
             webView.loadUrl("https://rooms.dscbvp.dev/");
             webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);

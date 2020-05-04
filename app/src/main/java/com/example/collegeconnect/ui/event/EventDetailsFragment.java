@@ -25,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class EventDetailsFragment extends Fragment {
@@ -32,7 +35,7 @@ public class EventDetailsFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private ImageView banner;
     private TextView evntName, startingDate, endingDate;
-    private EditText description;
+    private TextView description;
     private Button register;
     String registrationurl;
     private FloatingActionButton floatingActionButton;
@@ -108,8 +111,8 @@ public class EventDetailsFragment extends Fragment {
                 Picasso.get().load(imageurl).into(banner);
                 evntName.setText(name);
                 description.setText(Description);
-                startingDate.setText(date);
-                endingDate.setText(endDate);
+                startingDate.setText(date(date));
+                endingDate.setText(date(endDate));
 
             }
 
@@ -118,6 +121,21 @@ public class EventDetailsFragment extends Fragment {
 
             }
         });
+    }
+    public String date(String date){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, dd MMM yy");
+        Date datetext = null;
+        String str = null;
+
+        try {
+            datetext = inputFormat.parse(date);
+            assert datetext != null;
+            str = outputFormat.format(datetext);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return str;
     }
 
     @Override

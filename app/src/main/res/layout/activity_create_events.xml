@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.event.CreateEvent">
+
     <include layout="@layout/toolbar_main"
         android:id="@+id/toolbarevent"/>
     <ScrollView
@@ -14,13 +15,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/addEventImage"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginEnd="10dp"
             android:background="@drawable/ic_update_dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/viewEventImage"
@@ -44,7 +45,9 @@
             android:id="@+id/viewEventImage"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
             android:background="#10ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +59,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:ems="10"
             android:hint="Event Name"
             android:inputType="textPersonName"
@@ -66,6 +71,8 @@
         <EditText
             android:id="@+id/addEventDescription"
             android:layout_width="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="150dp"
             android:layout_marginTop="24dp"
             android:ems="10"
@@ -79,6 +86,8 @@
         <EditText
             android:id="@+id/addEventUrl"
             android:layout_width="0dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:ems="10"
@@ -106,6 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:clickable="false"
+            android:layout_marginLeft="10dp"
             android:editable="false"
             android:ems="10"
             android:focusable="false"
@@ -117,6 +127,7 @@
         <EditText
             android:id="@+id/addendEventDate"
             android:layout_width="150dp"
+            android:layout_marginRight="10dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:clickable="false"
@@ -133,6 +144,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:ems="10"
             android:hint="Organized By"
             android:inputType="textPersonName"
