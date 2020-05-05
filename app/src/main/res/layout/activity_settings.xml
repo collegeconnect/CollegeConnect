@@ -96,7 +96,7 @@
             android:id="@+id/logoutButton"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="20dp"
             android:background="@drawable/button_design3"
             android:text="@string/log_out"
             android:textColor="@color/colorwhite"

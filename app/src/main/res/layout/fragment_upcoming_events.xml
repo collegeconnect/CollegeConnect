@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp"
     tools:context=".ui.event.EventsFragment">
     <TextView
         android:layout_width="wrap_content"
@@ -20,6 +19,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsRecycler"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </RelativeLayout>

@@ -6,56 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".settingsactivity.AboutActivity">
 
-    <include
-        layout="@layout/toolbar_main"
-        android:id="@+id/toolbarabout"/>
-
-    <RelativeLayout
+        <include
+            layout="@layout/toolbar_main"
+            android:id="@+id/toolbarabout"/>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarabout">
 
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/cc1" />
-
-        <View
-            android:id="@+id/divider2"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/imageView13"
-            android:layout_marginTop="0dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp">
 
-        <EditText
-            android:id="@+id/about_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/divider2"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/transparent"
-            android:clickable="false"
-            android:editable="false"
-            android:ems="10"
-            android:textColor="@color/blackToWhite" />
 
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="Made with ❤\nVersion 2.1"
-            android:textAlignment="center" />
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/cc1" />
 
-    </RelativeLayout>
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/imageView13"
+                android:layout_marginTop="0dp"
+                android:background="?android:attr/listDivider" />
+
+            <EditText
+                android:id="@+id/about_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider2"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:editable="false"
+                android:ems="10"
+                android:textColor="@color/blackToWhite" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_text"
+                android:layout_marginTop="28dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Made with ❤\nVersion 2.1"
+                android:textAlignment="center" />
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

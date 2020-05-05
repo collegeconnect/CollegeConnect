@@ -54,7 +54,7 @@
           android:id="@+id/eventName"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="22dp"
+          android:layout_marginTop="15dp"
           android:text="Event Name"
           android:textAllCaps="true"
           android:textColor="@color/newBlue"

@@ -1,6 +1,7 @@
 package com.example.collegeconnect.ui.event;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ImageAdapter;
 import com.example.collegeconnect.datamodels.Constants;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +52,7 @@ public class EventDetailsFragment extends Fragment {
     private ViewPager imagesViewpager;
     private TabLayout viewpagerIndicator;
     private ArrayList<String> eventImages = new ArrayList<>();
+    private Context mContext;
 
     public EventDetailsFragment() {
         // Required empty public constructor
@@ -161,11 +164,36 @@ public class EventDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        floatingActionButton.setVisibility(View.VISIBLE);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
     }
+
+    @Override
+    public void onStop() {
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        databaseReference = firebaseDatabase.getReference("EventAdmin");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+                if(arrayList.contains(SaveSharedPreference.getUserName(mContext)))
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                else
+                    floatingActionButton.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        super.onStop();
+
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
