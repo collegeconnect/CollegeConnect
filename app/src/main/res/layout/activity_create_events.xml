@@ -8,6 +8,11 @@
 
     <include layout="@layout/toolbar_main"
         android:id="@+id/toolbarevent"/>
+    <ProgressBar
+        android:id="@+id/progloading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,7 +20,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
 
         <ImageButton
             android:id="@+id/addEventImage"

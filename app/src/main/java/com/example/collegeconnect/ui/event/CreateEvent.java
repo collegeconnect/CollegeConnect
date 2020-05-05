@@ -34,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,7 @@ public class CreateEvent extends AppCompatActivity {
     TabLayout viewPagerIndicator;
     ArrayList<Uri> images = new ArrayList<>();
     ArrayList<String> imageurl = new ArrayList<>();
+    ProgressBar progressBar;
     private long millis = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +95,8 @@ public class CreateEvent extends AppCompatActivity {
         TextView tv = findViewById(R.id.tvtitle);
         tv.setText("Create Event");
         storageRef = storage.getReference();
-
+        progressBar = findViewById(R.id.progloading);
+        progressBar.setVisibility(View.GONE);
         viewPagerImage = findViewById(R.id.viewEventImage);
         viewPagerIndicator = findViewById(R.id.tabCreateEvent);
         create = findViewById(R.id.createEventButton);
@@ -219,6 +222,7 @@ public class CreateEvent extends AppCompatActivity {
                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     blurr.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.VISIBLE);
                     uploadEvent();
                 }
             }
@@ -429,6 +433,7 @@ public class CreateEvent extends AppCompatActivity {
 
                                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                         blurr.setVisibility(View.GONE);
+                                        progressBar.setVisibility(View.GONE);
                                         Toast.makeText(getApplicationContext(), "Event created successfully!", Toast.LENGTH_SHORT).show();
                                         finish();
 
