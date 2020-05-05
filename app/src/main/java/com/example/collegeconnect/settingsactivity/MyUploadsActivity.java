@@ -75,6 +75,7 @@ public class MyUploadsActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(MyUploadsActivity.this));
                     notesAdapter = new UploadlistAdapter(MyUploadsActivity.this, uploadList);
                     recyclerView.setAdapter(notesAdapter);
+                    notesAdapter.notifyDataSetChanged();
                 }
             }
 

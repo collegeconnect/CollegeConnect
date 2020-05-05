@@ -109,10 +109,12 @@ public class CreateEvent extends AppCompatActivity {
         blurr = findViewById(R.id.blurrScreenEvent);
         endeventDate = findViewById(R.id.addendEventDate);
         imageUrl = "";
+
         addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageadd();
+                v.bringToFront();
             }
         });
 

@@ -145,6 +145,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                                         Log.d("UploadlistAdapter", "onComplete: database entry removed");
                                                     }
                                                 });
+                                                notifyDataSetChanged();
 
                                             }
                                         });

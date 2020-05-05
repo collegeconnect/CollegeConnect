@@ -1,5 +1,6 @@
 package com.example.collegeconnect.ui.event;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.ImageAdapter;
 import com.example.collegeconnect.datamodels.Constants;

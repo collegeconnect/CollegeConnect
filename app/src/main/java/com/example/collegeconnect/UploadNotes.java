@@ -135,6 +135,7 @@ public class UploadNotes extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     getPDF();
+
                 }
             });
 
@@ -294,6 +295,7 @@ public class UploadNotes extends AppCompatActivity {
                 }
                 else {
                     applyTexts(file, authorName);
+                    UploadNotes.this.Data = null;
                     dialog.dismiss();
                 }
             }

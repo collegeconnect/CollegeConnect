@@ -6,8 +6,8 @@ As the first stage of development, the app is currently focused for BVCOE, New D
 
 The app uses Material UI for an attractive and appealing interface which attracts user to stay on the app for more time.
 
-The app contains many useful features which will help a student in their journey through college. More such feature are in development.
+The app contains many useful features which will help a student in their journey through college. More such features are in development.
 
-The app is in currently in development phase.
+The app is in development phase currently.
 
-It's is being build by Saksham Pruthi and Sajal Jain, both pursuing B.Tech
+It's is being build by Saksham Pruthi and Sajal Jain, both pursuing B.Tech.

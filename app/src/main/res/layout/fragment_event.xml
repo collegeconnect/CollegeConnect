@@ -25,7 +25,7 @@
 <!--          app:layout_constraintTop_toBottomOf="@id/eventName" />-->
       <androidx.viewpager.widget.ViewPager
           android:layout_width="match_parent"
-          android:layout_height="200dp"
+          android:layout_height="350dp"
           android:layout_marginStart="8dp"
           android:id="@+id/eventBanner"
           android:layout_marginEnd="8dp"
@@ -60,6 +60,7 @@
           android:textColor="@color/newBlue"
           android:textSize="30sp"
           android:gravity="center"
+          android:fontFamily="@font/ubuntu_regular"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
@@ -155,6 +156,15 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/eventBanner" />
+         <View
+             android:id="@+id/divider7"
+             android:layout_width="0dp"
+             android:layout_height="1dp"
+             android:layout_marginTop="2dp"
+             android:background="@android:color/darker_gray"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toBottomOf="@id/eventName" />
 
    </androidx.constraintlayout.widget.ConstraintLayout>
 
