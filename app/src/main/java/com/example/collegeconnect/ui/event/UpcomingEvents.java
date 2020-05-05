@@ -41,8 +41,8 @@ public class UpcomingEvents extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-        TextView tv = findViewById(R.id.tvtitle);
-        tv.setText("Upcoming Events");
+//        TextView tv = findViewById(R.id.tvtitle);
+//        tv.setText("Upcoming Events");
         createEvent = findViewById(R.id.createEvent);
         createEvent.setVisibility(View.GONE);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

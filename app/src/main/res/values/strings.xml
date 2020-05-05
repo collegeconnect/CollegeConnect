@@ -4,6 +4,7 @@
     <string name="logo">Logo</string>
     <string name="log_in">Log In</string>
     <string name="password">PASSWORD</string>
+    <string name="Preference">Preference</string>
     <string name="username">ROLL NUMBER</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome">Welcome</string>

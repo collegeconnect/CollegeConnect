@@ -51,13 +51,15 @@ public class EventsFragment extends Fragment {
     private RecyclerView recyclerView;
     static EventsAdapter eventsAdapter;
     ArrayList<Events> eventsList = new ArrayList<>();
-    TextView textView;
+    TextView textView, tv;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
         textView = view.findViewById(R.id.tv_noEvent);
+        if (getActivity()!=null)
+            tv = getActivity().findViewById(R.id.tvtitle);
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -104,5 +106,12 @@ public class EventsFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        tv.setText("Upcoming Events");
     }
 }
