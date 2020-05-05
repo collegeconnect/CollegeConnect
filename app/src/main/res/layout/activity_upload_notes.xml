@@ -143,6 +143,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="0dp"
         android:text="No file selected"
+        android:layout_marginBottom="20dp"
         android:textAlignment="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/newBlue" />

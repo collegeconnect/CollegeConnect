@@ -50,7 +50,7 @@ public class UploadNotes extends AppCompatActivity {
     private Intent Data = null;
     private EditText fileName, author;
     Intent receiverdIntent;
-    TextView tv8;
+    TextView tv8,tv_title;
     ImageView imageView;
     String receivedAction;
     String receivedType;
@@ -81,8 +81,8 @@ public class UploadNotes extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        tv8 = findViewById(R.id.tvtitle);
-        tv8.setText("Upload Notes");
+        tv_title = findViewById(R.id.tvtitle);
+        tv_title.setText("Upload Notes");
         if(SaveSharedPreference.getCheckedItem(this)==0)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         else if(SaveSharedPreference.getCheckedItem(this)==1)
