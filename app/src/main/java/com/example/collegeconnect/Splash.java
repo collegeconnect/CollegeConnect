@@ -48,7 +48,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i=new Intent(Splash.this,
-                        MainActivity.class);
+                        OnBoardingScreenm.class);
                 //Intent is used to switch from one activity to another.
 
                 startActivity(i);

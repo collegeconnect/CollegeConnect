@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -82,6 +83,12 @@ public class UploadNotes extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         tv8 = findViewById(R.id.tvtitle);
         tv8.setText("Upload Notes");
+        if(SaveSharedPreference.getCheckedItem(this)==0)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        else if(SaveSharedPreference.getCheckedItem(this)==1)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else if(SaveSharedPreference.getCheckedItem(this)==2)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         //getting the views
         textViewStatus = findViewById(R.id.textViewStatus);
@@ -255,6 +262,7 @@ public class UploadNotes extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        UploadNotes.this.Data = null;
                     }
                 });
         fileName = view.findViewById(R.id.fileName);

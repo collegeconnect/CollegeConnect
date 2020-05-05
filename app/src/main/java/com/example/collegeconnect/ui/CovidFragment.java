@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceError;
@@ -160,6 +162,19 @@ public class CovidFragment extends Fragment {
             webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
             webSettings.setDomStorageEnabled(true);
+            webView.canGoBack();
+            webView.setOnKeyListener(new View.OnKeyListener() {
+
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK
+                            && event.getAction() == MotionEvent.ACTION_UP
+                            && webView.canGoBack()) {
+                        webView.goBack();
+                        return true;
+                    }
+                    return false;
+                }
+            });
         }
         else
         {

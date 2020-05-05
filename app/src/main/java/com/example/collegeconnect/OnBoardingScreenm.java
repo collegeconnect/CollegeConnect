@@ -1,6 +1,7 @@
 package com.example.collegeconnect;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -9,8 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.example.collegeconnect.adapters.ViewPagerAdapter;
+import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.material.tabs.TabLayout;
 
 public class OnBoardingScreenm extends AppCompatActivity {
@@ -22,12 +25,11 @@ public class OnBoardingScreenm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(SaveSharedPreference.getRef(this)){
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_on_boarding_screenm);
-
-//        if (new PreferenceManager(this).checkPreference()){
-//            startActivity(new Intent(OnBoardingScreenm.this, navigation .class));
-//            finish();
-//        }
 
         final ViewPager pager = findViewById(R.id.viewPager);
         PagerAdapter adapter = new ViewPagerAdapter(layouts,OnBoardingScreenm.this);
@@ -80,8 +82,9 @@ public class OnBoardingScreenm extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentPage==layouts.length-1){
-//                    new PreferenceManager(getApplicationContext()).writeSharedPrefernce();
-//                    startActivity(new Intent(OnBoardingScreenm.this,MainActivity.class));
+                    SaveSharedPreference.setRef(OnBoardingScreenm.this,true);
+                    startActivity(new Intent(OnBoardingScreenm.this,MainActivity.class));
+                    finish();
                 }
                 else
                     pager.setCurrentItem(currentPage+1);

@@ -124,6 +124,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // Write your code here to execute after dialog
+                                                new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Upload Notes"+File.separator+notes.getName()+".pdf").delete();
 
                                                 StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(notes.getUrl());
                                                 delete.delete().addOnSuccessListener(new OnSuccessListener<Void>() {

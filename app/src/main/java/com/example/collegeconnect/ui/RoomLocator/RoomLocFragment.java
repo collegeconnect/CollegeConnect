@@ -10,7 +10,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
@@ -159,6 +161,20 @@ public class RoomLocFragment extends Fragment {
             webView.loadUrl("https://rooms.dscbvp.dev/");
             webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
+            webSettings.setDomStorageEnabled(true);
+            webView.canGoBack();
+            webView.setOnKeyListener(new View.OnKeyListener() {
+
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK
+                            && event.getAction() == MotionEvent.ACTION_UP
+                            && webView.canGoBack()) {
+                        webView.goBack();
+                        return true;
+                    }
+                    return false;
+                }
+            });
         }
         else
         {

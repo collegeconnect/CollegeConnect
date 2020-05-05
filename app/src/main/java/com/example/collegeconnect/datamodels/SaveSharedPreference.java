@@ -2,7 +2,9 @@ package com.example.collegeconnect.datamodels;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
+
+import com.example.collegeconnect.R;
 
 public class SaveSharedPreference {
     private static final String PREF_USER_NAME= "username";
@@ -14,6 +16,7 @@ public class SaveSharedPreference {
     private static final String UNIT = "unit";
     private static final String CLEARALL = "clearall";
     private static final String CLEARALL1 = "clearall1";
+    private static final String REF = "com.example.collegeconnect.MyPref";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -73,6 +76,12 @@ public class SaveSharedPreference {
         editor.putBoolean(CLEARALL1,value);
         editor.commit();
     }
+    public static void setRef(Context ctx, boolean value)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(REF,value);
+        editor.commit();
+    }
 
     public static String getUserName(Context ctx)
     {
@@ -111,12 +120,17 @@ public class SaveSharedPreference {
     {
         return getSharedPreferences(ctx).getBoolean(CLEARALL1,false);
     }
+    public static boolean getRef(Context ctx)
+    {
+        return getSharedPreferences(ctx).getBoolean(REF,false);
+    }
 
 
     public static void clearUserName(Context ctx)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.clear(); //clear all stored data
-        editor.commit();
+        editor.apply();
     }
+
 }
