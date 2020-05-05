@@ -81,6 +81,12 @@ public class EventsFragment extends Fragment {
                     if(events.getEndDate().compareTo(dateInString)>=0)
                         eventsList.add(events);
                     if(events.getEndDate().compareTo(dateInString) < 0) {
+
+                        for(int i = 0;i < events.getImageUrl().size();i++) {
+                            StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(events.getImageUrl().get(i));
+                            Log.d("change", "onDataChange22: "+events.getImageUrl().get(i));
+                            delete.delete();
+                        }
                         DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
                         mDatabaserefernce.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -88,8 +94,6 @@ public class EventsFragment extends Fragment {
                                 Log.d("EventsFragment", "onComplete: Event Removed");
                             }
                         });
-                        StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(events.getImageUrl());
-                        delete.delete();
                     }
                 }
                 if(eventsList.isEmpty())

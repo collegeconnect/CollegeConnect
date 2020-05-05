@@ -7,19 +7,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageDecoder;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,19 +38,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.adapters.ImageCreateAdapter;
 import com.example.collegeconnect.datamodels.Events;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -64,6 +76,10 @@ public class CreateEvent extends AppCompatActivity {
     private Uri filePath ;
     public String imageUrl;
     private ImageView imageView;
+    ViewPager viewPagerImage;
+    TabLayout viewPagerIndicator;
+    ArrayList<Uri> images = new ArrayList<>();
+    ArrayList<String> imageurl = new ArrayList<>();
     private long millis = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +94,14 @@ public class CreateEvent extends AppCompatActivity {
         tv.setText("Create Event");
         storageRef = storage.getReference();
 
+        viewPagerImage = findViewById(R.id.viewEventImage);
+        viewPagerIndicator = findViewById(R.id.tabCreateEvent);
         create = findViewById(R.id.createEventButton);
         name = findViewById(R.id.addEventName);
         description = findViewById(R.id.addEventDescription);
         url = findViewById(R.id.addEventUrl);
         eventDate = findViewById(R.id.addEventDate);
         addImage = findViewById(R.id.addEventImage);
-        imageView = findViewById(R.id.viewEventImage);
         organizer = findViewById(R.id.addOrganizer);
         blurr = findViewById(R.id.blurrScreenEvent);
         endeventDate = findViewById(R.id.addendEventDate);
@@ -316,6 +333,7 @@ public class CreateEvent extends AppCompatActivity {
         else {
             Intent intent = new Intent();
             intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
             intent.setAction(Intent.ACTION_PICK);
             startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
         }
@@ -340,74 +358,99 @@ public class CreateEvent extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK) {
 
-            filePath = data.getData();
-            try {
-                Bitmap bitmap;
-                if(Build.VERSION.SDK_INT<28)
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                else
-                   bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(),filePath));
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e){
-                e.printStackTrace();
+//            filePath = data.getData();
+            images.clear();
+            if(data.getClipData() != null) {
+                int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                for(int i = 0; i < count; i++) {
+                    filePath = data.getClipData().getItemAt(i).getUri();
+                    images.add(filePath);
+                }
             }
+            else if(data.getData() != null) {
+                filePath = data.getData();
+                images.add(filePath);
+            }
+            ImageCreateAdapter imageCreateAdapter = new ImageCreateAdapter(images,getApplicationContext());
+            viewPagerImage.setAdapter(imageCreateAdapter);
+            if(images.size()==1)
+                viewPagerIndicator.setVisibility(View.GONE);
+            viewPagerIndicator.setupWithViewPager(viewPagerImage,true);
         }
     }
 
     private void uploadEvent()
     {
-        if (filePath!=null){
+        if (images.size()!=0) {
+            for (int i = 0; i < images.size(); i++) {
+                filePath = images.get(i);
+                StorageReference unique = storageRef.child("Event/");
+                final StorageReference timeTableref = unique.child(name.getText().toString() + "/Poster" + i + ".jpeg");
+                timeTableref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-            StorageReference unique = storageRef.child("Event/");
-            final StorageReference timeTableref = unique.child( name.getText().toString()+"/Poster.jpeg");
-            timeTableref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> downlaoduri = taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                CreateEvent.this.imageUrl = uri.toString();
 
-                    Task<Uri> downlaoduri = taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            CreateEvent.this.imageUrl = uri.toString();
 
-                            databaseReference = firebaseDatabase.getReference("Events");
+                                databaseReference = firebaseDatabase.getReference("Events");
+                                databaseReference.child(name.getText().toString()).child("imageUrl").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        ArrayList<String> arrayList = (ArrayList<String>)dataSnapshot.getValue();
+                                        if(arrayList!=null)
+                                            imageurl = (ArrayList<String>) arrayList.clone();
+                                    }
 
-//                            Toast.makeText(getActivity(), date+" "+organizer.getText().toString(), Toast.LENGTH_SHORT).show();
-                            Events event = new Events(name.getText().toString(),
-                                    description.getText().toString(),
-                                    imageUrl,
-                                    url.getText().toString(),
-                                    date,
-                                    organizer.getText().toString(),endDate);
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                            databaseReference.child(name.getText().toString()).setValue(event).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
+                                    }
+                                });
 
-                                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                                    blurr.setVisibility(View.GONE);
-                                    Toast.makeText(getApplicationContext(), "Event created successfully!", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                imageurl.add(imageUrl);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getApplicationContext(), "Event not created!", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
+                                Toast.makeText(getApplicationContext(), date + " " + organizer.getText().toString(), Toast.LENGTH_SHORT).show();
+                                Events event = new Events(name.getText().toString(),
+                                        description.getText().toString(),
+                                        imageurl,
+                                        url.getText().toString(),
+                                        date,
+                                        organizer.getText().toString(), endDate);
 
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error in uploading image!", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                databaseReference.child(name.getText().toString()).setValue(event).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 
+                                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                                        blurr.setVisibility(View.GONE);
+                                        Toast.makeText(getApplicationContext(), "Event created successfully!", Toast.LENGTH_SHORT).show();
+                                        finish();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "Event not created!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error in uploading image!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
         }
     }
     @Override

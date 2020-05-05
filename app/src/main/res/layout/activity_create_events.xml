@@ -41,9 +41,21 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent=".25" />
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/viewEventImage"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:background="#10ffffff"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@android:drawable/ic_menu_gallery" />-->
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewEventImage"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="8dp"
@@ -51,8 +63,19 @@
             android:background="#10ffffff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_gallery" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/tabCreateEvent"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@id/viewEventImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabIndicatorHeight="0dp"
+            app:tabRippleColor="@null"/>
 
         <EditText
             android:id="@+id/addEventName"

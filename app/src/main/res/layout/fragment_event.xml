@@ -10,11 +10,24 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
 
-      <com.ortiz.touchview.TouchImageView
-          android:id="@+id/eventBanner"
+<!--      <com.ortiz.touchview.TouchImageView-->
+<!--          android:id="@+id/eventBanner"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_marginStart="8dp"-->
+<!--          android:layout_marginEnd="8dp"-->
+<!--          android:adjustViewBounds="true"-->
+<!--          android:focusableInTouchMode="true"-->
+<!--          android:nestedScrollingEnabled="false"-->
+<!--          android:scaleType="centerInside"-->
+<!--          app:layout_constraintEnd_toEndOf="parent"-->
+<!--          app:layout_constraintStart_toStartOf="parent"-->
+<!--          app:layout_constraintTop_toBottomOf="@id/eventName" />-->
+      <androidx.viewpager.widget.ViewPager
           android:layout_width="match_parent"
           android:layout_height="200dp"
           android:layout_marginStart="8dp"
+          android:id="@+id/eventBanner"
           android:layout_marginEnd="8dp"
           android:adjustViewBounds="true"
           android:focusableInTouchMode="true"
@@ -22,7 +35,20 @@
           android:scaleType="centerInside"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/eventName" />
+          app:layout_constraintTop_toBottomOf="@id/eventName"/>
+
+      <com.google.android.material.tabs.TabLayout
+          android:id="@+id/viewPager_indicator"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:background="@android:color/transparent"
+          app:layout_constraintBottom_toBottomOf="@+id/eventBanner"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:tabBackground="@drawable/tab_selector"
+          app:tabIndicatorHeight="0dp"
+          app:tabRippleColor="@null" />
+
 
       <TextView
           android:id="@+id/eventName"

@@ -4,8 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +17,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.adapters.ImageAdapter;
 import com.example.collegeconnect.datamodels.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,18 +31,23 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private TouchImageView banner;
+//    private TouchImageView banner;
     private TextView evntName, startingDate, endingDate;
     private TextView description;
     private Button register;
     String registrationurl;
     private FloatingActionButton floatingActionButton;
+    private ViewPager imagesViewpager;
+    private TabLayout viewpagerIndicator;
+    private ArrayList<String> eventImages = new ArrayList<>();
 
     public EventDetailsFragment() {
         // Required empty public constructor
@@ -56,12 +67,16 @@ public class EventDetailsFragment extends Fragment {
         }
 
 
-        banner = view.findViewById(R.id.eventBanner);
+//        banner = view.findViewById(R.id.eventBanner);
+        imagesViewpager= view.findViewById(R.id.eventBanner);
+        viewpagerIndicator= view.findViewById(R.id.viewPager_indicator);
         evntName = view.findViewById(R.id.eventName);
         startingDate = view.findViewById(R.id.StartingDate);
         endingDate = view.findViewById(R.id.EndingDate);
         description = view.findViewById(R.id.eventDescription);
         register = view.findViewById(R.id.registerButton);
+
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,16 +116,23 @@ public class EventDetailsFragment extends Fragment {
                 String name = (String) map.get("eventName");
                 String Description = (String) map.get("eventDescription");
                 String organiser = (String) map.get("organizer");
-                String imageurl = (String)map.get("imageUrl");
+                eventImages = (ArrayList<String>)map.get("imageUrl");
                 registrationurl = (String)map.get("registrationUrl");
                 String date = (String)map.get("date");
                 String endDate = (String)map.get("endDate");
 
-                Picasso.get().load(imageurl).into(banner);
+//                Picasso.get().load(imageurl).into(banner);
+                Log.d("change", "onDataChange: "+eventImages.get(0));
+
                 evntName.setText(name);
                 description.setText(Description);
                 startingDate.setText(date(date));
                 endingDate.setText(date(endDate));
+                ImageAdapter imageAdapter =new ImageAdapter(eventImages);
+                imagesViewpager.setAdapter(imageAdapter);
+                if (eventImages.size()==1)
+                    viewpagerIndicator.setVisibility(View.INVISIBLE);
+                viewpagerIndicator.setupWithViewPager(imagesViewpager,true);
 
             }
 

@@ -2,11 +2,13 @@ package com.example.collegeconnect.datamodels;
 
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 public class Events {
 
     private String eventName;
     private String eventDescription;
-    private String imageUrl;
+    private ArrayList<String> imageUrl;
     private String registrationUrl;
     private String date;
     private String organizer;
@@ -15,7 +17,7 @@ public class Events {
     public Events() {
     }
 
-    public Events(String eventName, String eventDescription, String imageUrl, String registrationUrl, String date, String organizer, String endDate) {
+    public Events(String eventName, String eventDescription, ArrayList<String> imageUrl, String registrationUrl, String date, String organizer, String endDate) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.imageUrl = imageUrl;
@@ -41,7 +43,7 @@ public class Events {
         this.eventDescription = eventDescription;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(ArrayList<String> imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -60,7 +62,7 @@ public class Events {
         return eventDescription;
     }
 
-    public String getImageUrl() {
+    public ArrayList<String> getImageUrl() {
         return imageUrl;
     }
 
