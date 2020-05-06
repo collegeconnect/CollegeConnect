@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment {
     private DatabaseHelper mydb;
     public Uri uri;
     private StorageReference storageRef;
+    private Context mcontext;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -214,7 +215,7 @@ private void download_dp() {
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
                 String college = (String) map.get("Clgname");
-                SaveSharedPreference.setUser(getContext(),name);
+                SaveSharedPreference.setUser(mcontext,name);
                 nameField.setText(SaveSharedPreference.getUser(getContext()));
                 enrollNo.setText(rollNo);
                 branch.setText(college);
@@ -254,10 +255,16 @@ private void download_dp() {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mcontext = context;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-        if(SaveSharedPreference.getClearall1(getContext())) {
+        if(SaveSharedPreference.getClearall1(mcontext)) {
             File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
             if (file.exists()) {
                 HomeFragment.this.uri = Uri.fromFile(file);
