@@ -3,7 +3,6 @@ package com.example.collegeconnect;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
@@ -15,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -25,6 +23,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
+import com.example.collegeconnect.settingsactivity.SettingsActivity;
 import com.example.collegeconnect.ui.attendance.AttendanceFragment;
 import com.example.collegeconnect.ui.home.HomeFragment;
 import com.example.collegeconnect.ui.notes.NotesFragment;
@@ -33,7 +32,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -174,7 +172,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         switch (item.getItemId())
         {
             case R.id.action_settings :
-                startActivity(new Intent(navigation.this,SettingsActivity.class));
+                startActivity(new Intent(navigation.this, SettingsActivity.class));
 //                Dialog();
                 return true;
 

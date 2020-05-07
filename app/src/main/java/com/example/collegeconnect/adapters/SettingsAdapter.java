@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.collegeconnect.R;
+import com.example.collegeconnect.WorkProfile;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.settingsactivity.AboutActivity;
 import com.example.collegeconnect.settingsactivity.ContactActivity;
@@ -33,9 +34,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     List act_list;
     int checked_item = 0;
     Class myuploads = MyUploadsActivity.class;
+    Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int images[] ={R.drawable.ic_brightness_24dp ,R.drawable.ic_uploadlist, R.drawable.ic_contactus, R.drawable.ic_about};
+    int images[] ={R.drawable.ic_brightness_24dp ,R.drawable.ic_uploadlist, R.drawable.cc1, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -136,6 +138,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             act_list = new ArrayList<>();
             act_list.add(1);
             act_list.add(myuploads);
+            act_list.add(workprofile);
             act_list.add(contactus);
             act_list.add(about);
         }

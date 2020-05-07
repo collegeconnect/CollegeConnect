@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".settingsactivity.WorkOne">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/workName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:text="Full Name" />
+
+    <EditText
+        android:id="@+id/enterWorkName"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/workName"
+        android:layout_alignStart="@id/workName"
+        android:background="@drawable/work_field_layout"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/workDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enterWorkName"
+        android:layout_alignStart="@id/workName"
+        android:layout_marginTop="50dp"
+        android:text="About Me" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/workDescription"
+        android:layout_alignStart="@id/enterWorkName"
+        android:background="@drawable/work_field_layout"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/workWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal Website"
+        android:layout_alignStart="@id/workName"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/editText4"/>
+
+    <EditText
+        android:id="@+id/enterWorkWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:inputType="textWebEmailAddress"
+        android:layout_alignStart="@id/editText4"
+        android:ems="10"
+        android:background="@drawable/work_field_layout"
+        android:layout_below="@id/workWebsite"/>
+
+    <ImageButton
+        android:id="@+id/button3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/enterWorkWebsite"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/ic_next" />
+
+</RelativeLayout>

@@ -15,16 +15,23 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".WorkProfile"/>
+
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
-        <activity android:name=".OnBoardingScreenm"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.event.CreateEvent"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.event.UpcomingEvents"
-            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".OnBoardingScreenm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.event.CreateEvent"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.event.UpcomingEvents"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -36,16 +43,20 @@
                 android:resource="@xml/path" />
         </provider>
 
-        <activity android:name=".settingsactivity.AboutActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".settingsactivity.ContactActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".settingsactivity.MyUploadsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".settingsactivity.HomeEditActivity"
-            android:screenOrientation="portrait"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".settingsactivity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settingsactivity.ContactActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settingsactivity.MyUploadsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settingsactivity.HomeEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 

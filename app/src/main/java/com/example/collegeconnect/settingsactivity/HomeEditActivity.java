@@ -245,6 +245,7 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField.setEnabled(true);
         enrollNo.setEnabled(true);
         branch.setEnabled(true);
+        imageButton.setEnabled(true);
         nameField.setTextColor(getColor(R.color.blackToWhite));
         enrollNo.setTextColor(getColor(R.color.blackToWhite));
         branch.setTextColor(getColor(R.color.blackToWhite));

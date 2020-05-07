@@ -36,13 +36,16 @@ public class UpcomingEvents extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         databaseReference = firebaseDatabase.getReference("EventAdmin");
         setContentView(R.layout.activity_upcoming_event);
+
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+
 //        TextView tv = findViewById(R.id.tvtitle);
 //        tv.setText("Upcoming Events");
+
         createEvent = findViewById(R.id.createEvent);
         createEvent.setVisibility(View.GONE);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

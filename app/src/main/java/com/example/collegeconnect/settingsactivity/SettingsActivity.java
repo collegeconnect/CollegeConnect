@@ -1,4 +1,4 @@
-package com.example.collegeconnect;
+package com.example.collegeconnect.settingsactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -8,49 +8,37 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DownloadManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.collegeconnect.DatabaseHelper;
+import com.example.collegeconnect.DividerItemDecoration;
+import com.example.collegeconnect.MainActivity;
+import com.example.collegeconnect.R;
 import com.example.collegeconnect.adapters.SettingsAdapter;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
-import com.example.collegeconnect.settingsactivity.HomeEditActivity;
-import com.example.collegeconnect.ui.home.HomeFragment;
+import com.example.collegeconnect.navigation;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -112,6 +100,7 @@ public class SettingsActivity extends AppCompatActivity {
 //        options.add("Update Profile");
         options.add("Theme");
         options.add("My Upload List");
+        options.add("Work Profile");
         options.add("Contact Us");
         options.add("About");
 
