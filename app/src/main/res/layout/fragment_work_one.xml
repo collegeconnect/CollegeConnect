@@ -24,7 +24,9 @@
         android:layout_alignStart="@id/workName"
         android:background="@drawable/work_field_layout"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
+        android:padding="5dp"
         android:textAlignment="center" />
 
     <TextView
@@ -45,6 +47,7 @@
         android:background="@drawable/work_field_layout"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="Desription"
         android:inputType="textMultiLine"
         android:padding="5dp" />
 
@@ -61,17 +64,40 @@
         android:id="@+id/enterWorkWebsite"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:inputType="textWebEmailAddress"
+        android:layout_below="@id/workWebsite"
         android:layout_alignStart="@id/editText4"
-        android:ems="10"
         android:background="@drawable/work_field_layout"
-        android:layout_below="@id/workWebsite"/>
+        android:ems="10"
+        android:hint="Website Link"
+        android:inputType="textWebEmailAddress"
+        android:padding="5dp" />
+
+    <TextView
+        android:id="@+id/workResume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enterWorkWebsite"
+        android:layout_alignStart="@id/workName"
+        android:layout_marginTop="50dp"
+        android:text="Resume Link" />
+
+    <EditText
+        android:id="@+id/enterResumeUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/workResume"
+        android:layout_alignStart="@id/editText4"
+        android:background="@drawable/work_field_layout"
+        android:ems="10"
+        android:hint="Enter drive link for resume"
+        android:inputType="textWebEmailAddress"
+        android:padding="3dp" />
 
     <ImageButton
         android:id="@+id/button3"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@id/enterWorkWebsite"
+        android:layout_below="@id/enterResumeUrl"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:background="@drawable/ic_next" />

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.example.collegeconnect.datamodels.SaveSharedPreference;
 public class WorkTwo extends Fragment {
 
     private ImageButton back;
+    private EditText email;
 //    private Fragment workOne = new WorkOne();
 
     @Override
@@ -27,6 +29,8 @@ public class WorkTwo extends Fragment {
 
 //        next = view.findViewById(R.id.button4);
         back = view.findViewById(R.id.button5);
+        email = view.findViewById(R.id.enterWorkEmail);
+        email.setText(SaveSharedPreference.getUserName(getActivity()));
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
