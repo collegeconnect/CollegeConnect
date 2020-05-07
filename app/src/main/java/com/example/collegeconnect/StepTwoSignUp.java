@@ -41,6 +41,7 @@ public class StepTwoSignUp extends AppCompatActivity {
 
 
 
+
         mAuth = FirebaseAuth.getInstance();
         rollno = findViewById(R.id.textuser);
         clgname = findViewById(R.id.textclg);
@@ -52,6 +53,13 @@ public class StepTwoSignUp extends AppCompatActivity {
         final String receivedEmail = intent.getStringExtra(EXTRA_EMAIL);
         final String receivedPassword = intent.getStringExtra(EXTRA_PASSWORD);
          receivedPRev = intent.getStringExtra(EXTRA_PREV);
+
+         if(receivedPRev==null){
+             User.addUser("000000", mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, "college name");
+         }
+//         else
+//             User.addUser("000000", receivedEmail, receivedName, receivedPassword, "college name");
+
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,13 +86,13 @@ public class StepTwoSignUp extends AppCompatActivity {
                 }
                 else {
 
-                    if (receivedPRev == null) {
+                    if (receivedPRev == null) {//google
                         User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, college);
                         SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                         startActivity(new Intent(getApplicationContext(), navigation.class));
                         finish();
                     }
-                    else {
+                    else {//email
 
                         User.addUser(roll, receivedEmail, receivedName, receivedPassword, college);
                                 mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {

@@ -79,7 +79,8 @@ public class HomeFragment extends Fragment {
 
         storageRef = storage.getReference();
         int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/"+SaveSharedPreference.getUserName(getContext()).substring(0,dot));
+        String str = SaveSharedPreference.getUserName(getContext()).replace(".","@");
+        databaseReference = firebaseDatabase.getReference("users/"+str);
         prfileImage = view.findViewById(R.id.imageView3);
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);

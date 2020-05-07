@@ -91,6 +91,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             Log.d("navigation", "onCreate: attenfrag called from notificaion");
             loadFragments(new AttendanceFragment());
         }
+        SaveSharedPreference.setUserName(this,FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         //Set initials and dp
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
