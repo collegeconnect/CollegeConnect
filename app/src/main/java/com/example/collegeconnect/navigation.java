@@ -97,8 +97,10 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
             SaveSharedPreference.setUser(navigation.this,FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         else {
-            int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
-            databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(navigation.this).substring(0, dot));
+//            int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
+//            databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(navigation.this).substring(0, dot));
+            String str = SaveSharedPreference.getUserName(this).replace(".","@");
+            databaseReference = firebaseDatabase.getReference("users/"+str);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

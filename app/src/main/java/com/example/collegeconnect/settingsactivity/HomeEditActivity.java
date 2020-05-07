@@ -111,8 +111,10 @@ public class HomeEditActivity extends AppCompatActivity {
         if (uri != null)
             Picasso.get().load(uri).memoryPolicy(MemoryPolicy.NO_CACHE).into(prfileImage);
 
-        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
-        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
+//        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
+//        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
+        String str = SaveSharedPreference.getUserName(this).replace(".","@");
+        databaseReference = firebaseDatabase.getReference("users/"+str);
 
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -246,7 +248,8 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField.setTextColor(getColor(R.color.blackToWhite));
         enrollNo.setTextColor(getColor(R.color.blackToWhite));
         branch.setTextColor(getColor(R.color.blackToWhite));
-        imageButton.setEnabled(true);
+
+
         imageButton.setVisibility(View.VISIBLE);
         submitDetails.setEnabled(true);
         submitDetails.setVisibility(View.VISIBLE);
