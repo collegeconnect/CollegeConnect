@@ -14,9 +14,7 @@ Later it was converted to be a _app for every college_ and course in India
 
 The app is in currently in development phase  
 
-Its is being build by [@saksham0804](https://github.com/saksham0804) and [@sjain30](https://github.com/sjain30)
 > The app has Google Login option for immediate login   
-
 
 > It also uses default option to sign up using email with requirement for email confirmation before Login
 
@@ -53,6 +51,9 @@ This feature allows user to upload the image of timetable from memory. It stores
 ### Tools
 This is currently under development and will be updated soon!
 ## Contributions Best Practices
+
+### Maintainers
+This repository is maintained by [Sajal Jain](https://github.com/sjain30) and [Saksham Pruthi](https://github.com/saksham0804)
 
 ### For first time Contributors
 

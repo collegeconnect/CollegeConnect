@@ -35,6 +35,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
@@ -156,9 +158,10 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager inputManager = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
 
-            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+            assert inputManager != null;
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         final ProgressBar progressBar = findViewById(R.id.MainProgressBar);
