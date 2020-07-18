@@ -7,26 +7,26 @@ It aims to create a helpful plateform for all college students
 It uses Firebase and SQLite to store and display the information to user  
 The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time and is available in both Light and Dark mode
 
-This idea was developed for Ideathon held in BVCOE where it was presented to be a college app for BVCOE  
+This idea was developed for Ideathon held in BVCOE, New Delhi where it was presented to be a college app for BVCOE  
 
-Later it was converted to be a _app for every college_ and course in India
+Later it was converted to be a _third party app for every college and course in India_
 
-The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute to migrate the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
+The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute in the migration of the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
 
 <img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
 
 ### Attendence Manager
-The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at 
+The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance
   
 <img src = "/Images/attendance_light.png" width="235" height="500"/>  <img src = "/Images/attendance_dark.png" width="235" height="500"/>
 
 ### Notes  
 The Notes tab provides notes uploaded by students. The recycler view shows the name of the author  
-with total no. of downloads   
+with total no. of downloads and relevant tags
 #### _Upload Notes_  
-The upload notes area provide for easy upload of codes by users. It takes the authors name to give credit to the uploader
+The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the uploader
 
-The no. of downloads will encourage students to make more impressive notes and create a sense of competition
+The no. of downloads will encourage students to make more impressive notes and create a sense of healthy competition
 
 <img src = "/Images/notes_light.png" width="235" height="500"/>  <img src = "/Images/notes_dark.png" width="235" height="500"/>
 
