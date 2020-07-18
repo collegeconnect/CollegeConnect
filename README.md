@@ -11,7 +11,7 @@ This idea was developed for Ideathon held in BVCOE where it was presented to be 
 
 Later it was converted to be a _app for every college_ and course in India
 
-The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute to migrate the application to MVVM architecture please contact the repo maintainers as we'd be more than happy to port to MVVM
+The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute to migrate the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
 
 <img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
 
@@ -66,7 +66,7 @@ First time contributors can read [CONTRIBUTING.md](/CONTRIBUTING.md) file for he
 
 We have the following branches
 
- * **development** All development goes on in this branch. If you're making a contribution, you are supposed to make a pull request to _development_. PRs to development branch must pass a build check and a unit-test check on Circle CI.
+ * **development** All development goes on in this branch. If you're making a contribution, you are supposed to make a pull request to _development_.
  * **master** This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update and make a release.
  	
 ### Code practices
