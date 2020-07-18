@@ -1,6 +1,7 @@
 # **College Connect**
 
 [![License Badge](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/sakshampruthi/CollegeConnect/blob/versionTwo/LICENSE)
+[![Gitter](https://badges.gitter.im/CollegeConnect/community.svg)](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
 It aims to create a helpful plateform for all college students   
