@@ -9,7 +9,7 @@ public class User {
         public String Email;
         public String Name;
         public String Password;
-        public String Clgname;
+        public String branch;
 
         private static FirebaseDatabase firebaseDatabase;
 
@@ -18,7 +18,7 @@ public class User {
             Email =null;
             Name =null;
             Password =null;
-            Clgname =null;
+            branch =null;
             // Default constructor required for calls to DataSnapshot.getValue(User.class)
         }
 
@@ -27,7 +27,7 @@ public class User {
             this.Email = email;
             this.Name =name;
             this.Password =password;
-            this.Clgname=clgname;
+            this.branch =clgname;
         }
 
         public static boolean addUser(String username, String email, String name, String password, String clgname)

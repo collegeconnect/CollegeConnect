@@ -8,7 +8,7 @@
     tools:context="com.example.collegeconnect.SignUp">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textclg"
+        android:id="@+id/textbranch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorwhite"

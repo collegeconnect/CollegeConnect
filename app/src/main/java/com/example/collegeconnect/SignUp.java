@@ -77,6 +77,7 @@ public class SignUp extends AppCompatActivity {
                                     intent.putExtra(StepTwoSignUp.EXTRA_NAME, Strname);
                                     intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
                                     intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
+                                    //To indicate the user is signing up using email
                                     intent.putExtra(StepTwoSignUp.EXTRA_PREV, "SignUp");
                                     startActivity(intent);
 

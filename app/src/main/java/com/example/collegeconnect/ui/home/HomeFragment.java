@@ -215,7 +215,7 @@ private void download_dp() {
                 Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
-                String college = (String) map.get("Clgname");
+                String college = (String) map.get("branch");
                 SaveSharedPreference.setUser(mcontext,name);
                 nameField.setText(SaveSharedPreference.getUser(getContext()));
                 enrollNo.setText(rollNo);

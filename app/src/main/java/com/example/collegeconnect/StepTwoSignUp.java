@@ -29,7 +29,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     public static final String EXTRA_PREV = "previous";
     private static String TAG = "Step Two Sign Up";
 
-    private TextInputLayout rollno, clgname;
+    private TextInputLayout rollno, branchanme;
     private FirebaseAuth mAuth;
     private Button signup;
     private String receivedPRev;
@@ -39,12 +39,9 @@ public class StepTwoSignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_two_sign_up);
 
-
-
-
         mAuth = FirebaseAuth.getInstance();
         rollno = findViewById(R.id.textuser);
-        clgname = findViewById(R.id.textclg);
+        branchanme = findViewById(R.id.textbranch);
         signup = findViewById(R.id.stepTwoButton);
 
 
@@ -53,13 +50,6 @@ public class StepTwoSignUp extends AppCompatActivity {
         final String receivedEmail = intent.getStringExtra(EXTRA_EMAIL);
         final String receivedPassword = intent.getStringExtra(EXTRA_PASSWORD);
          receivedPRev = intent.getStringExtra(EXTRA_PREV);
-
-         if(receivedPRev==null){
-             User.addUser("000000", mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, "college name");
-         }
-//         else
-//             User.addUser("000000", receivedEmail, receivedName, receivedPassword, "college name");
-
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,14 +62,14 @@ public class StepTwoSignUp extends AppCompatActivity {
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
                 final String roll = rollno.getEditText().getText().toString();
-                final String college = clgname.getEditText().getText().toString();
+                final String college = branchanme.getEditText().getText().toString();
 
                 if (roll.isEmpty() && college.isEmpty()) {
                     rollno.setError("Enter Roll Number");
-                    clgname.setError("Enter College Name");
+                    branchanme.setError("Enter College Name");
                 }
                 else if(college.isEmpty()){
-                    clgname.setError("Enter College Name");
+                    branchanme.setError("Enter College Name");
                 }
                 else if(roll.isEmpty()){
                     rollno.setError("Enter Roll Number");
@@ -140,7 +130,7 @@ public class StepTwoSignUp extends AppCompatActivity {
                     }
                 });
 
-                clgname.getEditText().addTextChangedListener(new TextWatcher() {
+                branchanme.getEditText().addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -153,7 +143,7 @@ public class StepTwoSignUp extends AppCompatActivity {
 
                     @Override
                     public void afterTextChanged(Editable editable) {
-                        clgname.setError(null);
+                        branchanme.setError(null);
                     }
                 });
             }
