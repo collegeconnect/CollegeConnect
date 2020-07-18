@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/enterWorkName"
         android:layout_alignStart="@id/workName"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="About Me" />
 
     <EditText
@@ -55,10 +55,10 @@
         android:id="@+id/workWebsite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Personal Website"
+        android:layout_below="@id/editText4"
         android:layout_alignStart="@id/workName"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/editText4"/>
+        android:layout_marginTop="40dp"
+        android:text="Personal Website" />
 
     <EditText
         android:id="@+id/enterWorkWebsite"
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/enterWorkWebsite"
         android:layout_alignStart="@id/workName"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:text="Resume Link" />
 
     <EditText
@@ -89,7 +89,7 @@
         android:layout_alignStart="@id/editText4"
         android:background="@drawable/work_field_layout"
         android:ems="10"
-        android:hint="Enter drive link for resume"
+        android:hint="Resume Link"
         android:inputType="textWebEmailAddress"
         android:padding="3dp" />
 
