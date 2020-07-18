@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/workMedium"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_below="@+id/workBehance"
+android:layout_marginStart="10dp"
+android:layout_marginTop="10dp"
+android:layout_marginEnd="10dp"
+android:layout_marginBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/otherDomainName"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/work_field_layout"
+            android:gravity="center"
+            android:hint="Domain Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/enterWorkOther"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/work_field_layout"
+            android:ems="10"
+            android:hint="Enter link"
+            android:inputType="textWebEmailAddress"
+            android:textAlignment="center" />
+
+        <ImageButton
+            android:id="@+id/domainDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/ic_circle_check" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

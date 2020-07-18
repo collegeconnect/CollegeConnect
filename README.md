@@ -5,18 +5,14 @@
 College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
 It aims to create a helpful plateform for all college students   
 It uses Firebase and SQLite to store and display the information to user  
-The app uses  Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time
+The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time
 
 
 This idea was developed for Ideathon held in BVCOE where it was presented to be a college app for BVCOE  
 
 Later it was converted to be a _app for every college_ and course in India
 
-The app is in currently in development phase  
-
-> The app has Google Login option for immediate login   
-
-> It also uses default option to sign up using email with requirement for email confirmation before Login
+The app is primarily in Java and is tighly coupled. If anyone wishes to migrate the application to MVVM architecture please contact the repo maintainers
 
 <img src = "/Images/phone2.png" width="300" height="600"/>
 
@@ -50,10 +46,9 @@ This feature allows user to upload the image of timetable from memory. It stores
 
 ### Tools
 This is currently under development and will be updated soon!
+
 ## Contributions Best Practices
 
-### Maintainers
-This repository is maintained by [Sajal Jain](https://github.com/sjain30) and [Saksham Pruthi](https://github.com/saksham0804)
 
 ### For first time Contributors
 
@@ -71,7 +66,7 @@ We have the following branches
 Please help us follow the best practices to make it easy for the reviewer as well as the contributor. We want to focus on the code quality more than on managing pull request ethics.
 
  * Single commit per pull request
- * For writing commit messages please read the COMMITSTYLE carefully. Kindly adhere to the guidelines.
+ * Reference the issue numbers in the commit message. Follow the pattern Fixes #<issue number> <commit message>
  * Follow uniform design practices. The design language must be consistent throughout the app.
  * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherrypicking and merging squashes.
  * If the PR is related to any front end change, please attach relevant screenshots in the pull request description.
@@ -83,4 +78,7 @@ Please help us follow the best practices to make it easy for the reviewer as wel
 
 ## License
 
-This project is currently licensed under the Apache License Version 2.0. A copy of [LICENSE](LICENSE) should be present along with the source code. To obtain the software under a different license, please contact FOSSASIA.
+This project is currently licensed under the Apache License Version 2.0. A copy of [LICENSE](LICENSE) should be present along with the source code.
+
+## Maintainers and Developers
+This repository is maintained by [Sajal Jain](https://github.com/sjain30) and [Saksham Pruthi](https://github.com/sakshampruthi)
