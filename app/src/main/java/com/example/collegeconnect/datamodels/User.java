@@ -37,7 +37,7 @@ public class User {
             DatabaseReference myRef = firebaseDatabase.getReference("users");
 //            int dot = email.indexOf(".");
             String str = email.replace(".","@");
-            myRef.child(str ).setValue(user);
+            myRef.child(str).setValue(user);
             return true;
         }
 }
