@@ -70,10 +70,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_centerVertical="false"
                 android:layout_toEndOf="@id/email_icon"
-                android:gravity="center"
                 android:paddingStart="10dp"
                 android:text="@string/email"
-                android:textAlignment="viewStart"
+                android:textAlignment="textStart"
                 android:textColor="@color/blackToWhite"
                 android:textSize="16sp" />
 

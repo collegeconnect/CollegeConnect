@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -83,6 +84,7 @@ public class CreateEvent extends AppCompatActivity {
     ArrayList<String> imageurl = new ArrayList<>();
     ProgressBar progressBar;
     private long millis = 0;
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

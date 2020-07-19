@@ -156,7 +156,6 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/button_design2"
         android:drawableLeft="@drawable/google"
-        android:onClick="LogIn"
         android:padding="10dp"
         android:text="@string/common_signin_button_text"
         android:textColor="@color/newBlue"
