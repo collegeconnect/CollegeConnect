@@ -21,19 +21,21 @@ public class SaveSharedPreference {
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
-
+    // To store email
     public static void setUserName(Context ctx, String userName)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, userName);
         editor.commit();
     }
+    // To store name
     public static void setUser(Context ctx, String user)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(USER, user);
         editor.commit();
     }
+    //For storing theme choice
     public static void setCheckedItem(Context ctx, int path)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
@@ -76,6 +78,7 @@ public class SaveSharedPreference {
         editor.putBoolean(CLEARALL1,value);
         editor.commit();
     }
+    //For on boarding screen
     public static void setRef(Context ctx, boolean value)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
@@ -125,7 +128,7 @@ public class SaveSharedPreference {
         return getSharedPreferences(ctx).getBoolean(REF,false);
     }
 
-
+    //Clear data on logout
     public static void clearUserName(Context ctx)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();

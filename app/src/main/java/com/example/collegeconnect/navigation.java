@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +33,8 @@ import com.example.collegeconnect.ui.tools.ToolsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,25 +43,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Map;
 import java.util.Random;
 
 public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private AppBarConfiguration mAppBarConfiguration;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
     private GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
     static int color;
-    private  DatabaseHelper db;
     Fragment homefrag = new HomeFragment();
     Fragment attenfrag = new AttendanceFragment();
     Fragment notefrag = new NotesFragment();
     Fragment toolsfrag = new ToolsFragment();
     public static String CHANNEL_ID = "Notification";
-    private static String CHANNEL_NAME= "Notification Channel";
+    private static String CHANNEL_NAME = "Notification Channel";
     private static String CHANNEL_DESC = "app notification";
 
 
@@ -66,14 +70,35 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        //For test notifications
+        /*
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("Token", "getInstanceId failed", task.getException());
+                            return;
+                        }
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("navigation", msg);
+//                        Toast.makeText(navigation.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+           */
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(CHANNEL_DESC);
             channel.enableLights(true);
             channel.enableVibration(true);
             channel.setLightColor(Color.WHITE);
-            channel.setVibrationPattern(new long[]{100,200,300,400,500,400,300,200,400});
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             channel.setShowBadge(true);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -84,21 +109,21 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
-        
-        if(getIntent().getStringExtra("fragment")!=null && getIntent().getStringExtra("fragment").equals("attenfrag")){
+
+        if (getIntent().getStringExtra("fragment") != null && getIntent().getStringExtra("fragment").equals("attenfrag")) {
             Log.d("navigation", "onCreate: attenfrag called from notificaion");
             loadFragments(new AttendanceFragment());
         }
-        SaveSharedPreference.setUserName(this,FirebaseAuth.getInstance().getCurrentUser().getEmail());
+
+        SaveSharedPreference.setUserName(this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         //Set initials and dp
-        if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName()!=null)
-            SaveSharedPreference.setUser(navigation.this,FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null)
+            SaveSharedPreference.setUser(navigation.this, FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         else {
-//            int dot = SaveSharedPreference.getUserName(navigation.this).indexOf(".");
-//            databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(navigation.this).substring(0, dot));
-            String str = SaveSharedPreference.getUserName(this).replace(".","@");
-            databaseReference = firebaseDatabase.getReference("users/"+str);
+
+            String str = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            databaseReference = firebaseDatabase.getReference("users/" + str);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -114,7 +139,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
                 }
             });
         }
-        Random random  = new Random();
+        Random random = new Random();
         color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
 //        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
@@ -135,7 +160,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        db = new DatabaseHelper(this);
 
         loadFragments(homefrag);
 
@@ -155,7 +179,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     }
 
 
-    public static int generatecolor(){
+    public static int generatecolor() {
 
         return color;
     }
@@ -169,9 +193,8 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_settings :
+        switch (item.getItemId()) {
+            case R.id.action_settings:
                 startActivity(new Intent(navigation.this, SettingsActivity.class));
 //                Dialog();
                 return true;
@@ -182,15 +205,14 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     }
 
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+//                || super.onSupportNavigateUp();
+//    }
 
-    private void timetable()
-    {
+    private void timetable() {
         Intent intent1 = new Intent(this, TimeTable.class);
         startActivity(intent1);
     }
@@ -200,7 +222,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        mgoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
         super.onStart();
     }
 
@@ -209,7 +231,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
 
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 fragment = homefrag;
                 break;
@@ -232,22 +254,18 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
             finish();
         }
 
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                getSupportFragmentManager().popBackStackImmediate();
-        }
-
-        else
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        } else
             super.onBackPressed();
     }
 
-    private boolean loadFragments(Fragment fragment)
-    {
-        if (fragment!=null)
-        {
+    private boolean loadFragments(Fragment fragment) {
+        if (fragment != null) {
             Log.d("navigation", "loadFragments: Frag is loaded");
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer,fragment)
+                    .replace(R.id.fragmentContainer, fragment)
                     .addToBackStack(null)
                     .commit();
 

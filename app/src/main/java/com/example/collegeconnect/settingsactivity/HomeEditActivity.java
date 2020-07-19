@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,10 +112,9 @@ public class HomeEditActivity extends AppCompatActivity {
         if (uri != null)
             Picasso.get().load(uri).memoryPolicy(MemoryPolicy.NO_CACHE).into(prfileImage);
 
-//        int dot = SaveSharedPreference.getUserName(this).indexOf(".");
-//        databaseReference = firebaseDatabase.getReference("users/" + SaveSharedPreference.getUserName(this).substring(0, dot));
-        String str = SaveSharedPreference.getUserName(this).replace(".","@");
-        databaseReference = firebaseDatabase.getReference("users/"+str);
+        //Get user id
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        databaseReference = firebaseDatabase.getReference("users/"+userId);
 
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -264,7 +264,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
-                String college = (String) map.get("Clgname");
+                String college = (String) map.get("branch");
                 nameField.setText(name);
                 enrollNo.setText(rollNo);
                 branch.setText(college);
@@ -357,19 +357,7 @@ public class HomeEditActivity extends AppCompatActivity {
                         }
 
                     });
-//                    progressBar.setVisibility(View.GONE);
 
-//                    Toast.makeText(getActivity(), "DP updated!", Toast.LENGTH_SHORT).show();
-
-//                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-////                        Toast.makeText(TimeTable.this, uri.toString(), Toast.LENGTH_SHORT).show();
-//
-//                        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
-//                        databaseReference.child(SaveSharedPreference.getUserName(getActivity()).substring(0,dot)).child("TimeTable").setValue(uri.toString());
-//                        }
-//                    });
                 }
             }).addOnFailureListener(new OnFailureListener() {
 
