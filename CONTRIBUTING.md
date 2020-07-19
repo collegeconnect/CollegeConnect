@@ -81,3 +81,14 @@ This will pull down and merge all of the changes that have been made in the orig
 Now push them back to your version of Github repository.
 
 `$ git push origin development`
+
+### Important Note: Firebase Integration
+Since the project is hosted on Firebase, we cannot share our google-serivces.json file due to secrurity purposes. 
+
+So, once you fork the project you'll have to link the app to your own firebase account before running the app. [Click here to know how to add firebase to your project](https://firebase.google.com/docs/android/setup?authuser=0)
+
+If you face any issues while linking to firebase you can ask your doubt at our [Gitter Channel](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+Here is how your database should look after your upload some dummy data
+
+<img src = "/Images/firebase.PNG" width = "300" height = "200">
