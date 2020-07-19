@@ -41,6 +41,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Decode google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo $FIREBASE_CONFIG > app/google-services.json
+      - name: Decode keystore properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+        run: echo KEYSTORE_PROPERTIES > keystore.properties
+      - name: Decode signing file
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: 
+          echo $SIGNING_KEY > collegeconnect-keystore.jks.asc
+          gpg -d --passphrase $KEY_PASSWORD --batch collegeconnect-keystore.jks.asc > keystore/collegeconnect-keystore.jks
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
