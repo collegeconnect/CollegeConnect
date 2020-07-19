@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                             if(newuser){
 
                                 startActivity(new Intent(getApplicationContext(),StepTwoSignUp.class));
-                                finish();
 
                             }else{
 
@@ -137,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
                                 SaveSharedPreference.setUserName(getApplicationContext(),user.getEmail());
                                 startActivity(new Intent(getApplicationContext(), navigation.class));
-                                finish();
                             }
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.
