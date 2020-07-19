@@ -203,18 +203,4 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
     }
-    //    private boolean loadFragment(Fragment fragment)
-//    {
-//        if (fragment!=null)
-//        {
-//            Log.d("Settings", "loadFragmentsInSettings: Frag is loaded");
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.settings_frag_container,fragment)
-//                    .commit();
-//
-//            return true;
-//        }
-//        return false;
-//    }
 }

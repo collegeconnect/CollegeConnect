@@ -40,7 +40,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
     private TextInputLayout email, password;
     private Button register, login;
     int RC_SIGN_IN = 1  ;

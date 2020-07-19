@@ -142,9 +142,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
         Random random = new Random();
         color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
-//        Toast.makeText(this, "Welcome "+firebaseAuth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(this, SaveSharedPreference.getUserName(this), Toast.LENGTH_SHORT).show();
-
         Toolbar toolbar = findViewById(R.id.toolbarnav);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -163,19 +160,6 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         loadFragments(homefrag);
 
-        /*DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share)
-                .setDrawerLayout(drawer)
-                .build();
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);  */
     }
 
 
