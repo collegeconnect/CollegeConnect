@@ -25,10 +25,6 @@ jobs:
         env:
           KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
         run: echo KEYSTORE_PROPERTIES > keystore.properties
-      - name: Decode signing file
-        run: 
-          echo "${{ secrets.SIGNING_KEY }}" > collegeconnect-keystore.jks.asc
-          gpg -d --passphrase "${{ secrets.KEY_PASSWORD }}" --batch collegeconnect-keystore.jks.asc > keystore/collegeconnect-keystore.jks
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
   apk:
@@ -49,13 +45,6 @@ jobs:
         env:
           KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
         run: echo KEYSTORE_PROPERTIES > keystore.properties
-      - name: Decode signing file
-        env:
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: 
-          echo $SIGNING_KEY > collegeconnect-keystore.jks.asc
-          gpg -d --passphrase $KEY_PASSWORD --batch collegeconnect-keystore.jks.asc > keystore/collegeconnect-keystore.jks
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
