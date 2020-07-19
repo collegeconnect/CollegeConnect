@@ -1,7 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-//apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.crashlytics'
 //apply plugin: 'com.google.firebase.firebase-perf'
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+def keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     compileSdkVersion 29
@@ -14,9 +22,30 @@ android {
         versionName "2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        debug {
+            storeFile = rootProject.file("keystore/debug.keystore")
+            storePassword 'ccdebug'
+            keyAlias 'ccdebug'
+            keyPassword 'ccdebug'
+        }
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile rootProject.file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
+            versionNameSuffix '-debug-version'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -51,10 +80,10 @@ dependencies {
     implementation 'com.github.MikeOrtiz:TouchImageView:2.3.3'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-//    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
 //    implementation 'com.google.firebase:firebase-perf:19.0.7'
 
 }

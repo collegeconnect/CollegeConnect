@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Project Build
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
   test:
-    name: Run Unit Tests
+    name: Unit Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -47,5 +47,29 @@ jobs:
         run: echo KEYSTORE_PROPERTIES > keystore.properties
       - name: Unit tests
         run: bash ./gradlew test --stacktrace
-  
+  apk:
+    name: Generate APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Decode google-services.json
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo $FIREBASE_CONFIG > app/google-services.json
+      - name: Decode keystore properties
+        env:
+          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
+        run: echo KEYSTORE_PROPERTIES > keystore.properties
+      - name: Build debug APK
+        run: bash ./gradlew assembleDebug --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
     
