@@ -1,6 +1,7 @@
 # **College Connect**
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/38a8ac33405a44009aa89abbd8206d26)](https://app.codacy.com/manual/sakshampruthi/CollegeConnect?utm_source=github.com&utm_medium=referral&utm_content=sakshampruthi/CollegeConnect&utm_campaign=Badge_Grade_Dashboard)
+[![Actions Status](https://github.com/sakshampruthi/CollegeConnect/workflows/build/badge.svg)](https://github.com/sakshampruthi/{CollegeConnect/actions)
 [![License Badge](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/sakshampruthi/CollegeConnect/blob/versionTwo/LICENSE)
 [![Gitter](https://badges.gitter.im/CollegeConnect/community.svg)](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -68,8 +69,8 @@ First time contributors can read [CONTRIBUTING.md](/CONTRIBUTING.md) file for he
 
 We have the following branches
 
- * **development** All development goes on in this branch. If you're making a contribution, you are supposed to make a pull request to _development_.
- * **master** This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update and make a release.
+ * **development**<br>All development goes on in this branch. If you're making a contribution, you are supposed to make a pull request to _development_. For PRs to be accepted to  development branch they must pass a build check and a unit-test check following which an apk will be generated under [action artifacts](https://github.com/sakshampruthi/CollegeConnect/actions) for testing.
+ * **master**<br>This contains shipped code. After significant features/bugfixes are accumulated on development, we make a version update and make a release.
  	
 ### Code practices
 
