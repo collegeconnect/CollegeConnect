@@ -35,6 +35,7 @@ import com.example.collegeconnect.R;
 import com.example.collegeconnect.datamodels.SaveSharedPreference;
 import com.example.collegeconnect.datamodels.NotesReports;
 import com.example.collegeconnect.datamodels.Upload;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -111,26 +112,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
             }
         });
-//        DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.STORAGE_PATH_UPLOADS+notes.getTimestamp()+"/tags");
-//        DatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
-//
-//                if (arrayList != null) {
-//                    selectedTags.clear();
-//                    selectedTags = (ArrayList<String>) arrayList.clone();
-//                    recyclerAdapter[0] = new TagsAdapter(context, arrayList);
-//                    holder.recyclerView.setAdapter(recyclerAdapter[0]);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
 
         final ArrayList<String> finalSelectedTags1 = selectedTags;
         final ArrayList<String> finalSelectedTags2 = selectedTags;
@@ -267,30 +248,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                         DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
                                         mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
 
-//                                        if (!etuB[0]){
-//                                            etuB[0]=true;
-//                                            etu.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!shortB[0]){
-//                                            shortB[0]=true;
-//                                            shortt.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!longB[0]){
-//                                            longB[0]=true;
-//                                            longt.setBackgroundResource(R.drawable.button_design);
-//                                        }
-//                                        if (!ttpB[0]){
-//                                            ttpB[0]=true;
-//                                            ttp.setBackgroundResource(R.drawable.button_design);
-//
-//                                        }
                                     }
                                 });
 
                                 builder.setView(view);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
-
 
                         }
                         return true;
@@ -408,8 +371,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
         NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context),text,timeStamp);
         DatabaseReference.child(System.currentTimeMillis()+"").setValue(notesReports);
-//        Snackbar.make(,"Your issues has been reported.",Snackbar.LENGTH_LONG).show();
-        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
     }
 
 }

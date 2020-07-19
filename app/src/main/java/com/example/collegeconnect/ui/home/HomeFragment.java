@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.collegeconnect.BuildConfig;
 import com.example.collegeconnect.DatabaseHelper;
@@ -27,6 +28,8 @@ import com.example.collegeconnect.navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
@@ -50,11 +54,12 @@ public class HomeFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextDrawable drawable;
     TextView tv, totalAttendance;
-    EditText nameField,enrollNo, branch;
+    EditText nameField, enrollNo, branch;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
+    private FirebaseAuth auth;
     private DatabaseHelper mydb;
     public Uri uri;
     private StorageReference storageRef;
@@ -68,19 +73,24 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if(getActivity()!=null)
+        if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("HOME");
 
 
-        View view =  inflater.inflate(R.layout.fragment_home,null);
+        View view = inflater.inflate(R.layout.fragment_home, null);
 
         storageRef = storage.getReference();
-        int dot = SaveSharedPreference.getUserName(getContext()).indexOf(".");
-        String str = SaveSharedPreference.getUserName(getContext()).replace(".","@");
-        databaseReference = firebaseDatabase.getReference("users/"+str);
+
+        //Get user id
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        assert firebaseUser != null;
+        String userId = firebaseUser.getUid();
+
+        databaseReference = firebaseDatabase.getReference("users/" + userId);
         prfileImage = view.findViewById(R.id.imageView3);
         nameField = view.findViewById(R.id.nameField);
         enrollNo = view.findViewById(R.id.textView3);
@@ -94,12 +104,11 @@ public class HomeFragment extends Fragment {
         loadData();
 
         File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
-        if(file.exists()) {
+        if (file.exists()) {
             HomeFragment.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
             Log.d("HomeFrag", "onClick: already exists");
-        }
-        else {
+        } else {
 
             storageRef.child("User/" + SaveSharedPreference.getUserName(getActivity()) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
@@ -107,34 +116,26 @@ public class HomeFragment extends Fragment {
                     // Got the download URL for 'users/me/profile.png'
                     HomeFragment.this.uri = uri;
                     download_dp();
-//                    if (uri != null)
-//                        Picasso.get().load(uri).into(prfileImage);
-//                progressBar.setVisibility(View.GONE);
 
                 }
 
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getActivity(), "No DP!", Toast.LENGTH_SHORT).show();
-//                progressBar.setVisibility(View.GONE);
                 }
 
             });
         }
 
-        if (uri!=null)
+        if (uri != null)
             Picasso.get().load(uri).into(prfileImage);
 
-        mydb= new DatabaseHelper(getContext());
+        mydb = new DatabaseHelper(getContext());
         String pecentage = mydb.calculateTotal();
-        if (!pecentage.equals("NaN")){
-            totalAttendance.setText("Aggregate\nAttendance: "+pecentage+"%");
-//            circleprog.setProgress((int)Float.parseFloat(pecentage));
-        }
-        else {
+        if (!pecentage.equals("NaN")) {
+            totalAttendance.setText("Aggregate\nAttendance: " + pecentage + "%");
+        } else {
             totalAttendance.setText("Aggregate\nAttendance: 0.00%");
-//            circleprog.setProgress(0);
         }
 
         return view;
@@ -142,31 +143,32 @@ public class HomeFragment extends Fragment {
     }
 
 
-private void download_dp() {
-    final DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(getContext().DOWNLOAD_SERVICE);
-    DownloadManager.Request request = new DownloadManager.Request(HomeFragment.this.uri);
-    request.setDestinationInExternalFilesDir(getContext(),"","dp.jpeg");
-    final long id = downloadManager.enqueue(request);
-    BroadcastReceiver onComplete = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
-            if (c != null) {
-                c.moveToFirst();
-                try {
-                    String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
-                    HomeFragment.this.uri = Uri.parse(fileUri);
-                    Picasso.get().load(uri).into(prfileImage);
-                    copyFile("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files","/dp.jpeg",getContext().getFilesDir().getAbsolutePath());
-                    new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
-                } catch (Exception e) {
-                    Log.e("error", "Could not open the downloaded file");
+    private void download_dp() {
+        final DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(getContext().DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(HomeFragment.this.uri);
+        request.setDestinationInExternalFilesDir(getContext(), "", "dp.jpeg");
+        final long id = downloadManager.enqueue(request);
+        BroadcastReceiver onComplete = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Cursor c = downloadManager.query(new DownloadManager.Query().setFilterById(id));
+                if (c != null) {
+                    c.moveToFirst();
+                    try {
+                        String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                        HomeFragment.this.uri = Uri.parse(fileUri);
+                        Picasso.get().load(uri).into(prfileImage);
+                        copyFile("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files", "/dp.jpeg", getContext().getFilesDir().getAbsolutePath());
+                        new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
+                    } catch (Exception e) {
+                        Log.e("error", "Could not open the downloaded file");
+                    }
                 }
             }
-        }
-    };
-    getContext().registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-}
+        };
+        getContext().registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
+
     private void copyFile(String inputPath, String inputFile, String outputPath) {
 
         InputStream in = null;
@@ -174,9 +176,8 @@ private void download_dp() {
         try {
 
             //create output directory if it doesn't exist
-            File dir = new File (outputPath);
-            if (!dir.exists())
-            {
+            File dir = new File(outputPath);
+            if (!dir.exists()) {
                 dir.mkdirs();
             }
 
@@ -197,10 +198,9 @@ private void download_dp() {
             out.close();
             out = null;
 
-        }  catch (FileNotFoundException fnfe1) {
+        } catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
 
@@ -208,15 +208,16 @@ private void download_dp() {
 
 
     private void loadData() {
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
-                String college = (String) map.get("Clgname");
-                SaveSharedPreference.setUser(mcontext,name);
+                String college = (String) map.get("branch");
+                SaveSharedPreference.setUser(mcontext, name);
                 nameField.setText(SaveSharedPreference.getUser(getContext()));
                 enrollNo.setText(rollNo);
                 branch.setText(college);
@@ -230,14 +231,11 @@ private void download_dp() {
                             .endConfig()
                             .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
                     prfileImage.setImageDrawable(drawable);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
-                if (uri!=null)
+                if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
-
-
             }
 
             @Override
@@ -251,8 +249,6 @@ private void download_dp() {
     public void onStart() {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-//        if (HomeFragment.this.uri!=null)
-//        Picasso.get().load(HomeFragment.this.uri).into(prfileImage);
     }
 
     @Override
@@ -265,12 +261,12 @@ private void download_dp() {
     public void onResume() {
         super.onResume();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-        if(SaveSharedPreference.getClearall1(mcontext)) {
+        if (SaveSharedPreference.getClearall1(mcontext)) {
             File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
             if (file.exists()) {
                 HomeFragment.this.uri = Uri.fromFile(file);
                 Picasso.get().invalidate(uri);
-                SaveSharedPreference.setClearall1(getContext(),false);
+                SaveSharedPreference.setClearall1(getContext(), false);
                 Picasso.get().load(uri).into(prfileImage);
             }
         }

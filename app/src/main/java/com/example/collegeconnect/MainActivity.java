@@ -40,7 +40,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
     private TextInputLayout email, password;
     private Button register, login;
     int RC_SIGN_IN = 1  ;
@@ -265,15 +264,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(GoogleSignIn.getLastSignedInAccount(this)!=null) {
-            startActivity(new Intent(this, navigation.class));
-            finish();
-        }
-        else if(currentUser!=null){
-            startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-            finish();
-        }
-        else if (SaveSharedPreference.getUserName(MainActivity.this).length() != 0) {
+//        if(GoogleSignIn.getLastSignedInAccount(this)!=null) {
+//            startActivity(new Intent(this, navigation.class));
+//            finish();
+//        }
+//        else if(currentUser!=null){
+//            startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+//            finish();
+//        }
+//        else if (SaveSharedPreference.getUserName(MainActivity.this).length() != 0) {
+//            startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+//            finish();
+//        }
+
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if (firebaseUser!=null) {
             startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }

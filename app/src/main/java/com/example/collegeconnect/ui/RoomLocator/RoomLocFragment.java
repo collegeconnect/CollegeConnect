@@ -188,12 +188,6 @@ public class RoomLocFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        ((navigation)getActivity()).setTitle("Room Locator");
-//
-//    }
     @Override
     public void onResume() {
         super.onResume();

@@ -77,34 +77,9 @@ public class SignUp extends AppCompatActivity {
                                     intent.putExtra(StepTwoSignUp.EXTRA_NAME, Strname);
                                     intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
                                     intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
+                                    //To indicate the user is signing up using email
                                     intent.putExtra(StepTwoSignUp.EXTRA_PREV, "SignUp");
                                     startActivity(intent);
-
-//                                User.addUser(Strusername, Stremail, Strname, Strpassword, Strclg);
-//                                mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                                        if (task.isSuccessful()) {
-//                                            // Sign in success, update UI with the signed-in user's information
-//                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                @Override
-//                                                public void onComplete(@NonNull Task<Void> task) {
-//                                                    if(task.isSuccessful())
-//                                                        Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
-//                                                    else
-//                                                        Toast.makeText(SignUp.this,task.getException().getMessage(),
-//                                                        Toast.LENGTH_SHORT);
-//                                                }
-//                                            });
-//                                            Log.d(TAG, "createUserWithEmail:success");
-////                                            Toast.makeText(SignUp.this, "Registered!", Toast.LENGTH_SHORT).show();
-//                                            Intent intent = new Intent(SignUp.this, MainActivity.class);
-//                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-//                                        }
-//                                    }
-//                                });
-
-
                                 }
 
                             }
