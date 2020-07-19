@@ -15,3 +15,6 @@
 .cxx
 *.apk
 app/release/output.json
+keystore/collegeconnect-keystore.jks
+.idea/misc.xml
+keystore.properties
