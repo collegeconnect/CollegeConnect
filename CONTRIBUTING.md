@@ -87,6 +87,9 @@ Since the project is hosted on Firebase, we cannot share our google-serivces.jso
 
 So, once you fork the project you'll have to link the app to your own firebase account before running the app. [Click here to know how to add firebase to your project](https://firebase.google.com/docs/android/setup?authuser=0)
 
+For SHA1 fingerprint of debug.keystore navigate to keystore folder type the following in command prompt :    
+`keytool -list -v -keystore debug.keystore -alias ccdebug -storepass ccdebug -keypass ccdebug`
+
 If you face any issues while linking to firebase you can ask your doubt at our [Gitter Channel](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Here is how your database should look after your upload some dummy data
