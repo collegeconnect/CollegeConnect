@@ -35,9 +35,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -94,8 +99,10 @@ public class HomeFragment extends Fragment {
         assert firebaseUser != null;
         String userId = firebaseUser.getUid();
 
+
         databaseReference = firebaseDatabase.getReference("users/" + userId);
         firebaseFirestore = FirebaseFirestore.getInstance();
+
 
         prfileImage = view.findViewById(R.id.imageView3);
         nameField = view.findViewById(R.id.nameField);
@@ -108,7 +115,13 @@ public class HomeFragment extends Fragment {
         branch.setEnabled(false);
 
 //        loadData();
+
         documentReference = firebaseFirestore.collection("users").document(userId);
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        firebaseFirestore.setFirestoreSettings(settings);
+
         loadDataFirestore();
 
         File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
@@ -215,17 +228,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDataFirestore(){
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                assert documentSnapshot != null;
                 String name = documentSnapshot.getString("Name");
                 String rollNo = documentSnapshot.getString("Rollno");
                 String college = documentSnapshot.getString("Branch");
                 SaveSharedPreference.setUser(mcontext, name);
-                nameField.setText(SaveSharedPreference.getUser(getContext()));
+                nameField.setText(SaveSharedPreference.getUser(mcontext));
                 enrollNo.setText(rollNo);
                 branch.setText(college);
                 try {
+                    assert name != null;
                     int space = name.indexOf(" ");
                     int color = navigation.generatecolor();
                     drawable = TextDrawable.builder().beginConfig()
@@ -240,11 +255,6 @@ public class HomeFragment extends Fragment {
                 }
                 if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("FirestoreDataGet", "onFailure: Unable to get data: "+e.getMessage());
             }
         });
     }

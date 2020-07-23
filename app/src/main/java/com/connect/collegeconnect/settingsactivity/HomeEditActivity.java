@@ -46,7 +46,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -129,6 +133,10 @@ public class HomeEditActivity extends AppCompatActivity {
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
 //        setValues();
         documentReference = firebaseFirestore.collection("users").document(userId);
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setPersistenceEnabled(true)
+                .build();
+        firebaseFirestore.setFirestoreSettings(settings);
         setvaluesFirestore();
         edit();
 
@@ -264,9 +272,10 @@ public class HomeEditActivity extends AppCompatActivity {
     }
 
     private void setvaluesFirestore() {
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                assert documentSnapshot != null;
                 String name = documentSnapshot.getString("Name");
                 String rollNo = documentSnapshot.getString("Rollno");
                 String college = documentSnapshot.getString("Branch");
@@ -275,6 +284,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 enrollNo.setText(rollNo);
                 branch.setText(college);
                 try {
+                    assert name != null;
                     int space = name.indexOf(" ");
                     int color = navigation.generatecolor();
                     drawable = TextDrawable.builder().beginConfig()
@@ -289,11 +299,6 @@ public class HomeEditActivity extends AppCompatActivity {
                 }
                 if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("FirestoreDataGet", "onFailure: Unable to get data: "+e.getMessage());
             }
         });
     }
