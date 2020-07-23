@@ -44,6 +44,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -76,6 +79,8 @@ public class HomeEditActivity extends AppCompatActivity {
     private LinearLayout blurr;
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
+    private FirebaseFirestore firebaseFirestore;
+    DocumentReference documentReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +107,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
         tv.setText("Edit Details");
         storageRef = storage.getReference();
-        File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
+        File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
         if(file.exists()) {
             HomeEditActivity.this.uri = Uri.fromFile(file);
 
@@ -114,6 +119,7 @@ public class HomeEditActivity extends AppCompatActivity {
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         databaseReference = firebaseDatabase.getReference("users/"+userId);
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -121,7 +127,9 @@ public class HomeEditActivity extends AppCompatActivity {
         imageButton.setEnabled(false);
 
         submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
-        setValues();
+//        setValues();
+        documentReference = firebaseFirestore.collection("users").document(userId);
+        setvaluesFirestore();
         edit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +145,8 @@ public class HomeEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = nameField.getText().toString();
                 String enroll = enrollNo.getText().toString();
-                String clg = branch.getText().toString();
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, clg);
+                String branch = HomeEditActivity.this.branch.getText().toString();
+                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, branch);
                 finish();
             }
         });
@@ -159,7 +167,7 @@ public class HomeEditActivity extends AppCompatActivity {
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
                         copyFile("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files","/dp.jpeg",getFilesDir().getAbsolutePath());
-                        new File("/storage/emulated/0/Android/data/com.example.collegeconnect/files/dp.jpeg").delete();
+                        new File("/storage/emulated/0/Android/data/com.connect.collegeconnect/files/dp.jpeg").delete();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
                         blurr.setVisibility(View.GONE);
@@ -255,6 +263,40 @@ public class HomeEditActivity extends AppCompatActivity {
         submitDetails.setVisibility(View.VISIBLE);
     }
 
+    private void setvaluesFirestore() {
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String name = documentSnapshot.getString("Name");
+                String rollNo = documentSnapshot.getString("Rollno");
+                String college = documentSnapshot.getString("Branch");
+                SaveSharedPreference.setUser(getApplicationContext(), name);
+                nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
+                enrollNo.setText(rollNo);
+                branch.setText(college);
+                try {
+                    int space = name.indexOf(" ");
+                    int color = navigation.generatecolor();
+                    drawable = TextDrawable.builder().beginConfig()
+                            .width(150)
+                            .height(150)
+                            .bold()
+                            .endConfig()
+                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                    prfileImage.setImageDrawable(drawable);
+                } catch (Exception e) {
+
+                }
+                if (uri != null)
+                    Picasso.get().load(uri).into(prfileImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("FirestoreDataGet", "onFailure: Unable to get data: "+e.getMessage());
+            }
+        });
+    }
     private void setValues() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -335,7 +377,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    File file = new File("/data/user/0/com.example.collegeconnect/files/dp.jpeg");
+                    File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
                     if(file.exists())
                         if(file.delete())
 
@@ -378,4 +420,5 @@ public class HomeEditActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

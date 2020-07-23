@@ -62,13 +62,13 @@ public class StepTwoSignUp extends AppCompatActivity {
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
                 final String roll = rollno.getEditText().getText().toString();
-                final String college = branchanme.getEditText().getText().toString();
+                final String branch = branchanme.getEditText().getText().toString();
 
-                if (roll.isEmpty() && college.isEmpty()) {
+                if (roll.isEmpty() && branch.isEmpty()) {
                     rollno.setError("Enter Roll Number");
                     branchanme.setError("Enter College Name");
                 }
-                else if(college.isEmpty()){
+                else if(branch.isEmpty()){
                     branchanme.setError("Enter College Name");
                 }
                 else if(roll.isEmpty()){
@@ -77,14 +77,14 @@ public class StepTwoSignUp extends AppCompatActivity {
                 else {
 
                     if (receivedPRev == null) {//google
-                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, college);
+                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, branch);
                         SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                         startActivity(new Intent(getApplicationContext(), navigation.class));
                         finish();
                     }
                     else {//email
 
-                        User.addUser(roll, receivedEmail, receivedName, receivedPassword, college);
+                        User.addUser(roll, receivedEmail, receivedName, receivedPassword, branch);
                                 mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
