@@ -3,14 +3,18 @@ package com.connect.collegeconnect.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +25,11 @@ import com.connect.collegeconnect.settingsactivity.AboutActivity;
 import com.connect.collegeconnect.settingsactivity.ContactActivity;
 import com.connect.collegeconnect.settingsactivity.MyUploadsActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
 
@@ -32,11 +38,13 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private Context context;
     List act_list;
     int checked_item = 0;
+    TextInputLayout placeholder;
+    Button set;
     Class myuploads = MyUploadsActivity.class;
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int images[] ={R.drawable.ic_brightness_24dp ,R.drawable.ic_uploadlist, R.drawable.cc1, R.drawable.ic_contactus, R.drawable.ic_about};
+    int images[] ={R.drawable.ic_brightness_24dp , R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -63,6 +71,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                     public void run() {
                         if(position==0)
                             dialog();
+                        else if(position==1)
+                            dialogAttend();
                         else
                         context.startActivity(new Intent(context,(Class) act_list.get(position)));
                     }
@@ -72,6 +82,25 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         });
     }
 
+    private void dialogAttend() {
+        final AlertDialog.Builder builder = new MaterialAlertDialogBuilder(context);
+        LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_atttendance_criteria, null);
+        builder.setView(view);
+        set = view.findViewById(R.id.set_dialog_button);
+        placeholder = view.findViewById(R.id.placeholder);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SaveSharedPreference.setAttendanceCriteria(context,Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
+                dialog.dismiss();
+            }
+        });
+    }
     private void dialog() {
         final String theme[] = context.getResources().getStringArray(R.array.themes);
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
@@ -135,6 +164,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView;
             act_list = new ArrayList<>();
+            act_list.add(0);
             act_list.add(1);
             act_list.add(myuploads);
             act_list.add(workprofile);

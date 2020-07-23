@@ -14,7 +14,8 @@ public class SaveSharedPreference {
     private static final String UNIT = "unit";
     private static final String CLEARALL = "clearall";
     private static final String CLEARALL1 = "clearall1";
-    private static final String REF = "com.example.collegeconnect.MyPref";
+    private static final String REF = "com.connect.collegeconnect.MyPref";
+    private static final String ATTENDANCE_CRITERIA = "attendance_criteria";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -24,64 +25,74 @@ public class SaveSharedPreference {
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(PREF_USER_NAME, userName);
-        editor.commit();
+        editor.apply();
     }
     // To store name
     public static void setUser(Context ctx, String user)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(USER, user);
-        editor.commit();
+        editor.apply();
     }
     //For storing theme choice
     public static void setCheckedItem(Context ctx, int path)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(CHECKED_ITEM, path);
-        editor.commit();
+        editor.apply();
     }
     public static void setCourse(Context ctx, int num)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(COURSE, num);
-        editor.commit();
+        editor.apply();
     }
     public static void setBranch(Context ctx, int num)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(BRANCH, num);
-        editor.commit();
+        editor.apply();
     }
     public static void setSemester(Context ctx, int num)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(SEMESTER, num);
-        editor.commit();
+        editor.apply();
     }
     public static void setUnit(Context ctx, int num)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(UNIT, num);
-        editor.commit();
+        editor.apply();
     }
     public static void setClearall(Context ctx , boolean value)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(CLEARALL,value);
-        editor.commit();
+        editor.apply();
     }
     public static void setClearall1(Context ctx , boolean value)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(CLEARALL1,value);
-        editor.commit();
+        editor.apply();
     }
     //For on boarding screen
     public static void setRef(Context ctx, boolean value)
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(REF,value);
-        editor.commit();
+        editor.apply();
+    }
+    public static void setAttendanceCriteria(Context ctx, int attendance_criteria)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putInt(ATTENDANCE_CRITERIA,attendance_criteria);
+        editor.apply();
+    }
+    public static int getAttendanceCriteria(Context ctx)
+    {
+        return getSharedPreferences(ctx).getInt(ATTENDANCE_CRITERIA,75);
     }
 
     public static String getUserName(Context ctx)
@@ -121,9 +132,8 @@ public class SaveSharedPreference {
     {
         return getSharedPreferences(ctx).getBoolean(CLEARALL1,false);
     }
-    public static boolean getRef(Context ctx)
-    {
-        return getSharedPreferences(ctx).getBoolean(REF,false);
+    public static boolean getRef(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(REF, false);
     }
 
     //Clear data on logout

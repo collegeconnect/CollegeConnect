@@ -11,4 +11,5 @@
     <color name="bottomNav">#000</color>
     <color name="bottomNavItem">#138FF7</color>
     <color name="blackToWhite">#fff</color>
+    <color name="dialogColor">#121212</color>
 </resources>

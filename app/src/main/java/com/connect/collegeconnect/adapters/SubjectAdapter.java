@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.connect.collegeconnect.DatabaseHelper;
 import com.connect.collegeconnect.R;
+import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.ui.attendance.AttendanceFragment;
 import com.github.lzyzsd.circleprogress.ArcProgress;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
     private Context context;
     private DatabaseHelper dB;
     public int per;
+    int criteria;
 
     public SubjectAdapter(ArrayList<String> subjects, Context context) {
         this.subjects = subjects;
@@ -41,6 +43,8 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
+        criteria = SaveSharedPreference.getAttendanceCriteria(context);
         final String current = subjects.get(position);
 
         holder.circleProgress.setMax(100);
@@ -67,7 +71,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             per = (int) Float.parseFloat(percentage);
 
         holder.circleProgress.setProgress(per);
-        if(per <= 77 && !percentage.equals("NaN"))
+        if(per <= criteria+2 && !percentage.equals("NaN"))
             holder.tv_bunk.setText("You can\'t miss any more classes.");
         else
             holder.tv_bunk.setText("You can miss the next class.");
@@ -79,11 +83,11 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
                 attended[0]++;
                 dB.updateData(Integer.toString(position+1),current,Integer.toString(attended[0]),Integer.toString(missed[0]));
 
-                holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
+                holder.ratio.setText(attended[0] +"/"+ (missed[0] + attended[0]));
                 String percentage = String.format("%.0f",(float)attended[0]/(attended[0]+missed[0])*100);
                 per = (int) Float.parseFloat(percentage);
 
-                if(per <= 77)
+                if(per <= criteria+2)
                     holder.tv_bunk.setText("You can\'t miss any more classes.");
                 else
                     holder.tv_bunk.setText("You can miss the next class.");
@@ -96,12 +100,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
             public void onClick(View view) {
                 missed[0]++;
                 dB.updateData(Integer.toString(position+1),current,Integer.toString(attended[0]),Integer.toString(missed[0]));
-                holder.ratio.setText(Integer.toString(attended[0])+"/"+Integer.toString(missed[0]+attended[0]));
+                holder.ratio.setText(attended[0] +"/"+ (missed[0] + attended[0]));
 
                 String percentage = String.format("%.0f",(float)attended[0]/(attended[0]+missed[0])*100);
                 per = (int) Float.parseFloat(percentage);
 
-                if(per <= 77)
+                if(per <= criteria+2)
                     holder.tv_bunk.setText("You can\'t miss any more classes.");
                 else
                     holder.tv_bunk.setText("You can miss the next class.");

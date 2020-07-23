@@ -99,6 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
         ArrayList<String> options= new ArrayList<>();
 //        options.add("Update Profile");
         options.add("Theme");
+        options.add("Set Attendance Criteria");
         options.add("My Upload List");
         options.add("Work Profile");
         options.add("Contact Us");
