@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -30,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.R;
@@ -41,11 +39,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -59,15 +52,12 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeEditActivity extends AppCompatActivity {
@@ -77,8 +67,6 @@ public class HomeEditActivity extends AppCompatActivity {
     private ImageButton imageButton;
     private CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
     private Uri uri;
     private StorageReference storageRef;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -126,7 +114,6 @@ public class HomeEditActivity extends AppCompatActivity {
 
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference = firebaseDatabase.getReference("users/" + userId);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         nameField.setEnabled(false);
@@ -302,43 +289,6 @@ public class HomeEditActivity extends AppCompatActivity {
                 }
                 if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
-            }
-        });
-    }
-
-    private void setValues() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                String name = (String) map.get("Name");
-                String rollNo = (String) map.get("Username");
-                String college = (String) map.get("branch");
-                nameField.setText(name);
-                enrollNo.setText(rollNo);
-                branch.setText(college);
-                try {
-                    int space = name.indexOf(" ");
-                    int color = navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                } catch (Exception e) {
-
-                }
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }

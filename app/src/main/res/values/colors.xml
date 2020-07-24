@@ -24,5 +24,4 @@
     <color name="bottomNavInactive">#80ffffff</color>
     <color name="blackToWhite">#000</color>
     <color name="dialogColor">#84BFF1</color>
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 </resources>

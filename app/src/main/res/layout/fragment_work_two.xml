@@ -253,7 +253,14 @@
         android:layout_below="@id/workMedium"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="Back"/>
 
         <ImageButton
             android:id="@+id/button5"
@@ -268,6 +275,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_next" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Upload"/>
 
     </LinearLayout>
 
