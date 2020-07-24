@@ -63,7 +63,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeEditActivity extends AppCompatActivity {
 
     private TextDrawable drawable;
-    private EditText nameField, enrollNo, branch;
+    private EditText nameField, enrollNo, branch, college;
     private ImageButton imageButton;
     private CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -95,6 +95,7 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField = findViewById(R.id.nameFieldcopy);
         enrollNo = findViewById(R.id.textView3copy);
         branch = findViewById(R.id.textView4copy);
+        college = findViewById(R.id.textView5copy);
         imageButton = findViewById(R.id.edit_dp);
         submitDetails = findViewById(R.id.submitDetailscopy);
         progressBar = findViewById(R.id.progress);
@@ -145,7 +146,8 @@ public class HomeEditActivity extends AppCompatActivity {
                 String name = nameField.getText().toString();
                 String enroll = enrollNo.getText().toString();
                 String branch = HomeEditActivity.this.branch.getText().toString();
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, branch);
+                String strCollege = college.getText().toString();
+                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, branch, strCollege);
                 finish();
             }
         });
@@ -254,6 +256,7 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField.setTextColor(getColor(R.color.blackToWhite));
         enrollNo.setTextColor(getColor(R.color.blackToWhite));
         branch.setTextColor(getColor(R.color.blackToWhite));
+        college.setTextColor(getColor(R.color.blackToWhite));
 
 
         imageButton.setVisibility(View.VISIBLE);
@@ -268,11 +271,14 @@ public class HomeEditActivity extends AppCompatActivity {
                 assert documentSnapshot != null;
                 String name = documentSnapshot.getString("Name");
                 String rollNo = documentSnapshot.getString("Rollno");
-                String college = documentSnapshot.getString("Branch");
+                String branch = documentSnapshot.getString("Branch");
+                String strCollege = documentSnapshot.getString("College");
                 SaveSharedPreference.setUser(getApplicationContext(), name);
                 nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
                 enrollNo.setText(rollNo);
-                branch.setText(college);
+                college.setText(strCollege);
+                HomeEditActivity.this.branch.setText(branch);
+
                 try {
                     assert name != null;
                     int space = name.indexOf(" ");

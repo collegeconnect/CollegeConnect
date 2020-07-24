@@ -82,18 +82,21 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.ViewHold
         if (predict <= criteria && !percentage.equals("NaN")) {
             holder.tv_bunk.setText("You can\'t miss any more lectures");
         } else {
-            i[0] = "1";
-            if (((float) (attended[0]) / (attended[0] + missed[0] + 2) * 100) >= criteria)
-                i[0] = "2";
-            if (((float) (attended[0]) / (attended[0] + missed[0] + 3) * 100) >= criteria)
-                i[0] = "3";
-            if (((float) (attended[0]) / (attended[0] + missed[0] + 4) * 100) >= criteria)
-                i[0] = "4";
-            if (i[0].equals("4"))
-                holder.tv_bunk.setText("You can miss more than 3 lectures");
-            else
-                holder.tv_bunk.setText("You can miss " + i[0] + " lecture(s)");
-
+            if (percentage.equals("NaN"))
+                holder.tv_bunk.setText("No classes have happened yet");
+            else {
+                i[0] = "1";
+                if (((float) (attended[0]) / (attended[0] + missed[0] + 2) * 100) >= criteria)
+                    i[0] = "2";
+                else if (((float) (attended[0]) / (attended[0] + missed[0] + 3) * 100) >= criteria)
+                    i[0] = "3";
+                else if (((float) (attended[0]) / (attended[0] + missed[0] + 4) * 100) >= criteria)
+                    i[0] = "4";
+                else if (i[0].equals("4"))
+                    holder.tv_bunk.setText("You can miss more than 3 lectures");
+                else
+                    holder.tv_bunk.setText("You can miss " + i[0] + " lecture(s)");
+            }
 
         }
         holder.circleProgress.setProgress(per);

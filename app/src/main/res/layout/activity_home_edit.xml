@@ -78,10 +78,29 @@
             app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
         <EditText
-            android:id="@+id/textView4copy"
+            android:id="@+id/textView5copy"
             android:layout_width="205dp"
             android:layout_height="40dp"
             android:layout_below="@id/textView3copy"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/buttonlayout2"
+            android:fontFamily="@font/roboto_regular"
+            android:gravity="center"
+            android:inputType="textCapCharacters"
+            android:text="COLLEGE"
+            android:textAlignment="center"
+            android:textColor="@color/newBlue"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline22"
+            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            app:layout_constraintTop_toTopOf="@+id/guideline23" />
+
+        <EditText
+            android:id="@+id/textView4copy"
+            android:layout_width="205dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/textView5copy"
             android:layout_centerHorizontal="true"
             android:background="@drawable/buttonlayout2"
             android:fontFamily="@font/roboto_regular"
@@ -91,10 +110,10 @@
             android:textAlignment="center"
             android:textColor="@color/newBlue"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline22"
+            app:layout_constraintBottom_toTopOf="@id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
             app:layout_constraintStart_toStartOf="@+id/guideline20"
-            app:layout_constraintTop_toTopOf="@+id/guideline23" />
+            app:layout_constraintTop_toTopOf="@id/guideline22" />
 
         <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--        android:id="@+id/editDetailscopy"-->

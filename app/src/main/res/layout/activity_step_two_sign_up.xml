@@ -8,6 +8,31 @@
     tools:context="com.connect.collegeconnect.SignUp">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/otherCollege"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@color/colorwhite"
+        android:visibility="gone"
+        app:boxStrokeColor="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
+        app:layout_constraintBottom_toTopOf="@id/textbranch"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ems="15"
+            android:hint="COLLEGE NAME"
+            android:inputType="textCapCharacters"
+            android:textColor="@color/colorwhite" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textbranch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +63,7 @@
         app:hintTextColor="@color/colorwhite"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline6">
 
@@ -148,6 +173,46 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select College"
+        android:textColor="@color/colorwhite"
+        app:layout_constraintBottom_toTopOf="@id/collegeSpinner"
+        app:layout_constraintStart_toStartOf="@id/collegeSpinner"
+        android:layout_margin="10dp"/>
+
+    <Spinner
+        android:id="@+id/collegeSpinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/spinner_layout"
+        app:layout_constraintBottom_toTopOf="@+id/otherCollege"
+        app:layout_constraintEnd_toEndOf="@id/textbranch"
+        app:layout_constraintStart_toStartOf="@+id/textbranch" />
+
+    <ImageView
+    android:id="@+id/imageView8"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    app:layout_constraintBottom_toBottomOf="@id/collegeSpinner"
+    app:layout_constraintEnd_toEndOf="@id/collegeSpinner"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/ic_arrow_down" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't see your college?\nContact us and be the first to\njoin your college to out network"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

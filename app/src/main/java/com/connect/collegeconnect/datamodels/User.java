@@ -19,6 +19,7 @@ public class User {
     public String Name;
     public String Password;
     public String Branch;
+    public String College;
     private static FirebaseFirestore firebaseFirestore;
     private static FirebaseDatabase firebaseDatabase;
     private static FirebaseAuth auth;
@@ -32,16 +33,17 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String rollNo, String email, String name, String password, String branch) {
+    public User(String rollNo, String email, String name, String password, String branch, String college) {
         this.Rollno = rollNo;
         this.Email = email;
         this.Name = name;
         this.Password = password;
         this.Branch = branch;
+        this.College = college;
     }
 
-    public static boolean addUser(String username, String email, String name, String password, String branch) {
-        User user = new User(username, email, name, password, branch);
+    public static boolean addUser(String username, String email, String name, String password, String branch, String college) {
+        User user = new User(username, email, name, password, branch, college);
 
         //Get user id
         firebaseFirestore = FirebaseFirestore.getInstance();

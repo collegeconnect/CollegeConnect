@@ -14,11 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.DatabaseHelper;
@@ -45,7 +43,6 @@ import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -53,7 +50,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
@@ -234,11 +230,11 @@ public class HomeFragment extends Fragment {
                 assert documentSnapshot != null;
                 String name = documentSnapshot.getString("Name");
                 String rollNo = documentSnapshot.getString("Rollno");
-                String college = documentSnapshot.getString("Branch");
+                String strbranch = documentSnapshot.getString("Branch");
                 SaveSharedPreference.setUser(mcontext, name);
                 nameField.setText(SaveSharedPreference.getUser(mcontext));
                 enrollNo.setText(rollNo);
-                branch.setText(college);
+                branch.setText(strbranch);
                 try {
                     assert name != null;
                     int space = name.indexOf(" ");

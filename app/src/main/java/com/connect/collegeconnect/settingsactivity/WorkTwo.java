@@ -1,5 +1,6 @@
 package com.connect.collegeconnect.settingsactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.connect.collegeconnect.R;
+import com.connect.collegeconnect.WorkProfile;
 import com.connect.collegeconnect.datamodels.Resume;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -92,13 +95,18 @@ public class WorkTwo extends Fragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("Resume", "onSuccess: Resume Uploaded");
+                        Toast.makeText(getContext(), "Resume Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        getActivity().startActivity(new Intent(getContext(),SettingsActivity.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d("Resume", "onFailure: Resume failed :"+e.getMessage());
+                        Toast.makeText(getContext(), "An error occurred. Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
             }
         });
 
