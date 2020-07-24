@@ -26,9 +26,9 @@ public class WorkOne extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_work_one, container, false);
+        View view = inflater.inflate(R.layout.fragment_work_one, container, false);
 
-        if (getActivity()!=null)
+        if (getActivity() != null)
             tv = getActivity().findViewById(R.id.tvtitle);
 
         name = view.findViewById(R.id.enterWorkName);
@@ -41,7 +41,7 @@ public class WorkOne extends Fragment {
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.workprofilecontainer,workTwo)
+                        .replace(R.id.workprofilecontainer, workTwo)
                         .addToBackStack(null)
                         .commit();
             }

@@ -48,6 +48,7 @@ public class Events {
     public void setRegistrationUrl(String registrationUrl) {
         this.registrationUrl = registrationUrl;
     }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }

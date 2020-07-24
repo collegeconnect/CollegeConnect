@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;import com.connect.collegeconnect.DownloadNotes;
+import androidx.fragment.app.Fragment;
+
+import com.connect.collegeconnect.DownloadNotes;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.UploadNotes;
@@ -21,7 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class NotesFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv,tv8;
+    TextView tv, tv8;
     ImageView imageView;
     Spinner course, branch, semester, unit;
 
@@ -33,10 +35,10 @@ public class NotesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(getActivity()!=null)
+        if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
-        final View view = inflater.inflate(R.layout.fragment_notes,null);
+        final View view = inflater.inflate(R.layout.fragment_notes, null);
 
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("NOTES");
@@ -46,7 +48,7 @@ public class NotesFragment extends Fragment {
         semester = view.findViewById(R.id.SemesterN);
         unit = view.findViewById(R.id.UnitN);
         tv8 = view.findViewById(R.id.textView8);
-        imageView=view.findViewById(R.id.imageView10);
+        imageView = view.findViewById(R.id.imageView10);
         course.setSelection(SaveSharedPreference.getCourse(getContext()));
         branch.setSelection(SaveSharedPreference.getBranch(getContext()));
         semester.setSelection(SaveSharedPreference.getSemester(getContext()));
@@ -62,14 +64,13 @@ public class NotesFragment extends Fragment {
         semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(semester.getSelectedItem().toString().equals("Syllabus")){
+                if (semester.getSelectedItem().toString().equals("Syllabus")) {
                     unit.setVisibility(View.INVISIBLE);
                     tv8.setVisibility(View.INVISIBLE);
                     imageView.setVisibility(View.INVISIBLE);
                     unit.setSelection(0);
 
-                }
-                else{
+                } else {
                     unit.setVisibility(View.VISIBLE);
                     tv8.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.VISIBLE);
@@ -90,17 +91,17 @@ public class NotesFragment extends Fragment {
                 String selected_semester = semester.getSelectedItem().toString();
                 String selected_unit = unit.getSelectedItem().toString();
 
-                SaveSharedPreference.setCourse(getContext(),course.getSelectedItemPosition());
-                SaveSharedPreference.setBranch(getContext(),branch.getSelectedItemPosition());
-                SaveSharedPreference.setSemester(getContext(),semester.getSelectedItemPosition());
-                SaveSharedPreference.setUnit(getContext(),unit.getSelectedItemPosition());
+                SaveSharedPreference.setCourse(getContext(), course.getSelectedItemPosition());
+                SaveSharedPreference.setBranch(getContext(), branch.getSelectedItemPosition());
+                SaveSharedPreference.setSemester(getContext(), semester.getSelectedItemPosition());
+                SaveSharedPreference.setUnit(getContext(), unit.getSelectedItemPosition());
 //                Toast.makeText(getActivity(), selected_branch, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), DownloadNotes.class);
-                intent.putExtra(DownloadNotes.EXTRA_COURSE,selected_course);
-                intent.putExtra(DownloadNotes.EXTRA_BRANCH,selected_branch);
-                intent.putExtra(DownloadNotes.EXTRA_SEMESTER,selected_semester);
-                intent.putExtra(DownloadNotes.EXTRA_UNIT,selected_unit);
+                intent.putExtra(DownloadNotes.EXTRA_COURSE, selected_course);
+                intent.putExtra(DownloadNotes.EXTRA_BRANCH, selected_branch);
+                intent.putExtra(DownloadNotes.EXTRA_SEMESTER, selected_semester);
+                intent.putExtra(DownloadNotes.EXTRA_UNIT, selected_unit);
                 startActivity(intent);
             }
         });
@@ -115,6 +116,7 @@ public class NotesFragment extends Fragment {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_notes).setChecked(true);
     }
+
     @Override
     public void onResume() {
         super.onResume();

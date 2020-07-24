@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,14 +51,14 @@ public class UploadNotes extends AppCompatActivity {
     private Intent Data = null;
     private EditText fileName, author;
     Intent receiverdIntent;
-    TextView tv8,tv_title;
+    TextView tv8, tv_title;
     ImageView imageView;
     String receivedAction;
     String receivedType;
     Uri recievedUri;
     //these are the views
     TextView textViewStatus;
-//    EditText editTextFilename,author;
+    //    EditText editTextFilename,author;
     ProgressBar progressBar;
     Button upload;
     Spinner semester, branch, course, unit;
@@ -71,7 +72,7 @@ public class UploadNotes extends AppCompatActivity {
         setContentView(R.layout.activity_upload_notes);
 
         tv8 = findViewById(R.id.textView11);
-        imageView=findViewById(R.id.imageView11);
+        imageView = findViewById(R.id.imageView11);
 
         //getting firebase objects
         mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -83,11 +84,11 @@ public class UploadNotes extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         tv_title = findViewById(R.id.tvtitle);
         tv_title.setText("Upload Notes");
-        if(SaveSharedPreference.getCheckedItem(this)==0)
+        if (SaveSharedPreference.getCheckedItem(this) == 0)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        else if(SaveSharedPreference.getCheckedItem(this)==1)
+        else if (SaveSharedPreference.getCheckedItem(this) == 1)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else if(SaveSharedPreference.getCheckedItem(this)==2)
+        else if (SaveSharedPreference.getCheckedItem(this) == 2)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         //getting the views
@@ -99,13 +100,12 @@ public class UploadNotes extends AppCompatActivity {
         semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(semester.getSelectedItem().toString().equals("Syllabus")){
+                if (semester.getSelectedItem().toString().equals("Syllabus")) {
                     unit.setVisibility(View.INVISIBLE);
                     tv8.setVisibility(View.INVISIBLE);
                     imageView.setVisibility(View.INVISIBLE);
                     unit.setSelection(0);
-                }
-                else{
+                } else {
                     unit.setVisibility(View.VISIBLE);
                     tv8.setVisibility(View.VISIBLE);
                     imageView.setVisibility(View.VISIBLE);
@@ -118,26 +118,26 @@ public class UploadNotes extends AppCompatActivity {
             }
         });
 //        editTextFilename = findViewById(R.id.FileName);
-        progressBar =  findViewById(R.id.UploadNotesProgressBar);
+        progressBar = findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
         progressBar.setProgress(0);
         upload = findViewById(R.id.selectNotes);
-        if(onSharedIntent()) {
-            if (recievedUri!=null) {
-                Log.i("Upload Notes", "onCreate: "+ recievedUri);
-                UploadNotes.this.Data=receiverdIntent;
+        if (onSharedIntent()) {
+            if (recievedUri != null) {
+                Log.i("Upload Notes", "onCreate: " + recievedUri);
+                UploadNotes.this.Data = receiverdIntent;
                 UploadNotes.this.Data.setData(recievedUri);
                 upload.setText("Upload");
             }
         }
 //        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    getPDF();
+            @Override
+            public void onClick(View view) {
+                getPDF();
 
-                }
-            });
+            }
+        });
 
     }
 
@@ -154,7 +154,7 @@ public class UploadNotes extends AppCompatActivity {
 //            startActivity(intent);
 //            return;
 //        }
-        if(UploadNotes.this.Data == null) {
+        if (UploadNotes.this.Data == null) {
             if (ContextCompat.checkSelfPermission(UploadNotes.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_DENIED) {
 
@@ -170,17 +170,16 @@ public class UploadNotes extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
             }
-        }
-        else{
+        } else {
             StringBuilder filenaam = new StringBuilder();
             String str = recievedUri.getLastPathSegment();
-            int slash =-1;
-            if(str.contains("/")){
+            int slash = -1;
+            if (str.contains("/")) {
                 slash = str.indexOf("/");
-                filenaam.append(str.substring(slash,str.length()-1));
+                filenaam.append(str.substring(slash, str.length() - 1));
             }
-            String str1  = str.substring(slash+1,str.length()-1);
-            if(str1.contains(".")) {
+            String str1 = str.substring(slash + 1, str.length() - 1);
+            if (str1.contains(".")) {
                 int dot = str1.indexOf(".");
                 filenaam.append(str1.substring(0, dot));
             }
@@ -192,16 +191,17 @@ public class UploadNotes extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getPDF();
 
-            } else {
-                Toast.makeText(UploadNotes.this,
-                        "Storage Permission Denied",
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
+        } else {
+            Toast.makeText(UploadNotes.this,
+                    "Storage Permission Denied",
+                    Toast.LENGTH_SHORT)
+                    .show();
         }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -211,20 +211,20 @@ public class UploadNotes extends AppCompatActivity {
             StringBuilder filenaam = new StringBuilder();
             if (data.getData() != null) {
                 String str = data.getData().getLastPathSegment();
-                int slash =-1;
-                if(str.contains("/")){
+                int slash = -1;
+                if (str.contains("/")) {
                     slash = str.indexOf("/");
-                    filenaam.append(str.substring(slash,str.length()-1));
+                    filenaam.append(str.substring(slash, str.length() - 1));
                 }
-                String str1  = str.substring(slash+1,str.length()-1);
-                if(str1.contains(".")) {
+                String str1 = str.substring(slash + 1, str.length() - 1);
+                if (str1.contains(".")) {
                     int dot = str1.indexOf(".");
                     filenaam.append(str1.substring(0, dot));
                 }
 
 //                    editTextFilename.setText(str);
                 //uploading the file
-                    UploadNotes.this.Data = data;
+                UploadNotes.this.Data = data;
 //                NotesDialog notesDialog = new NotesDialog();
 //                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
                 alertDialog(filenaam.toString());
@@ -237,7 +237,7 @@ public class UploadNotes extends AppCompatActivity {
 //                    }
 //                });
 
-            }else{
+            } else {
                 Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
             }
         }
@@ -247,8 +247,7 @@ public class UploadNotes extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(UploadNotes.this);
 
         LayoutInflater inflater = getLayoutInflater().from(UploadNotes.this);
-        final View view = inflater.inflate(R.layout.layout_dialog_notes,null);
-
+        final View view = inflater.inflate(R.layout.layout_dialog_notes, null);
 
 
         builder.setView(view)
@@ -270,7 +269,6 @@ public class UploadNotes extends AppCompatActivity {
         author = view.findViewById(R.id.authorName);
 
 
-
         final AlertDialog dialog = builder.create();
         dialog.show();
         fileName.setText(filenaam);
@@ -281,19 +279,16 @@ public class UploadNotes extends AppCompatActivity {
                 String file = fileName.getText().toString();
                 String authorName = author.getText().toString();
 //                        isError=true;
-                if(file.isEmpty() && authorName.isEmpty()){
+                if (file.isEmpty() && authorName.isEmpty()) {
                     fileName.setError("Filename cannot be empty");
                     author.setError("Author name cannot be empty");
-                }
-                else if(file.isEmpty()){
+                } else if (file.isEmpty()) {
 //                            isError = true;
                     fileName.setError("Filename cannot be empty");
-                }
-                else if(authorName.isEmpty()){
+                } else if (authorName.isEmpty()) {
 //                            isError = true;
                     author.setError("Author name cannot be empty");
-                }
-                else {
+                } else {
                     applyTexts(file, authorName);
                     UploadNotes.this.Data = null;
                     dialog.dismiss();
@@ -341,7 +336,7 @@ public class UploadNotes extends AppCompatActivity {
     private void uploadFile(Uri data, final String filename, final String authorname) {
 
         progressBar.setVisibility(View.VISIBLE);
-        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString()+ "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + System.currentTimeMillis());
+        StorageReference sRef = mStorageReference.child(Constants.STORAGE_PATH_UPLOADS + course.getSelectedItem().toString() + "/" + branch.getSelectedItem().toString() + "/" + semester.getSelectedItem().toString() + "/" + unit.getSelectedItem().toString() + "/" + System.currentTimeMillis());
         sRef.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @SuppressWarnings("VisibleForTests")
@@ -358,10 +353,11 @@ public class UploadNotes extends AppCompatActivity {
                                         semester.getSelectedItem().toString(),
                                         branch.getSelectedItem().toString(),
                                         unit.getSelectedItem().toString(),
-                                        authorname,0, uri.toString(),
+                                        authorname, 0, uri.toString(),
                                         System.currentTimeMillis(),
-                                        SaveSharedPreference.getUserName(UploadNotes.this),new ArrayList(){});
-                                mDatabaseReference.child(upload.getTimestamp()+"").setValue(upload);
+                                        SaveSharedPreference.getUserName(UploadNotes.this), new ArrayList() {
+                                });
+                                mDatabaseReference.child(upload.getTimestamp() + "").setValue(upload);
                             }
                         });
 
@@ -382,7 +378,7 @@ public class UploadNotes extends AppCompatActivity {
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 //                        textViewStatus.setText((int) progress + "% Uploading...");
                         textViewStatus.setText("");
-                        progressBar.setProgress((int)progress);
+                        progressBar.setProgress((int) progress);
 
                     }
                 });
@@ -391,16 +387,16 @@ public class UploadNotes extends AppCompatActivity {
 
     public void applyTexts(String filename, String authorname) {
 
-        if (UploadNotes.this.Data.getData() == null){
+        if (UploadNotes.this.Data.getData() == null) {
             Toast.makeText(this, "Data is null", Toast.LENGTH_SHORT).show();
-        }
-        else
-        uploadFile(UploadNotes.this.Data.getData(),filename,authorname);
+        } else
+            uploadFile(UploadNotes.this.Data.getData(), filename, authorname);
     }
-    public boolean onSharedIntent(){
+
+    public boolean onSharedIntent() {
         receiverdIntent = getIntent();
         Bundle bundle = receiverdIntent.getExtras();
-        if(bundle!=null) {
+        if (bundle != null) {
             receivedAction = receiverdIntent.getAction();
             receivedType = receiverdIntent.getType();
             if (receiverdIntent != null) {
@@ -417,9 +413,10 @@ public class UploadNotes extends AppCompatActivity {
         }
         return false;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

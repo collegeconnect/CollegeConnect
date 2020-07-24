@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -32,10 +33,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DownloadNotes extends AppCompatActivity{
+public class DownloadNotes extends AppCompatActivity {
 
     public static final String EXTRA_COURSE = "course";
     public static final String EXTRA_BRANCH = "branch";
@@ -87,9 +89,9 @@ public class DownloadNotes extends AppCompatActivity{
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     if (upload.getCourse().equals(receivedCourse)) {
-                        if(upload.getBranch().equals(receivedBranch)) {
-                            if(upload.getSemester().equals(receivedSemester)) {
-                                if(upload.getUnit().equals(receivedUnit)) {
+                        if (upload.getBranch().equals(receivedBranch)) {
+                            if (upload.getSemester().equals(receivedSemester)) {
+                                if (upload.getUnit().equals(receivedUnit)) {
                                     uploadList.add(upload);
 //                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
                                 }
@@ -97,11 +99,10 @@ public class DownloadNotes extends AppCompatActivity{
                         }
                     }
                 }
-                if(uploadList.isEmpty()){
+                if (uploadList.isEmpty()) {
 //                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
-                    Snackbar.make(findViewById(R.id.relativeshit),"No PDFs Found",Snackbar.LENGTH_LONG).show();
-                }
-                else {
+                    Snackbar.make(findViewById(R.id.relativeshit), "No PDFs Found", Snackbar.LENGTH_LONG).show();
+                } else {
 
                     Collections.reverse(uploadList);
                     recyclerView = findViewById(R.id.downloadRecycler);
@@ -123,7 +124,7 @@ public class DownloadNotes extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_view,menu);
+        inflater.inflate(R.menu.search_view, menu);
         MenuItem searchItem = menu.findItem(R.id.search_action);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -142,9 +143,7 @@ public class DownloadNotes extends AppCompatActivity{
             public boolean onQueryTextChange(String newText) {
                 try {
                     notesAdapter.getFilter().filter(newText);
-                }
-                catch (Exception e )
-                {
+                } catch (Exception e) {
                 }
                 return false;
             }
@@ -164,9 +163,10 @@ public class DownloadNotes extends AppCompatActivity{
         });
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

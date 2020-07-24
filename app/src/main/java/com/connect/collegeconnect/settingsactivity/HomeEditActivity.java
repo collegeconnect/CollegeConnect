@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.R;
@@ -57,6 +59,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -64,6 +67,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeEditActivity extends AppCompatActivity {
@@ -112,7 +116,7 @@ public class HomeEditActivity extends AppCompatActivity {
         tv.setText("Edit Details");
         storageRef = storage.getReference();
         File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
-        if(file.exists()) {
+        if (file.exists()) {
             HomeEditActivity.this.uri = Uri.fromFile(file);
 
         }
@@ -122,7 +126,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference = firebaseDatabase.getReference("users/"+userId);
+        databaseReference = firebaseDatabase.getReference("users/" + userId);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         nameField.setEnabled(false);
@@ -163,7 +167,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private void download_dp() {
         final DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(HomeEditActivity.this.uri);
-        request.setDestinationInExternalFilesDir(this,"","dp.jpeg");
+        request.setDestinationInExternalFilesDir(this, "", "dp.jpeg");
         final long id = downloadManager.enqueue(request);
         BroadcastReceiver onComplete = new BroadcastReceiver() {
             @Override
@@ -174,7 +178,7 @@ public class HomeEditActivity extends AppCompatActivity {
                     try {
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
-                        copyFile("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID+"/files","/dp.jpeg",getFilesDir().getAbsolutePath());
+                        copyFile("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files", "/dp.jpeg", getFilesDir().getAbsolutePath());
                         new File("/storage/emulated/0/Android/data/com.connect.collegeconnect/files/dp.jpeg").delete();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
@@ -185,8 +189,9 @@ public class HomeEditActivity extends AppCompatActivity {
                 }
             }
         };
-        registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
+
     private void copyFile(String inputPath, String inputFile, String outputPath) {
 
         InputStream in = null;
@@ -194,9 +199,8 @@ public class HomeEditActivity extends AppCompatActivity {
         try {
 
             //create output directory if it doesn't exist
-            File dir = new File (outputPath);
-            if (!dir.exists())
-            {
+            File dir = new File(outputPath);
+            if (!dir.exists()) {
                 dir.mkdirs();
             }
 
@@ -217,35 +221,34 @@ public class HomeEditActivity extends AppCompatActivity {
             out.close();
             out = null;
 
-        }  catch (FileNotFoundException fnfe1) {
+        } catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             Log.e("tag", e.getMessage());
         }
 
     }
 
     private void getprfpic() {
-        if (ContextCompat.checkSelfPermission(HomeEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE )
+        if (ContextCompat.checkSelfPermission(HomeEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
 
             // Requesting the permission
             ActivityCompat.requestPermissions(HomeEditActivity.this,
-                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     100);
-        }
-        else {
+        } else {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_PICK);
             startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getprfpic();
 
         } else {
@@ -256,7 +259,7 @@ public class HomeEditActivity extends AppCompatActivity {
         }
     }
 
-    private void edit(){
+    private void edit() {
         nameField.setEnabled(true);
         enrollNo.setEnabled(true);
         branch.setEnabled(true);
@@ -302,12 +305,13 @@ public class HomeEditActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setValues() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 String name = (String) map.get("Name");
                 String rollNo = (String) map.get("Username");
                 String college = (String) map.get("branch");
@@ -324,11 +328,10 @@ public class HomeEditActivity extends AppCompatActivity {
                             .endConfig()
                             .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
                     prfileImage.setImageDrawable(drawable);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
 
                 }
-                if (uri!=null)
+                if (uri != null)
                     Picasso.get().load(uri).into(prfileImage);
 
             }
@@ -347,7 +350,7 @@ public class HomeEditActivity extends AppCompatActivity {
         if (requestCode == GET_FROM_GALLERY && resultCode == this.RESULT_OK && data != null && data.getData() != null) {
 
             filePath = data.getData();
-            CropImage.activity(filePath).setAspectRatio(1,1)
+            CropImage.activity(filePath).setAspectRatio(1, 1)
                     .start(this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -362,8 +365,7 @@ public class HomeEditActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
                     blurr.setVisibility(View.VISIBLE);
                     uploadImage(resultUri);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     Log.d("Home fragment", "onActivityResult: CropImage failed");
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
@@ -372,37 +374,36 @@ public class HomeEditActivity extends AppCompatActivity {
         }
     }
 
-    private void uploadImage(Uri resultUri)
-    {
-        if (resultUri!=null){
+    private void uploadImage(Uri resultUri) {
+        if (resultUri != null) {
 
             StorageReference unique = storageRef.child("User/");
-            final StorageReference timeTableref = unique.child( SaveSharedPreference.getUserName(this)+"/DP.jpeg");
+            final StorageReference timeTableref = unique.child(SaveSharedPreference.getUserName(this) + "/DP.jpeg");
             timeTableref.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
-                    if(file.exists())
-                        if(file.delete())
+                    if (file.exists())
+                        if (file.delete())
 
-                    storageRef.child("User/" + SaveSharedPreference.getUserName(HomeEditActivity.this) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            // Got the download URL for 'users/me/profile.png'
-                            HomeEditActivity.this.uri = uri;
-                            download_dp();
-                            SaveSharedPreference.setClearall(HomeEditActivity.this,true);
-                            SaveSharedPreference.setClearall1(HomeEditActivity.this,true);
+                            storageRef.child("User/" + SaveSharedPreference.getUserName(HomeEditActivity.this) + "/DP.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // Got the download URL for 'users/me/profile.png'
+                                    HomeEditActivity.this.uri = uri;
+                                    download_dp();
+                                    SaveSharedPreference.setClearall(HomeEditActivity.this, true);
+                                    SaveSharedPreference.setClearall1(HomeEditActivity.this, true);
 
-                        }
+                                }
 
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                        }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                }
 
-                    });
+                            });
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -416,9 +417,10 @@ public class HomeEditActivity extends AppCompatActivity {
             });
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

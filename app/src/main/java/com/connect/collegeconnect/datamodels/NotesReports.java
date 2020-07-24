@@ -2,7 +2,7 @@ package com.connect.collegeconnect.datamodels;
 
 public class NotesReports {
 
-    public String email,issue;
+    public String email, issue;
     public long timeStamp;
 
     public NotesReports() {

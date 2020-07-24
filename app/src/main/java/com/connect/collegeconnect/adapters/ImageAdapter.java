@@ -24,13 +24,13 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         TouchImageView productImage = new TouchImageView(container.getContext());
         Picasso.get().load(Uri.parse(eventImages.get(position))).into(productImage);
-        container.addView(productImage,0);
+        container.addView(productImage, 0);
         return productImage;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((TouchImageView)object);
+        container.removeView((TouchImageView) object);
     }
 
     @Override

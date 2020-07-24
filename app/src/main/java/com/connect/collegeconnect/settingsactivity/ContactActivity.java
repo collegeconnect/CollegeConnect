@@ -34,7 +34,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String[] recipients={"bvp.connect@gmail.com"};
+                String[] recipients = {"bvp.connect@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
@@ -56,9 +56,9 @@ public class ContactActivity extends AppCompatActivity {
                 String mesaage = textView.getText().toString();
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String[] recipients={"bvp.connect@gmail.com"};
+                String[] recipients = {"bvp.connect@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                intent.putExtra(android.content.Intent.EXTRA_TEXT,mesaage);
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, mesaage);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
                 ResolveInfo best = null;
@@ -71,9 +71,10 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

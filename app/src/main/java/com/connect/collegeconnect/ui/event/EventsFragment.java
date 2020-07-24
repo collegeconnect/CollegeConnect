@@ -49,7 +49,7 @@ public class EventsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
         textView = view.findViewById(R.id.tv_noEvent);
-        if (getActivity()!=null)
+        if (getActivity() != null)
             tv = getActivity().findViewById(R.id.tvtitle);
         recyclerView = view.findViewById(R.id.eventsRecycler);
         recyclerView.setHasFixedSize(true);
@@ -58,7 +58,7 @@ public class EventsFragment extends Fragment {
         return view;
     }
 
-    public void loadEvents(){
+    public void loadEvents() {
         databaseReference = firebaseDatabase.getReference("Events");
         databaseReference.orderByChild("date").addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,13 +69,13 @@ public class EventsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Events events = postSnapshot.getValue(Events.class);
 //                    Toast.makeText(getContext(), events.getEventName(), Toast.LENGTH_SHORT).show();
-                    if(events.getEndDate().compareTo(dateInString)>=0)
+                    if (events.getEndDate().compareTo(dateInString) >= 0)
                         eventsList.add(events);
-                    if(events.getEndDate().compareTo(dateInString) < 0) {
+                    if (events.getEndDate().compareTo(dateInString) < 0) {
 
-                        for(int i = 0;i < events.getImageUrl().size();i++) {
+                        for (int i = 0; i < events.getImageUrl().size(); i++) {
                             StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(events.getImageUrl().get(i));
-                            Log.d("change", "onDataChange22: "+events.getImageUrl().get(i));
+                            Log.d("change", "onDataChange22: " + events.getImageUrl().get(i));
                             delete.delete();
                         }
                         DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
@@ -87,11 +87,11 @@ public class EventsFragment extends Fragment {
                         });
                     }
                 }
-                if(eventsList.isEmpty())
+                if (eventsList.isEmpty())
                     textView.setVisibility(View.VISIBLE);
                 else
                     textView.setVisibility(View.GONE);
-                eventsAdapter = new EventsAdapter(getActivity(),eventsList);
+                eventsAdapter = new EventsAdapter(getActivity(), eventsList);
                 recyclerView.setAdapter(eventsAdapter);
             }
 

@@ -17,7 +17,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     public ViewPagerAdapter(int[] layouts, Context context) {
         this.layouts = layouts;
         this.context = context;
-        layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -27,20 +27,20 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view==object;
+        return view == object;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View view = layoutInflater.inflate(layouts[position],container,false);
+        View view = layoutInflater.inflate(layouts[position], container, false);
         container.addView(view);
         return view;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        View view= (View)object;
+        View view = (View) object;
         container.removeView(view);
     }
 }

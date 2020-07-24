@@ -10,11 +10,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        if(remoteMessage.getNotification()!=null){
+        if (remoteMessage.getNotification() != null) {
             String Title = remoteMessage.getNotification().getTitle();
             String body = remoteMessage.getNotification().getBody();
 
-            Notification.displayNotificaton(getApplication(),Title,body);
+            Notification.displayNotificaton(getApplication(), Title, body);
         }
     }
 }

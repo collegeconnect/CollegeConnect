@@ -50,7 +50,7 @@ public class UpcomingEvents extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
-                if(arrayList.contains(SaveSharedPreference.getUserName(UpcomingEvents.this)))
+                if (arrayList.contains(SaveSharedPreference.getUserName(UpcomingEvents.this)))
                     createEvent.setVisibility(View.VISIBLE);
             }
 
@@ -62,36 +62,35 @@ public class UpcomingEvents extends AppCompatActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               startActivity(new Intent(UpcomingEvents.this, CreateEvent.class));
+                startActivity(new Intent(UpcomingEvents.this, CreateEvent.class));
             }
         });
 
         loadFragments(upcomingevents);
     }
-    private boolean loadFragments(Fragment fragment)
-    {
-        if (fragment!=null)
-        {
+
+    private boolean loadFragments(Fragment fragment) {
+        if (fragment != null) {
             Log.d("navigation", "loadFragments: Frag is loaded");
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.frameupcomingevents,fragment)
+                    .replace(R.id.frameupcomingevents, fragment)
                     .commit();
 
             return true;
         }
         return false;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 FragmentManager mgr = getSupportFragmentManager();
                 if (mgr.getBackStackEntryCount() == 0) {
                     super.onBackPressed();
                     finish();
-                }
-                else
+                } else
                     mgr.popBackStack();
 
                 return true;
@@ -101,11 +100,9 @@ public class UpcomingEvents extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        }
-
-        else
+        } else
             super.onBackPressed();
     }
 }

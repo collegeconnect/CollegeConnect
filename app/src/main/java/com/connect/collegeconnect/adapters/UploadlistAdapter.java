@@ -56,14 +56,16 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         this.noteslist = noteslist;
         noteslistfull = new ArrayList<>(noteslist);
     }
+
     @NonNull
     @Override
     public UploadlistAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notes,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notes, parent, false);
 //        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
 //        StrictMode.setVmPolicy(builder.build());
         return new UploadlistAdapter.ViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull final UploadlistAdapter.ViewHolder holder, int position) {
 
@@ -74,7 +76,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
 
         ArrayList<String> selectedTags = new ArrayList<>();
-        if (notes.getTags()!=null)
+        if (notes.getTags() != null)
             selectedTags = (ArrayList<String>) notes.getTags().clone();
 
         //Tags Recycler View
@@ -86,13 +88,12 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File file = new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Upload Notes"+File.separator+notes.getName()+".pdf");
-                if(file.exists()) {
+                File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Upload Notes" + File.separator + notes.getName() + ".pdf");
+                if (file.exists()) {
                     openfile(file.getAbsolutePath());
                     Log.d("upload", "onClick: already exists");
-                }
-                else {
-                    downloadfile(notes.getUrl(),notes.getName());
+                } else {
+                    downloadfile(notes.getUrl(), notes.getName());
                     Log.d("upload", "onClick: download");
                 }
             }
@@ -101,13 +102,13 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         holder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final PopupMenu popup = new PopupMenu(context,v);
+                final PopupMenu popup = new PopupMenu(context, v);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notes_overflow, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.deletenotes:
                                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
                                 // Setting Dialog Title
@@ -119,18 +120,18 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 // Write your code here to execute after dialog
-                                                new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Upload Notes"+File.separator+notes.getName()+".pdf").delete();
+                                                new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Upload Notes" + File.separator + notes.getName() + ".pdf").delete();
 
                                                 StorageReference delete = FirebaseStorage.getInstance().getReferenceFromUrl(notes.getUrl());
                                                 delete.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        Toast.makeText(context,"Notes deleted successfully",Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(context, "Notes deleted successfully", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(context,"Unable to delete file\nContact the Devs",Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(context, "Unable to delete file\nContact the Devs", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                                 DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS).child(String.valueOf(notes.getTimestamp()));
@@ -160,8 +161,8 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                 // Setting Dialog Title
                                 builder2.setTitle("Details");
                                 // Setting Dialog Message
-                                builder2.setMessage("\nCourse: "+notes.getCourse()+"\nBranch: "+notes.getBranch()+
-                                        "\nSemester: "+notes.getSemester()+"\nUnit: "+notes.getUnit());
+                                builder2.setMessage("\nCourse: " + notes.getCourse() + "\nBranch: " + notes.getBranch() +
+                                        "\nSemester: " + notes.getSemester() + "\nUnit: " + notes.getUnit());
 
                                 builder2.setPositiveButton("Dismiss",
                                         new DialogInterface.OnClickListener() {
@@ -184,16 +185,17 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
         });
 
     }
+
     public void downloadfile(String url, String name) {
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType("application/pdf");
-        request.setDestinationInExternalFilesDir(context,"Notes/Upload Notes",name+".pdf");
+        request.setDestinationInExternalFilesDir(context, "Notes/Upload Notes", name + ".pdf");
         request.setVisibleInDownloadsUi(false);
         request.allowScanningByMediaScanner();
         final long id = downloadManager.enqueue(request);
-        Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Downloading..... Please Wait!", Toast.LENGTH_LONG).show();
         BroadcastReceiver onComplete = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -211,19 +213,19 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                 }
             }
         };
-        context.registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
-    public void openfile(String path){
-        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
+    public void openfile(String path) {
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", new File(path));
 //        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
-        context.getApplicationContext().grantUriPermission(context.getPackageName(),uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.getApplicationContext().grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Log.d("Upload", "openfile: "+ path);
+        Log.d("Upload", "openfile: " + path);
         intent.setDataAndType(uri, "application/pdf");
         context.startActivity(intent);
     }
@@ -236,7 +238,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,author,noOfDown;
+        TextView title, author, noOfDown;
         ImageButton report;
         RelativeLayout itv;
         RecyclerView recyclerView;
@@ -256,18 +258,17 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
     public Filter getFilter() {
         return notesfilter;
     }
+
     private Filter notesfilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<Upload> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length()==0){
+            if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(noteslistfull);
-            }
-            else
-            {
+            } else {
                 String filterpattern = constraint.toString().toLowerCase().trim();
-                for (Upload item: noteslistfull){
-                    if(item.getName().toLowerCase().contains(filterpattern)){
+                for (Upload item : noteslistfull) {
+                    if (item.getName().toLowerCase().contains(filterpattern)) {
                         filteredList.add(item);
                     }
                 }

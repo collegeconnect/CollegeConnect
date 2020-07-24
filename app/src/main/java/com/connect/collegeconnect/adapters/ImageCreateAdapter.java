@@ -24,31 +24,32 @@ public class ImageCreateAdapter extends PagerAdapter {
 
     public ImageCreateAdapter(List<Uri> eventImages, Context context) {
         this.eventImages = eventImages;
-        this.context= context;
+        this.context = context;
     }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(container.getContext());
         filePath = eventImages.get(position);
         try {
-            if(Build.VERSION.SDK_INT<28)
+            if (Build.VERSION.SDK_INT < 28)
                 bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), filePath);
             else
-                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.getContentResolver(),filePath));
+                bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(context.getContentResolver(), filePath));
 
             imageView.setImageBitmap(bitmap);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        container.addView(imageView,0);
+        container.addView(imageView, 0);
         return imageView;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((ImageView)object);
+        container.removeView((ImageView) object);
     }
 
     @Override

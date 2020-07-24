@@ -75,11 +75,10 @@ public class SettingsActivity extends AppCompatActivity {
         String name = SaveSharedPreference.getUser(this);
         nameField.setText(name);
         File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
-        if(file.exists()) {
+        if (file.exists()) {
             SettingsActivity.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
-        }
-        else {
+        } else {
             try {
                 int space = name.indexOf(" ");
                 int color = navigation.generatecolor();
@@ -90,13 +89,12 @@ public class SettingsActivity extends AppCompatActivity {
                         .endConfig()
                         .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
                 prfileImage.setImageDrawable(drawable);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
 
             }
 
         }
-        ArrayList<String> options= new ArrayList<>();
+        ArrayList<String> options = new ArrayList<>();
 //        options.add("Update Profile");
         options.add("Theme");
         options.add("Set Attendance Criteria");
@@ -110,7 +108,7 @@ public class SettingsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         settingsAdapter = new SettingsAdapter(options, this);
         recyclerView.setAdapter(settingsAdapter);
-        DividerItemDecoration decoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST,80,0);
+        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 80, 0);
         recyclerView.addItemDecoration(decoration);
         findViewById(R.id.profile_card).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    public void logOutDialog(){
+    public void logOutDialog() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         // Setting Dialog Title
         builder.setTitle("Confirm SignOut");
@@ -149,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         db.deleteall();
                         File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
-                        if(file.exists())
+                        if (file.exists())
                             file.delete();
                         SaveSharedPreference.clearUserName(SettingsActivity.this);
 
@@ -168,6 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     private void signOut() {
         mgoogleSignInClient.signOut();
     }
@@ -178,12 +177,13 @@ public class SettingsActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        mgoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;
@@ -194,12 +194,12 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(SaveSharedPreference.getClearall(this)) {
+        if (SaveSharedPreference.getClearall(this)) {
             File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
             if (file.exists()) {
                 SettingsActivity.this.uri = Uri.fromFile(file);
                 Picasso.get().invalidate(uri);
-                SaveSharedPreference.setClearall(SettingsActivity.this,false);
+                SaveSharedPreference.setClearall(SettingsActivity.this, false);
                 Picasso.get().load(uri).into(prfileImage);
             }
         }

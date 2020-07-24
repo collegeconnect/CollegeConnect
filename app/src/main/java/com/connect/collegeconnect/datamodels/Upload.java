@@ -21,7 +21,7 @@ public class Upload {
     public Upload() {
     }
 
-    public Upload(String name, String course, String semester, String branch, String unit,String author, int download, String url, long timestamp, String mail, ArrayList tags) {
+    public Upload(String name, String course, String semester, String branch, String unit, String author, int download, String url, long timestamp, String mail, ArrayList tags) {
         this.name = name;
         this.course = course;
         this.semester = semester;

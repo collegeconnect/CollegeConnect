@@ -12,8 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.Events;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -22,7 +24,7 @@ import com.connect.collegeconnect.ui.event.EventDetailsFragment;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder>{
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Events> eventsArrayList;
@@ -35,7 +37,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_events_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_events_card, parent, false);
         return new EventsAdapter.ViewHolder(view);
     }
 
@@ -44,11 +46,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         final Events event = eventsArrayList.get(position);
 
         holder.textView.setText(event.getEventName());
-        if(event.getOrganizer().toLowerCase().contains("dsc"))
+        if (event.getOrganizer().toLowerCase().contains("dsc"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.dsc));
-        else if(event.getOrganizer().toLowerCase().contains("ieee"))
+        else if (event.getOrganizer().toLowerCase().contains("ieee"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.bvpieee));
-        else if(event.getOrganizer().toLowerCase().contains("csi"))
+        else if (event.getOrganizer().toLowerCase().contains("csi"))
             holder.imageView.setImageDrawable(context.getDrawable(R.drawable.bvpcsi));
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -69,20 +71,20 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Bundle arguments = new Bundle();
-                arguments.putString( "Name",event.getEventName());
+                arguments.putString("Name", event.getEventName());
 
                 final EventDetailsFragment eventDetailsFragment = new EventDetailsFragment();
                 eventDetailsFragment.setArguments(arguments);
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        ((AppCompatActivity)context).getSupportFragmentManager()
+                        ((AppCompatActivity) context).getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.frameupcomingevents,eventDetailsFragment)
+                                .replace(R.id.frameupcomingevents, eventDetailsFragment)
                                 .addToBackStack(null)
                                 .commit();
                     }
-                },150);
+                }, 150);
             }
         });
     }
@@ -96,7 +98,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         ImageView imageView;
         RelativeLayout relativeLayout;
-        TextView textView,organiser;
+        TextView textView, organiser;
         View itv;
 
         public ViewHolder(@NonNull View itemView) {
@@ -106,7 +108,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             textView = itemView.findViewById(R.id.eventName);
             relativeLayout = itemView.findViewById(R.id.eventCardLayout);
             organiser = itemView.findViewById(R.id.organiser);
-            itv=itemView;
+            itv = itemView;
         }
     }
 }

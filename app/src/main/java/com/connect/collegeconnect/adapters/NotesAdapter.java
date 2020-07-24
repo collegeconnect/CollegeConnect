@@ -23,12 +23,14 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.datamodels.Constants;
 import com.connect.collegeconnect.R;
@@ -39,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -61,7 +64,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notes,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_notes, parent, false);
         return new NotesAdapter.ViewHolder(view);
     }
 
@@ -73,10 +76,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
         holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
-        name=notes.getName();
+        name = notes.getName();
 
         ArrayList<String> selectedTags = new ArrayList<>();
-        if (notes.getTags()!=null)
+        if (notes.getTags() != null)
             selectedTags = (ArrayList<String>) notes.getTags().clone();
 
         //Tags Recycler View
@@ -89,22 +92,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.itv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File file = new File("/storage/emulated/0/Android/data/"+BuildConfig.APPLICATION_ID+"/files/Notes/Download Notes"+File.separator+notes.getName()+".pdf");
-                if(file.exists()) {
+                File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Download Notes" + File.separator + notes.getName() + ".pdf");
+                if (file.exists()) {
                     openfile(file.getAbsolutePath());
                     Log.d("upload", "onClick: already exists");
-                }
-                else {
-                    downloadfile(notes.getUrl(),notes.getName());
+                } else {
+                    downloadfile(notes.getUrl(), notes.getName());
                     int downloads = notes.getDownload() + 1;
                     Upload upload = new Upload(notes.getName(),
                             notes.getCourse(),
                             notes.getSemester(),
                             notes.getBranch(),
                             notes.getUnit(),
-                            notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(), finalSelectedTags);
+                            notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(), notes.getUploaderMail(), finalSelectedTags);
                     DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-                    mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
+                    mDatabaseReference.child(notes.getTimestamp() + "").setValue(upload);
                     Log.d("upload", "onClick: download");
                 }
 
@@ -120,13 +122,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final PopupMenu popup = new PopupMenu(context,v);
+                final PopupMenu popup = new PopupMenu(context, v);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.notes_overflow, popup.getMenu());
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.report: {
 //                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
 //                                ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
@@ -158,10 +160,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         String text = answer.getText().toString();
-                                        if(text.isEmpty())
+                                        if (text.isEmpty())
                                             answer.setError("Please enter your problem");
-                                        else if(text.length()<20)
-                                                answer.setError("Minimum 20 characters required");
+                                        else if (text.length() < 20)
+                                            answer.setError("Minimum 20 characters required");
                                         else {
                                             submitReport(text, notes.getTimestamp());
                                             dialog.dismiss();
@@ -169,11 +171,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     }
                                 });
                             }
-                                break;
+                            break;
 
                             case R.id.tagover:
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                LayoutInflater inflater = ((AppCompatActivity)context).getLayoutInflater();
+                                LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
                                 View view = inflater.inflate(R.layout.layout_tag_dialog, null);
                                 final boolean[] etuB = {true};
                                 final boolean[] shortB = {true};
@@ -191,7 +193,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     public void onClick(View v) {
 
                                         etuB[0] = !etuB[0];
-                                        if (!etuB[0] && !finalSelectedTags1.contains("Easy to understand")){
+                                        if (!etuB[0] && !finalSelectedTags1.contains("Easy to understand")) {
                                             finalSelectedTags1.add("Easy to understand");
                                         }
                                         v.setBackgroundColor(etuB[0] ? Color.parseColor("#6FFF6F") : Color.parseColor("#506FFF6F"));
@@ -202,7 +204,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         shortB[0] = !shortB[0];
-                                        if (!shortB[0] && !finalSelectedTags2.contains("Short")){
+                                        if (!shortB[0] && !finalSelectedTags2.contains("Short")) {
                                             finalSelectedTags2.add("Short");
                                         }
                                         v.setBackgroundColor(shortB[0] ? Color.parseColor("#FBFF61") : Color.parseColor("#50FBFF61"));
@@ -212,7 +214,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         longB[0] = !longB[0];
-                                        if (!longB[0] && !finalSelectedTags3.contains("Long")){
+                                        if (!longB[0] && !finalSelectedTags3.contains("Long")) {
                                             finalSelectedTags3.add("Long");
                                         }
                                         v.setBackgroundColor(longB[0] ? Color.parseColor("#FF6A6A") : Color.parseColor("#50FF6A6A"));
@@ -222,7 +224,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(View v) {
                                         ttpB[0] = !ttpB[0];
-                                        if (!ttpB[0] && !finalSelectedTags4.contains("To the point")){
+                                        if (!ttpB[0] && !finalSelectedTags4.contains("To the point")) {
                                             finalSelectedTags4.add("To the point");
                                         }
                                         v.setBackgroundColor(ttpB[0] ? Color.parseColor("#6AFFEC") : Color.parseColor("#506AFFEC"));
@@ -233,19 +235,18 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         ArrayList<String> stringUpload = new ArrayList<>();
-                                        if (finalSelectedTags5.isEmpty()){
+                                        if (finalSelectedTags5.isEmpty()) {
                                             stringUpload = notes.getTags();
-                                        }
-                                        else
+                                        } else
                                             stringUpload = finalSelectedTags5;
                                         Upload upload = new Upload(notes.getName(),
                                                 notes.getCourse(),
                                                 notes.getSemester(),
                                                 notes.getBranch(),
                                                 notes.getUnit(),
-                                                notes.getAuthor(), notes.getDownload(), notes.getUrl(), notes.getTimestamp(),notes.getUploaderMail(),stringUpload);
+                                                notes.getAuthor(), notes.getDownload(), notes.getUrl(), notes.getTimestamp(), notes.getUploaderMail(), stringUpload);
                                         DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-                                        mDatabaseReference.child(notes.getTimestamp()+"").setValue(upload);
+                                        mDatabaseReference.child(notes.getTimestamp() + "").setValue(upload);
 
                                     }
                                 });
@@ -260,23 +261,24 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 });
                 popup.getMenu().findItem(R.id.deletenotes).setVisible(false);
                 popup.getMenu().findItem(R.id.details).setVisible(false);
-                if(notes.getUploaderMail().equals(user.getEmail()))
+                if (notes.getUploaderMail().equals(user.getEmail()))
                     popup.getMenu().findItem(R.id.tagover).setEnabled(false);
                 popup.show();
             }
         });
 
     }
+
     public void downloadfile(String url, String name) {
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType("application/pdf");
-        request.setDestinationInExternalFilesDir(context,"Notes/Download Notes",name+".pdf");
+        request.setDestinationInExternalFilesDir(context, "Notes/Download Notes", name + ".pdf");
         request.allowScanningByMediaScanner();
         request.setVisibleInDownloadsUi(false);
         final long id = downloadManager.enqueue(request);
-        Toast.makeText(context,"Downloading..... Please Wait!",Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Downloading..... Please Wait!", Toast.LENGTH_LONG).show();
         BroadcastReceiver onComplete = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -294,19 +296,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 }
             }
         };
-        context.registerReceiver(onComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        context.registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
-    public void openfile(String path){
-        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".provider",new File(path));
+    public void openfile(String path) {
+        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", new File(path));
 //        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
-        context.getApplicationContext().grantUriPermission(context.getPackageName(),uri,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        context.getApplicationContext().grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Log.d("Upload", "openfile: "+ path);
+        Log.d("Upload", "openfile: " + path);
         intent.setDataAndType(uri, "application/pdf");
         context.startActivity(intent);
     }
@@ -318,7 +320,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title,author,noOfDown;
+        TextView title, author, noOfDown;
         ImageButton report;
         View itv;
         RecyclerView recyclerView;
@@ -333,27 +335,27 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             recyclerView = itemView.findViewById(R.id.tagsRecycler);
         }
     }
+
     @Override
     public Filter getFilter() {
         return notesfilter;
     }
+
     private Filter notesfilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             ArrayList<Upload> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length()==0){
+            if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(noteslistfull);
-            }
-            else
-            {
+            } else {
                 String filterpattern = constraint.toString().toLowerCase().trim();
-                for (Upload item: noteslistfull){
-                    if(item.getName().toLowerCase().contains(filterpattern) || item.getAuthor().toLowerCase().contains(filterpattern)){
+                for (Upload item : noteslistfull) {
+                    if (item.getName().toLowerCase().contains(filterpattern) || item.getAuthor().toLowerCase().contains(filterpattern)) {
                         filteredList.add(item);
                     }
                 }
             }
-             FilterResults results = new FilterResults();
+            FilterResults results = new FilterResults();
             results.values = filteredList;
             return results;
         }
@@ -368,8 +370,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public void submitReport(String text, long timeStamp) {
         DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
-        NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context),text,timeStamp);
-        DatabaseReference.child(System.currentTimeMillis()+"").setValue(notesReports);
+        NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context), text, timeStamp);
+        DatabaseReference.child(System.currentTimeMillis() + "").setValue(notesReports);
 //        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
     }
 

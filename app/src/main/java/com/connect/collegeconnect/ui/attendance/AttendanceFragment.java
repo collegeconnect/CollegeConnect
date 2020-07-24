@@ -1,5 +1,6 @@
 package com.connect.collegeconnect.ui.attendance;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,20 +44,20 @@ public class AttendanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_attendance,null);
+        View view = inflater.inflate(R.layout.fragment_attendance, null);
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("ATTENDANCE");
 
-        mydb= new DatabaseHelper(getContext());
+        mydb = new DatabaseHelper(getContext());
 
-        if(getActivity()!=null)
+        if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
         subjectList = new ArrayList<>();
         subjectRecycler = view.findViewById(R.id.subjectRecyclerView);
         subjectRecycler.setHasFixedSize(true);
         subjectRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        subjectAdapter = new SubjectAdapter(subjectList,getContext());
+        subjectAdapter = new SubjectAdapter(subjectList, getContext());
         subjectRecycler.setAdapter(subjectAdapter);
         loadData();
 
@@ -94,14 +96,14 @@ public class AttendanceFragment extends Fragment {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_attendance).setChecked(true);
     }
+
     @Override
     public void onResume() {
         super.onResume();
         bottomNavigationView.getMenu().findItem(R.id.nav_attendance).setChecked(true);
     }
 
-    public void loadData()
-    {
+    public void loadData() {
         Cursor res = mydb.viewAllData();
 
         while (res.moveToNext()) {
@@ -110,9 +112,8 @@ public class AttendanceFragment extends Fragment {
         }
     }
 
-    public void addSubject()
-    {
-        if(subject.getEditText().getText().toString().isEmpty() || subject.getEditText().getText().toString().equals(""))
+    public void addSubject() {
+        if (subject.getEditText().getText().toString().isEmpty() || subject.getEditText().getText().toString().equals(""))
             subject.setError("Enter a Subject");
         else {
             boolean res = mydb.insetData(subject.getEditText().getText().toString(), "0", "0");
@@ -120,6 +121,12 @@ public class AttendanceFragment extends Fragment {
                 Toast.makeText(getContext(), "Subject added successfully", Toast.LENGTH_SHORT).show();
             } else
                 Toast.makeText(getContext(), "Data not added", Toast.LENGTH_SHORT).show();
+            try {
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
 
             subjectList.add(subject.getEditText().getText().toString());
             subjectAdapter.notifyDataSetChanged();
@@ -128,8 +135,7 @@ public class AttendanceFragment extends Fragment {
         }
     }
 
-    public static void notifyChange()
-    {
+    public static void notifyChange() {
         subjectAdapter.notifyDataSetChanged();
     }
 }

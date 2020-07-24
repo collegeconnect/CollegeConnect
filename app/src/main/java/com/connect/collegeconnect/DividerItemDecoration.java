@@ -35,7 +35,7 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         setOrientation(orientation);
     }
 
-    public DividerItemDecoration(Context context, int orientation, int padding, int avoidResourceId){
+    public DividerItemDecoration(Context context, int orientation, int padding, int avoidResourceId) {
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -65,18 +65,18 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         final int right = parent.getWidth() - parent.getPaddingRight() - padding;
         int width = 0;
         final int childCount = parent.getChildCount();
-        for (int i = 0; i < childCount -1; i++) {
+        for (int i = 0; i < childCount - 1; i++) {
             final View child = parent.getChildAt(i);
             View avoidView = child.findViewById(avoidResourceId);
 
-            if(avoidView != null){
+            if (avoidView != null) {
                 width = avoidView.getWidth();
             }
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             final int top = child.getBottom() + params.bottomMargin;
             final int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left+width, top, right, bottom);
+            mDivider.setBounds(left + width, top, right, bottom);
             mDivider.draw(c);
         }
     }

@@ -36,7 +36,7 @@ import java.util.Map;
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//    private TouchImageView banner;
+    //    private TouchImageView banner;
     private TextView evntName, startingDate, endingDate;
     private TextView description;
     private Button register;
@@ -58,7 +58,7 @@ public class EventDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event, container, false);
 
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             floatingActionButton = getActivity().findViewById(R.id.createEvent);
             TextView tv = getActivity().findViewById(R.id.tvtitle);
             tv.setText("Event Details");
@@ -66,8 +66,8 @@ public class EventDetailsFragment extends Fragment {
 
 
 //        banner = view.findViewById(R.id.eventBanner);
-        imagesViewpager= view.findViewById(R.id.eventBanner);
-        viewpagerIndicator= view.findViewById(R.id.viewPager_indicator);
+        imagesViewpager = view.findViewById(R.id.eventBanner);
+        viewpagerIndicator = view.findViewById(R.id.viewPager_indicator);
         evntName = view.findViewById(R.id.eventName);
         startingDate = view.findViewById(R.id.StartingDate);
         endingDate = view.findViewById(R.id.EndingDate);
@@ -75,12 +75,11 @@ public class EventDetailsFragment extends Fragment {
         register = view.findViewById(R.id.registerButton);
 
 
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (registrationurl!=null) {
+                if (registrationurl != null) {
                     Bundle arguments = new Bundle();
                     arguments.putString("Url", registrationurl);
 
@@ -98,7 +97,7 @@ public class EventDetailsFragment extends Fragment {
 
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("Name");
-        if(desired_string != null)
+        if (desired_string != null)
             databaseReference = firebaseDatabase.getReference(Constants.EVENTS_PATH_UPLOAD).child(desired_string);
         loadDetails();
 
@@ -110,27 +109,27 @@ public class EventDetailsFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Map<String, Object> map= (Map<String,Object>)dataSnapshot.getValue();
+                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 String name = (String) map.get("eventName");
                 String Description = (String) map.get("eventDescription");
                 String organiser = (String) map.get("organizer");
-                eventImages = (ArrayList<String>)map.get("imageUrl");
-                registrationurl = (String)map.get("registrationUrl");
-                String date = (String)map.get("date");
-                String endDate = (String)map.get("endDate");
+                eventImages = (ArrayList<String>) map.get("imageUrl");
+                registrationurl = (String) map.get("registrationUrl");
+                String date = (String) map.get("date");
+                String endDate = (String) map.get("endDate");
 
 //                Picasso.get().load(imageurl).into(banner);
-                Log.d("change", "onDataChange: "+eventImages.get(0));
+                Log.d("change", "onDataChange: " + eventImages.get(0));
 
                 evntName.setText(name);
                 description.setText(Description);
                 startingDate.setText(date(date));
                 endingDate.setText(date(endDate));
-                ImageAdapter imageAdapter =new ImageAdapter(eventImages);
+                ImageAdapter imageAdapter = new ImageAdapter(eventImages);
                 imagesViewpager.setAdapter(imageAdapter);
-                if (eventImages.size()==1)
+                if (eventImages.size() == 1)
                     viewpagerIndicator.setVisibility(View.INVISIBLE);
-                viewpagerIndicator.setupWithViewPager(imagesViewpager,true);
+                viewpagerIndicator.setupWithViewPager(imagesViewpager, true);
 
             }
 
@@ -140,7 +139,8 @@ public class EventDetailsFragment extends Fragment {
             }
         });
     }
-    public String date(String date){
+
+    public String date(String date) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("EEE, dd MMM yy");
         Date datetext = null;
@@ -165,13 +165,13 @@ public class EventDetailsFragment extends Fragment {
     @Override
     public void onStop() {
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         databaseReference = firebaseDatabase.getReference("EventAdmin");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
-                if(arrayList.contains(SaveSharedPreference.getUserName(mContext)))
+                if (arrayList.contains(SaveSharedPreference.getUserName(mContext)))
                     floatingActionButton.setVisibility(View.VISIBLE);
                 else
                     floatingActionButton.setVisibility(View.GONE);

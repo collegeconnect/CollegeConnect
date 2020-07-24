@@ -28,7 +28,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tags,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_tags, parent, false);
         return new TagsAdapter.ViewHolder(view);
     }
 
@@ -36,19 +36,19 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String tag = tags.get(position);
 //        Toast.makeText(context, tag, Toast.LENGTH_SHORT).show();
-        if(tag.toLowerCase().equals("long")) {
+        if (tag.toLowerCase().equals("long")) {
             holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6A6A")));
             holder.textView.setBackgroundResource(R.drawable.button_design);
         }
-        if(tag.toLowerCase().equals("easy to understand")) {
+        if (tag.toLowerCase().equals("easy to understand")) {
             holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#6FFF6F")));
             holder.textView.setBackgroundResource(R.drawable.button_design);
         }
-        if(tag.toLowerCase().equals("short")) {
+        if (tag.toLowerCase().equals("short")) {
             holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FBFF61")));
             holder.textView.setBackgroundResource(R.drawable.button_design);
         }
-        if(tag.toLowerCase().equals("to the point")) {
+        if (tag.toLowerCase().equals("to the point")) {
             holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#6AFFEC")));
             holder.textView.setBackgroundResource(R.drawable.button_design);
         }
@@ -60,7 +60,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
         return tags.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textView;
 

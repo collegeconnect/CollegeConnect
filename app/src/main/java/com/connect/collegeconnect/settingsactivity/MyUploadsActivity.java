@@ -61,14 +61,13 @@ public class MyUploadsActivity extends AppCompatActivity {
                 uploadList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
-                    if(upload.getUploaderMail().equals(user.getEmail()))
+                    if (upload.getUploaderMail().equals(user.getEmail()))
                         uploadList.add(upload);
                 }
-                if(uploadList.isEmpty()){
+                if (uploadList.isEmpty()) {
 //                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
-                    Snackbar.make(findViewById(R.id.recycle),"You have not uploaded anything!",Snackbar.LENGTH_LONG).show();
-                }
-                else {
+                    Snackbar.make(findViewById(R.id.recycle), "You have not uploaded anything!", Snackbar.LENGTH_LONG).show();
+                } else {
 
                     recyclerView = findViewById(R.id.uploadrecyler);
                     recyclerView.setHasFixedSize(true);
@@ -85,10 +84,11 @@ public class MyUploadsActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_view,menu);
+        inflater.inflate(R.menu.search_view, menu);
         MenuItem searchItem = menu.findItem(R.id.search_action);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -107,9 +107,7 @@ public class MyUploadsActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 try {
                     notesAdapter.getFilter().filter(newText);
-                }
-                catch (Exception e )
-                {
+                } catch (Exception e) {
                 }
                 return false;
             }
@@ -130,6 +128,7 @@ public class MyUploadsActivity extends AppCompatActivity {
 
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

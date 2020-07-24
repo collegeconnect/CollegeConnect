@@ -65,7 +65,7 @@ public class CreateEvent extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 1;
     private String date, endDate;
     private LinearLayout blurr;
-    private Uri filePath ;
+    private Uri filePath;
     public String imageUrl;
     private ImageView imageView;
     ViewPager viewPagerImage;
@@ -74,6 +74,7 @@ public class CreateEvent extends AppCompatActivity {
     ArrayList<String> imageurl = new ArrayList<>();
     ProgressBar progressBar;
     private long millis = 0;
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,20 +123,20 @@ public class CreateEvent extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month+1;
+                        month = month + 1;
                         String mon;
                         String day;
-                        if(month<10)
-                            mon = "0"+month;
+                        if (month < 10)
+                            mon = "0" + month;
                         else
                             mon = String.valueOf(month);
-                        if(dayOfMonth<10)
-                            day = "0"+dayOfMonth;
+                        if (dayOfMonth < 10)
+                            day = "0" + dayOfMonth;
                         else
                             day = String.valueOf(dayOfMonth);
 
 
-                        date = day+"/"+mon+"/"+year;
+                        date = day + "/" + mon + "/" + year;
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         try {
                             Date dates = simpleDateFormat.parse(date);
@@ -158,25 +159,25 @@ public class CreateEvent extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(CreateEvent.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        month = month+1;
+                        month = month + 1;
                         String mon;
                         String day;
-                        if(month<10)
-                            mon = "0"+month;
+                        if (month < 10)
+                            mon = "0" + month;
                         else
                             mon = String.valueOf(month);
-                        if(dayOfMonth<10)
-                            day = "0"+dayOfMonth;
+                        if (dayOfMonth < 10)
+                            day = "0" + dayOfMonth;
                         else
                             day = String.valueOf(dayOfMonth);
 
 
-                        endDate = day+"/"+mon+"/"+year;
+                        endDate = day + "/" + mon + "/" + year;
                         endeventDate.setText(endDate);
                     }
                 }, year, month, day);
 //                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                if(millis == 0)
+                if (millis == 0)
                     datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 else
                     datePickerDialog.getDatePicker().setMinDate(millis);
@@ -196,7 +197,7 @@ public class CreateEvent extends AppCompatActivity {
                 final String Edate = eventDate.getText().toString();
                 final String EndDate = endeventDate.getText().toString();
 
-                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || EndDate.isEmpty() || Eorganizer.isEmpty() ){
+                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || EndDate.isEmpty() || Eorganizer.isEmpty()) {
                     if (Ename.isEmpty())
                         name.setError("Field cannot be empty");
                     if (Edescription.isEmpty())
@@ -205,15 +206,14 @@ public class CreateEvent extends AppCompatActivity {
                         url.setError("Field cannot be empty");
                     if (Edate.isEmpty())
                         eventDate.setError("Field cannot be empty");
-                    if(EndDate.isEmpty())
+                    if (EndDate.isEmpty())
                         endeventDate.setError("Field cannot be empty");
                     if (Eorganizer.isEmpty())
                         organizer.setError("Field cannot be empty");
                     if (imageUrl.equals(""))
                         Toast.makeText(getApplicationContext(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                   getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                } else {
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     blurr.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
@@ -320,18 +320,17 @@ public class CreateEvent extends AppCompatActivity {
         });
     }
 
-    public void imageadd(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE )
+    public void imageadd() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
             // Requesting the permission
             ActivityCompat.requestPermissions(this,
-                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     100);
-        }
-        else {
+        } else {
             Intent intent = new Intent();
             intent.setType("image/*");
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setAction(Intent.ACTION_PICK);
             startActivityForResult(Intent.createChooser(intent, "Select an image"), GET_FROM_GALLERY);
         }
@@ -341,7 +340,7 @@ public class CreateEvent extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             imageadd();
 
         } else {
@@ -360,28 +359,26 @@ public class CreateEvent extends AppCompatActivity {
 
 //            filePath = data.getData();
             images.clear();
-            if(data.getClipData() != null) {
+            if (data.getClipData() != null) {
                 int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                for(int i = 0; i < count; i++) {
+                for (int i = 0; i < count; i++) {
                     filePath = data.getClipData().getItemAt(i).getUri();
                     images.add(filePath);
                 }
-            }
-            else if(data.getData() != null) {
+            } else if (data.getData() != null) {
                 filePath = data.getData();
                 images.add(filePath);
             }
-            ImageCreateAdapter imageCreateAdapter = new ImageCreateAdapter(images,getApplicationContext());
+            ImageCreateAdapter imageCreateAdapter = new ImageCreateAdapter(images, getApplicationContext());
             viewPagerImage.setAdapter(imageCreateAdapter);
-            if(images.size()==1)
+            if (images.size() == 1)
                 viewPagerIndicator.setVisibility(View.GONE);
-            viewPagerIndicator.setupWithViewPager(viewPagerImage,true);
+            viewPagerIndicator.setupWithViewPager(viewPagerImage, true);
         }
     }
 
-    private void uploadEvent()
-    {
-        if (images.size()!=0) {
+    private void uploadEvent() {
+        if (images.size() != 0) {
             for (int i = 0; i < images.size(); i++) {
                 filePath = images.get(i);
                 StorageReference unique = storageRef.child("Event/");
@@ -400,8 +397,8 @@ public class CreateEvent extends AppCompatActivity {
                                 databaseReference.child(name.getText().toString()).child("imageUrl").addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        ArrayList<String> arrayList = (ArrayList<String>)dataSnapshot.getValue();
-                                        if(arrayList!=null)
+                                        ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+                                        if (arrayList != null)
                                             imageurl = (ArrayList<String>) arrayList.clone();
                                     }
 
@@ -452,9 +449,10 @@ public class CreateEvent extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

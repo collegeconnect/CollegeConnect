@@ -55,7 +55,7 @@ public class EventWebView extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_event_web_view, container, false);
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             floatingActionButton = getActivity().findViewById(R.id.createEvent);
             TextView tv = getActivity().findViewById(R.id.tvtitle);
             tv.setText("Event Details");
@@ -84,7 +84,7 @@ public class EventWebView extends Fragment {
         if (desired_string.contains("https://"))
             finalUrl = desired_string;
         else
-            finalUrl = "https://"+desired_string;
+            finalUrl = "https://" + desired_string;
 
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -123,7 +123,7 @@ public class EventWebView extends Fragment {
 //                }
 //            }, 500);
             // show the webview
-            webView.setWebViewClient(new WebViewClient(){
+            webView.setWebViewClient(new WebViewClient() {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
@@ -146,20 +146,19 @@ public class EventWebView extends Fragment {
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     Uri uri = request.getUrl();
-                    if(uri.toString().startsWith("intent://")) {
+                    if (uri.toString().startsWith("intent://")) {
                         Intent intent = null;
                         try {
-                            intent = Intent.parseUri(uri.toString(),Intent.URI_INTENT_SCHEME);
+                            intent = Intent.parseUri(uri.toString(), Intent.URI_INTENT_SCHEME);
                         } catch (URISyntaxException e) {
                             e.printStackTrace();
                         }
-                        if(intent!=null){
+                        if (intent != null) {
                             String fallbackurl = intent.getStringExtra("browser_fallback_url");
-                            if(fallbackurl!=null){
+                            if (fallbackurl != null) {
                                 webView.loadUrl(fallbackurl);
                                 return true;
-                            }
-                            else
+                            } else
                                 return false;
 
                         }
@@ -196,12 +195,14 @@ public class EventWebView extends Fragment {
 
         return view;
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         floatingActionButton.setVisibility(View.VISIBLE);
     }
+
     @Override
     public void onStart() {
         super.onStart();

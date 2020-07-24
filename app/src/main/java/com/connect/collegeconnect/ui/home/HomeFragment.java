@@ -35,7 +35,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -74,6 +73,7 @@ public class HomeFragment extends Fragment {
     private Context mcontext;
     private FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -227,7 +227,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void loadDataFirestore(){
+    private void loadDataFirestore() {
         documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -258,6 +258,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
     private void loadData() {
 
         databaseReference.addValueEventListener(new ValueEventListener() {

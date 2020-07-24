@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +43,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(final View view) {
                 InputMethodManager inputManager = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (getCurrentFocus()!=null)
+                if (getCurrentFocus() != null)
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -55,16 +58,13 @@ public class SignUp extends AppCompatActivity {
                     email.setError("Enter your email address");
                 } else if (Stremail.isEmpty()) {
                     email.setError("Enter your Email address");
-                }
-                else if (Strpassword.isEmpty()) {
+                } else if (Strpassword.isEmpty()) {
                     password.setError("Enter a valid password");
-                }
-                else if (Strname.isEmpty()) {
+                } else if (Strname.isEmpty()) {
                     name.setError("Enter your name");
-                }
-                else {
+                } else {
                     mAuth = FirebaseAuth.getInstance();
-                    if(isEmailValid(Stremail)) {
+                    if (isEmailValid(Stremail)) {
                         mAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
                             @Override
                             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
@@ -84,9 +84,8 @@ public class SignUp extends AppCompatActivity {
 
                             }
                         });
-                    }
-                    else
-                        Toast.makeText(getApplicationContext(),"Enter a Valid Email Id",Toast.LENGTH_LONG).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), "Enter a Valid Email Id", Toast.LENGTH_LONG).show();
                 }
                 email.getEditText().addTextChangedListener(new TextWatcher() {
                     @Override

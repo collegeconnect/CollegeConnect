@@ -2,6 +2,7 @@ package com.connect.collegeconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +50,7 @@ public class StepTwoSignUp extends AppCompatActivity {
         final String receivedName = intent.getStringExtra(EXTRA_NAME);
         final String receivedEmail = intent.getStringExtra(EXTRA_EMAIL);
         final String receivedPassword = intent.getStringExtra(EXTRA_PASSWORD);
-         receivedPRev = intent.getStringExtra(EXTRA_PREV);
+        receivedPRev = intent.getStringExtra(EXTRA_PREV);
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +58,7 @@ public class StepTwoSignUp extends AppCompatActivity {
 
                 InputMethodManager inputManager = (InputMethodManager)
                         getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (getCurrentFocus()!=null)
+                if (getCurrentFocus() != null)
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
 
@@ -67,46 +68,42 @@ public class StepTwoSignUp extends AppCompatActivity {
                 if (roll.isEmpty() && branch.isEmpty()) {
                     rollno.setError("Enter Roll Number");
                     branchanme.setError("Enter College Name");
-                }
-                else if(branch.isEmpty()){
+                } else if (branch.isEmpty()) {
                     branchanme.setError("Enter College Name");
-                }
-                else if(roll.isEmpty()){
+                } else if (roll.isEmpty()) {
                     rollno.setError("Enter Roll Number");
-                }
-                else {
+                } else {
 
                     if (receivedPRev == null) {//google
                         User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, branch);
                         SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                         startActivity(new Intent(getApplicationContext(), navigation.class));
                         finish();
-                    }
-                    else {//email
+                    } else {//email
 
                         User.addUser(roll, receivedEmail, receivedName, receivedPassword, branch);
-                                mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if(task.isSuccessful())
-                                                        Toast.makeText(StepTwoSignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
-                                                    else
-                                                        Toast.makeText(StepTwoSignUp.this,task.getException().getMessage(),
+                        mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful())
+                                                Toast.makeText(StepTwoSignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
+                                            else
+                                                Toast.makeText(StepTwoSignUp.this, task.getException().getMessage(),
                                                         Toast.LENGTH_SHORT);
-                                                }
-                                            });
-                                            Log.d(TAG, "createUserWithEmail:success");
-                                            Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
-                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                            finish();
                                         }
-                                    }
-                                });
+                                    });
+                                    Log.d(TAG, "createUserWithEmail:success");
+                                    Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                                    startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                    finish();
+                                }
+                            }
+                        });
 
                     }
 
@@ -155,9 +152,9 @@ public class StepTwoSignUp extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (receivedPRev != null)
-        super.onBackPressed();
+            super.onBackPressed();
         else
-        Toast.makeText(this, "Please fill in the details and click submit!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill in the details and click submit!", Toast.LENGTH_SHORT).show();
     }
 }
 

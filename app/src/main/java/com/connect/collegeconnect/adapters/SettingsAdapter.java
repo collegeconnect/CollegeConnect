@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder>{
+public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
     private ArrayList<String> options;
     String selection;
@@ -44,7 +44,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int images[] ={R.drawable.ic_brightness_24dp , R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
+    int images[] = {R.drawable.ic_brightness_24dp, R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -54,7 +54,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_card, parent, false);
         return new SettingsAdapter.ViewHolder(view);
     }
 
@@ -69,14 +69,14 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(position==0)
+                        if (position == 0)
                             dialog();
-                        else if(position==1)
+                        else if (position == 1)
                             dialogAttend();
                         else
-                        context.startActivity(new Intent(context,(Class) act_list.get(position)));
+                            context.startActivity(new Intent(context, (Class) act_list.get(position)));
                     }
-                },165);
+                }, 165);
 
             }
         });
@@ -96,11 +96,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveSharedPreference.setAttendanceCriteria(context,Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
+                SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
                 dialog.dismiss();
             }
         });
     }
+
     private void dialog() {
         final String theme[] = context.getResources().getStringArray(R.array.themes);
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
@@ -116,8 +117,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(selection==null) {
-                    checked_item=SaveSharedPreference.getCheckedItem(context);
+                if (selection == null) {
+                    checked_item = SaveSharedPreference.getCheckedItem(context);
                     selection = theme[checked_item];
 
                 }
@@ -132,7 +133,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         break;
                 }
-                SaveSharedPreference.setCheckedItem(context,checked_item);
+                SaveSharedPreference.setCheckedItem(context, checked_item);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -151,7 +152,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         return options.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textView;
         ImageView imageView;

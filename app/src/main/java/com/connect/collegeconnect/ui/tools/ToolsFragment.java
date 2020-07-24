@@ -22,15 +22,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
-    CardView cardView ,cardcovid, events;
+    CardView cardView, cardcovid, events;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_tools,null);
-        if(getActivity()!=null)
+        View view = inflater.inflate(R.layout.fragment_tools, null);
+        if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
@@ -42,7 +42,7 @@ public class ToolsFragment extends Fragment {
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragmentContainer,fragment)
+                        .replace(R.id.fragmentContainer, fragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -55,7 +55,7 @@ public class ToolsFragment extends Fragment {
 
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragmentContainer,fragment)
+                        .replace(R.id.fragmentContainer, fragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -70,11 +70,13 @@ public class ToolsFragment extends Fragment {
 
         return view;
     }
+
     @Override
     public void onStart() {
         super.onStart();
         bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
+
     @Override
     public void onResume() {
         super.onResume();

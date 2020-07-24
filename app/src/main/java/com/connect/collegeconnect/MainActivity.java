@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private TextInputLayout email, password;
     private Button register, login;
-    int RC_SIGN_IN = 1  ;
+    int RC_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
-    private static final String TAG= "MainActivity";
+    private static final String TAG = "MainActivity";
 
 
     @Override
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         final Intent i = new Intent(this, SignUp.class);
-        register=findViewById(R.id.button2);
+        register = findViewById(R.id.button2);
         email = findViewById(R.id.editText);
         login = findViewById(R.id.button);
         password = findViewById(R.id.editText2);
@@ -69,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         findViewById(R.id.googleSign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signinintent= mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signinintent,RC_SIGN_IN);
+                Intent signinintent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signinintent, RC_SIGN_IN);
             }
         });
         login.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         password.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE)
+                if (actionId == EditorInfo.IME_ACTION_DONE)
                     LogIn();
-                    return false;
+                return false;
             }
         });
 
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -125,16 +127,16 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
 
                             boolean newuser = task.getResult().getAdditionalUserInfo().isNewUser();
-                            if(newuser){
+                            if (newuser) {
 
-                                startActivity(new Intent(getApplicationContext(),StepTwoSignUp.class));
+                                startActivity(new Intent(getApplicationContext(), StepTwoSignUp.class));
 
-                            }else{
+                            } else {
 
                                 Log.d(TAG, "signInWithCredential:success");
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                                SaveSharedPreference.setUserName(getApplicationContext(),user.getEmail());
+                                SaveSharedPreference.setUserName(getApplicationContext(), user.getEmail());
                                 startActivity(new Intent(getApplicationContext(), navigation.class));
                             }
                             finish();
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             assert inputManager != null;
             inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
 
         }
         final ProgressBar progressBar = findViewById(R.id.MainProgressBar);
@@ -171,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
 
         final String Stremail = email.getEditText().getText().toString();
         String Strpass = password.getEditText().getText().toString();
-
 
 
         if (Stremail.isEmpty() && Strpass.isEmpty()) {
@@ -279,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        if (firebaseUser!=null) {
+        if (firebaseUser != null) {
             startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }
@@ -294,13 +295,13 @@ public class MainActivity extends AppCompatActivity {
             FirebaseAuth.getInstance().sendPasswordResetEmail(Stremail).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful())
-                        Toast.makeText(getApplicationContext(),"Password Reset Email sent. Check Inbox",Toast.LENGTH_LONG).show();
+                    if (task.isSuccessful())
+                        Toast.makeText(getApplicationContext(), "Password Reset Email sent. Check Inbox", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(),"Email not registered!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Email not registered!", Toast.LENGTH_LONG).show();
                 }
             });
     }

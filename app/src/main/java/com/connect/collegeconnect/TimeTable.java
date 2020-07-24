@@ -68,7 +68,7 @@ public class TimeTable extends AppCompatActivity {
         storageRef = storage.getReference();
         databaseReference = firebaseDatabase.getReference();
 //        progressBar.setVisibility(View.VISIBLE);
-        db= new DatabaseHelper(this);
+        db = new DatabaseHelper(this);
 
         //Load TimeTable
 //        storageRef.child(SaveSharedPreference.getUserName(getApplicationContext())+"/TimeTable/timetable.jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -89,11 +89,11 @@ public class TimeTable extends AppCompatActivity {
         byte[] image;
         Bitmap bit;
         //load from sqlite
-        Cursor res=db.viewAllImage();
-        if(res.getCount()==0)
-            Toast.makeText(getApplicationContext(),"No time table found",Toast.LENGTH_LONG).show();
-        else{
-            while(res.moveToNext()) {
+        Cursor res = db.viewAllImage();
+        if (res.getCount() == 0)
+            Toast.makeText(getApplicationContext(), "No time table found", Toast.LENGTH_LONG).show();
+        else {
+            while (res.moveToNext()) {
                 image = res.getBlob(1);
                 bit = getImage(image);
                 imageView.setImageBitmap(bit);
@@ -102,7 +102,6 @@ public class TimeTable extends AppCompatActivity {
 //                imageView.setMaxZoom(3);
             }
         }
-
 
 
 //        dot = SaveSharedPreference.getUserName(this).indexOf(".");
@@ -134,17 +133,15 @@ public class TimeTable extends AppCompatActivity {
 
     }
 
-    public void uploaddp()
-    {
-        if (ContextCompat.checkSelfPermission(TimeTable.this, Manifest.permission.READ_EXTERNAL_STORAGE )
+    public void uploaddp() {
+        if (ContextCompat.checkSelfPermission(TimeTable.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
 
             // Requesting the permission
             ActivityCompat.requestPermissions(TimeTable.this,
-                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     100);
-        }
-        else {
+        } else {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_PICK);
@@ -152,10 +149,11 @@ public class TimeTable extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             uploaddp();
 
         } else {
@@ -166,9 +164,8 @@ public class TimeTable extends AppCompatActivity {
         }
     }
 
-    private void uploadImage()
-    {
-        if (filePath!=null){
+    private void uploadImage() {
+        if (filePath != null) {
 
             progressBar.setVisibility(View.VISIBLE);
             StorageReference unique = storageRef.child(SaveSharedPreference.getUserName(this));
@@ -196,25 +193,26 @@ public class TimeTable extends AppCompatActivity {
             });
         }
     }
-    private void UploadImage(){
-        if(filePath!=null){
+
+    private void UploadImage() {
+        if (filePath != null) {
 //            progressBar.setVisibility(View.VISIBLE);
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 byte[] image = getBytes(bitmap);
                 boolean insert = db.insertImage(image);
-                if(insert)
-                    Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_LONG).show();
+                if (insert)
+                    Toast.makeText(getApplicationContext(), "Image uploaded", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(getApplicationContext(),"Image not uploaded",Toast.LENGTH_LONG).show();
-            }
-            catch (IOException e){
+                    Toast.makeText(getApplicationContext(), "Image not uploaded", Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
 
         }
     }
+
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
@@ -231,14 +229,14 @@ public class TimeTable extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         //Detects request codes
-        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK && data!=null && data.getData()!=null) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
             try {
                 Bitmap bitmap;
-                if(Build.VERSION.SDK_INT<28)
+                if (Build.VERSION.SDK_INT < 28)
                     bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 else
-                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(),filePath));
+                    bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getContentResolver(), filePath));
                 imageView.setImageBitmap(bitmap);
                 imageView.setRotateImageToFitScreen(true);
 //                UploadImage();
@@ -254,9 +252,10 @@ public class TimeTable extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

@@ -24,6 +24,7 @@ public class AboutActivity extends AppCompatActivity {
 
     private StringBuilder text = new StringBuilder();
     ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,11 @@ public class AboutActivity extends AppCompatActivity {
 
         TextView tv = findViewById(R.id.tvtitle);
         tv.setText("About");
-        imageView=findViewById(R.id.imageView13);
+        imageView = findViewById(R.id.imageView13);
         int nightModeFlags =
                 getResources().getConfiguration().uiMode &
                         Configuration.UI_MODE_NIGHT_MASK;
-        if(nightModeFlags==Configuration.UI_MODE_NIGHT_NO)
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
             imageView.setImageDrawable(getDrawable(R.drawable.cc2));
 
         BufferedReader reader = null;
@@ -68,13 +69,13 @@ public class AboutActivity extends AppCompatActivity {
 
             EditText output = findViewById(R.id.about_text);
             output.setText(text);
-            output.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+            output.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 return true;

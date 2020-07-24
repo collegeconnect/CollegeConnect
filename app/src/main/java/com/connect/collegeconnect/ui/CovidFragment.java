@@ -58,7 +58,7 @@ public class CovidFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_covid_fragemnt, container, false);
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
             fab = getActivity().findViewById(R.id.fab);
         }
@@ -109,11 +109,10 @@ public class CovidFragment extends Fragment {
             }
         }
 
-        if(hasConnect)
-        {
+        if (hasConnect) {
 
             // show the webview
-            webView.setWebViewClient(new WebViewClient(){
+            webView.setWebViewClient(new WebViewClient() {
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
@@ -132,23 +131,23 @@ public class CovidFragment extends Fragment {
                     progressBar.setVisibility(View.GONE);
                     textslow.setVisibility(View.GONE);
                 }
+
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                     Uri uri = request.getUrl();
-                    if(uri.toString().startsWith("intent://")) {
+                    if (uri.toString().startsWith("intent://")) {
                         Intent intent = null;
                         try {
-                            intent = Intent.parseUri(uri.toString(),Intent.URI_INTENT_SCHEME);
+                            intent = Intent.parseUri(uri.toString(), Intent.URI_INTENT_SCHEME);
                         } catch (URISyntaxException e) {
                             e.printStackTrace();
                         }
-                        if(intent!=null){
+                        if (intent != null) {
                             String fallbackurl = intent.getStringExtra("browser_fallback_url");
-                            if(fallbackurl!=null){
+                            if (fallbackurl != null) {
                                 webView.loadUrl(fallbackurl);
                                 return true;
-                            }
-                            else
+                            } else
                                 return false;
 
                         }
@@ -174,9 +173,7 @@ public class CovidFragment extends Fragment {
                     return false;
                 }
             });
-        }
-        else
-        {
+        } else {
             // do what ever you need when when no internet connection
             progressBar.setVisibility(View.GONE);
             webView.setVisibility(View.GONE);
@@ -186,10 +183,11 @@ public class CovidFragment extends Fragment {
 
         return view;
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         if (mAdView != null) {
             mAdView.resume();
         }
@@ -198,10 +196,11 @@ public class CovidFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         bottomNavigationView.setVisibility(View.VISIBLE);
         fab.setVisibility(View.VISIBLE);
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -209,6 +208,7 @@ public class CovidFragment extends Fragment {
         fab.setVisibility(View.INVISIBLE);
         bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
+
     @Override
     public void onPause() {
         if (mAdView != null) {

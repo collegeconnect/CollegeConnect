@@ -30,14 +30,12 @@ public class WorkProfile extends AppCompatActivity {
         loadFragments(workone);
     }
 
-    private boolean loadFragments(Fragment fragment)
-    {
-        if (fragment!=null)
-        {
+    private boolean loadFragments(Fragment fragment) {
+        if (fragment != null) {
             Log.d("WorkProfile", "loadFragments: Frag is loaded");
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.workprofilecontainer,fragment)
+                    .replace(R.id.workprofilecontainer, fragment)
                     .commit();
 
             return true;
