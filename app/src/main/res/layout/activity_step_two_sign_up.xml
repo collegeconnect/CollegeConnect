@@ -58,6 +58,7 @@
         android:id="@+id/textuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textColorHint="@color/colorwhite"
         app:boxStrokeColor="@color/colorwhite"
         app:hintTextColor="@color/colorwhite"
@@ -83,7 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.56" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -119,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6005472" />
+        app:layout_constraintGuide_percent="0.65" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
@@ -145,6 +146,7 @@
         android:id="@+id/stepTwoButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_design"
         android:text="@string/sign_up"
         android:textColor="@color/newBlue"
@@ -157,7 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71" />
+        app:layout_constraintGuide_begin="526dp" />
 
     <TextView
         android:id="@+id/textView13"
@@ -207,8 +209,11 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't see your college?\nContact us and be the first to\njoin your college to out network"
+        android:layout_marginBottom="8dp"
+        android:text="@string/contact_networkk"
         android:textAlignment="center"
+        android:clickable="true"
+        android:focusable="true"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"

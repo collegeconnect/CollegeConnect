@@ -70,12 +70,12 @@
         <activity
             android:name="com.connect.collegeconnect.DownloadNotes"
             android:label="DownloadNotes"
-            android:parentActivityName="com.connect.collegeconnect.navigation"
+            android:parentActivityName="com.connect.collegeconnect.Navigation"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.connect.collegeconnect.UploadNotes"
             android:label="Upload"
-            android:parentActivityName="com.connect.collegeconnect.navigation"
+            android:parentActivityName="com.connect.collegeconnect.Navigation"
             android:screenOrientation="portrait">
             <intent-filter
                 android:icon="@mipmap/icon_round"
@@ -93,10 +93,10 @@
             android:name="com.connect.collegeconnect.TimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName="com.connect.collegeconnect.navigation"
+            android:parentActivityName="com.connect.collegeconnect.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.connect.collegeconnect.navigation"
+            android:name="com.connect.collegeconnect.Navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
@@ -104,7 +104,7 @@
         <activity
             android:name="com.connect.collegeconnect.SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:parentActivityName="com.connect.collegeconnect.navigation"
+            android:parentActivityName="com.connect.collegeconnect.Navigation"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.connect.collegeconnect.Splash"

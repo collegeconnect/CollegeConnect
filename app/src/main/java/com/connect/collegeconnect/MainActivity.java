@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
                                 Toast.makeText(getApplicationContext(), user.getDisplayName(), Toast.LENGTH_SHORT).show();
                                 SaveSharedPreference.setUserName(getApplicationContext(), user.getEmail());
-                                startActivity(new Intent(getApplicationContext(), navigation.class));
+                                startActivity(new Intent(getApplicationContext(), Navigation.class));
                             }
                             finish();
 
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                             SaveSharedPreference.setUserName(MainActivity.this, Stremail);
-                            Intent intent = new Intent(MainActivity.this, navigation.class);
+                            Intent intent = new Intent(MainActivity.this, Navigation.class);
                             startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                             finish();
                         } else
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser != null) {
-            startActivity(new Intent(this, navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            startActivity(new Intent(this, Navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }
 

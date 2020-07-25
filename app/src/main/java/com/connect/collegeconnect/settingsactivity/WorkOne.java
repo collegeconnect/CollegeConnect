@@ -12,10 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
-import com.connect.collegeconnect.navigation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.MetadataChanges;
-import com.squareup.picasso.Picasso;
 
 
 public class WorkOne extends Fragment {
@@ -101,15 +98,20 @@ public class WorkOne extends Fragment {
         documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                assert documentSnapshot != null;
-                String strName = documentSnapshot.getString("name");
-                String strAboutMe = documentSnapshot.getString("aboutMe");
-                String strWebsite = documentSnapshot.getString("personalWebsite");
-                String strResume = documentSnapshot.getString("resumeLink");
-                name.setText(strName);
-                aboutMe.setText(strAboutMe);
-                personalWebsite.setText(strWebsite);
-                resumeLink.setText(strResume);
+                try {
+                    assert documentSnapshot != null;
+                    String strName = documentSnapshot.getString("name");
+                    String strAboutMe = documentSnapshot.getString("aboutMe");
+                    String strWebsite = documentSnapshot.getString("personalWebsite");
+                    String strResume = documentSnapshot.getString("resumeLink");
+                    name.setText(strName);
+                    aboutMe.setText(strAboutMe);
+                    personalWebsite.setText(strWebsite);
+                    resumeLink.setText(strResume);
+                }
+                catch(Exception ignored){
+
+                }
             }
         });
     }

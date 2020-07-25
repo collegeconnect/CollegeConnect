@@ -14,12 +14,12 @@ public class Notification {
 
     public static void displayNotificaton(Context mCtx, String title, String body) {
 
-        Intent intent = new Intent(mCtx, navigation.class);
+        Intent intent = new Intent(mCtx, Navigation.class);
         intent.putExtra("fragment", "attenfrag");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(mCtx, 100, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx, navigation.CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx, Navigation.CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_stat_call_white)
                 .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(), R.mipmap.icon_round))
                 .setContentTitle(title)

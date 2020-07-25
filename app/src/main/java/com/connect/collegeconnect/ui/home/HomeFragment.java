@@ -22,7 +22,7 @@ import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.DatabaseHelper;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
-import com.connect.collegeconnect.navigation;
+import com.connect.collegeconnect.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -224,35 +224,36 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDataFirestore() {
-        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                assert documentSnapshot != null;
-                String name = documentSnapshot.getString("Name");
-                String rollNo = documentSnapshot.getString("Rollno");
-                String strbranch = documentSnapshot.getString("Branch");
-                SaveSharedPreference.setUser(mcontext, name);
-                nameField.setText(SaveSharedPreference.getUser(mcontext));
-                enrollNo.setText(rollNo);
-                branch.setText(strbranch);
-                try {
-                    assert name != null;
-                    int space = name.indexOf(" ");
-                    int color = navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                } catch (Exception e) {
+            documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                    assert documentSnapshot != null;
+                    try {
+                        String name = documentSnapshot.getString("Name");
+                        String rollNo = documentSnapshot.getString("Rollno");
+                        String strbranch = documentSnapshot.getString("Branch");
+                        SaveSharedPreference.setUser(mcontext, name);
+                        nameField.setText(SaveSharedPreference.getUser(mcontext));
+                        enrollNo.setText(rollNo);
+                        branch.setText(strbranch);
 
+                        assert name != null;
+                        int space = name.indexOf(" ");
+                        int color = Navigation.generatecolor();
+                        drawable = TextDrawable.builder().beginConfig()
+                                .width(150)
+                                .height(150)
+                                .bold()
+                                .endConfig()
+                                .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                        prfileImage.setImageDrawable(drawable);
+                    } catch (Exception e) {
+                        Log.d("Home", "onEvent: "+ e.getMessage());
+                    }
+                    if (uri != null)
+                        Picasso.get().load(uri).into(prfileImage);
                 }
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-            }
-        });
+            });
     }
 
     private void loadData() {
@@ -271,7 +272,7 @@ public class HomeFragment extends Fragment {
                 branch.setText(college);
                 try {
                     int space = name.indexOf(" ");
-                    int color = navigation.generatecolor();
+                    int color = Navigation.generatecolor();
                     drawable = TextDrawable.builder().beginConfig()
                             .width(150)
                             .height(150)

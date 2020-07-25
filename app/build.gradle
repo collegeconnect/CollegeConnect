@@ -85,5 +85,7 @@ dependencies {
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
 //    implementation 'com.google.firebase:firebase-perf:19.0.7'
+    //leak Canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
 }

@@ -34,7 +34,7 @@ import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.datamodels.User;
-import com.connect.collegeconnect.navigation;
+import com.connect.collegeconnect.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -282,7 +282,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 try {
                     assert name != null;
                     int space = name.indexOf(" ");
-                    int color = navigation.generatecolor();
+                    int color = Navigation.generatecolor();
                     drawable = TextDrawable.builder().beginConfig()
                             .width(150)
                             .height(150)

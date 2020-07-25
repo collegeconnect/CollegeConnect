@@ -23,7 +23,7 @@ import com.connect.collegeconnect.MainActivity;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.adapters.SettingsAdapter;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
-import com.connect.collegeconnect.navigation;
+import com.connect.collegeconnect.Navigation;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,6 +31,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -77,7 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             try {
                 int space = name.indexOf(" ");
-                int color = navigation.generatecolor();
+                int color = Navigation.generatecolor();
                 drawable = TextDrawable.builder().beginConfig()
                         .width(150)
                         .height(150)
@@ -137,6 +138,7 @@ public class SettingsActivity extends AppCompatActivity {
                         // Write your code here to execute after dialog
 
                         FirebaseAuth.getInstance().signOut();
+                        FirebaseFirestore.getInstance().clearPersistence();
                         signOut();
                         Intent i = new Intent(SettingsActivity.this, MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
@@ -146,7 +148,6 @@ public class SettingsActivity extends AppCompatActivity {
                         if (file.exists())
                             file.delete();
                         SaveSharedPreference.clearUserName(SettingsActivity.this);
-
                         startActivity(i);
                         finish();
                     }

@@ -36,6 +36,7 @@ public class AttendanceFragment extends Fragment {
     private RecyclerView subjectRecycler;
     static SubjectAdapter subjectAdapter;
     TextView tv;
+    Context mCtx;
 
     public AttendanceFragment() {
         // Required empty public constructor
@@ -57,7 +58,7 @@ public class AttendanceFragment extends Fragment {
         subjectRecycler = view.findViewById(R.id.subjectRecyclerView);
         subjectRecycler.setHasFixedSize(true);
         subjectRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        subjectAdapter = new SubjectAdapter(subjectList, getContext());
+        subjectAdapter = new SubjectAdapter(subjectList, mCtx);
         subjectRecycler.setAdapter(subjectAdapter);
         loadData();
 
@@ -137,5 +138,17 @@ public class AttendanceFragment extends Fragment {
 
     public static void notifyChange() {
         subjectAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mCtx = context;
+    }
+
+    @Override
+    public void onDestroy() {
+        subjectRecycler.setAdapter(null);
+        super.onDestroy();
     }
 }

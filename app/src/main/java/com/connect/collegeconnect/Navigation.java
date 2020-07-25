@@ -40,7 +40,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Map;
 import java.util.Random;
 
-public class navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class Navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
@@ -110,7 +110,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
         //Set initials and dp
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null)
-            SaveSharedPreference.setUser(navigation.this, FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            SaveSharedPreference.setUser(Navigation.this, FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         else {
 
             String str = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -121,7 +121,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
 
                     Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                     String name = (String) map.get("Name");
-                    SaveSharedPreference.setUser(navigation.this, name);
+                    SaveSharedPreference.setUser(Navigation.this, name);
                 }
 
                 @Override
@@ -170,7 +170,7 @@ public class navigation extends AppCompatActivity implements BottomNavigationVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                startActivity(new Intent(navigation.this, SettingsActivity.class));
+                startActivity(new Intent(Navigation.this, SettingsActivity.class));
 //                Dialog();
                 return true;
 

@@ -37,7 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DownloadNotes extends AppCompatActivity {
+public class    DownloadNotes extends AppCompatActivity {
 
     public static final String EXTRA_COURSE = "course";
     public static final String EXTRA_BRANCH = "branch";
