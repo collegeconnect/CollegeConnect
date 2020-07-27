@@ -34,7 +34,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String[] recipients = {"bvp.connect@gmail.com"};
+                String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
@@ -56,7 +56,7 @@ public class ContactActivity extends AppCompatActivity {
                 String mesaage = textView.getText().toString();
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                String[] recipients = {"bvp.connect@gmail.com"};
+                String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
                 intent.putExtra(android.content.Intent.EXTRA_TEXT, mesaage);
                 final PackageManager pm = getPackageManager();

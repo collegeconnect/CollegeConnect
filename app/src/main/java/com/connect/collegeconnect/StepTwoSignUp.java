@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.datamodels.User;
@@ -42,6 +43,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button signup;
     private Spinner collegeSpinner;
+    private TextView contribute;
     private String receivedPRev;
 
     @Override
@@ -55,6 +57,7 @@ public class StepTwoSignUp extends AppCompatActivity {
         collegeName = findViewById(R.id.otherCollege);
         signup = findViewById(R.id.stepTwoButton);
         collegeSpinner = findViewById(R.id.collegeSpinner);
+        contribute = findViewById(R.id.textView21);
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Other");
@@ -81,6 +84,15 @@ public class StepTwoSignUp extends AppCompatActivity {
         final String receivedEmail = intent.getStringExtra(EXTRA_EMAIL);
         final String receivedPassword = intent.getStringExtra(EXTRA_PASSWORD);
         receivedPRev = intent.getStringExtra(EXTRA_PREV);
+
+        contribute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StepTwoSignUp.this, ContributeActivity.class);
+                intent.putExtra("Name",receivedName);
+                startActivity(intent);
+            }
+        });
 
         collegeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -166,4 +166,14 @@
         android:background="@drawable/buttonlayout2"
         android:entries="@array/Unit" />
 
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewnotes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="This feature is currently available for B.Tech course only.\nMore courses will be added soon.\nStay Tuned!"
+        android:textAlignment="center" />
+
 </RelativeLayout>

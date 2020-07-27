@@ -101,5 +101,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-    <string name="contact_networkk">Don\'t see your college?\n<u>Contact us</u> and be the first to\njoin your college to out network</string>
+    <string name="contact_networkk"><u>Don\'t see your college?\nContact us and be the first to\njoin your college to out network</u></string>
 </resources>

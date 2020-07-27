@@ -146,13 +146,13 @@
         android:id="@+id/stepTwoButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/button_design"
         android:text="@string/sign_up"
         android:textColor="@color/newBlue"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+        app:layout_constraintTop_toBottomOf="@id/textuser" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"

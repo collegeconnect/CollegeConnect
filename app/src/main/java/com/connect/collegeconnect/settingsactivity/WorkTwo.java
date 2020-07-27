@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.connect.collegeconnect.R;
@@ -41,6 +44,8 @@ public class WorkTwo extends Fragment {
     private ImageButton upload;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference documentReference;
+    private LinearLayout blurrScreen;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,6 +62,8 @@ public class WorkTwo extends Fragment {
         behance = view.findViewById(R.id.enterWorkBehance);
         medium = view.findViewById(R.id.enterWorkMedium);
         upload = view.findViewById(R.id.button4);
+        blurrScreen = view.findViewById(R.id.work_blurr);
+        progressBar = view.findViewById(R.id.workProgressBar);
 
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -83,6 +90,9 @@ public class WorkTwo extends Fragment {
             @Override
             public void onClick(View v) {
 
+                getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                blurrScreen.setVisibility(View.VISIBLE);
                 final String strlinkedIn = linkedIn.getText().toString();
                 final String strGitHub = github.getText().toString();
                 final String strBehance = behance.getText().toString();
@@ -96,6 +106,8 @@ public class WorkTwo extends Fragment {
                     public void onSuccess(Void aVoid) {
                         Log.d("Resume", "onSuccess: Resume Uploaded");
                         Toast.makeText(getContext(), "Resume Uploaded Successfully!", Toast.LENGTH_SHORT).show();
+                        blurrScreen.setVisibility(View.GONE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         getActivity().startActivity(new Intent(getContext(),SettingsActivity.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -103,6 +115,8 @@ public class WorkTwo extends Fragment {
                     public void onFailure(@NonNull Exception e) {
                         Log.d("Resume", "onFailure: Resume failed :"+e.getMessage());
                         Toast.makeText(getContext(), "An error occurred. Please try later!", Toast.LENGTH_SHORT).show();
+                        blurrScreen.setVisibility(View.GONE);
+                        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 });
 
@@ -126,15 +140,20 @@ public class WorkTwo extends Fragment {
         documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                assert documentSnapshot != null;
-                String strLinkedIn = documentSnapshot.getString("linkedIn");
-                String strGitHub = documentSnapshot.getString("github");
-                String strBehance = documentSnapshot.getString("behance");
-                String strMedium = documentSnapshot.getString("medium");
-                linkedIn.setText(strLinkedIn);
-                github.setText(strGitHub);
-                behance.setText(strBehance);
-                medium.setText(strMedium);
+                try {
+                    assert documentSnapshot != null;
+                    String strLinkedIn = documentSnapshot.getString("linkedIn");
+                    String strGitHub = documentSnapshot.getString("github");
+                    String strBehance = documentSnapshot.getString("behance");
+                    String strMedium = documentSnapshot.getString("medium");
+                    linkedIn.setText(strLinkedIn);
+                    github.setText(strGitHub);
+                    behance.setText(strBehance);
+                    medium.setText(strMedium);
+                }
+                catch (Exception e){
+                    Log.d("WorkTwo", "onEvent: "+e.getMessage());
+                }
             }
         });
     }
