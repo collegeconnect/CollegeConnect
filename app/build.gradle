@@ -29,18 +29,26 @@ android {
 //            storeFile rootProject.file("keystore/collegeconnect-keystore.jks")
 //            storePassword keystoreProperties['storePassword']
 //        }
+        debug{
+            keyAlias 'ccdebug'
+            keyPassword 'ccdebug'
+            storeFile rootProject.file("keystore/debug.keystore")
+            storePassword 'ccdebug'
+        }
 
     }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            versionNameSuffix '-debug-version'
+        }
         release {
 //            signingConfig signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled false
-            versionNameSuffix '-debug-version'
-        }
+
     }
 }
 
