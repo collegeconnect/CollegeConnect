@@ -45,9 +45,9 @@ public class    DownloadNotes extends AppCompatActivity {
     public static final String EXTRA_UNIT = "unit";
     public static ArrayList<Upload> uploadList;
     static DatabaseReference mDatabaseReference;
-    private RecyclerView recyclerView;
+    public RecyclerView recyclerView;
     NotesAdapter notesAdapter;
-    private AdView mAdView;
+    public AdView mAdView;
     TextView tv;
 
 

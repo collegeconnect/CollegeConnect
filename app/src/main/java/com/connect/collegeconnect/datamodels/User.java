@@ -22,7 +22,7 @@ public class User {
     public String College;
     public static FirebaseFirestore firebaseFirestore;
     public static FirebaseDatabase firebaseDatabase;
-   public static FirebaseAuth auth;
+     public static FirebaseAuth auth;
 
     public User() {
         Rollno = null;
