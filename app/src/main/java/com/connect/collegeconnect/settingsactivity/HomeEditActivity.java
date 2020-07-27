@@ -268,6 +268,7 @@ public class HomeEditActivity extends AppCompatActivity {
         documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                try{
                 assert documentSnapshot != null;
                 String name = documentSnapshot.getString("Name");
                 String rollNo = documentSnapshot.getString("Rollno");
@@ -279,7 +280,6 @@ public class HomeEditActivity extends AppCompatActivity {
                 college.setText(strCollege);
                 HomeEditActivity.this.branch.setText(branch);
 
-                try {
                     assert name != null;
                     int space = name.indexOf(" ");
                     int color = Navigation.generatecolor();

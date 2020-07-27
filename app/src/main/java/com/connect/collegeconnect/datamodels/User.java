@@ -20,9 +20,9 @@ public class User {
     public String Password;
     public String Branch;
     public String College;
-    private static FirebaseFirestore firebaseFirestore;
-    private static FirebaseDatabase firebaseDatabase;
-    private static FirebaseAuth auth;
+    public static FirebaseFirestore firebaseFirestore;
+    public static FirebaseDatabase firebaseDatabase;
+   public static FirebaseAuth auth;
 
     public User() {
         Rollno = null;

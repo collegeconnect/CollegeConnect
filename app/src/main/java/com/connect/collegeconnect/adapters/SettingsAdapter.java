@@ -96,7 +96,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
+                if(!placeholder.getEditText().getText().toString().equals(""))
+                    SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
                 dialog.dismiss();
             }
         });
