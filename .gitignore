@@ -17,3 +17,4 @@
 app/release/output.json
 keystore.properties
 keystore/collegeconnect-keystore.jks
+app/release/output-metadata.json

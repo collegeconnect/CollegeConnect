@@ -139,7 +139,16 @@ public class SaveSharedPreference {
     //Clear data on logout
     public static void clearUserName(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.clear(); //clear all stored data
+        editor.remove(PREF_USER_NAME);
+        editor.remove(USER);
+        editor.remove(CHECKED_ITEM);
+        editor.remove(COURSE);
+        editor.remove(BRANCH);
+        editor.remove(SEMESTER);
+        editor.remove(CLEARALL1);
+        editor.remove(CLEARALL);
+        editor.remove(UNIT);
+        editor.remove(ATTENDANCE_CRITERIA);
         editor.apply();
     }
 
