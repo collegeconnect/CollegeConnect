@@ -2,6 +2,7 @@ package com.connect.collegeconnect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.datamodels.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +30,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class StepTwoSignUp extends AppCompatActivity {
@@ -89,7 +92,7 @@ public class StepTwoSignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StepTwoSignUp.this, ContributeActivity.class);
-                intent.putExtra("Name",receivedName);
+                intent.putExtra("Name", receivedName);
                 startActivity(intent);
             }
         });
@@ -122,62 +125,62 @@ public class StepTwoSignUp extends AppCompatActivity {
                 final String roll = rollno.getEditText().getText().toString();
                 final String branch = branchanme.getEditText().getText().toString();
 
-                if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
-                    if (collegeName.getEditText().getText().toString().isEmpty())
+                if (roll.isEmpty() && branch.isEmpty()) {
+                    rollno.setError("Enter Roll Number");
+                    branchanme.setError("Enter Branch Name");
+                } else if (branch.isEmpty()) {
+                    branchanme.setError("Enter Branch Name");
+                } else if (roll.isEmpty()) {
+                    rollno.setError("Enter Roll Number");
+                } else {
+
+                    if (collegeSpinner.getSelectedItem().toString().equals("Other") && collegeName.getEditText().getText().toString().isEmpty())
                         collegeName.setError("Enter College Name");
                     else {
-                        if (roll.isEmpty() && branch.isEmpty()) {
-                            rollno.setError("Enter Roll Number");
-                            branchanme.setError("Enter Branch Name");
-                        } else if (branch.isEmpty()) {
-                            branchanme.setError("Enter Branch Name");
-                        } else if (roll.isEmpty()) {
-                            rollno.setError("Enter Roll Number");
-                        } else {
 
-                            databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers");
-                            databaseReference.setValue(collegeSpinner.getSelectedItem().toString());
-                            String college;
-                            if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
-                                college = collegeName.getEditText().getText().toString();
-                            } else
-                                college = collegeSpinner.getSelectedItem().toString();
+                        databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers");
+                        databaseReference.setValue(collegeSpinner.getSelectedItem().toString());
+                        String college;
+                        if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
+                            college = collegeName.getEditText().getText().toString();
+                        } else
+                            college = collegeSpinner.getSelectedItem().toString();
 
-                            if (receivedPRev == null) {//google
+                        if (receivedPRev == null) {//google
 
-                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, branch, college);
-                                SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
-                                startActivity(new Intent(getApplicationContext(), Navigation.class));
-                                finish();
-                            } else {//email
+                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, branch, college);
+                            SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
+                            startActivity(new Intent(getApplicationContext(), Navigation.class));
+                            finish();
+                        } else {//email
 
-                                User.addUser(roll, receivedEmail, receivedName, receivedPassword, branch, college);
-                                mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            // Sign in success, update UI with the signed-in user's information
-                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful())
-                                                        Toast.makeText(StepTwoSignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
-                                                    else
-                                                        Toast.makeText(StepTwoSignUp.this, task.getException().getMessage(),
-                                                                Toast.LENGTH_SHORT);
-                                                }
-                                            });
-                                            Log.d(TAG, "createUserWithEmail:success");
-                                            Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
-                                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                            finish();
-                                        }
+                            User.addUser(roll, receivedEmail, receivedName, receivedPassword, branch, college);
+                            mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful())
+                                                    Toast.makeText(StepTwoSignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
+                                                else
+                                                    Toast.makeText(StepTwoSignUp.this, task.getException().getMessage(),
+                                                            Toast.LENGTH_SHORT);
+                                            }
+                                        });
+                                        Log.d(TAG, "createUserWithEmail:success");
+                                        Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                        finish();
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
                     }
                 }
+
 
                 collegeName.getEditText().addTextChangedListener(new TextWatcher() {
                     @Override
