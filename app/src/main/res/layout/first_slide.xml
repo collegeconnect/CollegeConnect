@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Manage your attendance easily. \n Don't let it fall below 75% criteria."
+        android:text="Manage your attendance easily. \nSet your minimum attendance criteria and\ntry to stay above it."
         android:textColor="@color/newBlue"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView16"

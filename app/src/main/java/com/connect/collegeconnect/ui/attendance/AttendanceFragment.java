@@ -145,10 +145,4 @@ public class AttendanceFragment extends Fragment {
         super.onAttach(context);
         mCtx = context;
     }
-
-    @Override
-    public void onDestroy() {
-        subjectRecycler.setAdapter(null);
-        super.onDestroy();
-    }
 }

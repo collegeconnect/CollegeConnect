@@ -64,7 +64,7 @@ public class StepTwoSignUp extends AppCompatActivity {
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Other");
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(StepTwoSignUp.this, android.R.layout.simple_spinner_item, arrayList);
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(StepTwoSignUp.this, android.R.layout.simple_spinner_item, arrayList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         collegeSpinner.setAdapter(spinnerArrayAdapter);
 
@@ -74,6 +74,7 @@ public class StepTwoSignUp extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList2 = (ArrayList<String>) dataSnapshot.getValue();
                 arrayList.addAll(arrayList2);
+                spinnerArrayAdapter.notifyDataSetChanged();
             }
 
             @Override
