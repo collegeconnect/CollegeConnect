@@ -148,7 +148,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 String enroll = enrollNo.getText().toString();
                 String branch = HomeEditActivity.this.branch.getText().toString();
                 String strCollege = college.getText().toString();
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, null, branch, strCollege);
+                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege);
                 finish();
             }
         });
@@ -271,10 +271,10 @@ public class HomeEditActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 try{
                 assert documentSnapshot != null;
-                String name = documentSnapshot.getString("Name");
-                String rollNo = documentSnapshot.getString("Rollno");
-                String branch = documentSnapshot.getString("Branch");
-                String strCollege = documentSnapshot.getString("College");
+                String name = documentSnapshot.getString("name");
+                String rollNo = documentSnapshot.getString("rollno");
+                String branch = documentSnapshot.getString("branch");
+                String strCollege = documentSnapshot.getString("college");
                 SaveSharedPreference.setUser(getApplicationContext(), name);
                 nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
                 enrollNo.setText(rollNo);

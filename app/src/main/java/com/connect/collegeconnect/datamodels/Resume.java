@@ -12,6 +12,42 @@ public class Resume {
     public String behance;
     public String medium;
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAboutMe() {
+        return aboutMe;
+    }
+
+    public String getPersonalWebsite() {
+        return personalWebsite;
+    }
+
+    public String getResumeLink() {
+        return resumeLink;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public String getBehance() {
+        return behance;
+    }
+
+    public String getMedium() {
+        return medium;
+    }
+
     public Resume(){
 
     }

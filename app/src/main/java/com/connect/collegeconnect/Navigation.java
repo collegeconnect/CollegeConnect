@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -117,23 +118,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         if (FirebaseAuth.getInstance().getCurrentUser().getDisplayName() != null)
             SaveSharedPreference.setUser(Navigation.this, FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         else {
-
-            String str = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            databaseReference = firebaseDatabase.getReference("users/" + str);
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                    String name = (String) map.get("Name");
-                    SaveSharedPreference.setUser(Navigation.this, name);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
+            String name = SaveSharedPreference.getUser(Navigation.this);
         }
         Random random = new Random();
         color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
@@ -153,7 +138,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-
+        Toast.makeText(Navigation.this, SaveSharedPreference.getUser(Navigation.this), Toast.LENGTH_SHORT).show();
         loadFragments(homefrag);
 
     }
@@ -197,13 +182,13 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         startActivity(intent1);
     }
 
-    public void feedbackPop(){
+    public void feedbackPop() {
         builder.setTitle("Feedback");
         builder.setMessage("Consider taking a one minute feedback?");
         builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Navigation.this,FeedbackActivity.class));
+                startActivity(new Intent(Navigation.this, FeedbackActivity.class));
             }
         });
         builder.setNegativeButton("Exit", (dialog, which) -> onDestroy());
@@ -235,17 +220,13 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            if (SaveSharedPreference.getPop(this) % 10 == 0){
+            if (SaveSharedPreference.getPop(this) % 10 == 0) {
                 feedbackPop();
-            }
-            else
+            } else
                 finish();
-        }
-
-        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        }
-        else
+        } else
             super.onBackPressed();
     }
 
@@ -265,7 +246,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
     @Override
     protected void onDestroy() {
-        SaveSharedPreference.setPop(this,SaveSharedPreference.getPop(this)+1);
+        SaveSharedPreference.setPop(this, SaveSharedPreference.getPop(this) + 1);
         super.onDestroy();
     }
 }

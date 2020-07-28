@@ -59,8 +59,6 @@ public class WorkOne extends Fragment {
         firebaseFirestore.setFirestoreSettings(settings);
         setValuesFirestore();
 
-        name.setText(SaveSharedPreference.getUser(getActivity()));
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,11 +98,10 @@ public class WorkOne extends Fragment {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 try {
                     assert documentSnapshot != null;
-                    String strName = documentSnapshot.getString("name");
                     String strAboutMe = documentSnapshot.getString("aboutMe");
                     String strWebsite = documentSnapshot.getString("personalWebsite");
                     String strResume = documentSnapshot.getString("resumeLink");
-                    name.setText(strName);
+                    name.setText(SaveSharedPreference.getUser(getActivity()));
                     aboutMe.setText(strAboutMe);
                     personalWebsite.setText(strWebsite);
                     resumeLink.setText(strResume);

@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:ems="15"
-            style="@style/MyEditTextTheme"
             android:hint="FULL NAME"
             android:inputType="textCapWords"
             android:textColor="@color/colorwhite" />

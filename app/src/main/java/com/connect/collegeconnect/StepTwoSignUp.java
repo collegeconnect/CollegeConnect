@@ -144,8 +144,8 @@ public class StepTwoSignUp extends AppCompatActivity {
                         if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
                             college = collegeName.getEditText().getText().toString();
                             try {
-                                databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers").child(String.valueOf(System.currentTimeMillis()));
-                                databaseReference.setValue(collegeName.getEditText().getText().toString());
+                                databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers");
+                                databaseReference.child(String.valueOf(System.currentTimeMillis())).setValue(collegeName.getEditText().getText().toString());
                             }
                             catch (Exception e){
                                 Log.d(TAG, "onClick: "+e.getMessage());
@@ -155,35 +155,17 @@ public class StepTwoSignUp extends AppCompatActivity {
 
                         if (receivedPRev == null) {//google
 
-                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), null, branch, college);
+                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), branch, college);
                             SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                             startActivity(new Intent(getApplicationContext(), Navigation.class));
                             finish();
                         } else {//email
-
-                            User.addUser(roll, receivedEmail, receivedName, receivedPassword, branch, college);
-                            mAuth.createUserWithEmailAndPassword(receivedEmail, receivedPassword).addOnCompleteListener(StepTwoSignUp.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful())
-                                                    Toast.makeText(StepTwoSignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
-                                                else
-                                                    Toast.makeText(StepTwoSignUp.this, task.getException().getMessage(),
-                                                            Toast.LENGTH_SHORT);
-                                            }
-                                        });
-                                        Log.d(TAG, "createUserWithEmail:success");
-                                        Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
-                                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                        finish();
-                                    }
-                                }
-                            });
+                            SaveSharedPreference.setUploaded(StepTwoSignUp.this, true);
+                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
+                            Log.d(TAG, "Details Uploaded!");
+                            Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
                         }
                     }
                 }

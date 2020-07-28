@@ -229,9 +229,9 @@ public class HomeFragment extends Fragment {
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                     assert documentSnapshot != null;
                     try {
-                        String name = documentSnapshot.getString("Name");
-                        String rollNo = documentSnapshot.getString("Rollno");
-                        String strbranch = documentSnapshot.getString("Branch");
+                        String name = documentSnapshot.getString("name");
+                        String rollNo = documentSnapshot.getString("rollno");
+                        String strbranch = documentSnapshot.getString("branch");
                         SaveSharedPreference.setUser(mcontext, name);
                         nameField.setText(SaveSharedPreference.getUser(mcontext));
                         enrollNo.setText(rollNo);

@@ -18,9 +18,17 @@ public class SaveSharedPreference {
     private static final String REF = "com.connect.collegeconnect.MyPref";
     private static final String ATTENDANCE_CRITERIA = "attendance_criteria";
     private static final String POP = "pop";
+    private static final String DETAILS_UPLOADED = "uploaded";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
+    }
+
+    // To store upload status
+    public static void setUploaded(Context ctx, Boolean var) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(DETAILS_UPLOADED, var);
+        editor.apply();
     }
 
     // To store email
@@ -141,6 +149,11 @@ public class SaveSharedPreference {
     public static boolean getRef(Context ctx) {
         return getSharedPreferences(ctx).getBoolean(REF, false);
     }
+
+    public static boolean getUpload(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(DETAILS_UPLOADED, false);
+    }
+
     public static int getPop(Context ctx){
         return getSharedPreferences(ctx).getInt(POP, 1);
     }

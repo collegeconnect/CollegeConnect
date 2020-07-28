@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(Stremail, Strpass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                     if (!task.isSuccessful()) {
 
                         firebaseAuth.fetchSignInMethodsForEmail(Stremail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -215,10 +216,19 @@ public class MainActivity extends AppCompatActivity {
 
                     } else {
                         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
-                            SaveSharedPreference.setUserName(MainActivity.this, Stremail);
-                            Intent intent = new Intent(MainActivity.this, Navigation.class);
-                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                            finish();
+
+                            if (SaveSharedPreference.getUpload(MainActivity.this)){
+                                startActivity(new Intent(MainActivity.this,Navigation.class));
+                                finish();
+                            }
+                            else {
+                                //Set email
+                                SaveSharedPreference.setUserName(MainActivity.this, Stremail);
+                                Intent intent = new Intent(MainActivity.this, StepTwoSignUp.class);
+                                intent.putExtra(StepTwoSignUp.EXTRA_PREV, "MainActivity");
+                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                finish();
+                            }
                         } else
                             Toast.makeText(MainActivity.this, "Email Not Verified! Please verify before continuing", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
@@ -280,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-        if (firebaseUser != null) {
+        if (firebaseUser != null && firebaseUser.isEmailVerified()) {
             startActivity(new Intent(this, Navigation.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }

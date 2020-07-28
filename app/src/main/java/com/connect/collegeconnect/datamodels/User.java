@@ -14,43 +14,60 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class User {
 
-    public String Rollno;
-    public String Email;
-    public String Name;
-    public String Password;
-    public String Branch;
-    public String College;
+    public String rollno;
+    public String email;
+    public String name;
+    public String branch;
+    public String college;
     public static FirebaseFirestore firebaseFirestore;
     public static FirebaseDatabase firebaseDatabase;
      public static FirebaseAuth auth;
 
+    public String getRollno() {
+        return rollno;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
     public User() {
-        Rollno = null;
-        Email = null;
-        Name = null;
-        Password = null;
-        Branch = null;
+        rollno = null;
+        email = null;
+        name = null;
+        branch = null;
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String rollNo, String email, String name, String password, String branch, String college) {
-        this.Rollno = rollNo;
-        this.Email = email;
-        this.Name = name;
-        this.Password = password;
-        this.Branch = branch;
-        this.College = college;
+    public User(String rollNo, String email, String name, String branch, String college) {
+        this.rollno = rollNo;
+        this.email = email;
+        this.name = name;
+        this.branch = branch;
+        this.college = college;
     }
 
-    public static boolean addUser(String username, String email, String name, String password, String branch, String college) {
-        User user = new User(username, email, name, password, branch, college);
+    public static boolean addUser(String username, String email, String name, String branch, String college) {
+        User user = new User(username, email, name, branch, college);
 
         //Get user id
         firebaseFirestore = FirebaseFirestore.getInstance();
-//
         auth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = auth.getCurrentUser();
         assert firebaseUser != null;
+
         CollectionReference collectionReference = firebaseFirestore.collection("users");
         collectionReference.document(firebaseUser.getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

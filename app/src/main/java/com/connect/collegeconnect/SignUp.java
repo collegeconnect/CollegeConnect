@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
@@ -24,9 +27,11 @@ import java.util.regex.Pattern;
 
 public class SignUp extends AppCompatActivity {
 
+    private static final String TAG = "Step 1/2";
     private TextInputLayout password, name, email;
     private Button button;
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +75,38 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
                                 boolean b = !task.getResult().getSignInMethods().isEmpty();
                                 if (b) {
-                                    Toast.makeText(getApplicationContext(), "Email already Exist!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Email already Exist! or Verify your email if already registered!", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    SaveSharedPreference.setUser(SignUp.this, Strname);
+                                    mAuth.createUserWithEmailAndPassword(Stremail, Strpassword).addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
 
-                                    Intent intent = new Intent(SignUp.this, StepTwoSignUp.class);
-                                    intent.putExtra(StepTwoSignUp.EXTRA_NAME, Strname);
-                                    intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
-                                    intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
-                                    //To indicate the user is signing up using email
-                                    intent.putExtra(StepTwoSignUp.EXTRA_PREV, "SignUp");
-                                    startActivity(intent);
+                                                mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(SignUp.this, "Registered! Email Verification sent", Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(SignUp.this, Strname, Toast.LENGTH_SHORT).show();
+                                                        } else
+                                                            Toast.makeText(SignUp.this, task.getException().getMessage(),
+                                                                    Toast.LENGTH_SHORT);
+                                                    }
+                                                });
+                                                Log.d(TAG, "createUserWithEmail:success");
+                                                Intent intent = new Intent(SignUp.this, MainActivity.class);
+//                                                intent.putExtra(StepTwoSignUp.EXTRA_NAME, Strname);
+//                                                intent.putExtra(StepTwoSignUp.EXTRA_EMAIL, Stremail);
+//                                                intent.putExtra(StepTwoSignUp.EXTRA_PASSWORD, Strpassword);
+                                                //To indicate the user is signing up using email
+
+                                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                                finish();
+                                            }
+                                        }
+                                    });
                                 }
-
                             }
                         });
                     } else
