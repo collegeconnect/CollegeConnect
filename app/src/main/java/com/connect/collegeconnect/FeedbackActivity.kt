@@ -1,11 +1,18 @@
 package com.connect.collegeconnect
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
 import com.connect.collegeconnect.datamodels.Feedback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.hsalf.smileyrating.SmileyRating
 import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -13,28 +20,48 @@ import kotlinx.android.synthetic.main.toolbar_main.*
 
 class FeedbackActivity : AppCompatActivity(){
 
-    var smile = 0
     private lateinit var mood:String
+    lateinit var databaseReference: DatabaseReference
+    lateinit var firebaseAuth: FirebaseAuth
+    lateinit var alertDialog:AlertDialog.Builder
+   var email:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feedback)
-
+        firebaseAuth = FirebaseAuth.getInstance()
+        val uid = firebaseAuth.currentUser?.uid.toString()
+        databaseReference = FirebaseDatabase.getInstance().getReference("Feedback").child(uid)
+        email = firebaseAuth.currentUser?.email.toString()
         val toolbar = findViewById<Toolbar>(R.id.toolbarcom)
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar.setHomeButtonEnabled(true)
         tvtitle.text = "Feedback"
-        val alertDialog = MaterialAlertDialogBuilder(this)
+
+        alertDialog = MaterialAlertDialogBuilder(this)
         alertDialog.setTitle("Thank you")
                 .setMessage("Rate us on Playstore?")
 
         alertDialog.setPositiveButton("Sure") { dialog, which ->
-//            startActivity(Intent())
+            val uri = Uri.parse("market://details?id=" + this.packageName)
+            val goToMarket = Intent(Intent.ACTION_VIEW, uri).apply {
+              addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                        Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                        Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+            }
+            try {
+                startActivity(goToMarket)
+            } catch (e: ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)))
+            }
         }.setNegativeButton("Later") { dialog, which ->
             finish()
+            Navigation.act.finish()
             dialog.dismiss()
         }
+
         ansProblem.editText?.doAfterTextChanged { ansProblem.error = null }
         ansFeature.editText?.doAfterTextChanged { ansFeature.error = null }
         ansNoFeature.editText?.doAfterTextChanged { ansNoFeature.error = null }
@@ -77,7 +104,16 @@ class FeedbackActivity : AppCompatActivity(){
         }
     }
     private fun submit(){
-    val feedback =  Feedback(mood, ansProblem.editText?.text.toString(), solveAns.progress, ansNoFeature.editText?.text.toString(), indicatorSeekBar.progress, ansConfused.editText?.text.toString(), ansFeature.editText?.text.toString() )
-
+        val feedback =  Feedback(email,
+                mood,
+                ansProblem.editText?.text.toString(),
+                solveAns.progress,
+                ansNoFeature.editText?.text.toString(),
+                indicatorSeekBar.progress,
+                ansConfused.editText?.text.toString(),
+                ansFeature.editText?.text.toString())
+        databaseReference.setValue(feedback)
+        val dialog = alertDialog.create()
+        dialog.show()
     }
 }

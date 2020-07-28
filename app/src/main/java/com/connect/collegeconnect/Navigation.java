@@ -1,5 +1,6 @@
 package com.connect.collegeconnect;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -55,6 +56,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     private static String CHANNEL_NAME = "Notification Channel";
     private static String CHANNEL_DESC = "app notification";
     AlertDialog.Builder builder;
+    public static Activity act;
 
 
     @Override
@@ -107,6 +109,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
             loadFragments(new AttendanceFragment());
         }
         builder = new MaterialAlertDialogBuilder(this);
+        act = this;
 
         SaveSharedPreference.setUserName(this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -203,7 +206,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
                 startActivity(new Intent(Navigation.this,FeedbackActivity.class));
             }
         });
-        builder.setNegativeButton("Exit", (dialog, which) -> finish());
+        builder.setNegativeButton("Exit", (dialog, which) -> onDestroy());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
@@ -232,7 +235,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            if (SaveSharedPreference.getPop(this) == 1){
+            if (SaveSharedPreference.getPop(this) % 10 == 0){
                 feedbackPop();
             }
             else
@@ -262,7 +265,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
     @Override
     protected void onDestroy() {
-//        SaveSharedPreference.setPop(this,SaveSharedPreference.getPop(this)+1);
+        SaveSharedPreference.setPop(this,SaveSharedPreference.getPop(this)+1);
         super.onDestroy();
     }
 }
