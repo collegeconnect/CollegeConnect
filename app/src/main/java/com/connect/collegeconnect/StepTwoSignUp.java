@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -161,11 +163,29 @@ public class StepTwoSignUp extends AppCompatActivity {
                             finish();
                         } else {//email
                             SaveSharedPreference.setUploaded(StepTwoSignUp.this, true);
-                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
-                            Log.d(TAG, "Details Uploaded!");
-                            Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
-                            startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                            finish();
+                            if(SaveSharedPreference.getUser(StepTwoSignUp.this).equals("")){
+                                FirebaseFirestore.getInstance().collection("users").document(mAuth.getCurrentUser().getUid())
+                                        .addSnapshotListener((documentSnapshot, error) -> {
+                                            try {
+                                                assert documentSnapshot != null;
+                                                String name = documentSnapshot.getString("name");
+                                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
+                                                Log.d(TAG, "Details Uploaded!");
+                                                SaveSharedPreference.setUser(StepTwoSignUp.this, name);
+                                                Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                                finish();
+                                            }
+                                            catch(Exception ignored){}
+                                        });
+                            }
+                            else {
+                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
+                                Log.d(TAG, "Details Uploaded!");
+                                Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                finish();
+                            }
                         }
                     }
                 }

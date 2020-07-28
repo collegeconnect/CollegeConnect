@@ -14,6 +14,7 @@
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:textColorHint="@color/colorwhite"
         app:boxStrokeColor="@drawable/text_box_signup"
+        app:hintTextColor="@color/colorwhite"
         app:layout_constraintBottom_toTopOf="@id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline5">
@@ -21,9 +22,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="15"
-            android:hint="FULL NAME"
+            android:textCursorDrawable="@null"
+            style="@style/MyEditTextTheme"
+            android:hint="Full Name"
             android:inputType="textCapWords"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -42,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@drawable/text_box_signup"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
@@ -52,7 +55,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:textCursorDrawable="@null"
             android:ems="15"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
@@ -119,6 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColorHint="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
         app:boxStrokeColor="@drawable/text_box_signup"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -129,10 +133,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="15"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:textCursorDrawable="@null"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
 

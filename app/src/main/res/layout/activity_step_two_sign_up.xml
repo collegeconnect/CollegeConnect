@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/newBlue"
-    tools:context="com.connect.collegeconnect.SignUp">
+    tools:context="com.connect.collegeconnect.StepTwoSignUp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/otherCollege"
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:textColorHint="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
         android:visibility="gone"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@drawable/text_box_signup"
@@ -25,9 +26,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="15"
-            android:hint="COLLEGE NAME"
+            android:textCursorDrawable="@null"
+            android:hint="College Name"
             android:inputType="textCapCharacters"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:textColorHint="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
         app:boxStrokeColor="@drawable/text_box_signup"
         app:layout_constraintBottom_toTopOf="@id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -47,9 +49,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="15"
-            android:hint="BRANCH"
+            android:hint="Branch"
+            android:textCursorDrawable="@null"
             android:inputType="textCapCharacters"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +66,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="0.5"
+        app:hintTextColor="@color/colorwhite"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline6">
@@ -71,10 +74,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:ems="15"
             android:hint="@string/username"
             android:inputType="number"
+            android:textCursorDrawable="@null"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -18,16 +18,13 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
-        android:textColorHint="@color/newBlue"
-        app:boxStrokeColor="@color/newBlue"
-        app:errorEnabled="true"
+        app:boxStrokeColor="@drawable/text_box_color"
         app:hintTextColor="@color/newBlue">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subjectName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
             android:hint="Subject Name"
             android:inputType="textPersonName"
             android:textColor="@color/newBlue" />
@@ -37,10 +34,10 @@
         android:id="@+id/addSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/subjectNamemas"
+        android:layout_marginTop="5dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="7dp"
-        android:layout_marginTop="26dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@id/subjectNamemas"
         android:background="@drawable/button_design3"

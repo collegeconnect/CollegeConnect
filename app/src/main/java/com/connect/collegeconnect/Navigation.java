@@ -138,7 +138,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        Toast.makeText(Navigation.this, SaveSharedPreference.getUser(Navigation.this), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(Navigation.this, SaveSharedPreference.getUser(Navigation.this), Toast.LENGTH_SHORT).show();
         loadFragments(homefrag);
 
     }
