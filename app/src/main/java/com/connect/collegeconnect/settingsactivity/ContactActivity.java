@@ -8,9 +8,13 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.connect.collegeconnect.R;
@@ -27,7 +31,43 @@ public class ContactActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        final CheckBox feedback = findViewById(R.id.feedBack);
+        final CheckBox issue  = findViewById(R.id.issue);
         TextView tv = findViewById(R.id.tvtitle);
+        feedback.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    feedback.setError(null);
+                    issue.setError(null);
+                }
+            }
+        });
+        issue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    feedback.setError(null);
+                    issue.setError(null);
+                }
+            }
+        });
+        Log.i("TAG", "SERIAL: " + Build.SERIAL);
+        Log.i("TAG","MODEL: " + Build.MODEL);
+        Log.i("TAG","ID: " + Build.ID);
+        Log.i("TAG","Manufacture: " + Build.MANUFACTURER);
+        Log.i("TAG","brand: " + Build.BRAND);
+        Log.i("TAG","type: " + Build.TYPE);
+        Log.i("TAG","user: " + Build.USER);
+        Log.i("TAG","BASE: " + Build.VERSION_CODES.BASE);
+        Log.i("TAG","INCREMENTAL " + Build.VERSION.INCREMENTAL);
+        Log.i("TAG","SDK  " + Build.VERSION.SDK);
+        Log.i("TAG","BOARD: " + Build.BOARD);
+        Log.i("TAG","BRAND " + Build.BRAND);
+        Log.i("TAG","HOST " + Build.HOST);
+        Log.i("TAG","FINGERPRINT: "+Build.FINGERPRINT);
+        Log.i("TAG","Version Code: " + Build.DEVICE);
+
         tv.setText("Contact Us");
         findViewById(R.id.email_contact).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +76,8 @@ public class ContactActivity extends AppCompatActivity {
                 intent.setType("text/plain");
                 String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+                String mess = Build.MANUFACTURER+" | "+Build.BRAND+" "+Build.MODEL+" | "+Build.DEVICE+" | Android "+Build.VERSION.RELEASE+" | "+Build.VERSION.INCREMENTAL+"\n\n";
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
                 ResolveInfo best = null;
@@ -52,13 +94,29 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(!feedback.isChecked() && !issue.isChecked()){
+                    feedback.setError("Choose on option");
+                    issue.setError("Choose an option");
+                    feedback.requestFocus();
+                    issue.requestFocus();
+                    return;
+                }
+
                 TextView textView = findViewById(R.id.message_body);
-                String mesaage = textView.getText().toString();
+                String message = textView.getText().toString();
                 final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, mesaage);
+                if(feedback.isChecked() && issue.isChecked())
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback | Issue");
+                else if (issue.isChecked())
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Issue");
+                else if(feedback.isChecked())
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+
+                String mess = Build.MANUFACTURER+" | "+Build.BRAND+" "+Build.MODEL+" | "+Build.DEVICE+" | Android "+Build.VERSION.RELEASE+" | "+Build.VERSION.INCREMENTAL+"\n\n"+message;
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
                 ResolveInfo best = null;

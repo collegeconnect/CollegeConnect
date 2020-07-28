@@ -17,6 +17,7 @@ public class SaveSharedPreference {
     private static final String CLEARALL1 = "clearall1";
     private static final String REF = "com.connect.collegeconnect.MyPref";
     private static final String ATTENDANCE_CRITERIA = "attendance_criteria";
+    private static final String POP = "pop";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -91,6 +92,11 @@ public class SaveSharedPreference {
         editor.putInt(ATTENDANCE_CRITERIA, attendance_criteria);
         editor.apply();
     }
+    public static void setPop(Context ctx, int pop){
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putInt(POP, pop);
+        editor.apply();
+    }
 
     public static int getAttendanceCriteria(Context ctx) {
         return getSharedPreferences(ctx).getInt(ATTENDANCE_CRITERIA, 75);
@@ -134,6 +140,9 @@ public class SaveSharedPreference {
 
     public static boolean getRef(Context ctx) {
         return getSharedPreferences(ctx).getBoolean(REF, false);
+    }
+    public static int getPop(Context ctx){
+        return getSharedPreferences(ctx).getInt(POP, 1);
     }
 
     //Clear data on logout

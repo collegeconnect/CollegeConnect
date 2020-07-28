@@ -139,11 +139,17 @@ public class StepTwoSignUp extends AppCompatActivity {
                         collegeName.setError("Enter College Name");
                     else {
 
-                        databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers");
-                        databaseReference.setValue(collegeSpinner.getSelectedItem().toString());
+
                         String college;
                         if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
                             college = collegeName.getEditText().getText().toString();
+                            try {
+                                databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers").child(String.valueOf(System.currentTimeMillis()));
+                                databaseReference.setValue(collegeName.getEditText().getText().toString());
+                            }
+                            catch (Exception e){
+                                Log.d(TAG, "onClick: "+e.getMessage());
+                            }
                         } else
                             college = collegeSpinner.getSelectedItem().toString();
 

@@ -99,7 +99,7 @@
             android:textColor="@color/newBlue" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/develoepr_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <CheckBox
+    <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/nondeveloper_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

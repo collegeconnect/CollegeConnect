@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -311,7 +312,8 @@ public class HomeEditActivity extends AppCompatActivity {
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == this.RESULT_OK) {
+            if (resultCode == RESULT_OK) {
+                assert result != null;
                 Uri resultUri = result.getUri();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
@@ -325,6 +327,7 @@ public class HomeEditActivity extends AppCompatActivity {
                     Log.d("Home fragment", "onActivityResult: CropImage failed");
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                assert result != null;
                 Exception error = result.getError();
             }
         }

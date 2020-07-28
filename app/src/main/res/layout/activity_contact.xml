@@ -7,12 +7,53 @@
     tools:context=".settingsactivity.ContactActivity">
 
     <include
-        layout="@layout/toolbar_main"
-        android:id="@+id/toolbarcontact"/>
+        android:id="@+id/toolbarcontact"
+        layout="@layout/toolbar_main" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbarcontact">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/feedBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Feedback"
+            android:text="Feedback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/issue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tag="Issue"
+            android:text="Issue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbarcontact">
+        android:layout_below="@id/check">
+
+
+
 
         <EditText
             android:id="@+id/message_body"

@@ -111,6 +111,7 @@
             <android.widget.Button
                 android:id="@+id/logoutButton"
                 android:layout_width="200dp"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
@@ -122,8 +123,8 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:text="Made with ❤\nVersion 1.1"
+                android:layout_marginBottom="24dp"
+                android:text="Made with ❤\nVersion 0.1.0"
                 android:textAlignment="center"
                 android:textColor="@color/textcolor"
                 android:layout_gravity="center_horizontal"/>

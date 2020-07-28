@@ -17,9 +17,13 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".WorkProfile"
-            android:parentActivityName=".settingsactivity.SettingsActivity"/>
+        <activity android:name=".FeedbackActivity"
+            android:parentActivityName=".Navigation"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".WorkProfile"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -36,7 +40,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContributeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -50,18 +55,24 @@
 
         <activity
             android:name=".settingsactivity.AboutActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsactivity.ContactActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsactivity.MyUploadsActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsactivity.HomeEditActivity"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".settingsactivity.SettingsActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
@@ -71,7 +82,8 @@
 
         <activity
             android:name=".StepTwoSignUp"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".DownloadNotes"
             android:label="DownloadNotes"
@@ -81,11 +93,12 @@
             android:name=".UploadNotes"
             android:label="Upload"
             android:parentActivityName=".Navigation"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter
                 android:icon="@mipmap/icon_round"
                 android:label="Upload Notes"
-                android:priority="1000">
+                android:priority="10000">
                 <action android:name="android.intent.action.SEND" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -110,7 +123,8 @@
             android:name=".SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:parentActivityName=".Navigation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Splash"
             android:screenOrientation="portrait">

@@ -8,6 +8,6 @@ The app uses Material UI for an attractive and appealing interface which attract
 
 The app contains many useful features which will help a student in their journey through college. More such features are in development.
 
-The app is in development phase currently.
+The app is now open source. The project can be found on Github
 
-It's is being build by Saksham Pruthi and Sajal Jain, both pursuing B.Tech.
+It's is maintained by Saksham Pruthi and Sajal Jain

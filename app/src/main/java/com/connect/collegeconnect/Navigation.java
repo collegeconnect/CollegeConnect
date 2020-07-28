@@ -3,6 +3,7 @@ package com.connect.collegeconnect;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -25,10 +27,9 @@ import com.connect.collegeconnect.ui.attendance.AttendanceFragment;
 import com.connect.collegeconnect.ui.home.HomeFragment;
 import com.connect.collegeconnect.ui.notes.NotesFragment;
 import com.connect.collegeconnect.ui.tools.ToolsFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,6 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference;
-    private GoogleSignInClient mgoogleSignInClient;
     BottomNavigationView bottomNavigationView;
     static int color;
     Fragment homefrag = new HomeFragment();
@@ -54,6 +54,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     public static String CHANNEL_ID = "Notification";
     private static String CHANNEL_NAME = "Notification Channel";
     private static String CHANNEL_DESC = "app notification";
+    AlertDialog.Builder builder;
 
 
     @Override
@@ -105,6 +106,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
             Log.d("navigation", "onCreate: attenfrag called from notificaion");
             loadFragments(new AttendanceFragment());
         }
+        builder = new MaterialAlertDialogBuilder(this);
 
         SaveSharedPreference.setUserName(this, FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -192,15 +194,19 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         startActivity(intent1);
     }
 
-    @Override
-    protected void onStart() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        super.onStart();
+    public void feedbackPop(){
+        builder.setTitle("Feedback");
+        builder.setMessage("Consider taking a one minute feedback?");
+        builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(Navigation.this,FeedbackActivity.class));
+            }
+        });
+        builder.setNegativeButton("Exit", (dialog, which) -> finish());
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -226,12 +232,17 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            finish();
+            if (SaveSharedPreference.getPop(this) == 1){
+                feedbackPop();
+            }
+            else
+                finish();
         }
 
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();
-        } else
+        }
+        else
             super.onBackPressed();
     }
 
@@ -247,5 +258,11 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
             return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+//        SaveSharedPreference.setPop(this,SaveSharedPreference.getPop(this)+1);
+        super.onDestroy();
     }
 }

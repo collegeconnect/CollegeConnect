@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FeedbackActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/tollbarfeedback"
+                layout="@layout/toolbar_main" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.02" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.98" />
+
+            <TextView
+                android:id="@+id/rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="How would you rate your overall experience"
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/tollbarfeedback" />
+
+            <com.hsalf.smileyrating.SmileyRating
+                android:id="@+id/smileyRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/rate" />
+
+            <TextView
+                android:id="@+id/problem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:ems="22"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:text="What problem/goal are you trying solve/achieve with the app?"
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/smileyRating" />
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ansProblem"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@drawable/text_box_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/problem">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Problem/Goal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/solve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="Did the app help solve your problem/achieve your goal? "
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/ansProblem" />
+
+            <com.warkiz.widget.IndicatorSeekBar
+                android:id="@+id/solveAns"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:isb_indicator_color="@color/newBlue"
+                app:isb_indicator_text_size="18sp"
+                app:isb_progress="0"
+                app:isb_show_indicator="rounded_rectangle"
+                app:isb_show_tick_marks_type="oval"
+                app:isb_show_tick_texts="true"
+                app:isb_thumb_color="@color/newBlue"
+                app:isb_tick_marks_color="@drawable/tick_selector"
+                app:isb_tick_marks_size="13dp"
+                app:isb_tick_texts_array="@array/feedback"
+                app:isb_tick_texts_color="@color/newBlue"
+                app:isb_tick_texts_size="15sp"
+                app:isb_ticks_count="5"
+                app:isb_track_background_color="@android:color/darker_gray"
+                app:isb_track_background_size="2dp"
+                app:isb_track_progress_color="@color/newBlue"
+                app:isb_track_progress_size="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/solve" />
+
+            <TextView
+                android:id="@+id/noFeature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="Are there any features you expected to find but didn’t? "
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/solveAns" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ansNoFeature"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@drawable/text_box_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/noFeature">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Feature" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/satisfaction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="How satisfied are you with the look and feel of the app? "
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/ansNoFeature" />
+
+            <com.warkiz.widget.IndicatorSeekBar
+                android:id="@+id/indicatorSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                app:isb_indicator_color="@color/newBlue"
+                app:isb_indicator_text_size="18sp"
+                app:isb_progress="0"
+                app:isb_show_indicator="rounded_rectangle"
+                app:isb_show_tick_marks_type="oval"
+                app:isb_show_tick_texts="true"
+                app:isb_thumb_color="@color/newBlue"
+                app:isb_tick_marks_color="@drawable/tick_selector"
+                app:isb_tick_marks_size="13dp"
+                app:isb_tick_texts_array="@array/feedback1"
+                app:isb_tick_texts_color="@color/newBlue"
+                app:isb_tick_texts_size="15sp"
+                app:isb_ticks_count="5"
+                app:isb_track_background_color="@android:color/darker_gray"
+                app:isb_track_background_size="2dp"
+                app:isb_track_progress_color="@color/newBlue"
+                app:isb_track_progress_size="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/satisfaction" />
+
+
+            <TextView
+                android:id="@+id/confused"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="What confused/annoyed you about the app?"
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/indicatorSeekBar" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ansConfused"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@drawable/text_box_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/confused">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Feature" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/feature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:text="What features would you like to add to the app? "
+                android:textColor="@color/blackToWhite"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/ansConfused" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ansFeature"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:boxStrokeColor="@drawable/text_box_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline31"
+                app:layout_constraintStart_toStartOf="@+id/guideline30"
+                app:layout_constraintTop_toBottomOf="@+id/feature">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Feature" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <android.widget.Button
+                android:id="@+id/submitFeedback"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/button_design3"
+                android:text="SUBMIT"
+                android:textColor="@color/colorwhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline32"
+                app:layout_constraintStart_toStartOf="@+id/guideline32"
+                app:layout_constraintTop_toBottomOf="@+id/ansFeature" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

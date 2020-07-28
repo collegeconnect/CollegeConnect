@@ -1,5 +1,6 @@
 package com.connect.collegeconnect;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.connect.collegeconnect.settingsactivity.WorkOne;
+import com.connect.collegeconnect.ui.home.HomeFragment;
 
 public class WorkProfile extends AppCompatActivity {
 
@@ -24,6 +27,7 @@ public class WorkProfile extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
 
@@ -41,5 +45,17 @@ public class WorkProfile extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                getSupportFragmentManager().popBackStackImmediate();
+            else
+                finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
