@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,6 +23,11 @@ import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.adapters.UploadlistAdapter;
 import com.connect.collegeconnect.datamodels.Constants;
 import com.connect.collegeconnect.datamodels.Upload;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +47,8 @@ public class MyUploadsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     UploadlistAdapter notesAdapter;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    SwipeRefreshLayout swipeRefreshLayout;
+    public AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +61,20 @@ public class MyUploadsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         tv = findViewById(R.id.tvtitle);
         tv.setText("My Uploads");
+        MobileAds.initialize(this, initializationStatus -> { });
+        mAdView = findViewById(R.id.adMyNotes);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+        mDatabaseReference.keepSynced(true);
+        fetch();
+        swipeRefreshLayout.setOnRefreshListener(this::fetch);
+    }
+
+    private void fetch() {
+        swipeRefreshLayout.setRefreshing(true);
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -76,11 +96,12 @@ public class MyUploadsActivity extends AppCompatActivity {
                     recyclerView.setAdapter(notesAdapter);
                     notesAdapter.notifyDataSetChanged();
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

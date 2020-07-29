@@ -22,8 +22,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/buttonlayout2"
-        android:entries="@array/Course"
-        android:spinnerMode="dialog" />
+        android:entries="@array/Course" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +44,6 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/buttonlayout2"
         android:entries="@array/Branch"
-        android:spinnerMode="dialog"
         tools:layout_editor_absoluteY="144dp" />
 
     <TextView

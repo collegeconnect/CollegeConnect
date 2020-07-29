@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -37,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class    DownloadNotes extends AppCompatActivity {
+public class DownloadNotes extends AppCompatActivity {
 
     public static final String EXTRA_COURSE = "course";
     public static final String EXTRA_BRANCH = "branch";
@@ -49,6 +50,11 @@ public class    DownloadNotes extends AppCompatActivity {
     NotesAdapter notesAdapter;
     public AdView mAdView;
     TextView tv;
+    String receivedCourse;
+    String receivedBranch;
+    String receivedSemester;
+    String receivedUnit;
+    SwipeRefreshLayout swiperefreshlayout;
 
 
     @Override
@@ -57,10 +63,11 @@ public class    DownloadNotes extends AppCompatActivity {
         setContentView(R.layout.activity_download_notes);
 
         Intent intent = getIntent();
-        final String receivedCourse = intent.getStringExtra(EXTRA_COURSE);
-        final String receivedBranch = intent.getStringExtra(EXTRA_BRANCH);
-        final String receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
-        final String receivedUnit = intent.getStringExtra(EXTRA_UNIT);
+        receivedCourse = intent.getStringExtra(EXTRA_COURSE);
+        receivedBranch = intent.getStringExtra(EXTRA_BRANCH);
+        receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
+        receivedUnit = intent.getStringExtra(EXTRA_UNIT);
+        swiperefreshlayout = findViewById(R.id.SwipeRefreshLayout);
 
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
@@ -82,6 +89,13 @@ public class    DownloadNotes extends AppCompatActivity {
 
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+        mDatabaseReference.keepSynced(true);
+       loadData();
+       swiperefreshlayout.setOnRefreshListener(this::loadData);
+    }
+
+    private void loadData() {
+        swiperefreshlayout.setRefreshing(true);
         mDatabaseReference.orderByChild("download").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,14 +125,14 @@ public class    DownloadNotes extends AppCompatActivity {
                     notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
                     recyclerView.setAdapter(notesAdapter);
                 }
+                swiperefreshlayout.setRefreshing(false);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                swiperefreshlayout.setRefreshing(false);
             }
         });
-
     }
 
     @Override

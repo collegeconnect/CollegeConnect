@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -342,6 +343,7 @@ public class UploadNotes extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
 //                        final Uri downloadi;
                         textViewStatus.setText("File Uploaded Successfully");
@@ -374,6 +376,8 @@ public class UploadNotes extends AppCompatActivity {
                     @SuppressWarnings("VisibleForTests")
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setProgress(0);
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
 //                        textViewStatus.setText((int) progress + "% Uploading...");
