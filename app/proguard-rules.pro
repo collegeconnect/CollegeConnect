@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file Name.
 #-renamesourcefileattribute SourceFile
+
+# Keep custom model classes
+-keep class com.connect.collegeconnect.datamodels.* { *; }
+-keep class com.connect.collegeconnect.adapters.* { *; }

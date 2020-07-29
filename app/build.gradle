@@ -102,8 +102,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     api 'com.github.sujithkanna:smileyrating:2.0.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
-//    implementation 'com.google.firebase:firebase-perf:19.0.7'
+//    implementation 'com.google.firebase:firebase-perf:19.0.8'
     //leak Canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
 
 }

@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:ems="15"
             android:textCursorDrawable="@null"
-            style="@style/MyEditTextTheme"
             android:hint="Full Name"
             android:inputType="textCapWords"
             android:textColor="@color/colorwhite" />
@@ -151,12 +150,12 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/ubuntu_regular"
+        android:fontFamily="sans-serif"
         android:text="Step 1/2"
         android:textColor="@color/colorwhite"
-        android:textSize="60sp"
+        android:textSize="50sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 

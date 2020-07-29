@@ -10,10 +10,10 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
 
     </style>
-    <style name="MyEditTextTheme">
-        <item name="colorControlNormal">@color/colorwhite</item>
-        <item name="colorControlActivated">@color/colorwhite</item>
-        <item name="colorControlHighlight">@color/colorwhite</item>
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -44,5 +44,6 @@
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
 
 </resources>

@@ -122,8 +122,9 @@ public class HomeEditActivity extends AppCompatActivity {
         enrollNo.setEnabled(false);
         branch.setEnabled(false);
         imageButton.setEnabled(false);
+        college.setEnabled(false);
 
-        submitDetails.setColorFilter(getResources().getColor(R.color.colorwhite));
+        submitDetails.setColorFilter(ContextCompat.getColor(this,R.color.colorwhite));
 //        setValues();
         documentReference = firebaseFirestore.collection("users").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()

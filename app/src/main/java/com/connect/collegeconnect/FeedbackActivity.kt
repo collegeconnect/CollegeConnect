@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -115,5 +116,12 @@ class FeedbackActivity : AppCompatActivity(){
         databaseReference.setValue(feedback)
         val dialog = alertDialog.create()
         dialog.show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> { finish(); return true }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

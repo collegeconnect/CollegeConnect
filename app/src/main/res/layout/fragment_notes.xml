@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="67dp"
         android:backgroundTint="#fff"
         app:borderWidth="0dp"
         app:srcCompat="@drawable/upload" />
