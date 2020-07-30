@@ -188,7 +188,10 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
                 startActivity(new Intent(Navigation.this, FeedbackActivity.class));
             }
         });
-        builder.setNegativeButton("Exit", (dialog, which) -> finish());
+        builder.setNegativeButton("Exit", (dialog, which) -> {
+            dialog.dismiss();
+            finish();
+        });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

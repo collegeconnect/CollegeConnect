@@ -262,7 +262,8 @@ public class StepTwoSignUp extends AppCompatActivity {
     protected void onDestroy() {
         if (valueListener != null)
             databaseReference.removeEventListener(valueListener);
-        listener.remove();
+        if(listener != null)
+            listener.remove();
         super.onDestroy();
     }
 }

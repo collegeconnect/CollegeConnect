@@ -323,7 +323,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        registered.remove();
+        if(registered != null)
+            registered.remove();
         super.onDestroyView();
     }
 }

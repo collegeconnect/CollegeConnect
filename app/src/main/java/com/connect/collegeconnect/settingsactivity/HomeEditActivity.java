@@ -395,7 +395,8 @@ public class HomeEditActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        listener.remove();
+        if(listener != null)
+            listener.remove();
         super.onDestroy();
     }
 }

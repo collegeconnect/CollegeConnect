@@ -1,105 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settingsactivity.WorkOne">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/workName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:text="Full Name" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/enterWorkName"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@id/workName"
-        android:layout_alignStart="@id/workName"
-        android:background="@drawable/work_field_layout"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:padding="5dp"
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/workName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:text="Full Name" />
 
-    <TextView
-        android:id="@+id/workDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/enterWorkName"
-        android:layout_alignStart="@id/workName"
-        android:layout_marginTop="40dp"
-        android:text="About Me" />
+        <EditText
+            android:id="@+id/enterWorkName"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/workName"
+            android:layout_alignStart="@id/workName"
+            android:background="@drawable/work_field_layout"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:padding="5dp"
+            android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_below="@id/workDescription"
-        android:layout_alignStart="@id/enterWorkName"
-        android:background="@drawable/work_field_layout"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Desription"
-        android:inputType="textMultiLine"
-        android:padding="5dp" />
+        <TextView
+            android:id="@+id/workDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/enterWorkName"
+            android:layout_alignStart="@id/workName"
+            android:layout_marginTop="40dp"
+            android:text="About Me" />
 
-    <TextView
-        android:id="@+id/workWebsite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editText4"
-        android:layout_alignStart="@id/workName"
-        android:layout_marginTop="40dp"
-        android:text="Personal Website" />
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/workDescription"
+            android:layout_alignStart="@id/enterWorkName"
+            android:background="@drawable/work_field_layout"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Desription"
+            android:inputType="textMultiLine"
+            android:padding="5dp" />
 
-    <EditText
-        android:id="@+id/enterWorkWebsite"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@id/workWebsite"
-        android:layout_alignStart="@id/editText4"
-        android:background="@drawable/work_field_layout"
-        android:ems="10"
-        android:hint="Website Link"
-        android:inputType="textWebEmailAddress"
-        android:padding="5dp" />
+        <TextView
+            android:id="@+id/workWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editText4"
+            android:layout_alignStart="@id/workName"
+            android:layout_marginTop="40dp"
+            android:text="Personal Website" />
 
-    <TextView
-        android:id="@+id/workResume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/enterWorkWebsite"
-        android:layout_alignStart="@id/workName"
-        android:layout_marginTop="40dp"
-        android:text="Resume Link" />
+        <EditText
+            android:id="@+id/enterWorkWebsite"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/workWebsite"
+            android:layout_alignStart="@id/editText4"
+            android:background="@drawable/work_field_layout"
+            android:ems="10"
+            android:hint="Website Link"
+            android:inputType="textWebEmailAddress"
+            android:padding="5dp" />
 
-    <EditText
-        android:id="@+id/enterResumeUrl"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@id/workResume"
-        android:layout_alignStart="@id/editText4"
-        android:background="@drawable/work_field_layout"
-        android:ems="10"
-        android:hint="Resume Link"
-        android:inputType="textWebEmailAddress"
-        android:padding="3dp" />
+        <TextView
+            android:id="@+id/workResume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/enterWorkWebsite"
+            android:layout_alignStart="@id/workName"
+            android:layout_marginTop="40dp"
+            android:text="Resume Link" />
 
-    <ImageButton
-        android:id="@+id/button3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/enterResumeUrl"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/ic_next" />
+        <EditText
+            android:id="@+id/enterResumeUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/workResume"
+            android:layout_alignStart="@id/editText4"
+            android:background="@drawable/work_field_layout"
+            android:ems="10"
+            android:hint="Resume Link"
+            android:inputType="textWebEmailAddress"
+            android:padding="3dp" />
 
-</RelativeLayout>
+        <ImageButton
+            android:id="@+id/button3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/enterResumeUrl"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/ic_next" />
+    </RelativeLayout>
+
+</ScrollView>

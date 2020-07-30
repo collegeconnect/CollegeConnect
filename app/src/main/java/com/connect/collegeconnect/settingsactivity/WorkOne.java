@@ -123,7 +123,8 @@ public class WorkOne extends Fragment {
 
     @Override
     public void onDestroyView() {
-        listener.remove();
+        if (listener != null)
+            listener.remove();
         super.onDestroyView();
     }
 }
