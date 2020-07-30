@@ -19,13 +19,13 @@ import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 
 
-class FeedbackActivity : AppCompatActivity(){
+class FeedbackActivity : AppCompatActivity() {
 
-    private lateinit var mood:String
+    private lateinit var mood: String
     lateinit var databaseReference: DatabaseReference
     lateinit var firebaseAuth: FirebaseAuth
-    lateinit var alertDialog:AlertDialog.Builder
-   var email:String = ""
+    lateinit var alertDialog: AlertDialog.Builder
+    var email: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feedback)
@@ -47,7 +47,7 @@ class FeedbackActivity : AppCompatActivity(){
         alertDialog.setPositiveButton("Sure") { dialog, which ->
             val uri = Uri.parse("market://details?id=" + this.packageName)
             val goToMarket = Intent(Intent.ACTION_VIEW, uri).apply {
-              addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
+                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or
                         Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
             }
@@ -58,9 +58,9 @@ class FeedbackActivity : AppCompatActivity(){
                         Uri.parse("http://play.google.com/store/apps/details?id=" + this.packageName)))
             }
         }.setNegativeButton("Later") { dialog, which ->
+            dialog.dismiss()
             finish()
             Navigation.act.finish()
-            dialog.dismiss()
         }
 
         ansProblem.editText?.doAfterTextChanged { ansProblem.error = null }
@@ -69,11 +69,11 @@ class FeedbackActivity : AppCompatActivity(){
         ansFeature.editText?.doAfterTextChanged { ansFeature.error = null }
 
 
-        smileyRating.setRating(SmileyRating.Type.GREAT,true)
+        smileyRating.setRating(SmileyRating.Type.GREAT, true)
         solveAns.setIndicatorTextFormat("\${TICK_TEXT}")
         indicatorSeekBar.setIndicatorTextFormat("\${TICK_TEXT}")
         smileyRating.setSmileySelectedListener { type ->
-            when(type.rating){
+            when (type.rating) {
                 1 -> mood = "Tired"
                 2 -> mood = "Sleepy"
                 3 -> mood = "Neutral"
@@ -82,20 +82,20 @@ class FeedbackActivity : AppCompatActivity(){
             }
         }
 
-        submitFeedback.setOnClickListener{
-            if(ansProblem.editText?.text == null) {
+        submitFeedback.setOnClickListener {
+            if (ansProblem.editText?.text == null) {
                 ansProblem.error = "Field cannot be empty"
                 return@setOnClickListener
             }
-            if(ansNoFeature.editText?.text == null) {
+            if (ansNoFeature.editText?.text == null) {
                 ansNoFeature.error = "Field cannot be empty"
                 return@setOnClickListener
             }
-            if(ansConfused.editText?.text == null) {
+            if (ansConfused.editText?.text == null) {
                 ansConfused.error = "Field cannot be empty"
                 return@setOnClickListener
             }
-            if(ansFeature.editText?.text == null) {
+            if (ansFeature.editText?.text == null) {
                 ansFeature.error = "Field cannot be empty"
                 return@setOnClickListener
             }
@@ -104,8 +104,9 @@ class FeedbackActivity : AppCompatActivity(){
             dialog.show()
         }
     }
-    private fun submit(){
-        val feedback =  Feedback(email,
+
+    private fun submit() {
+        val feedback = Feedback(email,
                 mood,
                 ansProblem.editText?.text.toString(),
                 solveAns.progress,
@@ -119,8 +120,10 @@ class FeedbackActivity : AppCompatActivity(){
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            android.R.id.home -> { finish(); return true }
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish(); return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

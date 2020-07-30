@@ -96,21 +96,21 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
         final AlertDialog dialog = builder.create();
         dialog.show();
-        Objects.requireNonNull(dialog.getWindow()).clearFlags( WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         try {
             InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             inputMethodManager.toggleSoftInputFromWindow(placeholder.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
             placeholder.requestFocus();
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
         set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!placeholder.getEditText().getText().toString().equals(""))
+                if (!placeholder.getEditText().getText().toString().equals(""))
                     SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
                 dialog.dismiss();
             }

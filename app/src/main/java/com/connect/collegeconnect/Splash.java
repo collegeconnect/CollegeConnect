@@ -1,11 +1,9 @@
 package com.connect.collegeconnect;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.WindowManager;
-import android.widget.ImageView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -29,10 +27,9 @@ public class Splash extends AppCompatActivity {
         else if (SaveSharedPreference.getCheckedItem(Splash.this) == 2)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-                Intent i = new Intent(Splash.this, OnBoardingScreenm.class);
-                startActivity(i);
-                finish();
-
+        Intent i = new Intent(Splash.this, OnBoardingScreenm.class);
+        startActivity(i);
+        finish();
 
 
     }

@@ -21,8 +21,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
-
 
 public class WorkOne extends Fragment {
 
@@ -32,6 +32,7 @@ public class WorkOne extends Fragment {
     private ImageButton next;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference documentReference;
+    ListenerRegistration listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,7 +94,7 @@ public class WorkOne extends Fragment {
 
     private void setValuesFirestore() {
 
-        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+        listener = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 try {
@@ -105,8 +106,7 @@ public class WorkOne extends Fragment {
                     aboutMe.setText(strAboutMe);
                     personalWebsite.setText(strWebsite);
                     resumeLink.setText(strResume);
-                }
-                catch(Exception ignored){
+                } catch (Exception ignored) {
 
                 }
             }
@@ -118,5 +118,11 @@ public class WorkOne extends Fragment {
         super.onStart();
 
         tv.setText("Work Profile");
+    }
+
+    @Override
+    public void onDestroyView() {
+        listener.remove();
+        super.onDestroyView();
     }
 }

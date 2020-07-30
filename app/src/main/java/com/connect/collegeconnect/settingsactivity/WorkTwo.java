@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -20,13 +19,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.connect.collegeconnect.R;
-import com.connect.collegeconnect.WorkProfile;
 import com.connect.collegeconnect.datamodels.Resume;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +31,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 
 
@@ -46,6 +44,7 @@ public class WorkTwo extends Fragment {
     private DocumentReference documentReference;
     private LinearLayout blurrScreen;
     private ProgressBar progressBar;
+    ListenerRegistration listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +81,7 @@ public class WorkTwo extends Fragment {
         final String website = args.getString("website");
         final String resumeLink = args.getString("resume");
 
-        Log.i("TAG", "onCreateView: "+aboutMe+" "+website+" "+resumeLink);
+        Log.i("TAG", "onCreateView: " + aboutMe + " " + website + " " + resumeLink);
 
         final String email = SaveSharedPreference.getUserName(getActivity());
 
@@ -97,8 +96,8 @@ public class WorkTwo extends Fragment {
                 final String strGitHub = github.getText().toString();
                 final String strBehance = behance.getText().toString();
                 String strMedium = medium.getText().toString();
-                final Resume resume = new Resume(SaveSharedPreference.getUser(getActivity()),aboutMe,website,resumeLink,email,strlinkedIn,strGitHub,strBehance,strMedium);
-                Log.i("TAG2", "onCreateView: "+strBehance+" "+strGitHub+" "+strlinkedIn);
+                final Resume resume = new Resume(SaveSharedPreference.getUser(getActivity()), aboutMe, website, resumeLink, email, strlinkedIn, strGitHub, strBehance, strMedium);
+                Log.i("TAG2", "onCreateView: " + strBehance + " " + strGitHub + " " + strlinkedIn);
                 firebaseFirestore = FirebaseFirestore.getInstance();
                 CollectionReference collectionReference = firebaseFirestore.collection("resume");
                 collectionReference.document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(resume).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -108,12 +107,12 @@ public class WorkTwo extends Fragment {
                         Toast.makeText(getContext(), "Resume Uploaded Successfully!", Toast.LENGTH_SHORT).show();
                         blurrScreen.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        getActivity().startActivity(new Intent(getContext(),SettingsActivity.class));
+                        getActivity().startActivity(new Intent(getContext(), SettingsActivity.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("Resume", "onFailure: Resume failed :"+e.getMessage());
+                        Log.d("Resume", "onFailure: Resume failed :" + e.getMessage());
                         Toast.makeText(getContext(), "An error occurred. Please try later!", Toast.LENGTH_SHORT).show();
                         blurrScreen.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -137,7 +136,7 @@ public class WorkTwo extends Fragment {
 
     private void setValuesFirestore() {
 
-        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+        listener = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 try {
@@ -150,11 +149,16 @@ public class WorkTwo extends Fragment {
                     github.setText(strGitHub);
                     behance.setText(strBehance);
                     medium.setText(strMedium);
-                }
-                catch (Exception e){
-                    Log.d("WorkTwo", "onEvent: "+e.getMessage());
+                } catch (Exception e) {
+                    Log.d("WorkTwo", "onEvent: " + e.getMessage());
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        listener.remove();
+        super.onDestroyView();
     }
 }

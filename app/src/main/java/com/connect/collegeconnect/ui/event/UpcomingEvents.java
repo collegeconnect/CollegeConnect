@@ -30,6 +30,7 @@ public class UpcomingEvents extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     Fragment upcomingevents = new EventsFragment();
+    ValueEventListener listener;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -46,7 +47,7 @@ public class UpcomingEvents extends AppCompatActivity {
 
         createEvent = findViewById(R.id.createEvent);
         createEvent.setVisibility(View.GONE);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
@@ -104,5 +105,11 @@ public class UpcomingEvents extends AppCompatActivity {
             getSupportFragmentManager().popBackStackImmediate();
         } else
             super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        databaseReference.removeEventListener(listener);
+        super.onDestroy();
     }
 }

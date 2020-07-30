@@ -32,7 +32,7 @@ public class ContactActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         final CheckBox feedback = findViewById(R.id.feedBack);
-        final CheckBox issue  = findViewById(R.id.issue);
+        final CheckBox issue = findViewById(R.id.issue);
         TextView tv = findViewById(R.id.tvtitle);
         feedback.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -53,20 +53,20 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
-        Log.i("TAG","MODEL: " + Build.MODEL);
-        Log.i("TAG","ID: " + Build.ID);
-        Log.i("TAG","Manufacture: " + Build.MANUFACTURER);
-        Log.i("TAG","brand: " + Build.BRAND);
-        Log.i("TAG","type: " + Build.TYPE);
-        Log.i("TAG","user: " + Build.USER);
-        Log.i("TAG","BASE: " + Build.VERSION_CODES.BASE);
-        Log.i("TAG","INCREMENTAL " + Build.VERSION.INCREMENTAL);
-        Log.i("TAG","SDK  " + Build.VERSION.SDK);
-        Log.i("TAG","BOARD: " + Build.BOARD);
-        Log.i("TAG","BRAND " + Build.BRAND);
-        Log.i("TAG","HOST " + Build.HOST);
-        Log.i("TAG","FINGERPRINT: "+Build.FINGERPRINT);
-        Log.i("TAG","Version Code: " + Build.DEVICE);
+        Log.i("TAG", "MODEL: " + Build.MODEL);
+        Log.i("TAG", "ID: " + Build.ID);
+        Log.i("TAG", "Manufacture: " + Build.MANUFACTURER);
+        Log.i("TAG", "brand: " + Build.BRAND);
+        Log.i("TAG", "type: " + Build.TYPE);
+        Log.i("TAG", "user: " + Build.USER);
+        Log.i("TAG", "BASE: " + Build.VERSION_CODES.BASE);
+        Log.i("TAG", "INCREMENTAL " + Build.VERSION.INCREMENTAL);
+        Log.i("TAG", "SDK  " + Build.VERSION.SDK);
+        Log.i("TAG", "BOARD: " + Build.BOARD);
+        Log.i("TAG", "BRAND " + Build.BRAND);
+        Log.i("TAG", "HOST " + Build.HOST);
+        Log.i("TAG", "FINGERPRINT: " + Build.FINGERPRINT);
+        Log.i("TAG", "Version Code: " + Build.DEVICE);
 
         tv.setText("Contact Us");
         findViewById(R.id.email_contact).setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,7 @@ public class ContactActivity extends AppCompatActivity {
                 intent.setType("text/plain");
                 String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                String mess = Build.MANUFACTURER+" | "+Build.BRAND+" "+Build.MODEL+" | "+Build.DEVICE+" | Android "+Build.VERSION.RELEASE+" | "+Build.VERSION.INCREMENTAL+"\n\n";
+                String mess = Build.MANUFACTURER + " | " + Build.BRAND + " " + Build.MODEL + " | " + Build.DEVICE + " | Android " + Build.VERSION.RELEASE + " | " + Build.VERSION.INCREMENTAL + "\n\n";
                 intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
@@ -94,7 +94,7 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!feedback.isChecked() && !issue.isChecked()){
+                if (!feedback.isChecked() && !issue.isChecked()) {
                     feedback.setError("Choose on option");
                     issue.setError("Choose an option");
                     feedback.requestFocus();
@@ -108,14 +108,14 @@ public class ContactActivity extends AppCompatActivity {
                 intent.setType("text/plain");
                 String[] recipients = {"college.connect8@gmail.com"};
                 intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                if(feedback.isChecked() && issue.isChecked())
+                if (feedback.isChecked() && issue.isChecked())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback | Issue");
                 else if (issue.isChecked())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Issue");
-                else if(feedback.isChecked())
+                else if (feedback.isChecked())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
 
-                String mess = Build.MANUFACTURER+" | "+Build.BRAND+" "+Build.MODEL+" | "+Build.DEVICE+" | Android "+Build.VERSION.RELEASE+" | "+Build.VERSION.INCREMENTAL+"\n\n"+message;
+                String mess = Build.MANUFACTURER + " | " + Build.BRAND + " " + Build.MODEL + " | " + Build.DEVICE + " | Android " + Build.VERSION.RELEASE + " | " + Build.VERSION.INCREMENTAL + "\n\n" + message;
                 intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);

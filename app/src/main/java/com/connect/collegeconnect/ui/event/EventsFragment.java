@@ -43,6 +43,7 @@ public class EventsFragment extends Fragment {
     static EventsAdapter eventsAdapter;
     ArrayList<Events> eventsList = new ArrayList<>();
     TextView textView, tv;
+    ValueEventListener listener;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class EventsFragment extends Fragment {
 
     public void loadEvents() {
         databaseReference = firebaseDatabase.getReference("Events");
-        databaseReference.orderByChild("date").addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("date").addValueEventListener(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String pattern = "dd/MM/yyyy";
@@ -108,5 +109,11 @@ public class EventsFragment extends Fragment {
         super.onStart();
 
         tv.setText("Upcoming Events");
+    }
+
+    @Override
+    public void onDestroyView() {
+        databaseReference.removeEventListener(listener);
+        super.onDestroyView();
     }
 }

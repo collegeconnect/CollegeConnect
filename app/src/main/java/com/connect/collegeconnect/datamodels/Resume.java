@@ -48,7 +48,7 @@ public class Resume {
         return medium;
     }
 
-    public Resume(){
+    public Resume() {
 
     }
 

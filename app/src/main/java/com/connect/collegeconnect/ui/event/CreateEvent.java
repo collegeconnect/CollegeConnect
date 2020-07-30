@@ -74,6 +74,7 @@ public class CreateEvent extends AppCompatActivity {
     ArrayList<String> imageurl = new ArrayList<>();
     ProgressBar progressBar;
     private long millis = 0;
+    ValueEventListener listener;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -393,8 +394,8 @@ public class CreateEvent extends AppCompatActivity {
                                 CreateEvent.this.imageUrl = uri.toString();
 
 
-                                databaseReference = firebaseDatabase.getReference("Events");
-                                databaseReference.child(name.getText().toString()).child("imageUrl").addValueEventListener(new ValueEventListener() {
+                                databaseReference = firebaseDatabase.getReference("Events").child(name.getText().toString()).child("imageUrl");
+                                databaseReference.addValueEventListener(listener = new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
@@ -458,5 +459,12 @@ public class CreateEvent extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (listener != null)
+            databaseReference.removeEventListener(listener);
+        super.onDestroy();
     }
 }

@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.DatabaseHelper;
@@ -39,10 +41,12 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,6 +54,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
@@ -69,6 +74,7 @@ public class HomeFragment extends Fragment {
     private Context mcontext;
     private FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
+    ListenerRegistration registered;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -224,36 +230,36 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDataFirestore() {
-            documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                    assert documentSnapshot != null;
-                    try {
-                        String name = documentSnapshot.getString("name");
-                        String rollNo = documentSnapshot.getString("rollno");
-                        String strbranch = documentSnapshot.getString("branch");
-                        SaveSharedPreference.setUser(mcontext, name);
-                        nameField.setText(SaveSharedPreference.getUser(mcontext));
-                        enrollNo.setText(rollNo);
-                        branch.setText(strbranch);
+        registered = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                assert documentSnapshot != null;
+                try {
+                    String name = documentSnapshot.getString("name");
+                    String rollNo = documentSnapshot.getString("rollno");
+                    String strbranch = documentSnapshot.getString("branch");
+                    SaveSharedPreference.setUser(mcontext, name);
+                    nameField.setText(SaveSharedPreference.getUser(mcontext));
+                    enrollNo.setText(rollNo);
+                    branch.setText(strbranch);
 
-                        assert name != null;
-                        int space = name.indexOf(" ");
-                        int color = Navigation.generatecolor();
-                        drawable = TextDrawable.builder().beginConfig()
-                                .width(150)
-                                .height(150)
-                                .bold()
-                                .endConfig()
-                                .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                        prfileImage.setImageDrawable(drawable);
-                    } catch (Exception e) {
-                        Log.d("Home", "onEvent: "+ e.getMessage());
-                    }
-                    if (uri != null)
-                        Picasso.get().load(uri).into(prfileImage);
+                    assert name != null;
+                    int space = name.indexOf(" ");
+                    int color = Navigation.generatecolor();
+                    drawable = TextDrawable.builder().beginConfig()
+                            .width(150)
+                            .height(150)
+                            .bold()
+                            .endConfig()
+                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+                    prfileImage.setImageDrawable(drawable);
+                } catch (Exception e) {
+                    Log.d("Home", "onEvent: " + e.getMessage());
                 }
-            });
+                if (uri != null)
+                    Picasso.get().load(uri).into(prfileImage);
+            }
+        });
     }
 
     private void loadData() {
@@ -319,5 +325,11 @@ public class HomeFragment extends Fragment {
                 Picasso.get().load(uri).into(prfileImage);
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        registered.remove();
+        super.onDestroyView();
     }
 }

@@ -21,7 +21,7 @@ public class User {
     public String college;
     public static FirebaseFirestore firebaseFirestore;
     public static FirebaseDatabase firebaseDatabase;
-     public static FirebaseAuth auth;
+    public static FirebaseAuth auth;
 
     public String getRollno() {
         return rollno;

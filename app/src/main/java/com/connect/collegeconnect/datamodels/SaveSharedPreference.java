@@ -100,7 +100,8 @@ public class SaveSharedPreference {
         editor.putInt(ATTENDANCE_CRITERIA, attendance_criteria);
         editor.apply();
     }
-    public static void setPop(Context ctx, int pop){
+
+    public static void setPop(Context ctx, int pop) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putInt(POP, pop);
         editor.apply();
@@ -154,7 +155,7 @@ public class SaveSharedPreference {
         return getSharedPreferences(ctx).getBoolean(DETAILS_UPLOADED, false);
     }
 
-    public static int getPop(Context ctx){
+    public static int getPop(Context ctx) {
         return getSharedPreferences(ctx).getInt(POP, 1);
     }
 

@@ -46,6 +46,7 @@ public class EventDetailsFragment extends Fragment {
     private TabLayout viewpagerIndicator;
     private ArrayList<String> eventImages = new ArrayList<>();
     private Context mContext;
+    ValueEventListener listener, listener2;
 
     public EventDetailsFragment() {
         // Required empty public constructor
@@ -106,7 +107,7 @@ public class EventDetailsFragment extends Fragment {
     }
 
     private void loadDetails() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
@@ -167,7 +168,7 @@ public class EventDetailsFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         databaseReference = firebaseDatabase.getReference("EventAdmin");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(listener2 = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
@@ -191,5 +192,14 @@ public class EventDetailsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         floatingActionButton.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (listener != null)
+            databaseReference.removeEventListener(listener);
+        if (listener2 != null)
+            databaseReference.removeEventListener(listener2);
+        super.onDestroyView();
     }
 }

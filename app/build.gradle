@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.firebase.crashlytics'
 //apply plugin: 'com.google.firebase.firebase-perf'
 
 //def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -98,7 +98,7 @@ dependencies {
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
+//    implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     api 'com.github.sujithkanna:smileyrating:2.0.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
 //    implementation 'com.google.firebase:firebase-perf:19.0.8'

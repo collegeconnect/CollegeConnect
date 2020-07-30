@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.connect.collegeconnect.settingsactivity.WorkOne;
-import com.connect.collegeconnect.ui.home.HomeFragment;
 
 public class WorkProfile extends AppCompatActivity {
 

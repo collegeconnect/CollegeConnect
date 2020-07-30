@@ -45,7 +45,7 @@ public class DownloadNotes extends AppCompatActivity {
     public static final String EXTRA_SEMESTER = "semester";
     public static final String EXTRA_UNIT = "unit";
     public static ArrayList<Upload> uploadList;
-    static DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference;
     public RecyclerView recyclerView;
     NotesAdapter notesAdapter;
     public AdView mAdView;
@@ -55,6 +55,7 @@ public class DownloadNotes extends AppCompatActivity {
     String receivedSemester;
     String receivedUnit;
     SwipeRefreshLayout swiperefreshlayout;
+    ValueEventListener listener;
 
 
     @Override
@@ -90,13 +91,13 @@ public class DownloadNotes extends AppCompatActivity {
         uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
         mDatabaseReference.keepSynced(true);
-       loadData();
-       swiperefreshlayout.setOnRefreshListener(this::loadData);
+        loadData();
+        swiperefreshlayout.setOnRefreshListener(this::loadData);
     }
 
     private void loadData() {
         swiperefreshlayout.setRefreshing(true);
-        mDatabaseReference.orderByChild("download").addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.orderByChild("download").addValueEventListener(listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 uploadList.clear();
@@ -188,4 +189,10 @@ public class DownloadNotes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        if (listener != null)
+            mDatabaseReference.removeEventListener(listener);
+        super.onDestroy();
+    }
 }

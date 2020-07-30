@@ -20,18 +20,17 @@ import android.widget.Toast;
 
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.datamodels.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 
@@ -50,6 +49,10 @@ public class StepTwoSignUp extends AppCompatActivity {
     private Spinner collegeSpinner;
     private TextView contribute;
     private String receivedPRev;
+    private FirebaseFirestore firebaseFirestore;
+    DocumentReference documentReference;
+    ListenerRegistration listener;
+    ValueEventListener valueListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +73,11 @@ public class StepTwoSignUp extends AppCompatActivity {
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         collegeSpinner.setAdapter(spinnerArrayAdapter);
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        documentReference = firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid());
+
         databaseReference = firebaseDatabase.getReference("Colleges");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(valueListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList2 = (ArrayList<String>) dataSnapshot.getValue();
@@ -148,9 +154,8 @@ public class StepTwoSignUp extends AppCompatActivity {
                             try {
                                 databaseReference = firebaseDatabase.getReference("CollegesInputFromUsers");
                                 databaseReference.child(String.valueOf(System.currentTimeMillis())).setValue(collegeName.getEditText().getText().toString());
-                            }
-                            catch (Exception e){
-                                Log.d(TAG, "onClick: "+e.getMessage());
+                            } catch (Exception e) {
+                                Log.d(TAG, "onClick: " + e.getMessage());
                             }
                         } else
                             college = collegeSpinner.getSelectedItem().toString();
@@ -163,23 +168,21 @@ public class StepTwoSignUp extends AppCompatActivity {
                             finish();
                         } else {//email
                             SaveSharedPreference.setUploaded(StepTwoSignUp.this, true);
-                            if(SaveSharedPreference.getUser(StepTwoSignUp.this).equals("")){
-                                FirebaseFirestore.getInstance().collection("users").document(mAuth.getCurrentUser().getUid())
-                                        .addSnapshotListener((documentSnapshot, error) -> {
-                                            try {
-                                                assert documentSnapshot != null;
-                                                String name = documentSnapshot.getString("name");
-                                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
-                                                Log.d(TAG, "Details Uploaded!");
-                                                SaveSharedPreference.setUser(StepTwoSignUp.this, name);
-                                                Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
-                                                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                                finish();
-                                            }
-                                            catch(Exception ignored){}
-                                        });
-                            }
-                            else {
+                            if (SaveSharedPreference.getUser(StepTwoSignUp.this).equals("")) {
+                                listener = documentReference.addSnapshotListener((documentSnapshot, error) -> {
+                                    try {
+                                        assert documentSnapshot != null;
+                                        String name = documentSnapshot.getString("name");
+                                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
+                                        Log.d(TAG, "Details Uploaded!");
+                                        SaveSharedPreference.setUser(StepTwoSignUp.this, name);
+                                        Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
+                                        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                        finish();
+                                    } catch (Exception ignored) {
+                                    }
+                                });
+                            } else {
                                 User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
                                 Log.d(TAG, "Details Uploaded!");
                                 Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
@@ -253,6 +256,14 @@ public class StepTwoSignUp extends AppCompatActivity {
             super.onBackPressed();
         else
             Toast.makeText(this, "Please fill in the details and click submit!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (valueListener != null)
+            databaseReference.removeEventListener(valueListener);
+        listener.remove();
+        super.onDestroy();
     }
 }
 

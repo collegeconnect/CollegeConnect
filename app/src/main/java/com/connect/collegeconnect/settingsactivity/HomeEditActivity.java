@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
 import com.connect.collegeconnect.R;
@@ -46,6 +47,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -53,12 +55,14 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeEditActivity extends AppCompatActivity {
@@ -78,6 +82,7 @@ public class HomeEditActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
+    ListenerRegistration listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +129,7 @@ public class HomeEditActivity extends AppCompatActivity {
         imageButton.setEnabled(false);
         college.setEnabled(false);
 
-        submitDetails.setColorFilter(ContextCompat.getColor(this,R.color.colorwhite));
+        submitDetails.setColorFilter(ContextCompat.getColor(this, R.color.colorwhite));
 //        setValues();
         documentReference = firebaseFirestore.collection("users").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -267,20 +272,20 @@ public class HomeEditActivity extends AppCompatActivity {
     }
 
     private void setvaluesFirestore() {
-        documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+        listener = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                try{
-                assert documentSnapshot != null;
-                String name = documentSnapshot.getString("name");
-                String rollNo = documentSnapshot.getString("rollno");
-                String branch = documentSnapshot.getString("branch");
-                String strCollege = documentSnapshot.getString("college");
-                SaveSharedPreference.setUser(getApplicationContext(), name);
-                nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
-                enrollNo.setText(rollNo);
-                college.setText(strCollege);
-                HomeEditActivity.this.branch.setText(branch);
+                try {
+                    assert documentSnapshot != null;
+                    String name = documentSnapshot.getString("name");
+                    String rollNo = documentSnapshot.getString("rollno");
+                    String branch = documentSnapshot.getString("branch");
+                    String strCollege = documentSnapshot.getString("college");
+                    SaveSharedPreference.setUser(getApplicationContext(), name);
+                    nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
+                    enrollNo.setText(rollNo);
+                    college.setText(strCollege);
+                    HomeEditActivity.this.branch.setText(branch);
 
                     assert name != null;
                     int space = name.indexOf(" ");
@@ -388,4 +393,9 @@ public class HomeEditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        listener.remove();
+        super.onDestroy();
+    }
 }

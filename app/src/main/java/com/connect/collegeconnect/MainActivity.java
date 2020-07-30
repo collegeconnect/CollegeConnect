@@ -217,11 +217,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         if (firebaseAuth.getCurrentUser().isEmailVerified()) {
 
-                            if (SaveSharedPreference.getUpload(MainActivity.this)){
-                                startActivity(new Intent(MainActivity.this,Navigation.class));
+                            if (SaveSharedPreference.getUpload(MainActivity.this)) {
+                                startActivity(new Intent(MainActivity.this, Navigation.class));
                                 finish();
-                            }
-                            else {
+                            } else {
                                 //Set email
                                 SaveSharedPreference.setUserName(MainActivity.this, Stremail);
                                 Intent intent = new Intent(MainActivity.this, StepTwoSignUp.class);

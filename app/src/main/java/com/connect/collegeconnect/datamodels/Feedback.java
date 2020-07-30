@@ -20,7 +20,8 @@ public class Feedback {
         this.addFeature = addFeature;
         this.email = email;
     }
-    public Feedback(){
+
+    public Feedback() {
 
     }
 }

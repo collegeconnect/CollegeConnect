@@ -26,8 +26,6 @@ import com.connect.collegeconnect.datamodels.Upload;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,12 +41,13 @@ public class MyUploadsActivity extends AppCompatActivity {
 
     TextView tv;
     public static ArrayList<Upload> uploadList;
-    static DatabaseReference mDatabaseReference;
+    DatabaseReference mDatabaseReference;
     RecyclerView recyclerView;
     UploadlistAdapter notesAdapter;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     SwipeRefreshLayout swipeRefreshLayout;
     public AdView mAdView;
+    ValueEventListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,8 @@ public class MyUploadsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         tv = findViewById(R.id.tvtitle);
         tv.setText("My Uploads");
-        MobileAds.initialize(this, initializationStatus -> { });
+        MobileAds.initialize(this, initializationStatus -> {
+        });
         mAdView = findViewById(R.id.adMyNotes);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
@@ -75,7 +75,7 @@ public class MyUploadsActivity extends AppCompatActivity {
 
     private void fetch() {
         swipeRefreshLayout.setRefreshing(true);
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.addValueEventListener(listener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 uploadList.clear();
@@ -158,5 +158,12 @@ public class MyUploadsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (listener != null)
+            mDatabaseReference.removeEventListener(listener);
+        super.onDestroy();
     }
 }
