@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -58,6 +59,20 @@ public class CovidFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_covid_fragemnt, container, false);
+        mAdView = view.findViewById(R.id.adViewcovid);
+        webView = view.findViewById(R.id.webViewcovid);
+        textView = view.findViewById(R.id.tv_errorcovid);
+        imageView = view.findViewById(R.id.imageViewcovid);
+        progressBar = view.findViewById(R.id.progcovid);
+        textslow = view.findViewById(R.id.texterrorcovid);
+
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
             fab = getActivity().findViewById(R.id.fab);
@@ -68,19 +83,10 @@ public class CovidFragment extends Fragment {
 
             }
         });
-        mAdView = view.findViewById(R.id.adViewcovid);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        webView = view.findViewById(R.id.webViewcovid);
-        textView = view.findViewById(R.id.tv_errorcovid);
-        imageView = view.findViewById(R.id.imageViewcovid);
         imageView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
-        progressBar = view.findViewById(R.id.progcovid);
-        progressBar.setVisibility(View.GONE);
-        textslow = view.findViewById(R.id.texterrorcovid);
-        textslow.setVisibility(View.GONE);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -179,9 +185,9 @@ public class CovidFragment extends Fragment {
             webView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.VISIBLE);
+            textslow.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
         }
-
-        return view;
     }
 
     @Override

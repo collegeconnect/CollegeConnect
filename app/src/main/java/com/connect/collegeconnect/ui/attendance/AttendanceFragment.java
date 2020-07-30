@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.connect.collegeconnect.DatabaseHelper;
+import com.connect.collegeconnect.datamodels.DatabaseHelper;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.adapters.SubjectAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,22 +46,8 @@ public class AttendanceFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_attendance, null);
-        tv = getActivity().findViewById(R.id.navTitle);
-        tv.setText("ATTENDANCE");
 
-        mydb = new DatabaseHelper(getContext());
-
-        if (getActivity() != null)
-            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-
-        subjectList = new ArrayList<>();
         subjectRecycler = view.findViewById(R.id.subjectRecyclerView);
-        subjectRecycler.setHasFixedSize(true);
-        subjectRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        subjectAdapter = new SubjectAdapter(subjectList, mCtx);
-        subjectRecycler.setAdapter(subjectAdapter);
-        loadData();
-
         subject = view.findViewById(R.id.subjectNamemas);
         addSubject = view.findViewById(R.id.addSubject);
 
@@ -82,14 +68,33 @@ public class AttendanceFragment extends Fragment {
             }
         });
 
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        tv = getActivity().findViewById(R.id.navTitle);
+        tv.setText("ATTENDANCE");
+
+        mydb = new DatabaseHelper(getContext());
+
+        if (getActivity() != null)
+            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
+
+        subjectList = new ArrayList<>();
+        subjectRecycler.setHasFixedSize(true);
+        subjectRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        subjectAdapter = new SubjectAdapter(subjectList, mCtx);
+        subjectRecycler.setAdapter(subjectAdapter);
+        loadData();
         addSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addSubject();
             }
         });
-
-        return view;
     }
 
     @Override

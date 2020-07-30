@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,22 +45,31 @@ public class EventsFragment extends Fragment {
     ArrayList<Events> eventsList = new ArrayList<>();
     TextView textView, tv;
     ValueEventListener listener;
+    SwipeRefreshLayout swiperefreshlayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_upcoming_events, container, false);
         textView = view.findViewById(R.id.tv_noEvent);
-        if (getActivity() != null)
-            tv = getActivity().findViewById(R.id.tvtitle);
+        swiperefreshlayout = view.findViewById(R.id.eventSwipe);
         recyclerView = view.findViewById(R.id.eventsRecycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        loadEvents();
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() != null)
+            tv = getActivity().findViewById(R.id.tvtitle);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        loadEvents();
+        swiperefreshlayout.setOnRefreshListener(this::loadEvents);
+    }
+
     public void loadEvents() {
+        swiperefreshlayout.setRefreshing(true);
         databaseReference = firebaseDatabase.getReference("Events");
         databaseReference.orderByChild("date").addValueEventListener(listener = new ValueEventListener() {
             @Override
@@ -94,11 +104,13 @@ public class EventsFragment extends Fragment {
                     textView.setVisibility(View.GONE);
                 eventsAdapter = new EventsAdapter(getActivity(), eventsList);
                 recyclerView.setAdapter(eventsAdapter);
+                swiperefreshlayout.setRefreshing(false);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                swiperefreshlayout.setRefreshing(false);
+                Log.d("Events", "onCancelled: "+ databaseError.getMessage());
             }
         });
 
@@ -113,7 +125,15 @@ public class EventsFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        databaseReference.removeEventListener(listener);
+        if(listener != null)
+            databaseReference.removeEventListener(listener);
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        if(listener != null)
+            databaseReference.removeEventListener(listener);
+        super.onDestroy();
     }
 }

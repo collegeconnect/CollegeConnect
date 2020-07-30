@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.connect.collegeconnect.datamodels.DatabaseHelper;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

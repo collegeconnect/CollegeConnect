@@ -40,16 +40,19 @@ public class WorkOne extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_work_one, container, false);
 
-        if (getActivity() != null)
-            tv = getActivity().findViewById(R.id.tvtitle);
-
         name = view.findViewById(R.id.enterWorkName);
         aboutMe = view.findViewById(R.id.editText4);
         personalWebsite = view.findViewById(R.id.enterWorkWebsite);
         resumeLink = view.findViewById(R.id.enterResumeUrl);
         next = view.findViewById(R.id.button3);
+        return view;
+    }
 
-        //Get user id
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() != null)
+            tv = getActivity().findViewById(R.id.tvtitle);
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
@@ -88,8 +91,6 @@ public class WorkOne extends Fragment {
                 }
             }
         });
-
-        return view;
     }
 
     private void setValuesFirestore() {

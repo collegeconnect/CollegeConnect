@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.connect.collegeconnect.BuildConfig;
-import com.connect.collegeconnect.DatabaseHelper;
+import com.connect.collegeconnect.datamodels.DatabaseHelper;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.Navigation;
@@ -83,16 +83,23 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, null);
+        prfileImage = view.findViewById(R.id.imageView3);
+        nameField = view.findViewById(R.id.nameField);
+        enrollNo = view.findViewById(R.id.textView3);
+        branch = view.findViewById(R.id.textView4);
+        totalAttendance = view.findViewById(R.id.aggregateAttendance);
+        return view;
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
 
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("HOME");
-
-
-        View view = inflater.inflate(R.layout.fragment_home, null);
-
         storageRef = storage.getReference();
 
         //Get user id
@@ -100,17 +107,8 @@ public class HomeFragment extends Fragment {
         FirebaseUser firebaseUser = auth.getCurrentUser();
         assert firebaseUser != null;
         String userId = firebaseUser.getUid();
-
-
         databaseReference = firebaseDatabase.getReference("users/" + userId);
         firebaseFirestore = FirebaseFirestore.getInstance();
-
-
-        prfileImage = view.findViewById(R.id.imageView3);
-        nameField = view.findViewById(R.id.nameField);
-        enrollNo = view.findViewById(R.id.textView3);
-        branch = view.findViewById(R.id.textView4);
-        totalAttendance = view.findViewById(R.id.aggregateAttendance);
         totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -160,11 +158,7 @@ public class HomeFragment extends Fragment {
         } else {
             totalAttendance.setText("Aggregate\nAttendance: 0.00%");
         }
-
-        return view;
-
     }
-
 
     private void download_dp() {
         final DownloadManager downloadManager = (DownloadManager) getContext().getSystemService(getContext().DOWNLOAD_SERVICE);

@@ -44,16 +44,25 @@ public class WorkTwo extends Fragment {
     private DocumentReference documentReference;
     private LinearLayout blurrScreen;
     private ProgressBar progressBar;
-    ListenerRegistration listener;
+    private String aboutMe, website, resumeLink;
+    private ListenerRegistration listener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+
+        assert args != null;
+        aboutMe = args.getString("aboutMe");
+        website = args.getString("website");
+        resumeLink = args.getString("resume");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_work_two, container, false);
-
-        Bundle args = getArguments();
-
         back = view.findViewById(R.id.button5);
         email = view.findViewById(R.id.enterWorkEmail);
         linkedIn = view.findViewById(R.id.enterWorkLinkedIn);
@@ -63,7 +72,13 @@ public class WorkTwo extends Fragment {
         upload = view.findViewById(R.id.button4);
         blurrScreen = view.findViewById(R.id.work_blurr);
         progressBar = view.findViewById(R.id.workProgressBar);
+        Log.i("TAG", "onCreateView: " + aboutMe + " " + website + " " + resumeLink);
+        return view;
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -76,12 +91,6 @@ public class WorkTwo extends Fragment {
         setValuesFirestore();
 
         email.setText(SaveSharedPreference.getUserName(getActivity()));
-
-        final String aboutMe = args.getString("aboutMe");
-        final String website = args.getString("website");
-        final String resumeLink = args.getString("resume");
-
-        Log.i("TAG", "onCreateView: " + aboutMe + " " + website + " " + resumeLink);
 
         final String email = SaveSharedPreference.getUserName(getActivity());
 
@@ -130,8 +139,6 @@ public class WorkTwo extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStackImmediate();
             }
         });
-
-        return view;
     }
 
     private void setValuesFirestore() {

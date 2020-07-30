@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -51,10 +52,37 @@ public class EventWebView extends Fragment {
     String finalUrl;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        String desired_string = arguments.getString("Url");
+        if (desired_string.contains("https://"))
+            finalUrl = desired_string;
+        else
+            finalUrl = "https://" + desired_string;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_event_web_view, container, false);
+
+        mAdView = view.findViewById(R.id.adViewevent);
+        webView = view.findViewById(R.id.eventWebView);
+        progressBar = view.findViewById(R.id.eventprog);
+        textView = view.findViewById(R.id.tv_errorevent);
+        imageView = view.findViewById(R.id.imageVieweve);
+        imageView.setVisibility(View.GONE);
+        textView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+        textslow = view.findViewById(R.id.texterrorevent);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
             floatingActionButton = getActivity().findViewById(R.id.createEvent);
             TextView tv = getActivity().findViewById(R.id.tvtitle);
@@ -66,26 +94,8 @@ public class EventWebView extends Fragment {
 
             }
         });
-        mAdView = view.findViewById(R.id.adViewevent);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-        webView = view.findViewById(R.id.eventWebView);
-        progressBar = view.findViewById(R.id.eventprog);
-        textView = view.findViewById(R.id.tv_errorevent);
-        imageView = view.findViewById(R.id.imageVieweve);
-        imageView.setVisibility(View.GONE);
-        textView.setVisibility(View.GONE);
-        progressBar.setVisibility(View.GONE);
-        textslow = view.findViewById(R.id.texterrorevent);
-        textslow.setVisibility(View.GONE);
-        Bundle arguments = getArguments();
-        String desired_string = arguments.getString("Url");
-        if (desired_string.contains("https://"))
-            finalUrl = desired_string;
-        else
-            finalUrl = "https://" + desired_string;
-
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -113,8 +123,7 @@ public class EventWebView extends Fragment {
                 }
             }
         }
-
-
+        textslow.setVisibility(View.GONE);
         if (hasConnect) {
 //            progressBar.postDelayed(new Runnable() {
 //                @Override
@@ -193,7 +202,6 @@ public class EventWebView extends Fragment {
             imageView.setVisibility(View.VISIBLE);
         }
 
-        return view;
     }
 
     @Override

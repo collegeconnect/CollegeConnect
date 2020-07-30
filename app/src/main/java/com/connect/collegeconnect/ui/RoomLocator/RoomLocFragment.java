@@ -59,30 +59,37 @@ public class RoomLocFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_loc, null);
+        mAdView = view.findViewById(R.id.adView);
+        webView = view.findViewById(R.id.webView);
+        textView = view.findViewById(R.id.tv_error);
+        imageView = view.findViewById(R.id.imageView);
+        progressBar = view.findViewById(R.id.prog);
+        textslow = view.findViewById(R.id.texterror);
+        return view;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
             fab = getActivity().findViewById(R.id.fab);
-        }
-        View view = inflater.inflate(R.layout.fragment_loc, null);
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+        }  MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
 
             }
         });
-        mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        webView = view.findViewById(R.id.webView);
-        textView = view.findViewById(R.id.tv_error);
-        imageView = view.findViewById(R.id.imageView);
         imageView.setVisibility(View.GONE);
         textView.setVisibility(View.GONE);
-        progressBar = view.findViewById(R.id.prog);
-        progressBar.setVisibility(View.GONE);
-        textslow = view.findViewById(R.id.texterror);
         textslow.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -110,7 +117,6 @@ public class RoomLocFragment extends Fragment {
                 }
             }
         }
-
         if (hasConnect) {
 
             // show the webview
@@ -182,8 +188,6 @@ public class RoomLocFragment extends Fragment {
             textView.setVisibility(View.VISIBLE);
             imageView.setVisibility(View.VISIBLE);
         }
-        return view;
-
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -52,20 +53,20 @@ public class EventDetailsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle arguments = getArguments();
+        String desired_string = arguments.getString("Name");
+        if (desired_string != null)
+            databaseReference = firebaseDatabase.getReference(Constants.EVENTS_PATH_UPLOAD).child(desired_string);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event, container, false);
-
-        if (getActivity() != null) {
-            floatingActionButton = getActivity().findViewById(R.id.createEvent);
-            TextView tv = getActivity().findViewById(R.id.tvtitle);
-            tv.setText("Event Details");
-        }
-
-
 //        banner = view.findViewById(R.id.eventBanner);
         imagesViewpager = view.findViewById(R.id.eventBanner);
         viewpagerIndicator = view.findViewById(R.id.viewPager_indicator);
@@ -75,7 +76,17 @@ public class EventDetailsFragment extends Fragment {
         description = view.findViewById(R.id.eventDescription);
         register = view.findViewById(R.id.registerButton);
 
+        return view;
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() != null) {
+            floatingActionButton = getActivity().findViewById(R.id.createEvent);
+            TextView tv = getActivity().findViewById(R.id.tvtitle);
+            tv.setText("Event Details");
+        }
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,14 +107,7 @@ public class EventDetailsFragment extends Fragment {
             }
         });
 
-        Bundle arguments = getArguments();
-        String desired_string = arguments.getString("Name");
-        if (desired_string != null)
-            databaseReference = firebaseDatabase.getReference(Constants.EVENTS_PATH_UPLOAD).child(desired_string);
         loadDetails();
-
-
-        return view;
     }
 
     private void loadDetails() {

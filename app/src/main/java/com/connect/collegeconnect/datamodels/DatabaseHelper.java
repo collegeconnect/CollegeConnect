@@ -1,4 +1,4 @@
-package com.connect.collegeconnect;
+package com.connect.collegeconnect.datamodels;
 
 import android.content.ContentValues;
 import android.content.Context;

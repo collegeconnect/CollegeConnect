@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class UpcomingEvents extends AppCompatActivity {
     private FloatingActionButton createEvent;
     private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase;
     Fragment upcomingevents = new EventsFragment();
     ValueEventListener listener;
 
@@ -36,7 +36,6 @@ public class UpcomingEvents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        databaseReference = firebaseDatabase.getReference("EventAdmin");
         setContentView(R.layout.activity_upcoming_event);
 
         Toolbar toolbar = findViewById(R.id.toolbarcom);
@@ -44,13 +43,15 @@ public class UpcomingEvents extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("EventAdmin");
         createEvent = findViewById(R.id.createEvent);
-        createEvent.setVisibility(View.GONE);
+        Log.d("Upcoming Events", "onCreate: "+SaveSharedPreference.getUserName(this));
         databaseReference.addListenerForSingleValueEvent(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
+                Log.d("Upcoming Events", "onDataChange: "+arrayList.size());
                 if (arrayList.contains(SaveSharedPreference.getUserName(UpcomingEvents.this)))
                     createEvent.setVisibility(View.VISIBLE);
             }
@@ -109,7 +110,8 @@ public class UpcomingEvents extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        databaseReference.removeEventListener(listener);
+        if(listener != null)
+            databaseReference.removeEventListener(listener);
         super.onDestroy();
     }
 }

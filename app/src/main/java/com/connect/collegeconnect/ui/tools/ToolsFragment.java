@@ -30,11 +30,19 @@ public class ToolsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tools, null);
+        cardView = view.findViewById(R.id.roomLocator);
+        cardcovid = view.findViewById(R.id.covid);
+        events = view.findViewById(R.id.events);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
-        cardView = view.findViewById(R.id.roomLocator);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +55,6 @@ public class ToolsFragment extends Fragment {
                         .commit();
             }
         });
-        cardcovid = view.findViewById(R.id.covid);
         cardcovid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +67,6 @@ public class ToolsFragment extends Fragment {
                         .commit();
             }
         });
-        events = view.findViewById(R.id.events);
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +74,6 @@ public class ToolsFragment extends Fragment {
             }
         });
 
-        return view;
     }
 
     @Override

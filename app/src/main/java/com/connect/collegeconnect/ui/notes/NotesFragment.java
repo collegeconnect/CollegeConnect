@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.UploadNotes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NotesFragment extends Fragment {
 
@@ -26,6 +28,8 @@ public class NotesFragment extends Fragment {
     TextView tv, tv8;
     ImageView imageView;
     Spinner course, branch, semester, unit;
+    FloatingActionButton upload;
+    Button viewnotes;
 
     public NotesFragment() {
         // Required empty public constructor
@@ -35,26 +39,34 @@ public class NotesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (getActivity() != null)
-            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
+
 
         final View view = inflater.inflate(R.layout.fragment_notes, null);
-
-        tv = getActivity().findViewById(R.id.navTitle);
-        tv.setText("NOTES");
-
         course = view.findViewById(R.id.CourseN);
         branch = view.findViewById(R.id.BranchN);
         semester = view.findViewById(R.id.SemesterN);
         unit = view.findViewById(R.id.UnitN);
         tv8 = view.findViewById(R.id.textView8);
         imageView = view.findViewById(R.id.imageView10);
+        upload = view.findViewById(R.id.fab_upload);
+        viewnotes = view.findViewById(R.id.viewnotes);
+        return view;
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (getActivity() != null)
+            bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
+        tv = getActivity().findViewById(R.id.navTitle);
+        tv.setText("NOTES");
         course.setSelection(SaveSharedPreference.getCourse(getContext()));
         branch.setSelection(SaveSharedPreference.getBranch(getContext()));
         semester.setSelection(SaveSharedPreference.getSemester(getContext()));
         unit.setSelection(SaveSharedPreference.getUnit(getContext()));
 
-        view.findViewById(R.id.fab_upload).setOnClickListener(new View.OnClickListener() {
+        upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), UploadNotes.class));
@@ -82,7 +94,7 @@ public class NotesFragment extends Fragment {
 
             }
         });
-        view.findViewById(R.id.viewnotes).setOnClickListener(new View.OnClickListener() {
+        viewnotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -105,10 +117,6 @@ public class NotesFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
-        return view;
-
     }
 
     @Override

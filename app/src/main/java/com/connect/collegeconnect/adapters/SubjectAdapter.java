@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.connect.collegeconnect.DatabaseHelper;
+import com.connect.collegeconnect.datamodels.DatabaseHelper;
 import com.connect.collegeconnect.R;
 import com.connect.collegeconnect.datamodels.SaveSharedPreference;
 import com.connect.collegeconnect.ui.attendance.AttendanceFragment;

@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.connect.collegeconnect.DatabaseHelper;
+import com.connect.collegeconnect.datamodels.DatabaseHelper;
 import com.connect.collegeconnect.DividerItemDecoration;
 import com.connect.collegeconnect.MainActivity;
 import com.connect.collegeconnect.R;
