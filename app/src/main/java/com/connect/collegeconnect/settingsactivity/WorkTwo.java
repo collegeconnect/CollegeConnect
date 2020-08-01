@@ -42,7 +42,6 @@ public class WorkTwo extends Fragment {
     private ImageButton upload;
     private FirebaseFirestore firebaseFirestore;
     private DocumentReference documentReference;
-    private LinearLayout blurrScreen;
     private ProgressBar progressBar;
     private String aboutMe, website, resumeLink;
     private ListenerRegistration listener;
@@ -70,7 +69,6 @@ public class WorkTwo extends Fragment {
         behance = view.findViewById(R.id.enterWorkBehance);
         medium = view.findViewById(R.id.enterWorkMedium);
         upload = view.findViewById(R.id.button4);
-        blurrScreen = view.findViewById(R.id.work_blurr);
         progressBar = view.findViewById(R.id.workProgressBar);
         Log.i("TAG", "onCreateView: " + aboutMe + " " + website + " " + resumeLink);
         return view;
@@ -98,9 +96,10 @@ public class WorkTwo extends Fragment {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                blurrScreen.setVisibility(View.VISIBLE);
                 final String strlinkedIn = linkedIn.getText().toString();
                 final String strGitHub = github.getText().toString();
                 final String strBehance = behance.getText().toString();
@@ -112,23 +111,21 @@ public class WorkTwo extends Fragment {
                 collectionReference.document(FirebaseAuth.getInstance().getCurrentUser().getUid()).set(resume).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        progressBar.setVisibility(View.GONE);
                         Log.d("Resume", "onSuccess: Resume Uploaded");
                         Toast.makeText(getContext(), "Resume Uploaded Successfully!", Toast.LENGTH_SHORT).show();
-                        blurrScreen.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         getActivity().startActivity(new Intent(getContext(), SettingsActivity.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         Log.d("Resume", "onFailure: Resume failed :" + e.getMessage());
                         Toast.makeText(getContext(), "An error occurred. Please try later!", Toast.LENGTH_SHORT).show();
-                        blurrScreen.setVisibility(View.GONE);
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 });
-
-
             }
         });
 

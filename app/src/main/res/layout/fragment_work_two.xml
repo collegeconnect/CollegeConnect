@@ -10,23 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/work_blurr"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#70000000"
-            android:elevation="5dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
             <ProgressBar
                 android:id="@+id/workProgressBar"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="match_parent"
+                android:layout_below="@+id/buttonLayout"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="250dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:indeterminateTint="@color/colorAccent"
+                android:indeterminate="true"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
-        </LinearLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/workEmail"
@@ -270,6 +264,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
+            android:id="@+id/buttonLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/workMedium"
