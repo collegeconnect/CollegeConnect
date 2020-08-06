@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey;
 public class AttendanceModel {
 
     @PrimaryKey
-    int ID;
+    private int ID;
 
-    String NAME;
+    private String NAME;
 
-    int ATTENDED;
+    private int ATTENDED;
 
-    String MISSED;
+    private String MISSED;
 
 
     public AttendanceModel(int ID, String NAME, int ATTENDED, String MISSED) {
