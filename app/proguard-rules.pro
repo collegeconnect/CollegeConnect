@@ -21,5 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep custom model classes
--keep class com.connect.collegeconnect.datamodels.* { *; }
--keep class com.connect.collegeconnect.adapters.* { *; }
+-keep class com.college.collegeconnect.datamodels.* { *; }
+-keep class com.college.collegeconnect.adapters.* { *; }

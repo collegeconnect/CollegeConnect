@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/newBlue"
-    tools:context="com.connect.collegeconnect.SignUp">
+    tools:context="com.college.collegeconnect.SignUp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textname"

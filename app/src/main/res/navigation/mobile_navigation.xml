@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.connect.collegeconnect.ui.home.HomeFragment"
+        android:name="com.college.collegeconnect.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.connect.collegeconnect.ui.attendance.AttendanceFragment"
+        android:name="com.college.collegeconnect.ui.attendance.AttendanceFragment"
         android:label="@string/menu_attendance"
         tools:layout="@layout/fragment_attendance" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.connect.collegeconnect.ui.notes.NotesFragment"
+        android:name="com.college.collegeconnect.ui.notes.NotesFragment"
         android:label="@string/menu_notes"
         tools:layout="@layout/fragment_notes" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.connect.collegeconnect.ui.tools.ToolsFragment"
+        android:name="com.college.collegeconnect.ui.tools.ToolsFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 

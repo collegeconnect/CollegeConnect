@@ -31,8 +31,8 @@
 
             <com.github.lzyzsd.circleprogress.ArcProgress
                 android:id="@+id/arc_progress"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 app:arc_bottom_text="Attendance"
@@ -81,16 +81,14 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_marginTop="1dp"                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <ImageView
 
                         android:id="@+id/decrease"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:background="@drawable/ic_circle_uncheck" />
 
@@ -112,8 +110,8 @@
 
                     <ImageView
                         android:id="@+id/increase"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_centerVertical="true"
                         android:layout_toEndOf="@id/qtyTextview"
                         android:background="@drawable/ic_circle_check" />

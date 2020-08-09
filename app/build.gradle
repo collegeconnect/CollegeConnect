@@ -27,7 +27,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "com.connect.collegeconnect"
+        applicationId "com.college.collegeconnect"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
@@ -67,17 +67,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.0'
     implementation 'androidx.navigation:navigation-ui:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.5.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.3'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'com.google.firebase:firebase-inappmessaging-display:19.1.0'
     implementation 'com.google.firebase:firebase-ads:19.3.0'
     implementation 'androidx.preference:preference:1.1.1'

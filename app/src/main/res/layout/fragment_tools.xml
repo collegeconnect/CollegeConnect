@@ -62,54 +62,8 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/covid"
-        android:layout_below="@id/roomLocator"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="7dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp">
-
-        <LinearLayout
-            android:id="@+id/cardcovid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <ImageView
-                android:id="@+id/imageViewcovid"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/covid19" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/subjectHeadingcovid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Covid-19 Tracker"
-                    android:textColor="@color/blackToWhite"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
         android:id="@+id/events"
-        android:layout_below="@id/covid"
+        android:layout_below="@id/roomLocator"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="7dp"
