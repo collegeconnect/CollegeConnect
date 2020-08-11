@@ -45,8 +45,6 @@ This feature allows user to upload the image of timetable from memory. It stores
 ### Tools
  * _Room Locator_ <br>
 The room locator tab implements the room locator build by the DSC BVP team. Currently it only works for BVCOE, New Delhi but we plan to expand it using the help of wide network of DSCs present all over India  
- * _Covid-19 Tracker_ <br>
-This option loads a webview of a [Covid Tracker](https://www.covid19india.org/) built into the application for instant access
  * _Upcoming Events_ <br>
 It shows the upcoming events around you and their details along with an option to register within th application
  * _Project Collaboration_ <br>
