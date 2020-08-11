@@ -114,27 +114,30 @@ public class EventDetailsFragment extends Fragment {
         databaseReference.addValueEventListener(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                String name = (String) map.get("eventName");
-                String Description = (String) map.get("eventDescription");
-                String organiser = (String) map.get("organizer");
-                eventImages = (ArrayList<String>) map.get("imageUrl");
-                registrationurl = (String) map.get("registrationUrl");
-                String date = (String) map.get("date");
-                String endDate = (String) map.get("endDate");
+                try {
+                    Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
+                    String name = (String) map.get("eventName");
+                    String Description = (String) map.get("eventDescription");
+                    String organiser = (String) map.get("organizer");
+                    eventImages = (ArrayList<String>) map.get("imageUrl");
+                    registrationurl = (String) map.get("registrationUrl");
+                    String date = (String) map.get("date");
+                    String endDate = (String) map.get("endDate");
 
 //                Picasso.get().load(imageurl).into(banner);
-                Log.d("change", "onDataChange: " + eventImages.get(0));
+                    Log.d("change", "onDataChange: " + eventImages.get(0));
 
-                evntName.setText(name);
-                description.setText(Description);
-                startingDate.setText(date(date));
-                endingDate.setText(date(endDate));
-                ImageAdapter imageAdapter = new ImageAdapter(eventImages);
-                imagesViewpager.setAdapter(imageAdapter);
-                if (eventImages.size() == 1)
-                    viewpagerIndicator.setVisibility(View.INVISIBLE);
-                viewpagerIndicator.setupWithViewPager(imagesViewpager, true);
+                    evntName.setText(name);
+                    description.setText(Description);
+                    startingDate.setText(date(date));
+                    endingDate.setText(date(endDate));
+                    ImageAdapter imageAdapter = new ImageAdapter(eventImages);
+                    imagesViewpager.setAdapter(imageAdapter);
+                    if (eventImages.size() == 1)
+                        viewpagerIndicator.setVisibility(View.INVISIBLE);
+                    viewpagerIndicator.setupWithViewPager(imagesViewpager, true);
+                }
+                catch(Exception ignored){}
 
             }
 
