@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.UploadlistAdapter;
 import com.college.collegeconnect.datamodels.Upload;
+import com.college.collegeconnect.models.UploadViewModel;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;

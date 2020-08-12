@@ -1,4 +1,4 @@
-package com.college.collegeconnect.settingsactivity
+package com.college.collegeconnect.models
 
 
 import android.util.Log
