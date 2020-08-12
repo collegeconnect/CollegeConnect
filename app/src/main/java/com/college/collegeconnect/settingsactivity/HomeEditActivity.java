@@ -110,7 +110,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
         tv.setText("Edit Details");
         storageRef = storage.getReference();
-        File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
+        File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
         if (file.exists()) {
             HomeEditActivity.this.uri = Uri.fromFile(file);
 
@@ -175,7 +175,7 @@ public class HomeEditActivity extends AppCompatActivity {
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
                         copyFile("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files", "/dp.jpeg", getFilesDir().getAbsolutePath());
-                        new File("/storage/emulated/0/Android/data/com.connect.collegeconnect/files/dp.jpeg").delete();
+                        new File("/storage/emulated/0/Android/data/com.college.collegeconnect/files/dp.jpeg").delete();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
                         blurr.setVisibility(View.GONE);
@@ -348,7 +348,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
+                    File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
                     if (file.exists())
                         if (file.delete())
 

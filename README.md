@@ -4,6 +4,9 @@
 [![Actions Status](https://github.com/sakshampruthi/CollegeConnect/workflows/build/badge.svg)](https://github.com/sakshampruthi/CollegeConnect/actions)
 [![License Badge](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/sakshampruthi/CollegeConnect/blob/versionTwo/LICENSE)
 [![Gitter](https://badges.gitter.im/CollegeConnect/community.svg)](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![Api Level](https://img.shields.io/badge/Min%20API%20Level-23-important)
+
+<a href="https://play.google.com/store/apps/details?id=com.college.collegeconnect"><img alt="Get it on Google Play" height="80" src="/Images/google-play-badge.png"></a>
 
 College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
 It aims to create a helpful plateform for all college students   
@@ -15,6 +18,7 @@ This idea was developed for Ideathon held in BVCOE, New Delhi where it was prese
 Later it was converted to be a _third party app for every college and course in India_
 
 The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute in the migration of the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
+
 
 <img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
 
@@ -41,8 +45,6 @@ This feature allows user to upload the image of timetable from memory. It stores
 ### Tools
  * _Room Locator_ <br>
 The room locator tab implements the room locator build by the DSC BVP team. Currently it only works for BVCOE, New Delhi but we plan to expand it using the help of wide network of DSCs present all over India  
- * _Covid-19 Tracker_ <br>
-This option loads a webview of a [Covid Tracker](https://www.covid19india.org/) built into the application for instant access
  * _Upcoming Events_ <br>
 It shows the upcoming events around you and their details along with an option to register within th application
  * _Project Collaboration_ <br>

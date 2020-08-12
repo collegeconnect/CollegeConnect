@@ -124,7 +124,7 @@ public class HomeFragment extends Fragment {
 
         loadDataFirestore();
 
-        File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
+        File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
         if (file.exists()) {
             HomeFragment.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
                         HomeFragment.this.uri = Uri.parse(fileUri);
                         Picasso.get().load(uri).into(prfileImage);
                         copyFile("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files", "/dp.jpeg", getContext().getFilesDir().getAbsolutePath());
-                        new File("/storage/emulated/0/Android/data/com.connect.collegeconnect/files/dp.jpeg").delete();
+                        new File("/storage/emulated/0/Android/data/com.college.collegeconnect/files/dp.jpeg").delete();
                     } catch (Exception e) {
                         Log.e("error", "Could not open the downloaded file");
                     }
@@ -311,7 +311,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
         bottomNavigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
         if (SaveSharedPreference.getClearall1(mcontext)) {
-            File file = new File("/data/user/0/com.connect.collegeconnect/files/dp.jpeg");
+            File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
             if (file.exists()) {
                 HomeFragment.this.uri = Uri.fromFile(file);
                 Picasso.get().invalidate(uri);

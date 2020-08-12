@@ -198,21 +198,32 @@ public class CreateEvent extends AppCompatActivity {
                 final String Edate = eventDate.getText().toString();
                 final String EndDate = endeventDate.getText().toString();
 
-                if (Ename.isEmpty() || Edescription.isEmpty() || Eurl.isEmpty() || Edate.isEmpty() || EndDate.isEmpty() || Eorganizer.isEmpty()) {
-                    if (Ename.isEmpty())
-                        name.setError("Field cannot be empty");
-                    if (Edescription.isEmpty())
-                        description.setError("Field cannot be empty");
-                    if (Eurl.isEmpty())
-                        url.setError("Field cannot be empty");
-                    if (Edate.isEmpty())
-                        eventDate.setError("Field cannot be empty");
-                    if (EndDate.isEmpty())
-                        endeventDate.setError("Field cannot be empty");
-                    if (Eorganizer.isEmpty())
-                        organizer.setError("Field cannot be empty");
-                    if (imageUrl.equals(""))
-                        Toast.makeText(getApplicationContext(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
+                if (Ename.isEmpty()) {
+                    name.setError("Field cannot be empty");
+                    return;
+                }
+                if (Edescription.isEmpty()) {
+                    description.setError("Field cannot be empty");
+                    return;
+                }
+                if (Eurl.isEmpty()) {
+                    url.setError("Field cannot be empty");
+                    return;
+                }
+                if (Edate.isEmpty()) {
+                    eventDate.setError("Field cannot be empty");
+                    return;
+                }
+                if (EndDate.isEmpty()) {
+                    endeventDate.setError("Field cannot be empty");
+                    return;
+                }
+                if (Eorganizer.isEmpty()) {
+                    organizer.setError("Field cannot be empty");
+                    return;
+                }
+                if (images.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "Please upload event poster!", Toast.LENGTH_SHORT).show();
                 } else {
                     getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -394,8 +405,8 @@ public class CreateEvent extends AppCompatActivity {
                                 CreateEvent.this.imageUrl = uri.toString();
 
 
-                                databaseReference = firebaseDatabase.getReference("Events").child(name.getText().toString()).child("imageUrl");
-                                databaseReference.addValueEventListener(listener = new ValueEventListener() {
+                                databaseReference = firebaseDatabase.getReference("Events");
+                                databaseReference.child(name.getText().toString()).child("imageUrl").addValueEventListener(listener = new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
