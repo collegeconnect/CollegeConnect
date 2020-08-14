@@ -127,7 +127,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         Toast.makeText(context, "Notes deleted successfully", Toast.LENGTH_SHORT).show();
-                                                        noteslist.remove(position);
+//                                                        noteslist.remove(position);
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {
                                                     @Override

@@ -18,6 +18,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.BuildConfig;
@@ -25,6 +28,7 @@ import com.college.collegeconnect.datamodels.DatabaseHelper;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.Navigation;
+import com.college.collegeconnect.models.HomeViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -65,15 +69,16 @@ public class HomeFragment extends Fragment {
     EditText nameField, enrollNo, branch;
     CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
-    private FirebaseAuth auth;
+//    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//    private DatabaseReference databaseReference;
+//    private FirebaseAuth auth;
     private DatabaseHelper mydb;
     public Uri uri;
     private StorageReference storageRef;
     private Context mcontext;
-    private FirebaseFirestore firebaseFirestore;
+//    private FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
+    HomeViewModel homeViewModel;
     ListenerRegistration registered;
 
     public HomeFragment() {
@@ -93,6 +98,11 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null)
@@ -103,12 +113,11 @@ public class HomeFragment extends Fragment {
         storageRef = storage.getReference();
 
         //Get user id
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        assert firebaseUser != null;
-        String userId = firebaseUser.getUid();
-        databaseReference = firebaseDatabase.getReference("users/" + userId);
-        firebaseFirestore = FirebaseFirestore.getInstance();
+//        auth = FirebaseAuth.getInstance();
+//        FirebaseUser firebaseUser = auth.getCurrentUser();
+//        assert firebaseUser != null;
+//        String userId = firebaseUser.getUid();
+//        firebaseFirestore = FirebaseFirestore.getInstance();
         totalAttendance.setEnabled(false);
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -116,13 +125,32 @@ public class HomeFragment extends Fragment {
 
 //        loadData();
 
-        documentReference = firebaseFirestore.collection("users").document(userId);
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build();
-        firebaseFirestore.setFirestoreSettings(settings);
-
-        loadDataFirestore();
+//        documentReference = firebaseFirestore.collection("users").document(userId);
+//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+//                .setPersistenceEnabled(true)
+//                .build();
+//        firebaseFirestore.setFirestoreSettings(settings);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+//        homeViewModel.loadData();
+        homeViewModel.returnName().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                nameField.setText(s);
+            }
+        });
+        homeViewModel.returnRoll().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                enrollNo.setText(s);
+            }
+        });
+        homeViewModel.returnBranch().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                branch.setText(s);
+            }
+        });
+//        loadDataFirestore();
 
         File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
         if (file.exists()) {
@@ -223,76 +251,38 @@ public class HomeFragment extends Fragment {
 
     }
 
-    private void loadDataFirestore() {
-        registered = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                assert documentSnapshot != null;
-                try {
-                    String name = documentSnapshot.getString("name");
-                    String rollNo = documentSnapshot.getString("rollno");
-                    String strbranch = documentSnapshot.getString("branch");
-                    SaveSharedPreference.setUser(mcontext, name);
-                    nameField.setText(SaveSharedPreference.getUser(mcontext));
-                    enrollNo.setText(rollNo);
-                    branch.setText(strbranch);
-
-                    assert name != null;
-                    int space = name.indexOf(" ");
-                    int color = Navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                } catch (Exception e) {
-                    Log.d("Home", "onEvent: " + e.getMessage());
-                }
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-            }
-        });
-    }
-
-    private void loadData() {
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
-                String name = (String) map.get("Name");
-                String rollNo = (String) map.get("Username");
-                String college = (String) map.get("branch");
-                SaveSharedPreference.setUser(mcontext, name);
-                nameField.setText(SaveSharedPreference.getUser(getContext()));
-                enrollNo.setText(rollNo);
-                branch.setText(college);
-                try {
-                    int space = name.indexOf(" ");
-                    int color = Navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                } catch (Exception e) {
-
-                }
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void loadDataFirestore() {
+//        registered = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+//                assert documentSnapshot != null;
+//                try {
+//                    String name = documentSnapshot.getString("name");
+//                    String rollNo = documentSnapshot.getString("rollno");
+//                    String strbranch = documentSnapshot.getString("branch");
+//                    SaveSharedPreference.setUser(mcontext, name);
+//                    nameField.setText(SaveSharedPreference.getUser(mcontext));
+//                    enrollNo.setText(rollNo);
+//                    branch.setText(strbranch);
+//
+//                    assert name != null;
+//                    int space = name.indexOf(" ");
+//                    int color = Navigation.generatecolor();
+//                    drawable = TextDrawable.builder().beginConfig()
+//                            .width(150)
+//                            .height(150)
+//                            .bold()
+//                            .endConfig()
+//                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+//                    prfileImage.setImageDrawable(drawable);
+//                } catch (Exception e) {
+//                    Log.d("Home", "onEvent: " + e.getMessage());
+//                }
+//                if (uri != null)
+//                    Picasso.get().load(uri).into(prfileImage);
+//            }
+//        });
+//    }
 
     @Override
     public void onStart() {

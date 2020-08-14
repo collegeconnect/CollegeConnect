@@ -10,17 +10,19 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.SubjectDetails
 import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.datamodels.SaveSharedPreference
+import com.college.collegeconnect.models.AttendanceViewModel
 import com.college.collegeconnect.ui.attendance.AttendanceFragment
 import com.github.lzyzsd.circleprogress.ArcProgress
 import java.util.*
 
-class SubjectAdapter(private val subjects: ArrayList<String>, private val context: Context) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
+class SubjectAdapter(private val subjects: ArrayList<String>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
     private var dB: DatabaseHelper? = null
     var per = 0
     var criteria = 0f
@@ -69,6 +71,12 @@ class SubjectAdapter(private val subjects: ArrayList<String>, private val contex
 
         //Button functionality
         holder.increase.setOnClickListener {
+//            viewModel.updateSubject("")
+//            var inte = 0
+//            viewModel.test?.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
+//                inte = it
+//            })
+//            inte++
             attended[0]++
             dB!!.updateData(Integer.toString(position + 1), current, Integer.toString(attended[0]), Integer.toString(missed[0]))
             holder.ratio.text = attended[0].toString() + "/" + (missed[0] + attended[0])
