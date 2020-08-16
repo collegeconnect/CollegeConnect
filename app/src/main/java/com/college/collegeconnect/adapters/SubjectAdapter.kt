@@ -1,7 +1,6 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
-import android.os.AsyncTask
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +12,20 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
-import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.SubjectDetails
 import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.college.collegeconnect.ui.attendance.AttendanceFragment
 import com.github.lzyzsd.circleprogress.ArcProgress
-import java.util.*
+import kotlin.collections.ArrayList
 
-class SubjectAdapter(private val subjects: ArrayList<String>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
-    private var dB: DatabaseHelper? = null
+class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
     var per = 0
     var criteria = 0f
     var predict = 0f
+    var attended: Int = 0
+    var missed: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.subject_item, parent, false)
         return ViewHolder(view)
@@ -34,86 +33,53 @@ class SubjectAdapter(private val subjects: ArrayList<String>, private val contex
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
-        val current = subjects[position]
+        val current = subjects[position]?.subjectName
         holder.circleProgress.max = 100
         holder.circleProgress.progress = 25
-
         //Setting details of cards on loading
         holder.heading.text = current
-        val attended = intArrayOf(0)
-        val missed = intArrayOf(0)
-        dB = DatabaseHelper(context)
-        val res = dB!!.getClasses(current)
-        if (res.moveToFirst()) {
-            attended[0] = res.getString(0).toInt()
-            missed[0] = res.getString(1).toInt()
-        }
-        holder.ratio.text = attended[0].toString() + "/" + (missed[0] + attended[0])
-        val percentage = String.format("%.0f", attended[0].toFloat() / (attended[0] + missed[0]) * 100)
+        attended = subjects[position]?.attended!!
+        missed = subjects[position]?.missed!!
+        holder.ratio.text = "$attended/${missed + attended}"
+        val percentage = String.format("%.0f", attended.toFloat() / (attended + missed) * 100)
         per = if (percentage == "NaN") 0 else percentage.toFloat().toInt()
-
-        // (attended / (attended + miss + 1)*100)
-        // (missed+1) / (attended + miss + 1)*100)
-
         holder.circleProgress.progress = per
-        predict = attended[0].toFloat() / (attended[0] + missed[0] + 1) * 100
-        val i = arrayOf<String?>(null)
+        predict = attended.toFloat() / (attended + missed + 1) * 100
+        var i: Int
         if (predict < criteria && percentage != "NaN") {
             holder.tv_bunk.text = "You can\'t miss any more lectures"
         } else {
             if (percentage == "NaN") holder.tv_bunk.text = "No classes have happened yet" else {
-                i[0] = "1"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 2) * 100 >= criteria) i[0] = "2" else if (attended[0].toFloat() / (attended[0] + missed[0] + 3) * 100 >= criteria) i[0] = "3" else if (attended[0].toFloat() / (attended[0] + missed[0] + 4) * 100 >= criteria) i[0] = "4" else if (i[0] == "4") holder.tv_bunk.text = "You can miss more than 3 lectures" else holder.tv_bunk.text = "You can miss " + i[0] + " lecture(s)"
+                i = 1
+                if (attended.toFloat() / (attended + missed + 2) * 100 >= criteria)
+                    i = 2
+                if (attended.toFloat() / (attended + missed + 3) * 100 >= criteria)
+                    i = 3
+                if (attended.toFloat() / (attended + missed + 4) * 100 >= criteria)
+                    i = 4
+                if (i == 4)
+                    holder.tv_bunk.text = "You can miss more than 3 lectures"
+                else holder.tv_bunk.text = "You can miss $i lecture(s)"
             }
         }
         holder.circleProgress.progress = per
 
-
         //Button functionality
         holder.increase.setOnClickListener {
-//            viewModel.updateSubject("")
-//            var inte = 0
-//            viewModel.test?.observe(context as LifecycleOwner, androidx.lifecycle.Observer {
-//                inte = it
-//            })
-//            inte++
-            attended[0]++
-            dB!!.updateData(Integer.toString(position + 1), current, Integer.toString(attended[0]), Integer.toString(missed[0]))
-            holder.ratio.text = attended[0].toString() + "/" + (missed[0] + attended[0])
-            val percentage = String.format("%.0f", attended[0].toFloat() / (attended[0] + missed[0]) * 100)
-            per = percentage.toFloat().toInt()
-            predict = attended[0].toFloat() / (attended[0] + missed[0] + 1) * 100
-            //                predict = missed[0] + 1;
-            Log.d(TAG, "onClick: increase $predict")
-            if (predict < criteria && percentage != "NaN") {
-                holder.tv_bunk.text = "You can\'t miss any more lectures"
-            } else {
-                i[0] = "1"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 2) * 100 >= criteria) i[0] = "2"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 3) * 100 >= criteria) i[0] = "3"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 4) * 100 >= criteria) i[0] = "4"
-                if (i[0] == "4") holder.tv_bunk.text = "You can miss more than 3 lectures" else holder.tv_bunk.text = "You can miss " + i[0] + " lecture(s)"
+            attended++
+            val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended , missed) }
+            sub?.id = subjects[position]?.id!!
+            if (sub != null) {
+                viewModel.updateSubject(sub)
             }
-            holder.circleProgress.progress = per
         }
         holder.decrease.setOnClickListener {
-            missed[0]++
-            dB!!.updateData(Integer.toString(position + 1), current, Integer.toString(attended[0]), Integer.toString(missed[0]))
-            holder.ratio.text = attended[0].toString() + "/" + (missed[0] + attended[0])
-            val percentage = String.format("%.0f", attended[0].toFloat() / (attended[0] + missed[0]) * 100)
-            per = percentage.toFloat().toInt()
-            predict = attended[0].toFloat() / (attended[0] + missed[0] + 1) * 100
-            Log.d(TAG, "onClick: increase $predict")
-            if (predict < criteria && percentage != "NaN") {
-                holder.tv_bunk.text = "You can\'t miss any more lectures"
-            } else {
-                i[0] = "1"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 2) * 100 >= criteria) i[0] = "2"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 3) * 100 >= criteria) i[0] = "3"
-                if (attended[0].toFloat() / (attended[0] + missed[0] + 4) * 100 >= criteria) i[0] = "4"
-                if (i[0] == "4") holder.tv_bunk.text = "You can miss more than 3 lectures" else holder.tv_bunk.text = "You can miss " + i[0] + " lecture(s)"
+            missed++
+            val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended, missed ) }
+            sub?.id = subjects[position]?.id!!
+            if (sub != null) {
+                viewModel.updateSubject(sub)
             }
-            holder.circleProgress.progress = per
         }
         holder.delete.setOnClickListener { view ->
             val popup = PopupMenu(context, view)
@@ -122,9 +88,12 @@ class SubjectAdapter(private val subjects: ArrayList<String>, private val contex
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.delete -> {
-                        dB!!.deleteData(subjects[position])
-                        subjects.removeAt(position)
-                        AttendanceFragment.notifyChange()
+                        val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended, missed + 1) }
+                        sub?.id = subjects[position]?.id!!
+                        if (sub != null) {
+                            viewModel.delete(sub)
+                            notifyDataSetChanged()
+                        }
                     }
                 }
                 true
@@ -156,9 +125,4 @@ class SubjectAdapter(private val subjects: ArrayList<String>, private val contex
             circleProgress = itemView.findViewById(R.id.arc_progress)
         }
     }
-
-    companion object {
-        private const val TAG = "SubjectAdapter"
-    }
-
 }

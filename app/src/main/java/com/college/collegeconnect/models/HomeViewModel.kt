@@ -1,18 +1,20 @@
 package com.college.collegeconnect.models
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.amulyakhare.textdrawable.TextDrawable
+import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.Navigation
+import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.datamodels.Upload
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     private var firebaseFirestore: FirebaseFirestore? = null
     var documentReference: DocumentReference? = null
@@ -20,6 +22,7 @@ class HomeViewModel: ViewModel() {
     var nameLive : MutableLiveData<String>?= null
     var rollNoLive:MutableLiveData<String>?= null
     var branchLive:MutableLiveData<String>?= null
+    var tot: MutableLiveData<List<Int>>?= null
 
     fun returnName(): LiveData<String> {
         if (nameLive == null) {
@@ -37,12 +40,26 @@ class HomeViewModel: ViewModel() {
         return rollNoLive!!
     }
 
+
     fun returnBranch(): LiveData<String> {
         if (branchLive == null) {
             branchLive = MutableLiveData()
             loadData()
         }
         return branchLive!!
+    }
+    fun returnTot(): MutableLiveData<List<Int>> {
+        if (tot == null) {
+            tot = MutableLiveData()
+            atten()
+        }
+        return tot!!
+    }
+
+    fun atten(){
+        viewModelScope.launch { tot?.postValue(listOf( AttendanceDatabase(getApplication()).getAttendanceDao().getAttended(),
+                AttendanceDatabase(getApplication()).getAttendanceDao().getMissed()) )
+          }
     }
 
     fun loadData(){
@@ -54,11 +71,10 @@ class HomeViewModel: ViewModel() {
         firebaseFirestore!!.firestoreSettings = settings
 
         registered = documentReference!!.addSnapshotListener(MetadataChanges.INCLUDE) { documentSnapshot, error ->
-            assert(documentSnapshot != null)
             try {
                 val name = documentSnapshot!!.getString("name")
-                val rollNo = documentSnapshot!!.getString("rollno")
-                val strbranch = documentSnapshot!!.getString("branch")
+                val rollNo = documentSnapshot.getString("rollno")
+                val strbranch = documentSnapshot.getString("branch")
                 nameLive?.postValue(name)
                 rollNoLive?.postValue(rollNo)
                 branchLive?.postValue(strbranch)
@@ -66,7 +82,6 @@ class HomeViewModel: ViewModel() {
 //                nameField.setText(SaveSharedPreference.getUser(mcontext))
 //                enrollNo.setText(rollNo)
 //                branch.setText(strbranch)
-                assert(name != null)
 //                val space = name!!.indexOf(" ")
 //                val color = Navigation.generatecolor()
 //                drawable = TextDrawable.builder().beginConfig()

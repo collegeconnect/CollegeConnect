@@ -1,5 +1,6 @@
 package com.college.collegeconnect.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -15,5 +16,11 @@ interface SubjectDao {
     suspend fun delete(subject: SubjectDetails)
 
     @Query("SELECT * FROM SubjectDetails ORDER BY ID ASC")
-    suspend fun getAttendance(): List<SubjectDetails>
+    fun getAttendance(): LiveData<List<SubjectDetails>>
+
+    @Query("SELECT SUM(attended) FROM SubjectDetails")
+    suspend fun getAttended():Int
+
+    @Query("SELECT SUM(missed) FROM SubjectDetails")
+    suspend fun getMissed():Int
 }

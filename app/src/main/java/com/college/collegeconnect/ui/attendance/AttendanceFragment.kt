@@ -1,6 +1,5 @@
 package com.college.collegeconnect.ui.attendance
 
-import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -13,22 +12,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SubjectAdapter
+import com.college.collegeconnect.database.AttendanceDatabase
+import com.college.collegeconnect.database.SubjectDetails
 import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_attendance.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 class AttendanceFragment : Fragment(){
     lateinit var bottomNavigationView: BottomNavigationView
@@ -38,19 +36,10 @@ class AttendanceFragment : Fragment(){
     private lateinit var subjectRecycler: RecyclerView
     lateinit var tv: TextView
     lateinit var mCtx: Context
-//    private lateinit var job: Job
-    lateinit var subjectList: ArrayList<String>
+    lateinit var subjectList: ArrayList<SubjectDetails?>
     private lateinit var viewModel: AttendanceViewModel
 
 
-//    override val coroutineContext: CoroutineContext
-//        get() = job + Dispatchers.Main
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (activity != null) bottomNavigationView = requireActivity().findViewById(R.id.bottomNav)
-//        job = Job()
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
         subjectRecycler = view.findViewById(R.id.subjectRecyclerView)
@@ -77,21 +66,12 @@ class AttendanceFragment : Fragment(){
         super.onActivityCreated(savedInstanceState)
         tv = requireActivity().findViewById(R.id.navTitle)
         tv.text = "ATTENDANCE"
-
+        if (activity != null) bottomNavigationView = requireActivity().findViewById(R.id.bottomNav)
         mydb = DatabaseHelper(context)
         subjectList = ArrayList()
         subjectRecycler.setHasFixedSize(true)
         subjectRecycler.layoutManager = LinearLayoutManager(context)
-        viewModel.loadData()
-        viewModel.list?.observe(requireActivity(), androidx.lifecycle.Observer {
-            Log.d("TAG", "onActivityCreated: observer")
-            if (it.isEmpty()) {
-                Snackbar.make(subjectRecyclerView, "You have not added any subject!", Snackbar.LENGTH_LONG).show()
-            }
-            subjectList.addAll(it)
-            subjectAdapter = SubjectAdapter(subjectList, mCtx, viewModel)
-            subjectRecycler.adapter = subjectAdapter
-        })
+        load()
         addSubject.setOnClickListener { addSubject() }
     }
 
@@ -112,19 +92,33 @@ class AttendanceFragment : Fragment(){
 ////        }
 //    }
 
+    private fun load() {
+        val subjectList = ArrayList<SubjectDetails?>()
+        val subject = context?.let {
+            AttendanceDatabase(it).getAttendanceDao().getAttendance()}
+            subject?.observe(viewLifecycleOwner, Observer {
+                subjectList.clear()
+                    for (sub in it) {
+                        subjectList.add(sub)
+                    }
+                subjectAdapter = SubjectAdapter(subjectList, mCtx, viewModel)
+                subjectRecycler.adapter = subjectAdapter
+                notifyChange()
+                subjectAdapter.notifyDataSetChanged()
+            })
+    }
     private fun addSubject() {
         if (subject.editText!!.text.toString().isEmpty() || subject.editText!!.text.toString() == "") subject.error = "Enter a Subject" else {
             viewModel.addSubject(subject.editText!!.text.toString())
             try {
                 val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(activity?.currentFocus!!.windowToken, 0)
-            } catch (e: Exception) {
-            }
-            subjectList.add(subject.editText!!.text.toString())
+            } catch (e: Exception) { }
             subjectAdapter.notifyDataSetChanged()
             subject.editText!!.setText("")
             subject.clearFocus()
         }
+
 
 //    private fun addSubject() {
 //        if (subject.editText!!.text.toString().isEmpty() || subject.editText!!.text.toString() == "") subject.error = "Enter a Subject" else {
