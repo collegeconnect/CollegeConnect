@@ -50,9 +50,6 @@ class HomeFragment : Fragment() {
     var uri: Uri? = null
     private var storageRef: StorageReference? = null
     private var mcontext: Context? = null
-
-    //    private FirebaseFirestore firebaseFirestore;
-    var documentReference: DocumentReference? = null
     lateinit var homeViewModel: HomeViewModel
     var registered: ListenerRegistration? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,10 +62,6 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) bottomNavigationView = requireActivity().findViewById(R.id.bottomNav)
@@ -76,30 +69,15 @@ class HomeFragment : Fragment() {
         tv.text = "HOME"
         storageRef = storage.reference
 
-        //Get user id
-//        auth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = auth.getCurrentUser();
-//        assert firebaseUser != null;
-//        String userId = firebaseUser.getUid();
-//        firebaseFirestore = FirebaseFirestore.getInstance();
         totalAttendance!!.isEnabled = false
         nameField!!.isEnabled = false
         enrollNo!!.isEnabled = false
         branch!!.isEnabled = false
 
-//        loadData();
-
-//        documentReference = firebaseFirestore.collection("users").document(userId);
-//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-//                .setPersistenceEnabled(true)
-//                .build();
-//        firebaseFirestore.setFirestoreSettings(settings);
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        //        homeViewModel.loadData();
         homeViewModel.returnName().observe(requireActivity(), Observer { s -> nameField!!.setText(s) })
         homeViewModel.returnRoll().observe(requireActivity(), Observer { s -> enrollNo!!.setText(s) })
         homeViewModel.returnBranch().observe(requireActivity(), Observer { s -> branch!!.setText(s) })
-        //        loadDataFirestore();
         val file = File("/data/user/0/com.college.collegeconnect/files/dp.jpeg")
         if (file.exists()) {
             uri = Uri.fromFile(file)
@@ -140,43 +118,7 @@ class HomeFragment : Fragment() {
                 } else
                     totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
             })
-//
         })
-
-//        homeViewModel.returnTot().observe(requireActivity(), Observer { list ->
-//                var atten = 0
-//                var miss = 0
-//                Toast.makeText(context, "observation running", Toast.LENGTH_SHORT).show()
-//                if (list != null) {
-//                    atten = list[0]
-//                    miss = list[1]
-//                }
-//                Toast.makeText(context, "$miss, $atten", Toast.LENGTH_SHORT).show()
-//                val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
-//                if (percentage.isNaN())
-//                    totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
-//                else
-//                    totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
-//            })
-
-//            sub?.observe(requireActivity(), Observer {
-//                Toast.makeText(context, "observation running", Toast.LENGTH_SHORT).show()
-//                var atten = 0
-//                var miss = 0
-//                homeViewModel.returnTot().observe(requireActivity(), Observer {
-//                    if (it != null) {
-//                        atten = it[0]
-//                        miss = it[1]
-//                    }
-//                    Toast.makeText(context, "$miss, $atten", Toast.LENGTH_SHORT).show()
-//                    val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
-//                    if (percentage.isNaN())
-//                        totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
-//                    else
-//                        totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
-//                })
-//            })
-
     }
 
     private fun download_dp() {
@@ -235,38 +177,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    //    private void loadDataFirestore() {
-    //        registered = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-    //            @Override
-    //            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-    //                assert documentSnapshot != null;
-    //                try {
-    //                    String name = documentSnapshot.getString("name");
-    //                    String rollNo = documentSnapshot.getString("rollno");
-    //                    String strbranch = documentSnapshot.getString("branch");
-    //                    SaveSharedPreference.setUser(mcontext, name);
-    //                    nameField.setText(SaveSharedPreference.getUser(mcontext));
-    //                    enrollNo.setText(rollNo);
-    //                    branch.setText(strbranch);
-    //
-    //                    assert name != null;
-    //                    int space = name.indexOf(" ");
-    //                    int color = Navigation.generatecolor();
-    //                    drawable = TextDrawable.builder().beginConfig()
-    //                            .width(150)
-    //                            .height(150)
-    //                            .bold()
-    //                            .endConfig()
-    //                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-    //                    prfileImage.setImageDrawable(drawable);
-    //                } catch (Exception e) {
-    //                    Log.d("Home", "onEvent: " + e.getMessage());
-    //                }
-    //                if (uri != null)
-    //                    Picasso.get().load(uri).into(prfileImage);
-    //            }
-    //        });
-    //    }
     override fun onStart() {
         super.onStart()
         bottomNavigationView!!.menu.findItem(R.id.nav_home).isChecked = true
