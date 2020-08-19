@@ -22,7 +22,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     var nameLive : MutableLiveData<String>?= null
     var rollNoLive:MutableLiveData<String>?= null
     var branchLive:MutableLiveData<String>?= null
-    var tot: MutableLiveData<List<Int>>?= null
+//    var tot: MutableLiveData<List<Int>>?= null
 
     fun returnName(): LiveData<String> {
         if (nameLive == null) {
@@ -48,19 +48,19 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
         }
         return branchLive!!
     }
-    fun returnTot(): MutableLiveData<List<Int>> {
-        if (tot == null) {
-            tot = MutableLiveData()
-            atten()
-        }
-        return tot!!
-    }
+//    fun returnTot(): MutableLiveData<List<Int>> {
+//        if (tot == null) {
+//            tot = MutableLiveData()
+//            atten()
+//        }
+//        return tot!!
+//    }
 
-    fun atten(){
-        viewModelScope.launch { tot?.postValue(listOf( AttendanceDatabase(getApplication()).getAttendanceDao().getAttended(),
-                AttendanceDatabase(getApplication()).getAttendanceDao().getMissed()) )
-          }
-    }
+//    fun atten(){
+//        viewModelScope.launch { tot?.postValue(listOf( AttendanceDatabase(getApplication()).getAttendanceDao().getAttended(),
+//                AttendanceDatabase(getApplication()).getAttendanceDao().getMissed()) )
+//          }
+//    }
 
     fun loadData(){
         firebaseFirestore = FirebaseFirestore.getInstance()

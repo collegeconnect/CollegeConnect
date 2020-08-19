@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
@@ -16,11 +13,11 @@ import com.college.collegeconnect.database.SubjectDetails
 import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
-import com.college.collegeconnect.ui.attendance.AttendanceFragment
 import com.github.lzyzsd.circleprogress.ArcProgress
+import java.util.*
 import kotlin.collections.ArrayList
 
-class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
+class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
     var per = 0
     var criteria = 0f
     var predict = 0f
@@ -33,13 +30,13 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private v
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
-        val current = subjects[position]?.subjectName
+        val current = subjects[position].subjectName
         holder.circleProgress.max = 100
         holder.circleProgress.progress = 25
         //Setting details of cards on loading
         holder.heading.text = current
-        attended = subjects[position]?.attended!!
-        missed = subjects[position]?.missed!!
+        attended = subjects[position].attended
+        missed = subjects[position].missed
         holder.ratio.text = "$attended/${missed + attended}"
         val percentage = String.format("%.0f", attended.toFloat() / (attended + missed) * 100)
         per = if (percentage == "NaN") 0 else percentage.toFloat().toInt()
@@ -66,20 +63,20 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private v
 
         //Button functionality
         holder.increase.setOnClickListener {
-            attended++
-            val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended , missed) }
-            sub?.id = subjects[position]?.id!!
-            if (sub != null) {
-                viewModel.updateSubject(sub)
-            }
+            attended = subjects[position].attended
+            missed = subjects[position].missed
+            val sub = SubjectDetails(subjects[position].subjectName, attended+1, missed)
+            sub.id = subjects[position].id
+            viewModel.updateSubject(sub)
+            notifyDataSetChanged()
         }
         holder.decrease.setOnClickListener {
-            missed++
-            val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended, missed ) }
-            sub?.id = subjects[position]?.id!!
-            if (sub != null) {
-                viewModel.updateSubject(sub)
-            }
+            attended = subjects[position].attended
+            missed = subjects[position].missed
+            val sub = SubjectDetails(subjects[position].subjectName, attended, missed+1)
+            sub.id = subjects[position].id
+            viewModel.updateSubject(sub)
+            notifyDataSetChanged()
         }
         holder.delete.setOnClickListener { view ->
             val popup = PopupMenu(context, view)
@@ -88,12 +85,8 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private v
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.delete -> {
-                        val sub = subjects[position]?.subjectName?.let { it1 -> SubjectDetails(it1, attended, missed + 1) }
-                        sub?.id = subjects[position]?.id!!
-                        if (sub != null) {
-                            viewModel.delete(sub)
+                        subjects[position].id.let { viewModel.delete(it) }
                             notifyDataSetChanged()
-                        }
                     }
                 }
                 true
@@ -106,23 +99,14 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails?>, private v
         return subjects.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var delete: ImageButton
-        var decrease: ImageView
-        var increase: ImageView
-        var ratio: TextView
-        var heading: TextView
-        var tv_bunk: TextView
-        var circleProgress: ArcProgress
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var delete: ImageButton = itemView.findViewById(R.id.pop)
+        var decrease: ImageView = itemView.findViewById(R.id.decrease)
+        var increase: ImageView = itemView.findViewById(R.id.increase)
+        var ratio: TextView = itemView.findViewById(R.id.qtyTextview)
+        var heading: TextView = itemView.findViewById(R.id.subjectHeading)
+        var tv_bunk: TextView = itemView.findViewById(R.id.tv_bunk)
+        var circleProgress: ArcProgress = itemView.findViewById(R.id.arc_progress)
 
-        init {
-            increase = itemView.findViewById(R.id.increase)
-            decrease = itemView.findViewById(R.id.decrease)
-            delete = itemView.findViewById(R.id.pop)
-            ratio = itemView.findViewById(R.id.qtyTextview)
-            heading = itemView.findViewById(R.id.subjectHeading)
-            tv_bunk = itemView.findViewById(R.id.tv_bunk)
-            circleProgress = itemView.findViewById(R.id.arc_progress)
-        }
     }
 }

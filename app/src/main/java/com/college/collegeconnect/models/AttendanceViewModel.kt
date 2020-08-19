@@ -38,9 +38,9 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
             AttendanceDatabase(getApplication()).getAttendanceDao().update(subjectDetails)
         }
     }
-    fun delete( subjectDetails: SubjectDetails){
+    fun delete( id: Int){
         viewModelScope.launch{
-            AttendanceDatabase(getApplication()).getAttendanceDao().delete(subjectDetails)
+            AttendanceDatabase(getApplication()).getAttendanceDao().delete(id)
         }
     }
 

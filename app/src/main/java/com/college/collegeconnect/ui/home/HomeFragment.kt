@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.text.AutoText
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -112,21 +113,51 @@ class HomeFragment : Fragment() {
         }
         if (uri != null) Picasso.get().load(uri).into(prfileImage)
 
-        homeViewModel.returnTot().observe(requireActivity(), Observer { list ->
-                var atten = 0
-                var miss = 0
-//                Toast.makeText(context, "observation running", Toast.LENGTH_SHORT).show()
-                if (list != null) {
-                    atten = list[0]
-                    miss = list[1]
-                }
-                Toast.makeText(context, "$miss, $atten", Toast.LENGTH_SHORT).show()
-                val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
-                if (percentage.isNaN())
+        val attended = AttendanceDatabase(requireContext()).getAttendanceDao().getAttended()
+        attended.observe(requireActivity(), Observer { atten ->
+
+            AttendanceDatabase(requireContext()).getAttendanceDao().getMissed().observe(requireActivity(), Observer { miss ->
+                if (atten != null && miss != null) {
+                    val percentage = atten.toFloat() / (atten.toFloat() + miss?.toFloat()!!)
+                    if (percentage.isNaN())
+                        totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                    else
+                        totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
+                } else
                     totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
-                else
-                    totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
             })
+
+        })
+        val missed = AttendanceDatabase(requireContext()).getAttendanceDao().getMissed()
+        missed.observe(requireActivity(), Observer { miss ->
+            AttendanceDatabase(requireContext()).getAttendanceDao().getAttended().observe(requireActivity(), Observer { atten ->
+                if (atten != null && miss != null) {
+                    val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
+                    if (percentage.isNaN())
+                        totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                    else
+                        totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
+                } else
+                    totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+            })
+//
+        })
+
+//        homeViewModel.returnTot().observe(requireActivity(), Observer { list ->
+//                var atten = 0
+//                var miss = 0
+//                Toast.makeText(context, "observation running", Toast.LENGTH_SHORT).show()
+//                if (list != null) {
+//                    atten = list[0]
+//                    miss = list[1]
+//                }
+//                Toast.makeText(context, "$miss, $atten", Toast.LENGTH_SHORT).show()
+//                val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
+//                if (percentage.isNaN())
+//                    totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+//                else
+//                    totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
+//            })
 
 //            sub?.observe(requireActivity(), Observer {
 //                Toast.makeText(context, "observation running", Toast.LENGTH_SHORT).show()
@@ -146,7 +177,7 @@ class HomeFragment : Fragment() {
 //                })
 //            })
 
-        }
+    }
 
     private fun download_dp() {
         val downloadManager = requireContext().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager

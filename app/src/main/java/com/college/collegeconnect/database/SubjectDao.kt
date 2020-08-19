@@ -12,15 +12,15 @@ interface SubjectDao {
     @Update
     suspend fun update(subject: SubjectDetails)
 
-    @Delete
-    suspend fun delete(subject: SubjectDetails)
+    @Query("DELETE FROM SubjectDetails WHERE id=:uid")
+    suspend fun delete(uid:Int)
 
-    @Query("SELECT * FROM SubjectDetails ORDER BY ID ASC")
+    @Query("SELECT * FROM SubjectDetails")
     fun getAttendance(): LiveData<List<SubjectDetails>>
 
     @Query("SELECT SUM(attended) FROM SubjectDetails")
-    suspend fun getAttended():Int
+    fun getAttended():LiveData<Int>
 
     @Query("SELECT SUM(missed) FROM SubjectDetails")
-    suspend fun getMissed():Int
+    fun getMissed():LiveData<Int>
 }
