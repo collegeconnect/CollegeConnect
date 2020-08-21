@@ -44,4 +44,12 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+//    fun getSubjects() : List<String> {
+//        var list = ArrayList<String>()
+//        viewModelScope.launch {
+//            list = AttendanceDatabase(getApplication()).getAttendanceDao().getSubjects() as ArrayList<String>
+//        }
+//        return list
+//    }
+
 }

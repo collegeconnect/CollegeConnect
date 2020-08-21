@@ -113,6 +113,12 @@
             android:parentActivityName="com.college.collegeconnect.Navigation"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.college.collegeconnect.NewTimeTable"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Time Table"
+            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.college.collegeconnect.Navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"

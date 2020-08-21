@@ -41,8 +41,6 @@ import java.util.Random;
 
 public class Navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
     BottomNavigationView bottomNavigationView;
     static int color;
     Fragment homefrag = new HomeFragment();
@@ -174,7 +172,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 //    }
 
     private void timetable() {
-        Intent intent1 = new Intent(this, TimeTable.class);
+        Intent intent1 = new Intent(this, NewTimeTable.class);
         startActivity(intent1);
     }
 
