@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.settingsactivity.SettingsActivity;
+import com.college.collegeconnect.timetable.TimeTableScheduleActivity;
 import com.college.collegeconnect.ui.attendance.AttendanceFragment;
 import com.college.collegeconnect.ui.home.HomeFragment;
 import com.college.collegeconnect.ui.notes.NotesFragment;
@@ -60,6 +61,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
 
         //For test notifications
         /*
@@ -127,6 +129,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
             @Override
             public void onClick(View view) {
                 timetable();
+
 //                Notification.displayNotificaton(getApplicationContext(),"Title","body");
             }
         });
@@ -174,7 +177,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 //    }
 
     private void timetable() {
-        Intent intent1 = new Intent(this, TimeTable.class);
+        Intent intent1 = new Intent(this, TimeTableScheduleActivity.class);
         startActivity(intent1);
     }
 

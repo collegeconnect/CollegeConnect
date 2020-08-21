@@ -12,7 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class Notification {
 
-    public static void displayNotificaton(Context mCtx, String title, String body) {
+    public static void displayNotification(Context mCtx, String title, String body) {
 
         Intent intent = new Intent(mCtx, Navigation.class);
         intent.putExtra("fragment", "attenfrag");
@@ -26,7 +26,6 @@ public class Notification {
                 .setContentText(body)
                 .setColor(Color.parseColor("#138FF7"))
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
                 .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setLights(Color.WHITE, 500, 500)

@@ -91,12 +91,12 @@
         <item>Great</item>
     </string-array>
     <string-array name="feedback1">
-    <item>Poor</item>
-    <item>Little</item>
-    <item>Fairly</item>
-    <item>Happy</item>
-    <item>Great</item>
-</string-array>
+        <item>Poor</item>
+        <item>Little</item>
+        <item>Fairly</item>
+        <item>Happy</item>
+        <item>Great</item>
+    </string-array>
 
     <string name="title_activity_settings2">Settings</string>
 
