@@ -23,4 +23,7 @@ interface SubjectDao {
 
     @Query("SELECT SUM(missed) FROM SubjectDetails")
     fun getMissed():LiveData<Int>
+
+    @Query("SELECT subjectName FROM SubjectDetails")
+    fun getSubjects():LiveData<List<String>>
 }
