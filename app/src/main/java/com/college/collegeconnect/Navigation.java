@@ -173,7 +173,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 //    }
 
     private void timetable() {
-        Intent intent1 = new Intent(this, TimeTableScheduleActivity.class);
+//        Intent intent1 = new Intent(this, TimeTableScheduleActivity.class);
         Intent intent1 = new Intent(this, NewTimeTable.class);
         startActivity(intent1);
     }

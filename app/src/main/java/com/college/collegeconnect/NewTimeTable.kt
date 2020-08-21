@@ -26,8 +26,7 @@ class NewTimeTable : AppCompatActivity() {
         setContentView(R.layout.activity_new_time_table)
 
         //Setup viewpager and tablayout
-        val sectionsPagerAdapter: SectionsPagerAdapter
-        sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs = findViewById<TabLayout>(R.id.tabs)
@@ -43,8 +42,7 @@ class NewTimeTable : AppCompatActivity() {
         val inflater = (this as AppCompatActivity).layoutInflater
         val view = inflater.inflate(R.layout.add_class_layout, null)
 
-        var spinner = view.findViewById<Spinner
-                >(R.id.spinner2)
+        var spinner = view.findViewById<Spinner>(R.id.spinner2)
         var adapter: ArrayAdapter<String>
         AttendanceDatabase(this).getAttendanceDao().getSubjects().observe(this, androidx.lifecycle.Observer {
             adapter = ArrayAdapter<String>(this,
@@ -56,7 +54,7 @@ class NewTimeTable : AppCompatActivity() {
 
         val start = view.findViewById<TextView>(R.id.start_time)
         val end = view.findViewById<TextView>(R.id.end_time)
-        start.setOnClickListener{
+        start.setOnClickListener {
 
             val mcurrentTime = Calendar.getInstance()
             val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
@@ -69,7 +67,7 @@ class NewTimeTable : AppCompatActivity() {
 
         }
 
-        end.setOnClickListener{
+        end.setOnClickListener {
 
             val mcurrentTime = Calendar.getInstance()
             val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
