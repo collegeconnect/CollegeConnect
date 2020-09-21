@@ -15,10 +15,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.college.collegeconnect.DownloadNotes;
+import com.college.collegeconnect.activities.DownloadNotes;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
-import com.college.collegeconnect.UploadNotes;
+import com.college.collegeconnect.activities.UploadNotes;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

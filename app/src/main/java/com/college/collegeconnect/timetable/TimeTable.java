@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.timetable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.DatabaseHelper;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnFailureListener;

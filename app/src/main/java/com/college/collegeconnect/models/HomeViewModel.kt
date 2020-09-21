@@ -3,16 +3,8 @@ package com.college.collegeconnect.models
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.amulyakhare.textdrawable.TextDrawable
-import com.college.collegeconnect.BuildConfig
-import com.college.collegeconnect.Navigation
-import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.datamodels.SaveSharedPreference
-import com.college.collegeconnect.datamodels.Upload
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.launch
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {
 

@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

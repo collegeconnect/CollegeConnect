@@ -36,7 +36,7 @@ import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
-import com.college.collegeconnect.Navigation;
+import com.college.collegeconnect.activities.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

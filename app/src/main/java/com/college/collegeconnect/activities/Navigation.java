@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.activities;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.college.collegeconnect.timetable.NewTimeTable;
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.settingsactivity.SettingsActivity;
 import com.college.collegeconnect.timetable.TimeTableScheduleActivity;
@@ -33,9 +35,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.Random;

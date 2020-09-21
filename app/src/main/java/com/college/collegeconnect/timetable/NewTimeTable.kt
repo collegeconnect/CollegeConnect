@@ -1,6 +1,7 @@
-package com.college.collegeconnect
+package com.college.collegeconnect.timetable
 
 import android.app.TimePickerDialog
+import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -8,16 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SectionsPagerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.models.AttendanceViewModel
+import com.college.collegeconnect.database.MondayEntity
+import com.college.collegeconnect.database.TimeTableDatabse
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_new_time_table.*
-import kotlinx.android.synthetic.main.add_class_layout.*
 import java.util.*
-
 
 class NewTimeTable : AppCompatActivity() {
 
@@ -80,6 +80,7 @@ class NewTimeTable : AppCompatActivity() {
         }
 
         builder.setPositiveButton("Done") { dialog, which ->
+            saveClass(MondayEntity(spinner.selectedItem.toString(),"1","2"))
             Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
         }
 
@@ -90,5 +91,20 @@ class NewTimeTable : AppCompatActivity() {
         val dialog = builder.create()
 
         dialog.show()
+    }
+
+    private fun saveClass(entity: MondayEntity){
+        class  SaveClass : AsyncTask<Void,Void,Void>(){
+            override fun doInBackground(vararg p0: Void?): Void? {
+                TimeTableDatabse(applicationContext).getMondayDao().add(entity)
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                super.onPostExecute(result)
+                Toast.makeText(applicationContext, "Class added", Toast.LENGTH_SHORT).show()
+            }
+        }
+        SaveClass().execute()
     }
 }

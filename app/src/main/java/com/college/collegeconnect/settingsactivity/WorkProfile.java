@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.settingsactivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.settingsactivity.WorkOne;
 
 public class WorkProfile extends AppCompatActivity {

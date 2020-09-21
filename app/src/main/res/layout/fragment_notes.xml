@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:padding="10dp"
-    tools:context=".UploadNotes">
+    tools:context=".activities.UploadNotes">
 
     <TextView
         android:id="@+id/Course"

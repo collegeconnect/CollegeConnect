@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.college.collegeconnect.R;
-import com.college.collegeconnect.WorkProfile;
+import com.college.collegeconnect.settingsactivity.WorkProfile;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.settingsactivity.AboutActivity;
 import com.college.collegeconnect.settingsactivity.ContactActivity;

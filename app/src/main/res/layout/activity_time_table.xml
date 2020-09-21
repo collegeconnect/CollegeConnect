@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragmentbackground"
-    tools:context="com.college.collegeconnect.TimeTable">
+    tools:context="com.college.collegeconnect.timetable.TimeTable">
 
     <include
         android:id="@+id/toolbar"

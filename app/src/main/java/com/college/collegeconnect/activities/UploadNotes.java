@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -31,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.Upload;

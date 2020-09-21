@@ -46,15 +46,15 @@ class TimeTableScheduleActivity : AppCompatActivity() {
     }
 
     private fun setUpAlarm(c: Calendar){
-        val cal = Calendar.getInstance()
+//        val cal = Calendar.getInstance()
         // add 30 seconds to the calendar object
         // add 30 seconds to the calendar object
-        cal.add(Calendar.SECOND, 10)
+//        cal.add(Calendar.SECOND, 10)
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
         Toast.makeText(this, "notification in 10 secs", Toast.LENGTH_SHORT).show()
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, cal.timeInMillis, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
     fun cancelAlarm(){
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager

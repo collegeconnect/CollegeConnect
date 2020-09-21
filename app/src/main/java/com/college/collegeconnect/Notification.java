@@ -10,11 +10,14 @@ import android.media.RingtoneManager;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.college.collegeconnect.activities.Navigation;
+import com.college.collegeconnect.timetable.TimeTableScheduleActivity;
+
 public class Notification {
 
     public static void displayNotification(Context mCtx, String title, String body) {
 
-        Intent intent = new Intent(mCtx, Navigation.class);
+        Intent intent = new Intent(mCtx, TimeTableScheduleActivity.class);
         intent.putExtra("fragment", "attenfrag");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(mCtx, 100, intent, PendingIntent.FLAG_CANCEL_CURRENT);

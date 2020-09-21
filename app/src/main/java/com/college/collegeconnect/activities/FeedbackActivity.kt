@@ -1,4 +1,4 @@
-package com.college.collegeconnect
+package com.college.collegeconnect.activities
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
+import com.college.collegeconnect.R
 import com.college.collegeconnect.datamodels.Feedback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth

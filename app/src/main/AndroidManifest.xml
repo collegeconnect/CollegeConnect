@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:configChanges="uiMode"
@@ -20,11 +22,11 @@
         android:allowBackup="true">
         <activity android:name=".timetable.TimeTableScheduleActivity" />
         <activity
-            android:name=".FeedbackActivity"
-            android:parentActivityName=".Navigation"
+            android:name=".activities.FeedbackActivity"
+            android:parentActivityName=".activities.Navigation"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.WorkProfile"
+            android:name="com.college.collegeconnect.settingsactivity.WorkProfile"
             android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
             android:windowSoftInputMode="adjustPan" />
 
@@ -33,7 +35,7 @@
             android:value="true" />
 
         <activity
-            android:name="com.college.collegeconnect.OnBoardingScreenm"
+            android:name="com.college.collegeconnect.activities.OnBoardingScreenm"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.college.collegeconnect.ui.event.CreateEvent"
@@ -84,18 +86,18 @@
             android:value="@string/banner_ad_app_id_test" />
 
         <activity
-            android:name="com.college.collegeconnect.StepTwoSignUp"
+            android:name="com.college.collegeconnect.activities.StepTwoSignUp"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.DownloadNotes"
+            android:name="com.college.collegeconnect.activities.DownloadNotes"
             android:label="DownloadNotes"
-            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.UploadNotes"
+            android:name="com.college.collegeconnect.activities.UploadNotes"
             android:label="Upload"
-            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter
@@ -111,31 +113,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.college.collegeconnect.TimeTable"
+            android:name="com.college.collegeconnect.timetable.TimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.NewTimeTable"
+            android:name="com.college.collegeconnect.timetable.NewTimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.Navigation"
+            android:name="com.college.collegeconnect.activities.Navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.SignUp"
+            android:name="com.college.collegeconnect.activities.SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:parentActivityName="com.college.collegeconnect.Navigation"
+            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.Splash"
+            android:name="com.college.collegeconnect.activities.Splash"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -145,7 +147,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.college.collegeconnect.MainActivity"
+            android:name="com.college.collegeconnect.activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
 
@@ -171,16 +173,33 @@
             </intent-filter>
         </service>
 
+        <service android:name=".timetable.BackgroundService" />
+
         <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:name="com.google.firebase.messaging.default _notification_icon"
             android:resource="@drawable/ic_stat_call_white" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/newBlue" />
 
         <receiver android:name=".timetable.AlertReceiver"
+            android:process=":remote"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+<!--        <receiver android:name=".timetable.AlertReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />-->
+
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

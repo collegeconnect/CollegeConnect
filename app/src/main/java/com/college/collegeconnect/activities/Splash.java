@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.activities;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.NotesAdapter;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.Upload;
