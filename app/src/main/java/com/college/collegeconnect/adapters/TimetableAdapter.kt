@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
+import com.college.collegeconnect.database.MondayEntity
 import com.college.collegeconnect.database.SubjectDetails
 import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.datamodels.SaveSharedPreference
@@ -17,20 +18,22 @@ import com.github.lzyzsd.circleprogress.ArcProgress
 import java.util.*
 import kotlin.collections.ArrayList
 
-class TimetableAdapter(private val subjects: ArrayList<String>, private val context: Context) : RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
+class TimetableAdapter(private val subjects: ArrayList<MondayEntity>, private val context: Context) : RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
     var per = 0
     var criteria = 0f
     var predict = 0f
     var attended: Int = 0
     var missed: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.subject_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.timetable_item, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.heading.text = subjects[position]
+        holder.heading.text = subjects[position].subjectName
+        holder.start.text = subjects[position].startTime
+        holder.end.text = subjects[position].endTime
 //        criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
 //        val current = subjects[position].subjectName
 //        holder.circleProgress.max = 100
@@ -102,13 +105,10 @@ class TimetableAdapter(private val subjects: ArrayList<String>, private val cont
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var delete: ImageButton = itemView.findViewById(R.id.pop)
-        var decrease: ImageView = itemView.findViewById(R.id.decrease)
-        var increase: ImageView = itemView.findViewById(R.id.increase)
-        var ratio: TextView = itemView.findViewById(R.id.qtyTextview)
-        var heading: TextView = itemView.findViewById(R.id.subjectHeading)
-        var tv_bunk: TextView = itemView.findViewById(R.id.tv_bunk)
-        var circleProgress: ArcProgress = itemView.findViewById(R.id.arc_progress)
+
+        var heading: TextView = itemView.findViewById(R.id.subjectTitle)
+        var start: TextView = itemView.findViewById(R.id.begin)
+        var end: TextView = itemView.findViewById(R.id.end)
 
     }
 }

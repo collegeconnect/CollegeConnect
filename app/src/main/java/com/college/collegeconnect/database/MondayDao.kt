@@ -11,6 +11,6 @@ interface MondayDao {
     @Insert
      fun add(sub : MondayEntity)
 
-    @Query("SELECT subjectName FROM MondayEntity")
-    fun getSubjects(): LiveData<List<String>>
+    @Query("SELECT * FROM MondayEntity")
+    fun getMonClasses(): LiveData<List<MondayEntity>>
 }

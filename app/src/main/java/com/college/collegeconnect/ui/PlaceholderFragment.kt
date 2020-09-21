@@ -10,12 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
-import com.college.collegeconnect.adapters.SubjectAdapter
 import com.college.collegeconnect.adapters.TimetableAdapter
-import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.database.SubjectDetails
+import com.college.collegeconnect.database.MondayEntity
 import com.college.collegeconnect.database.TimeTableDatabse
-import com.college.collegeconnect.ui.attendance.AttendanceFragment
 import java.util.ArrayList
 
 /**
@@ -44,10 +41,10 @@ class PlaceholderFragment(private val position: Int) : Fragment() {
     private fun load() {
 
         val subject = context?.let {
-            TimeTableDatabse(it).getMondayDao().getSubjects()
+            TimeTableDatabse(it).getMondayDao().getMonClasses()
         }
         subject?.observe(requireActivity(), Observer {
-            val subjectList = ArrayList<String>()
+            val subjectList = ArrayList<MondayEntity>()
             subjectList.addAll(it)
             PlaceholderFragment.subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1) }!!
             subjectRecycler.adapter = PlaceholderFragment.subjectAdapter
