@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>bvest_visibilty</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>
+    <!-- END xml_defaults -->
