@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.event.EventsFragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/ic_toolbar">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarcom"
             android:layout_width="match_parent"
@@ -17,15 +19,16 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title=" "
             app:titleTextColor="@color/colorwhite" />
+
         <TextView
             android:id="@+id/tvtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="@color/colorwhite"
-            android:textSize="25sp"
             android:fontFamily="sans-serif"
-            android:text="BVEST"/>
+            android:text="BVEST"
+            android:textColor="@color/colorwhite"
+            android:textSize="25sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -51,11 +54,35 @@
             android:paddingTop="10dp"
             android:paddingRight="10dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/eventsRecyclerBvest"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never" />
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/eventsRecyclerBvest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/societiesHeading"
+                    android:overScrollMode="never" />
+                
+                <TextView
+                    android:id="@+id/societiesHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Participating Societies"
+                    android:textSize="24sp"
+                    android:textColor="@color/latestBlue"
+                    android:layout_above="@id/societiesRecyclerBvest"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/societiesRecyclerBvest"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never" />
+            </RelativeLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -5,7 +5,7 @@
     <string name="log_in">Login</string>
     <string name="password">Password</string>
     <string name="Preference">Preference</string>
-    <string name="username">Roll No</string>
+    <string name="rollno">Roll Number</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome">Welcome</string>
     <string name="title_activity_navigation">Navigation</string>

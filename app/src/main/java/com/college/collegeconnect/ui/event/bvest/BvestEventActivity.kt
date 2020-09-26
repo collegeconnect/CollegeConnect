@@ -1,9 +1,10 @@
 package com.college.collegeconnect.ui.event.bvest
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.college.collegeconnect.R
+import com.college.collegeconnect.adapters.ImageAdapter
 import com.college.collegeconnect.datamodels.Events
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestEventViewModel
 import com.college.collegeconnect.utils.ImageHandler
@@ -13,19 +14,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class BvestEventActivity : AppCompatActivity() {
-    private lateinit var bvestEventViewModel: BvestEventViewModel
+
     private lateinit var event: Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bvest_event)
 
         if (intent != null) event = intent.getSerializableExtra("list") as Events
-        bvestEventViewModel = ViewModelProvider(this).get(BvestEventViewModel::class.java)
 
+        //Set values
         ImageHandler().getSharedInstance(this)?.load(event.imageUrl[0])
         tvEventPageTitle.text = event.eventName
         tvEventPageDate.text = date(event.date)
         tvEventDescription.text = event.eventDescription
+        val imageAdapter = ImageAdapter(event.imageUrl)
+        ivEventBanner.adapter = imageAdapter
     }
     private fun date(date: String): String {
         val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())

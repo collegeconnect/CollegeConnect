@@ -7,13 +7,17 @@
     app:layoutDescription="@xml/activity_event_info_scene"
     tools:context=".ui.event.bvest.BvestEventActivity">
 
-    <ImageView
-        android:id="@+id/ivEventBanner"
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:transitionName="eventBannerTransition"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout_EventDescription"
+        android:layout_marginStart="8dp"
+        android:id="@+id/ivEventBanner"
+        android:layout_marginEnd="8dp"
+        android:adjustViewBounds="true"
+        android:focusableInTouchMode="true"
+        android:nestedScrollingEnabled="false"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout_EventTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,11 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:text="Description"
-            android:fontFamily="sans-serif"/>
+            android:text="Description" />
 
         <android.widget.Button
             android:id="@+id/registerEventButton"
@@ -69,17 +73,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_events_pint_icon" />
-        </LinearLayout>
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_events_pint_icon" />
 
         <TextView
             android:id="@+id/tvEventPageTitle"
@@ -89,6 +87,7 @@
             android:paddingTop="16dp"
             android:paddingRight="16dp"
             android:text="EVENT TITLE"
+            android:textColor="@color/latestBlue"
             android:textSize="30sp"
             android:textStyle="bold"
             android:transitionName="eventTitleTransition" />
@@ -101,6 +100,7 @@
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
             android:text="EVENT DATE"
+            android:textColor="@color/latestBlue"
             android:textSize="20sp"
             android:transitionName="eventDateTransition" />
 

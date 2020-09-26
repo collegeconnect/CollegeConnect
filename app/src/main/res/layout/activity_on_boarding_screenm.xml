@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:text="BACK"
-        android:textColor="@color/colorwhite    "
+        android:textColor="@color/colorwhite"
         android:visibility="invisible" />
 
     <android.widget.Button
