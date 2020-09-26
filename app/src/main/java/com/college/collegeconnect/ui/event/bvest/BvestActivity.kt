@@ -2,6 +2,7 @@ package com.college.collegeconnect.ui.event.bvest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -26,9 +27,36 @@ class BvestActivity : AppCompatActivity() {
         eventSwipeBvest.setOnRefreshListener {
             loadData()
             loadSocieties()
+            if (collapse.visibility == View.VISIBLE){
+                collapse.visibility = View.GONE
+                viewAll.visibility = View.VISIBLE
+            }
+
         }
         loadData()
         loadSocieties()
+
+        viewAll.setOnClickListener {
+            bvestViewModel.listSociety.observe(this, Observer{
+                societiesRecyclerBvest.layoutManager = GridLayoutManager(this,3)
+                adapter2 = BvestSocietiesAdapter(this,it)
+                societiesRecyclerBvest.adapter=adapter2
+            })
+
+            collapse.visibility = View.VISIBLE
+            it.visibility = View.GONE
+        }
+
+        collapse.setOnClickListener {
+            bvestViewModel.listSociety.observe(this, Observer{
+                societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                adapter2 = BvestSocietiesAdapter(this,it)
+                societiesRecyclerBvest.adapter=adapter2
+            })
+
+            it.visibility = View.GONE
+            viewAll.visibility = View.VISIBLE
+        }
     }
 
     private fun loadData(){

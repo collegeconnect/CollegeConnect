@@ -68,7 +68,7 @@
                 
                 <TextView
                     android:id="@+id/societiesHeading"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Participating Societies"
                     android:textSize="18sp"
@@ -77,10 +77,35 @@
                     android:fontFamily="@font/ubuntu_regular"
                     android:layout_above="@id/societiesRecyclerBvest"/>
 
+                <TextView
+                    android:id="@+id/viewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textSize="18sp"
+                    android:paddingEnd="8dp"
+                    android:textColor="#70000000"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_alignParentEnd="true"
+                    android:layout_above="@id/societiesRecyclerBvest"/>
+
+                <TextView
+                    android:id="@+id/collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Collapse"
+                    android:textSize="18sp"
+                    android:paddingEnd="8dp"
+                    android:textColor="#70000000"
+                    android:fontFamily="@font/ubuntu_regular"
+                    android:layout_alignParentEnd="true"
+                    android:visibility="gone"
+                    android:layout_above="@id/societiesRecyclerBvest"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/societiesRecyclerBvest"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_margin="8dp"
                     android:orientation="horizontal"
