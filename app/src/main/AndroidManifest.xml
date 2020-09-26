@@ -10,24 +10,24 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-
     <application
+        android:allowBackup="true"
         android:configChanges="uiMode"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:allowBackup="true">
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.event.bvest.BvestActivity"></activity>
         <activity android:name=".timetable.TimeTableScheduleActivity" />
         <activity
             android:name=".activities.FeedbackActivity"
             android:parentActivityName=".activities.Navigation"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.WorkProfile"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.WorkProfile"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
@@ -172,7 +172,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".timetable.BackgroundService" />
 
         <meta-data
@@ -182,24 +181,15 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/newBlue" />
 
-        <receiver android:name=".timetable.AlertReceiver"
-            android:process=":remote"
+        <receiver
+            android:name=".timetable.AlertReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-<!--        <receiver android:name=".timetable.AlertReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
     </application>
 
 </manifest>
