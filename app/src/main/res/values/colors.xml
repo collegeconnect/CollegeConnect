@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="newBlue">#138FF7</color>
+    <color name="latestBlue">#2F80ED</color>
     <color name="colorPrimary">#86bbd8</color>
     <color name="colorPrimaryDark">#138FF7</color>
     <color name="colorAccent">#138FF7</color>

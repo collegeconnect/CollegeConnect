@@ -27,7 +27,7 @@ public class Splash extends AppCompatActivity {
         else if (SaveSharedPreference.getCheckedItem(Splash.this) == 2)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        Intent i = new Intent(Splash.this, OnBoardingScreenm.class);
+        Intent i = new Intent(Splash.this, OnBoardingScreen.class);
         startActivity(i);
         finish();
 

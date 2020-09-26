@@ -14,7 +14,7 @@ import com.college.collegeconnect.adapters.ViewPagerAdapter;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.material.tabs.TabLayout;
 
-public class OnBoardingScreenm extends AppCompatActivity {
+public class OnBoardingScreen extends AppCompatActivity {
 
     private int[] layouts = {R.layout.first_slide, R.layout.second_slide, R.layout.third_slide, R.layout.fourth_slide};
     private Button back, next;
@@ -30,7 +30,7 @@ public class OnBoardingScreenm extends AppCompatActivity {
         setContentView(R.layout.activity_on_boarding_screenm);
 
         final ViewPager pager = findViewById(R.id.viewPager);
-        PagerAdapter adapter = new ViewPagerAdapter(layouts, OnBoardingScreenm.this);
+        PagerAdapter adapter = new ViewPagerAdapter(layouts, OnBoardingScreen.this);
         pager.setAdapter(adapter);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -78,8 +78,8 @@ public class OnBoardingScreenm extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentPage == layouts.length - 1) {
-                    SaveSharedPreference.setRef(OnBoardingScreenm.this, true);
-                    startActivity(new Intent(OnBoardingScreenm.this, MainActivity.class));
+                    SaveSharedPreference.setRef(OnBoardingScreen.this, true);
+                    startActivity(new Intent(OnBoardingScreen.this, MainActivity.class));
                     finish();
                 } else
                     pager.setCurrentItem(currentPage + 1);
