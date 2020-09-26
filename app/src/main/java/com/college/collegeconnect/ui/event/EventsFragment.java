@@ -19,6 +19,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.EventsAdapter;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.Events;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,7 +39,7 @@ import java.util.Date;
 public class EventsFragment extends Fragment {
 
     private FloatingActionButton createEvent;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
     DatabaseReference databaseReference;
     private RecyclerView recyclerView;
     static EventsAdapter eventsAdapter;
@@ -89,7 +90,7 @@ public class EventsFragment extends Fragment {
                             Log.d("change", "onDataChange22: " + events.getImageUrl().get(i));
                             delete.delete();
                         }
-                        DatabaseReference mDatabaserefernce = FirebaseDatabase.getInstance().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
+                        DatabaseReference mDatabaserefernce = FirebaseUtil.getDatabase().getReference(Constants.EVENTS_PATH_UPLOAD).child(events.getEventName());
                         mDatabaserefernce.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {

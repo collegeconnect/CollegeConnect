@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +44,7 @@ public class UpcomingEvents extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDefaultDisplayHomeAsUpEnabled(true);
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseUtil.getDatabase();
         databaseReference = firebaseDatabase.getReference("EventAdmin");
         createEvent = findViewById(R.id.createEvent);
         Log.d("Upcoming Events", "onCreate: "+SaveSharedPreference.getUserName(this));

@@ -20,6 +20,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.ImageAdapter;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +37,7 @@ import java.util.Map;
 
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
     //    private TouchImageView banner;
     private TextView evntName, startingDate, endingDate;
     private TextView description;

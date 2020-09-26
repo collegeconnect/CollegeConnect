@@ -11,10 +11,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
 import com.college.collegeconnect.R
 import com.college.collegeconnect.datamodels.Feedback
+import com.college.collegeconnect.utils.FirebaseUtil
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.hsalf.smileyrating.SmileyRating
 import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -32,7 +32,7 @@ class FeedbackActivity : AppCompatActivity() {
         setContentView(R.layout.activity_feedback)
         firebaseAuth = FirebaseAuth.getInstance()
         val uid = firebaseAuth.currentUser?.uid.toString()
-        databaseReference = FirebaseDatabase.getInstance().getReference("Feedback").child(uid)
+        databaseReference = FirebaseUtil.getDatabase().getReference("Feedback").child(uid)
         email = firebaseAuth.currentUser?.email.toString()
         val toolbar = findViewById<Toolbar>(R.id.toolbarcom)
         setSupportActionBar(toolbar)

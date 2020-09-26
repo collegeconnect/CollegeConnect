@@ -2,18 +2,18 @@ package com.college.collegeconnect.ui.event.bvest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.collegeconnect.R
-import com.college.collegeconnect.adapters.EventsAdapter
-import com.college.collegeconnect.datamodels.Events
+import com.college.collegeconnect.adapters.BvestEventsAdapter
+import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import kotlinx.android.synthetic.main.activity_bvest.*
 
 class BvestActivity : AppCompatActivity() {
-    lateinit var bvestViewModel:BvestViewModel
-    lateinit var adapter:EventsAdapter
+    lateinit var bvestViewModel: BvestViewModel
+    lateinit var adapter:BvestEventsAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,8 @@ class BvestActivity : AppCompatActivity() {
         eventSwipeBvest.isRefreshing = true
         bvestViewModel.loadData()
         bvestViewModel.listEvents.observe(this, Observer{
-            eventsRecyclerBvest.layoutManager = LinearLayoutManager(this)
-            adapter = EventsAdapter(this,it)
+            eventsRecyclerBvest.layoutManager = GridLayoutManager(this,2)
+            adapter = BvestEventsAdapter(this,it)
             eventsRecyclerBvest.adapter=adapter
             eventSwipeBvest.isRefreshing=false
     })

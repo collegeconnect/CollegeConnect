@@ -23,6 +23,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
 
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     public static final String EXTRA_PREV = "previous";
     private static String TAG = "Step Two Sign Up";
     private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
     private TextInputLayout rollno, branchanme, collegeName;
     private FirebaseAuth mAuth;
     private Button signup;

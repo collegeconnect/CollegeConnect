@@ -1,6 +1,6 @@
 # **College Connect**
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/38a8ac33405a44009aa89abbd8206d26)](https://app.codacy.com/manual/sakshampruthi/CollegeConnect?utm_source=github.com&utm_medium=referral&utm_content=sakshampruthi/CollegeConnect&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/de806932130d4ee7a70dd8f549ed4d47)](https://www.codacy.com/gh/collegeconnect/CollegeConnect?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=collegeconnect/CollegeConnect&amp;utm_campaign=Badge_Grade)
 [![Actions Status](https://github.com/sakshampruthi/CollegeConnect/workflows/build/badge.svg)](https://github.com/sakshampruthi/CollegeConnect/actions)
 [![License Badge](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/sakshampruthi/CollegeConnect/blob/versionTwo/LICENSE)
 [![Gitter](https://badges.gitter.im/CollegeConnect/community.svg)](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)

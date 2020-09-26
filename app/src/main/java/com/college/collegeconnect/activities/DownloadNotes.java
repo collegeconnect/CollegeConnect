@@ -24,6 +24,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.NotesAdapter;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.Upload;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -79,18 +80,15 @@ public class DownloadNotes extends AppCompatActivity {
         tv.setText("Notes");
 
         //AdMob
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+        MobileAds.initialize(this, initializationStatus -> {
 
-            }
         });
         mAdView = findViewById(R.id.adViewNotes);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         uploadList = new ArrayList<>();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+        mDatabaseReference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS);
         mDatabaseReference.keepSynced(true);
         loadData();
         swiperefreshlayout.setOnRefreshListener(this::loadData);

@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.ImageCreateAdapter;
 import com.college.collegeconnect.datamodels.Events;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -55,7 +56,7 @@ import java.util.Date;
 
 public class CreateEvent extends AppCompatActivity {
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
