@@ -62,6 +62,7 @@
                     android:id="@+id/eventsRecyclerBvest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:padding="10dp"
                     android:layout_above="@id/societiesHeading"
                     android:overScrollMode="never" />
                 
@@ -70,8 +71,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Participating Societies"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
+                    android:paddingStart="8dp"
                     android:textColor="@color/latestBlue"
+                    android:fontFamily="@font/ubuntu_regular"
                     android:layout_above="@id/societiesRecyclerBvest"/>
 
                 <androidx.recyclerview.widget.RecyclerView
