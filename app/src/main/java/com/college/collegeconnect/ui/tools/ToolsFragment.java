@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.ui.event.UpcomingEvents;
 import com.college.collegeconnect.ui.RoomLocator.RoomLocFragment;
+import com.college.collegeconnect.ui.event.bvest.BvestActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -106,7 +107,8 @@ public class ToolsFragment extends Fragment {
         bvest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "BVEST", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "BVEST", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), BvestActivity.class));
             }
         });
 

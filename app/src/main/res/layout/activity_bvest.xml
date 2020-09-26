@@ -8,8 +8,8 @@
     tools:context=".ui.event.EventsFragment">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bottomNav">
+        android:layout_height="60dp"
+        android:background="@drawable/ic_toolbar">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarcom"
             android:layout_width="match_parent"
@@ -17,14 +17,14 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:title=" "
             app:titleTextColor="@color/colorwhite" />
-
         <TextView
             android:id="@+id/tvtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/colorwhite"
-            android:textSize="20sp"
+            android:textSize="25sp"
+            android:fontFamily="sans-serif"
             android:text="BVEST"/>
     </RelativeLayout>
 
