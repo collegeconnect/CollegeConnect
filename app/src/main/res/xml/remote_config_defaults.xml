@@ -3,7 +3,7 @@
 <defaultsMap>
     <entry>
         <key>bvest_visibilty</key>
-        <value>true</value>
+        <value>false</value>
     </entry>
 </defaultsMap>
     <!-- END xml_defaults -->

@@ -17,7 +17,7 @@
         android:visibility="gone"
         style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@drawable/text_box_signup"
-        app:layout_constraintBottom_toTopOf="@id/textbranch"
+        app:layout_constraintBottom_toTopOf="@id/year"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
@@ -29,6 +29,32 @@
             android:ems="15"
             android:textCursorDrawable="@null"
             android:hint="College Name"
+            android:inputType="textCapCharacters"
+            android:textColor="@color/colorwhite" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textColorHint="@color/colorwhite"
+        app:hintTextColor="@color/colorwhite"
+        android:visibility="gone"
+        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@drawable/text_box_signup"
+        app:layout_constraintBottom_toTopOf="@id/textbranch"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        tools:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:textCursorDrawable="@null"
+            android:hint="Academic Year"
             android:inputType="textCapCharacters"
             android:textColor="@color/colorwhite" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -180,11 +206,12 @@
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
     <TextView
+        android:id="@+id/select_college"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select College"
         android:textColor="@color/colorwhite"
-        app:layout_constraintBottom_toTopOf="@id/collegeSpinner"
+        app:layout_constraintTop_toBottomOf="@id/textView13"
         app:layout_constraintStart_toStartOf="@id/collegeSpinner"
         android:layout_margin="10dp"/>
 
@@ -194,7 +221,7 @@
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/spinner_layout"
-        app:layout_constraintBottom_toTopOf="@+id/otherCollege"
+        app:layout_constraintTop_toBottomOf="@+id/select_college"
         app:layout_constraintEnd_toEndOf="@id/textbranch"
         app:layout_constraintStart_toStartOf="@+id/textbranch" />
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OnBoardingScreenm">
+    tools:context=".activities.OnBoardingScreen">
 
     <android.widget.Button
         android:id="@+id/buttonBack"
@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:text="BACK"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorwhite    "
         android:visibility="invisible" />
 
     <android.widget.Button
@@ -29,7 +29,7 @@
         android:layout_marginBottom="10dp"
         android:background="@android:color/transparent"
         android:text="NEXT"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorwhite" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -42,8 +42,9 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/buttonNext"
-        android:background="@color/colorSurface"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp" />

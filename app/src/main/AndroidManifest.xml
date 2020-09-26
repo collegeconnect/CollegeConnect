@@ -35,7 +35,7 @@
             android:value="true" />
 
         <activity
-            android:name="com.college.collegeconnect.activities.OnBoardingScreenm"
+            android:name="com.college.collegeconnect.activities.OnBoardingScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.college.collegeconnect.ui.event.CreateEvent"

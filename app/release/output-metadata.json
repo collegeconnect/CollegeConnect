@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.connect.collegeconnect",
+  "applicationId": "com.college.collegeconnect",
   "variantName": "release",
   "elements": [
     {
