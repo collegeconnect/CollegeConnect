@@ -10,24 +10,24 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-
     <application
+        android:allowBackup="true"
         android:configChanges="uiMode"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:allowBackup="true">
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.event.bvest.BvestActivity"></activity>
         <activity android:name=".timetable.TimeTableScheduleActivity" />
         <activity
             android:name=".activities.FeedbackActivity"
             android:parentActivityName=".activities.Navigation"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.WorkProfile"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.WorkProfile"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
@@ -35,16 +35,16 @@
             android:value="true" />
 
         <activity
-            android:name="com.college.collegeconnect.activities.OnBoardingScreenm"
+            android:name=".activities.OnBoardingScreenm"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.ui.event.CreateEvent"
+            android:name=".ui.event.CreateEvent"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.ui.event.UpcomingEvents"
+            android:name=".ui.event.UpcomingEvents"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.ContributeActivity"
+            android:name=".ContributeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
@@ -59,25 +59,25 @@
         </provider>
 
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.AboutActivity"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.AboutActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.ContactActivity"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.ContactActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.MyUploadsActivity"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.MyUploadsActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.HomeEditActivity"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.HomeEditActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.settingsactivity.SettingsActivity"
-            android:parentActivityName="com.college.collegeconnect.settingsactivity.SettingsActivity"
+            android:name=".settingsactivity.SettingsActivity"
+            android:parentActivityName=".settingsactivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
@@ -86,18 +86,18 @@
             android:value="@string/banner_ad_app_id_test" />
 
         <activity
-            android:name="com.college.collegeconnect.activities.StepTwoSignUp"
+            android:name=".activities.StepTwoSignUp"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.activities.DownloadNotes"
+            android:name=".activities.DownloadNotes"
             android:label="DownloadNotes"
-            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
+            android:parentActivityName=".activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.activities.UploadNotes"
+            android:name=".activities.UploadNotes"
             android:label="Upload"
-            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
+            android:parentActivityName=".activities.Navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter
@@ -113,33 +113,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.college.collegeconnect.timetable.TimeTable"
+            android:name=".timetable.TimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
+            android:parentActivityName=".activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.timetable.NewTimeTable"
+            android:name=".timetable.NewTimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
+            android:parentActivityName=".activities.Navigation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.college.collegeconnect.activities.Navigation"
+            android:name=".activities.Navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.activities.SignUp"
+            android:name=".activities.SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:parentActivityName="com.college.collegeconnect.activities.Navigation"
+            android:parentActivityName=".activities.Navigation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.college.collegeconnect.activities.Splash"
-            android:theme="@style/SplashTheme"
-            android:screenOrientation="portrait">
+            android:name=".activities.Splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -147,7 +147,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.college.collegeconnect.activities.MainActivity"
+            android:name=".activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
 
@@ -166,13 +166,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <service android:name="com.college.collegeconnect.MyFirebaseMessagingService"
+        <service
+            android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".timetable.BackgroundService" />
 
         <meta-data
@@ -182,24 +182,15 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/newBlue" />
 
-        <receiver android:name=".timetable.AlertReceiver"
-            android:process=":remote"
+        <receiver
+            android:name=".timetable.AlertReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-<!--        <receiver android:name=".timetable.AlertReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.media.action.DISPLAY_NOTIFICATION" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
     </application>
 
 </manifest>
