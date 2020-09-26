@@ -12,9 +12,9 @@ import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import kotlinx.android.synthetic.main.activity_bvest.*
 
 class BvestActivity : AppCompatActivity() {
+
     lateinit var bvestViewModel: BvestViewModel
     lateinit var adapter:BvestEventsAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +29,7 @@ class BvestActivity : AppCompatActivity() {
 
     private fun loadData(){
         eventSwipeBvest.isRefreshing = true
-        bvestViewModel.loadData()
-        bvestViewModel.listEvents.observe(this, Observer{
+        bvestViewModel.getList().observe(this, {
             eventsRecyclerBvest.layoutManager = GridLayoutManager(this,2)
             adapter = BvestEventsAdapter(this,it)
             eventsRecyclerBvest.adapter=adapter

@@ -1,8 +1,9 @@
 package com.college.collegeconnect.datamodels;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Events {
+public class Events implements Serializable {
 
     private String eventName;
     private String eventDescription;
