@@ -1,6 +1,3 @@
-package com.college.collegeconnect.datamodels;
+package com.college.collegeconnect.datamodels
 
-public class Society {
-    public String name;
-    public String image;
-}
+data class Society(val name:String?=null,val image:String?=null)
