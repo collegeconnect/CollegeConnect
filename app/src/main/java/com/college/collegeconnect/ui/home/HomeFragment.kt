@@ -7,44 +7,38 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
-import android.text.AutoText
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import com.amulyakhare.textdrawable.TextDrawable
 import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.datamodels.DatabaseHelper
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.HomeViewModel
+import com.college.collegeconnect.settingsactivity.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.Transformation
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.*
-import java.lang.Float.NaN
 
 class HomeFragment : Fragment() {
     var bottomNavigationView: BottomNavigationView? = null
     var drawable: TextDrawable? = null
     lateinit var tv: TextView
     var totalAttendance: TextView? = null
-    var nameField: EditText? = null
-    var enrollNo: EditText? = null
-    var branch: EditText? = null
+    var nameField: TextView? = null
+    var enrollNo: TextView? = null
+    var branch: TextView? = null
     var prfileImage: CircleImageView? = null
     private val storage = FirebaseStorage.getInstance()
     var uri: Uri? = null
@@ -96,13 +90,13 @@ class HomeFragment : Fragment() {
 
             AttendanceDatabase(requireContext()).getAttendanceDao().getMissed().observe(requireActivity(), Observer { miss ->
                 if (atten != null && miss != null) {
-                    val percentage = atten.toFloat() / (atten.toFloat() + miss?.toFloat()!!)
+                    val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (percentage.isNaN())
-                        totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                        totalAttendance!!.text = "0.00%"
                     else
-                        totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
+                        totalAttendance!!.text = "${percentage * 100}%"
                 } else
-                    totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                    totalAttendance!!.text = "0.00%"
             })
 
         })
@@ -112,13 +106,17 @@ class HomeFragment : Fragment() {
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (percentage.isNaN())
-                        totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                        totalAttendance!!.text = "0.00%"
                     else
-                        totalAttendance!!.text = "Aggregate\nAttendance: ${percentage * 100}%"
+                        totalAttendance!!.text = "${percentage * 100}%"
                 } else
-                    totalAttendance!!.text = "Aggregate\nAttendance: 0.00%"
+                    totalAttendance!!.text = "0.00%"
             })
         })
+
+        settings_btn.setOnClickListener {
+            context?.startActivity(Intent(context,SettingsActivity::class.java))
+        }
     }
 
     private fun download_dp() {
