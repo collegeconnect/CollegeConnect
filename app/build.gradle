@@ -126,4 +126,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
     //shimmer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    //Circular Progress Bar
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 }

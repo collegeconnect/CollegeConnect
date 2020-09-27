@@ -81,7 +81,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="00%"
                     android:textColor="@color/colorwhite"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             </RelativeLayout>

@@ -4,7 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:background="@color/newBlue">
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/att_dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        app:cpb_background_progressbar_color="#60b6bbd8"
+        app:cpb_background_progressbar_width="8dp"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color_end="@color/colorwhite"
+        app:cpb_progressbar_color_start="#FF0000"
+        app:cpb_progressbar_width="20dp"
+        app:cpb_round_border="true" />
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/att_dp2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        app:cpb_progress="50"
+        app:cpb_background_progressbar_color="@android:color/transparent"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color_end="@color/colorwhite"
+        app:cpb_progressbar_color_start="#00FF00"
+        app:cpb_progressbar_width="20dp"
+        app:cpb_round_border="true" />
+
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/att_dp3"-->
+<!--        android:layout_width="80dp"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_margin="30dp"-->
+<!--        android:padding="25dp"-->
+<!--        app:civ_border_color="#8A8989"-->
+<!--        android:background="@android:color/transparent" />-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/subjectNamemas"
@@ -12,10 +53,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_above="@id/subjectRecyclerView"
+        android:layout_margin="10dp"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
         app:boxStrokeColor="@drawable/text_box_color"
@@ -30,29 +69,31 @@
             android:textColor="@color/newBlue" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <android.widget.Button
-        android:id="@+id/addSubject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/subjectNamemas"
-        android:layout_marginTop="5dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="5dp"
-        android:layout_toEndOf="@id/subjectNamemas"
-        android:background="@drawable/button_design3"
-        android:text="Add Subject"
-        android:textColor="@color/colorwhite" />
+<!--    <android.widget.Button-->
+<!--        android:id="@+id/addSubject"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignTop="@+id/subjectNamemas"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginStart="7dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+<!--        android:layout_toEndOf="@id/subjectNamemas"-->
+<!--        android:background="@drawable/button_design3"-->
+<!--        android:text="Add Subject"-->
+<!--        android:textColor="@color/colorwhite" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjectRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/subjectNamemas"
+        android:layout_below="@id/att_dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:background="@drawable/ic_curve_bg"/>
 
 
 </RelativeLayout>

@@ -5,8 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:padding="10dp"
     tools:context=".activities.UploadNotes">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/notes_header"
+        android:background="@drawable/ic_toolbar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarcom"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title=" "
+            app:titleTextColor="@color/colorwhite" />
+
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif"
+            android:text="NOTES"
+            android:textColor="@color/colorwhite"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/Course"
@@ -72,10 +96,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="67dp"
-        android:backgroundTint="#fff"
-        app:borderWidth="0dp"
-        app:srcCompat="@drawable/upload" />
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/newBlue"
+        android:tint="@null"
+        app:srcCompat="@drawable/ic_upload" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -121,8 +146,7 @@
         android:id="@+id/CourseN"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentTop="false"
-        android:layout_centerVertical="false"
+        android:layout_below="@+id/notes_header"
         android:layout_marginStart="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
