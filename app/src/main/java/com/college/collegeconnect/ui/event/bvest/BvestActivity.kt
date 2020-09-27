@@ -37,7 +37,7 @@ class BvestActivity : AppCompatActivity() {
         loadSocieties()
 
         viewAll.setOnClickListener {
-            bvestViewModel.listSociety.observe(this, Observer{
+            bvestViewModel.getSocietyList().observe(this, {
                 societiesRecyclerBvest.layoutManager = GridLayoutManager(this,3)
                 adapter2 = BvestSocietiesAdapter(this,it)
                 societiesRecyclerBvest.adapter=adapter2
@@ -48,7 +48,7 @@ class BvestActivity : AppCompatActivity() {
         }
 
         collapse.setOnClickListener {
-            bvestViewModel.listSociety.observe(this, Observer{
+            bvestViewModel.getSocietyList().observe(this, {
                 societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 adapter2 = BvestSocietiesAdapter(this,it)
                 societiesRecyclerBvest.adapter=adapter2
@@ -61,7 +61,7 @@ class BvestActivity : AppCompatActivity() {
 
     private fun loadData(){
         eventSwipeBvest.isRefreshing = true
-        bvestViewModel.getList().observe(this, {
+        bvestViewModel.getEventList().observe(this, {
             eventsRecyclerBvest.layoutManager = GridLayoutManager(this,2)
             adapter = BvestEventsAdapter(this,it)
             eventsRecyclerBvest.adapter=adapter
@@ -71,8 +71,7 @@ class BvestActivity : AppCompatActivity() {
 
     private fun loadSocieties(){
         eventSwipeBvest.isRefreshing = true
-        bvestViewModel.loadSociety()
-        bvestViewModel.listSociety.observe(this, Observer{
+        bvestViewModel.getSocietyList().observe(this, {
             societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             adapter2 = BvestSocietiesAdapter(this,it)
             societiesRecyclerBvest.adapter=adapter2
