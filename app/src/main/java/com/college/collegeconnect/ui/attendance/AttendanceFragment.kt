@@ -25,6 +25,7 @@ import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputLayout
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.android.synthetic.main.fragment_attendance.*
 import java.util.*
 
@@ -38,6 +39,7 @@ class AttendanceFragment : Fragment() {
     lateinit var subjectList: ArrayList<SubjectDetails?>
     private lateinit var viewModel: AttendanceViewModel
     private var criteria = 0f
+    lateinit var circularProgressBar : CircularProgressBar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
@@ -50,6 +52,7 @@ class AttendanceFragment : Fragment() {
                 subject.error = null
             }
         })
+        circularProgressBar = view.findViewById(R.id.att_dp2)
         return view
     }
 
@@ -67,9 +70,7 @@ class AttendanceFragment : Fragment() {
 
         //Set target attendance criteria
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
-        Log.d("TAG", "criteria: $criteria")
         att_dp.apply {
-//            progress = criteria
             setProgressWithAnimation(criteria, 1000) // =1s
         }
 
@@ -103,11 +104,7 @@ class AttendanceFragment : Fragment() {
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (!percentage.isNaN()) {
-                        att_dp2.apply {
-//                            progress = percentage
-                            setProgressWithAnimation(65f, 1500) // =1s
-                        }
-                        Log.d("TAG", "attended: $percentage")
+                        setProgressBar(percentage)
                     }
                 }
             })
@@ -118,16 +115,18 @@ class AttendanceFragment : Fragment() {
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (!percentage.isNaN()) {
-                        att_dp2.apply {
-//                            progress = percentage
-                            setProgressWithAnimation(65f, 1500) // =1s
-                        }
-                        Log.d("TAG", "missed: $percentage")
+                        setProgressBar(percentage)
                     }
                 }
             })
         })
 
+    }
+
+    private fun setProgressBar(percentage: Float) {
+        circularProgressBar.apply {
+            setProgressWithAnimation(percentage*100, 1500) // =1s
+        }
     }
 
 //    private fun loadData() {
