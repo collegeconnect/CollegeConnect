@@ -1,4 +1,4 @@
-package com.college.collegeconnect.settingsactivity;
+package com.college.collegeconnect.settingsActivity;
 
 import android.os.Bundle;
 

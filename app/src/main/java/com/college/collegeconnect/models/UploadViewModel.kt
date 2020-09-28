@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.college.collegeconnect.datamodels.Constants
 import com.college.collegeconnect.datamodels.Upload
+import com.college.collegeconnect.utils.FirebaseUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -25,8 +26,7 @@ class UploadViewModel: ViewModel() {
 
     fun getlist(){
         var list2 = ArrayList<Upload>()
-
-        reference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS)
+        reference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS)
         reference!!.keepSynced(true)
         reference!!.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -35,7 +35,7 @@ class UploadViewModel: ViewModel() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 list2.clear()
-                for (postSnapshot in snapshot.getChildren()) {
+                for (postSnapshot in snapshot.children) {
                     val upload = postSnapshot.getValue(Upload::class.java)!!
                     if (upload.getUploaderMail() == FirebaseAuth.getInstance().currentUser?.email)
                         list2.add(upload)

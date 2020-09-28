@@ -1,4 +1,4 @@
-package com.college.collegeconnect.settingsactivity;
+package com.college.collegeconnect.settingsActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -99,7 +99,7 @@ public class SettingsActivity extends AppCompatActivity {
 //        options.add("Update Profile");
         options.add("Theme");
         options.add("Set Attendance Criteria");
-        options.add("My Upload List");
+        options.add("My Files");
         options.add("Work Profile");
         options.add("Contact Us");
         options.add("About");

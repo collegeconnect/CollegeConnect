@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.event.bvest.BvestEventActivity"></activity>
+        <activity android:name=".settingsActivity.MyFilesActivity"></activity>
+        <activity android:name=".ui.event.bvest.BvestEventActivity" />
         <activity android:name=".ui.event.bvest.BvestActivity" />
         <activity android:name=".timetable.TimeTableScheduleActivity" />
         <activity
@@ -27,8 +28,8 @@
             android:parentActivityName=".activities.Navigation"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".settingsactivity.WorkProfile"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.WorkProfile"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
@@ -60,25 +61,25 @@
         </provider>
 
         <activity
-            android:name=".settingsactivity.AboutActivity"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.AboutActivity"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settingsactivity.ContactActivity"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.ContactActivity"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settingsactivity.MyUploadsActivity"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.MyUploadsActivity"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".settingsactivity.HomeEditActivity"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.HomeEditActivity"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".settingsactivity.SettingsActivity"
-            android:parentActivityName=".settingsactivity.SettingsActivity"
+            android:name=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.SettingsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 

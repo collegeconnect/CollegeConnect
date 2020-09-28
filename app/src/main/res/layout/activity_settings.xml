@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/fragmentbackground"
     android:fitsSystemWindows="true"
-    tools:context=".settingsactivity.SettingsActivity">
+    tools:context=".settingsActivity.SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/settings_bar"

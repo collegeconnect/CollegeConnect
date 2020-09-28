@@ -1,4 +1,4 @@
-package com.college.collegeconnect.settingsactivity;
+package com.college.collegeconnect.settingsActivity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;

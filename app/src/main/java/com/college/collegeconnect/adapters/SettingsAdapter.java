@@ -21,11 +21,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.college.collegeconnect.R;
-import com.college.collegeconnect.settingsactivity.WorkProfile;
+import com.college.collegeconnect.settingsActivity.MyFilesActivity;
+import com.college.collegeconnect.settingsActivity.WorkProfile;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
-import com.college.collegeconnect.settingsactivity.AboutActivity;
-import com.college.collegeconnect.settingsactivity.ContactActivity;
-import com.college.collegeconnect.settingsactivity.MyUploadsActivity;
+import com.college.collegeconnect.settingsActivity.AboutActivity;
+import com.college.collegeconnect.settingsActivity.ContactActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -42,7 +42,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     int checked_item = 0;
     TextInputLayout placeholder;
     Button set;
-    Class myuploads = MyUploadsActivity.class;
+    Class myfiles = MyFilesActivity.class;
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
@@ -180,7 +180,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             act_list = new ArrayList<>();
             act_list.add(0);
             act_list.add(1);
-            act_list.add(myuploads);
+            act_list.add(myfiles);
             act_list.add(workprofile);
             act_list.add(contactus);
             act_list.add(about);
