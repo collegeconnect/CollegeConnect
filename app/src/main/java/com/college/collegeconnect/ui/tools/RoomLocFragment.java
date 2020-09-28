@@ -1,4 +1,4 @@
-package com.college.collegeconnect.ui.RoomLocator;
+package com.college.collegeconnect.ui.tools;
 
 import android.content.Context;
 import android.content.Intent;

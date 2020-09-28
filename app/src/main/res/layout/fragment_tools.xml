@@ -1,219 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/tools_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="20dp">
+        android:layout_height="86dp"
+        android:background="@drawable/ic_toolbar">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/roomLocator"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarcom"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="7dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="3dp">
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title=" "
+            app:titleTextColor="@color/colorwhite" />
 
-            <LinearLayout
-                android:id="@+id/cardLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/imageView14"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/dsc" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/subjectHeading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Room Locator"
-                        android:textColor="@color/blackToWhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="By DSC BVP"
-                        android:textAlignment="textEnd" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/events"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@id/roomLocator"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="7dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:id="@+id/cardEvent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/imageViewEvent"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/upcoming_event" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/subjectHeadingEvents"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Upcoming Events"
-                        android:textColor="@color/blackToWhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/bvest"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@id/events"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <LinearLayout
-                android:id="@+id/cardBvest"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/imageViewBvest"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/subjectHeadingBvest"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="BVEST"
-                        android:textColor="@color/blackToWhite"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="5-6 November"
-                        android:textAlignment="textEnd" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-<!--        <com.google.android.material.card.MaterialCardView-->
-<!--            android:id="@+id/projectCollab"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_below="@id/events"-->
-<!--            android:layout_marginStart="7dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginEnd="7dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            app:cardCornerRadius="5dp"-->
-<!--            app:cardElevation="2dp">-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/cardProject"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:padding="5dp">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageViewProject"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    app:srcCompat="@drawable/project_collab" />-->
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:orientation="vertical">-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/subjectHeadingProject"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:gravity="center"-->
-<!--                        android:text="Project Collaborations"-->
-<!--                        android:textColor="@color/blackToWhite"-->
-<!--                        android:textSize="18sp"-->
-<!--                        android:textStyle="bold" />-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:text="Coming Soon"-->
-<!--                        android:textAlignment="textEnd" />-->
-
-<!--                </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-
-<!--        </com.google.android.material.card.MaterialCardView>-->
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif"
+            android:text="Tools"
+            android:textColor="@color/colorwhite"
+            android:textSize="25sp" />
     </RelativeLayout>
 
-</ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tools_header">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/roomLocator"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:id="@+id/cardLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/dsc" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subjectHeading"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Room Locator"
+                            android:textColor="@color/blackToWhite"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="By DSC BVP"
+                            android:textAlignment="textEnd" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/events"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/roomLocator"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:id="@+id/cardEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewEvent"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/upcoming_event" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subjectHeadingEvents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Upcoming Events"
+                            android:textColor="@color/blackToWhite"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bvest"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/events"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:id="@+id/cardBvest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewBvest"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/subjectHeadingBvest"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="BVEST"
+                            android:textColor="@color/blackToWhite"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="5-6 November"
+                            android:textAlignment="textEnd" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--        <com.google.android.material.card.MaterialCardView-->
+            <!--            android:id="@+id/projectCollab"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="100dp"-->
+            <!--            android:layout_below="@id/events"-->
+            <!--            android:layout_marginStart="7dp"-->
+            <!--            android:layout_marginTop="5dp"-->
+            <!--            android:layout_marginEnd="7dp"-->
+            <!--            android:layout_marginBottom="5dp"-->
+            <!--            app:cardCornerRadius="5dp"-->
+            <!--            app:cardElevation="2dp">-->
+
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/cardProject"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:orientation="horizontal"-->
+            <!--                android:padding="5dp">-->
+
+            <!--                <ImageView-->
+            <!--                    android:id="@+id/imageViewProject"-->
+            <!--                    android:layout_width="100dp"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    app:srcCompat="@drawable/project_collab" />-->
+
+            <!--                <LinearLayout-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:orientation="vertical">-->
+
+            <!--                    <TextView-->
+            <!--                        android:id="@+id/subjectHeadingProject"-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_weight="1"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:text="Project Collaborations"-->
+            <!--                        android:textColor="@color/blackToWhite"-->
+            <!--                        android:textSize="18sp"-->
+            <!--                        android:textStyle="bold" />-->
+
+            <!--                    <TextView-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:layout_weight="1"-->
+            <!--                        android:text="Coming Soon"-->
+            <!--                        android:textAlignment="textEnd" />-->
+
+            <!--                </LinearLayout>-->
+
+            <!--            </LinearLayout>-->
+
+            <!--        </com.google.android.material.card.MaterialCardView>-->
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

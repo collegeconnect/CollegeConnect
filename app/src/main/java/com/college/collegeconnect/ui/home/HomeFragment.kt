@@ -15,13 +15,16 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amulyakhare.textdrawable.TextDrawable
 import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.R
+import com.college.collegeconnect.adapters.HomeRecyclerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.HomeViewModel
 import com.college.collegeconnect.settingsactivity.SettingsActivity
+import com.college.collegeconnect.utils.ImageHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.storage.FirebaseStorage
@@ -69,13 +72,13 @@ class HomeFragment : Fragment() {
         branch!!.isEnabled = false
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.returnName().observe(requireActivity(), Observer { s -> nameField!!.setText(s) })
-        homeViewModel.returnRoll().observe(requireActivity(), Observer { s -> enrollNo!!.setText(s) })
-        homeViewModel.returnBranch().observe(requireActivity(), Observer { s -> branch!!.setText(s) })
+        homeViewModel.returnName().observe(requireActivity(), Observer { s -> nameField!!.text = s })
+        homeViewModel.returnRoll().observe(requireActivity(), Observer { s -> enrollNo!!.text = s })
+        homeViewModel.returnBranch().observe(requireActivity(), Observer { s -> branch!!.text = s })
         val file = File("/data/user/0/com.college.collegeconnect/files/dp.jpeg")
         if (file.exists()) {
             uri = Uri.fromFile(file)
-            Picasso.get().load(uri).into(prfileImage)
+            context?.applicationContext?.let { ImageHandler().getSharedInstance(it)?.load(uri)?.into(prfileImage) }
             Log.d("HomeFrag", "onClick: already exists")
         } else {
             storageRef!!.child("User/" + SaveSharedPreference.getUserName(activity) + "/DP.jpeg").downloadUrl.addOnSuccessListener { uri -> // Got the download URL for 'users/me/profile.png'
@@ -85,10 +88,8 @@ class HomeFragment : Fragment() {
         }
         if (uri != null) Picasso.get().load(uri).into(prfileImage)
 
-        val attended = AttendanceDatabase(requireContext()).getAttendanceDao().getAttended()
-        attended.observe(requireActivity(), Observer { atten ->
-
-            AttendanceDatabase(requireContext()).getAttendanceDao().getMissed().observe(requireActivity(), Observer { miss ->
+        homeViewModel.getAttended().observe(requireActivity(), Observer { atten ->
+           homeViewModel.getMissed().observe(requireActivity(), Observer { miss ->
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (percentage.isNaN())
@@ -100,9 +101,8 @@ class HomeFragment : Fragment() {
             })
 
         })
-        val missed = AttendanceDatabase(requireContext()).getAttendanceDao().getMissed()
-        missed.observe(requireActivity(), Observer { miss ->
-            AttendanceDatabase(requireContext()).getAttendanceDao().getAttended().observe(requireActivity(), Observer { atten ->
+        homeViewModel.getMissed().observe(requireActivity(), Observer { miss ->
+            homeViewModel.getAttended().observe(requireActivity(), Observer { atten ->
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (percentage.isNaN())
@@ -117,6 +117,10 @@ class HomeFragment : Fragment() {
         settings_btn.setOnClickListener {
             context?.startActivity(Intent(context,SettingsActivity::class.java))
         }
+
+        recyclerviewHome.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val adapter = context?.applicationContext?.let { HomeRecyclerAdapter(it) }
+        recyclerviewHome.adapter = adapter
     }
 
     private fun download_dp() {
@@ -169,9 +173,9 @@ class HomeFragment : Fragment() {
             out.close()
             out = null
         } catch (fnfe1: FileNotFoundException) {
-            Log.e("tag", fnfe1.message)
+            Log.e("tag", fnfe1.message.toString())
         } catch (e: Exception) {
-            Log.e("tag", e.message)
+            Log.e("tag", e.message.toString())
         }
     }
 

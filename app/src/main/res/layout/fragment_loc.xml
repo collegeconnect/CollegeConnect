@@ -4,6 +4,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     style="@style/Theme.AppCompat.NoActionBar"
     android:layout_width="match_parent"
+    android:paddingTop="24dp"
     android:layout_height="match_parent">
 
    <WebView
@@ -17,7 +18,7 @@
        android:layout_height="wrap_content"
        android:id="@+id/prog"
        android:indeterminate="true"
-       android:indeterminateTint="@color/newBlue"
+       android:indeterminateTint="@color/latestBlue"
        android:layout_centerInParent="true" />
 
 

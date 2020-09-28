@@ -41,6 +41,7 @@ class AttendanceFragment : Fragment() {
     private lateinit var viewModel: AttendanceViewModel
     private var criteria = 0f
     lateinit var circularProgressBar: CircularProgressBar
+    var prevpercent = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
@@ -64,6 +65,7 @@ class AttendanceFragment : Fragment() {
 
         //Set target attendance criteria
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
+        criteriaText.text = "Min: ${criteria.toInt()}%"
         att_dp.apply {
             setProgressWithAnimation(criteria, 1000) // =1s
         }
@@ -92,22 +94,28 @@ class AttendanceFragment : Fragment() {
         })
 
         //Calculate aggregate attendance
-        val attended = AttendanceDatabase(requireContext()).getAttendanceDao().getAttended()
-        attended.observe(requireActivity(), Observer { atten ->
-            AttendanceDatabase(requireContext()).getAttendanceDao().getMissed().observe(requireActivity(), Observer { miss ->
+        viewModel.getAttended().observe(viewLifecycleOwner, Observer { atten ->
+            viewModel.getMissed().observe(viewLifecycleOwner, Observer { miss ->
                 if (atten != null && miss != null) {
+                    if (aggregate.text.isNotEmpty()) {
+                        val t = aggregate.text.toString()
+                        prevpercent = t.substring(0,t.length-1).toInt()
+                    }
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (!percentage.isNaN()) {
                         setProgressBar(percentage)
-                        aggregate.text = "%.0f".format(percentage*100)+"%"
+                        aggregate.text = "%.0f".format(percentage * 100) + "%"
                     }
                 }
             })
         })
-        val missed = AttendanceDatabase(requireContext()).getAttendanceDao().getMissed()
-        missed.observe(requireActivity(), Observer { miss ->
-            AttendanceDatabase(requireContext()).getAttendanceDao().getAttended().observe(requireActivity(), Observer { atten ->
+        viewModel.getMissed().observe(viewLifecycleOwner, Observer { miss ->
+            viewModel.getAttended().observe(viewLifecycleOwner, Observer { atten ->
                 if (atten != null && miss != null) {
+                    if (aggregate.text.isNotEmpty()) {
+                        val t = aggregate.text.toString()
+                        prevpercent = t.substring(0,t.length-1).toInt()
+                    }
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (!percentage.isNaN()) {
                         setProgressBar(percentage)
@@ -116,7 +124,6 @@ class AttendanceFragment : Fragment() {
                 }
             })
         })
-
     }
 
     private fun setProgressBar(percentage: Float) {
@@ -150,6 +157,10 @@ class AttendanceFragment : Fragment() {
         subject?.observe(requireActivity(), Observer {
             val subjectList = ArrayList<SubjectDetails>()
             subjectList.addAll(it)
+            if(it.isEmpty()){
+                setProgressBar(0.001f)
+                aggregate.text = "0%"
+            }
             subjectAdapter = SubjectAdapter(subjectList, mCtx, viewModel)
             subjectRecycler.adapter = subjectAdapter
         })

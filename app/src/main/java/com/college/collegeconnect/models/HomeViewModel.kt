@@ -3,6 +3,7 @@ package com.college.collegeconnect.models
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.college.collegeconnect.database.AttendanceDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
@@ -88,5 +89,13 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
             }
 //            if (uri != null) Picasso.get().load(uri).into(prfileImage)
         }
+    }
+
+    fun getAttended():LiveData<Int>{
+        return AttendanceDatabase(getApplication()).getAttendanceDao().getAttended()
+    }
+
+    fun getMissed():LiveData<Int>{
+        return AttendanceDatabase(getApplication()).getAttendanceDao().getMissed()
     }
 }

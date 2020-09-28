@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fragmentbackground"
+    android:fitsSystemWindows="true"
     tools:context=".settingsactivity.SettingsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -105,15 +106,15 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="1dp"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="true" />
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never" />
 
             <android.widget.Button
                 android:id="@+id/logoutButton"
                 android:layout_width="200dp"
-                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_design3"
                 android:text="@string/log_out"
@@ -123,11 +124,11 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
                 android:text="Made with ❤\nVersion 0.1.0"
                 android:textAlignment="center"
-                android:textColor="@color/textcolor"
-                android:layout_gravity="center_horizontal"/>
+                android:textColor="@color/textcolor" />
 
         </LinearLayout>
 

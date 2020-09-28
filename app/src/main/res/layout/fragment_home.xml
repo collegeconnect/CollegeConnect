@@ -4,48 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/newBlue">
+    android:background="@drawable/ic_bg"
+    android:paddingTop="24dp"
+    tools:context=".ui.home.HomeFragment">
 
     <ImageButton
         android:id="@+id/settings_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_settings"
         android:background="@android:color/transparent"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="@id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imageView3"
-        app:layout_constraintBottom_toBottomOf="@id/imageView3"/>
+        app:layout_constraintTop_toTopOf="@id/imageView3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/guideline8"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@drawable/ic_curve_bg"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline8">
 
         <View
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:elevation="9dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/ic_events_pint_icon"
-            app:layout_constraintTop_toBottomOf="@id/attendanceCard"
+            android:elevation="11dp"
             app:layout_constraintBottom_toBottomOf="@id/attendanceCard"
+            app:layout_constraintEnd_toEndOf="@id/attendanceCard"
             app:layout_constraintStart_toStartOf="@id/attendanceCard"
-            app:layout_constraintEnd_toEndOf="@id/attendanceCard"/>
+            app:layout_constraintTop_toBottomOf="@id/attendanceCard" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/attendanceCard"
             android:layout_width="120dp"
             android:layout_height="140dp"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_margin="32dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
             android:backgroundTint="@color/latestBlue"
-            app:layout_constraintStart_toStartOf="parent">
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -56,19 +58,19 @@
                     android:id="@+id/att_img"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/ic_assessment_24px"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:backgroundTint="@color/colorwhite"/>
+                    android:layout_margin="10dp"
+                    android:background="@drawable/ic_assessment_24px"
+                    android:backgroundTint="@color/colorwhite" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Attendance"
-                    android:gravity="center"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/colorwhite"/>
+                    android:gravity="center"
+                    android:text="Attendance"
+                    android:textColor="@color/colorwhite" />
 
 
                 <TextView
@@ -82,11 +84,23 @@
                     android:text="00%"
                     android:textColor="@color/colorwhite"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
             </RelativeLayout>
 
         </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewHome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="@+id/attendanceCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/attendanceCard"
+            app:layout_constraintTop_toTopOf="@+id/attendanceCard" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,9 +111,9 @@
         android:layout_height="110dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
+        android:background="@drawable/ic_dp_circle"
         android:padding="25dp"
         app:civ_border_color="#8A8989"
-        android:background="@drawable/ic_dp_circle"
         app:layout_constraintBottom_toBottomOf="@id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

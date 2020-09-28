@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="86dp"
         android:id="@+id/notes_header"
         android:background="@drawable/ic_toolbar">
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="sans-serif"
-            android:text="NOTES"
+            android:text="Notes"
             android:textColor="@color/colorwhite"
             android:textSize="25sp" />
     </RelativeLayout>
@@ -96,10 +96,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/newBlue"
-        android:tint="@null"
+        android:backgroundTint="@color/latestBlue"
+        app:tint="@null"
         app:srcCompat="@drawable/ic_upload" />
 
     <ImageView

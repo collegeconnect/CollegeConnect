@@ -85,7 +85,7 @@ class BvestEventsAdapter(val context: Context, val arrayList: ArrayList<Events>)
         val datetext: Date
         var str: String? = null
         try {
-            datetext = inputFormat.parse(date)
+            datetext = inputFormat.parse(date) as Date
             str = outputFormat.format(datetext)
         } catch (e: ParseException) {
             e.printStackTrace()

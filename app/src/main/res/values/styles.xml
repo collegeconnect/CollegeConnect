@@ -6,8 +6,12 @@
         <item name="colorPrimary">@color/newBlue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/statusBar</item>
+        <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
+        <!--Translucent status with display extend-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fitsSystemWindows">false</item>
 
     </style>
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

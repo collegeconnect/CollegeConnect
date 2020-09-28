@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorwhite"
     android:elevation="0dp"
-    android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -69,10 +68,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNav"
-        android:layout_below="@+id/tool_bar"></FrameLayout>
+        android:layout_below="@+id/tool_bar" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomNav"
@@ -82,7 +82,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/newBlue"
+        android:backgroundTint="@color/latestBlue"
         android:tint="@null"
         app:srcCompat="@drawable/time2" />
 

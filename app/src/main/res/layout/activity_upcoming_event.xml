@@ -6,14 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".ui.event.UpcomingEvents">
 
-    <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbarup"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:id="@+id/upcoming_header"
+        android:background="@drawable/ic_toolbar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarcom"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title=" "
+            app:titleTextColor="@color/colorwhite" />
+
+        <TextView
+            android:id="@+id/tvtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif"
+            android:text="Upcoming Events"
+            android:textColor="@color/colorwhite"
+            android:textSize="25sp" />
+        <ImageButton
+            android:foreground="?android:attr/selectableItemBackground"
+            android:id="@+id/homeBack"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:id="@+id/frameupcomingevents"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbarup"/>
+        android:layout_below="@id/upcoming_header"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/createEvent"
@@ -26,6 +57,7 @@
         android:layout_marginEnd="15dp"
         android:visibility="gone"
         android:layout_marginBottom="15dp"
+        app:tint="@null"
         android:src="@drawable/plus" />
 
 </RelativeLayout>
