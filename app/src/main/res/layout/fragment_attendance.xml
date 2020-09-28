@@ -35,6 +35,20 @@
         app:cpb_progressbar_width="20dp"
         app:cpb_round_border="true" />
 
+    <TextView
+        android:id="@+id/aggregate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/att_dp2"
+        android:layout_alignStart="@id/att_dp2"
+        android:layout_alignBottom="@id/att_dp2"
+        android:layout_alignTop="@id/att_dp2"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:fontFamily="sans-serif"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
     <!--    <de.hdodenhof.circleimageview.CircleImageView-->
     <!--        android:id="@+id/att_dp3"-->
     <!--        android:layout_width="80dp"-->
@@ -54,10 +68,10 @@
         android:layout_above="@id/subjectRecyclerView"
         android:layout_alignParentStart="true"
         android:layout_margin="10dp"
+        app:boxStrokeColor="@drawable/text_box_signup"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
-        app:boxStrokeColor="@drawable/text_box_color"
-        app:hintTextColor="@color/newBlue">
+        app:hintTextColor="@android:color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/subjectName"
@@ -65,7 +79,8 @@
             android:layout_height="wrap_content"
             android:hint="Subject Name"
             android:inputType="textPersonName"
-            android:textColor="@color/newBlue" />
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!--    <android.widget.Button-->

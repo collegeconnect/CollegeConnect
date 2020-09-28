@@ -44,6 +44,10 @@ class AttendanceViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+//    fun getAttended():LiveData<Int>{
+//
+//    }
+
 //    fun getSubjects() : List<String> {
 //        var list = ArrayList<String>()
 //        viewModelScope.launch {

@@ -94,7 +94,7 @@ class HomeFragment : Fragment() {
                     if (percentage.isNaN())
                         totalAttendance!!.text = "0.00%"
                     else
-                        totalAttendance!!.text = "${percentage * 100}%"
+                        totalAttendance!!.text = "%.2f".format(percentage*100)+"%"
                 } else
                     totalAttendance!!.text = "0.00%"
             })
@@ -108,7 +108,7 @@ class HomeFragment : Fragment() {
                     if (percentage.isNaN())
                         totalAttendance!!.text = "0.00%"
                     else
-                        totalAttendance!!.text = "${percentage * 100}%"
+                        totalAttendance!!.text = "%.2f".format(percentage*100)+"%"
                 } else
                     totalAttendance!!.text = "0.00%"
             })

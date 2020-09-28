@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -39,26 +40,19 @@ class AttendanceFragment : Fragment() {
     lateinit var subjectList: ArrayList<SubjectDetails?>
     private lateinit var viewModel: AttendanceViewModel
     private var criteria = 0f
-    lateinit var circularProgressBar : CircularProgressBar
+    lateinit var circularProgressBar: CircularProgressBar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
         subjectRecycler = view.findViewById(R.id.subjectRecyclerView)
         subject = view.findViewById(R.id.subjectNamemas)
-        subject.editText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                subject.error = null
-            }
-        })
+        subject.editText?.doAfterTextChanged { subject.error = null }
         circularProgressBar = view.findViewById(R.id.att_dp2)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = ViewModelProvider(requireActivity()).get(AttendanceViewModel::class.java)
     }
 
@@ -83,7 +77,7 @@ class AttendanceFragment : Fragment() {
         //Add subject by pressing enter on keyboard
         subjectNamemas.editText!!.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                if (event.getAction() === KeyEvent.ACTION_DOWN) {
+                if (event.action == KeyEvent.ACTION_DOWN) {
                     when (keyCode) {
                         KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> {
                             addSubject()
@@ -105,6 +99,7 @@ class AttendanceFragment : Fragment() {
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (!percentage.isNaN()) {
                         setProgressBar(percentage)
+                        aggregate.text = "%.0f".format(percentage*100)+"%"
                     }
                 }
             })
@@ -116,6 +111,7 @@ class AttendanceFragment : Fragment() {
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (!percentage.isNaN()) {
                         setProgressBar(percentage)
+                        aggregate.text = "%.0f".format(percentage*100)+"%"
                     }
                 }
             })
@@ -125,7 +121,7 @@ class AttendanceFragment : Fragment() {
 
     private fun setProgressBar(percentage: Float) {
         circularProgressBar.apply {
-            setProgressWithAnimation(percentage*100, 1500) // =1s
+            setProgressWithAnimation(percentage * 100, 1500) // =1s
         }
     }
 
