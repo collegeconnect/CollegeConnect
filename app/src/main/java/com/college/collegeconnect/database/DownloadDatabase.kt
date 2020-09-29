@@ -1,9 +1,10 @@
-package com.college.collegeconnect.database.dao
+package com.college.collegeconnect.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.college.collegeconnect.database.dao.DownloadDao
 import com.college.collegeconnect.database.entity.DownloadEntity
 
 @Database(
@@ -11,6 +12,7 @@ import com.college.collegeconnect.database.entity.DownloadEntity
         version = 1
 )
 abstract class DownloadDatabase : RoomDatabase() {
+    abstract fun getDownloadsDao(): DownloadDao
 
     companion object {
 

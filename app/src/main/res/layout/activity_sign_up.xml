@@ -4,29 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/newBlue"
+    android:background="@drawable/ic_sign_up"
     tools:context="com.college.collegeconnect.activities.SignUp">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textname"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:textColorHint="@color/colorwhite"
+        android:textColorHint="@color/latestBlue"
         app:boxStrokeColor="@drawable/text_box_signup"
-        app:hintTextColor="@color/colorwhite"
-        app:layout_constraintBottom_toTopOf="@id/guideline7"
+        app:hintTextColor="@color/latestBlue"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5">
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline6">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="15"
-            android:textCursorDrawable="@null"
             android:hint="Full Name"
             android:inputType="textCapWords"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/latestBlue"
+            android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -35,30 +36,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.5" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textemail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/colorwhite"
-        app:hintTextColor="@color/colorwhite"
-        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:textColorHint="@color/latestBlue"
         app:boxStrokeColor="@drawable/text_box_signup"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:hintTextColor="@color/latestBlue"
+        app:layout_constraintBottom_toTopOf="@+id/guideline18"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline7">
+        app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textCursorDrawable="@null"
             android:ems="15"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/latestBlue"
+            android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -80,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.07" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
@@ -101,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.8" />
 
 
     <android.widget.Button
@@ -109,24 +110,30 @@
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:background="@drawable/button_design"
+        android:backgroundTint="@color/latestBlue"
         android:text="Next"
-        android:textColor="@color/newBlue"
+        android:textAllCaps="false"
+        android:textColor="@color/colorwhite"
+        android:textSize="22sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/textpass" />
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        app:layout_constraintVertical_bias="0.45" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textpass"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColorHint="@color/colorwhite"
-        app:hintTextColor="@color/colorwhite"
+        android:textColorHint="@color/latestBlue"
         app:boxStrokeColor="@drawable/text_box_signup"
-        style ="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:hintTextColor="@color/latestBlue"
+        app:layout_constraintBottom_toTopOf="@+id/guideline13"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@id/guideline6"
+        app:layout_constraintTop_toTopOf="@+id/guideline18"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -135,8 +142,8 @@
             android:ems="15"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textCursorDrawable="@null"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/latestBlue"
+            android:textCursorDrawable="@null" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -144,7 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71" />
+        app:layout_constraintGuide_percent="0.70" />
 
     <TextView
         android:id="@+id/textView12"
@@ -153,9 +160,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
+        android:textStyle="bold"
         android:text="Step 1/2"
         android:textColor="@color/colorwhite"
-        android:textSize="50sp"
+        android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline10" />
 

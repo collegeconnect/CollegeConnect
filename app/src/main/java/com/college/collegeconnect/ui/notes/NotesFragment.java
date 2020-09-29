@@ -107,10 +107,12 @@ public class NotesFragment extends Fragment {
 //                Toast.makeText(getActivity(), selected_branch, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(), DownloadNotes.class);
-                intent.putExtra(DownloadNotes.EXTRA_COURSE, selected_course);
-                intent.putExtra(DownloadNotes.EXTRA_BRANCH, selected_branch);
-                intent.putExtra(DownloadNotes.EXTRA_SEMESTER, selected_semester);
-                intent.putExtra(DownloadNotes.EXTRA_UNIT, selected_unit);
+                Bundle bundle = new Bundle();
+                bundle.putString(DownloadNotes.EXTRA_COURSE, selected_course);
+                bundle.putString(DownloadNotes.EXTRA_BRANCH, selected_branch);
+                bundle.putString(DownloadNotes.EXTRA_SEMESTER, selected_semester);
+                bundle.putString(DownloadNotes.EXTRA_UNIT, selected_unit);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

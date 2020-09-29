@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.college.collegeconnect.datamodels.Events
 import com.google.firebase.database.*
 
-class FetchEvent(val query: Query) : LiveData<ArrayList<Events>>() {
+class EventRepository(val query: Query) : LiveData<ArrayList<Events>>() {
 
     //overloading constructor
     constructor(ref: DatabaseReference) : this(query = ref)

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import com.college.collegeconnect.datamodels.Society
 import com.google.firebase.database.*
 
-class FetchSocieties(val query: Query) : LiveData<ArrayList<Society>>() {
+class SocietiesRepository(val query: Query) : LiveData<ArrayList<Society>>() {
 
     constructor(ref: DatabaseReference) : this(query = ref)
 

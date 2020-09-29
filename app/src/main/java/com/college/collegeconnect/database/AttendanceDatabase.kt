@@ -12,26 +12,26 @@ import com.college.collegeconnect.database.entity.SubjectDetails
         version = 1
 )
 abstract class AttendanceDatabase : RoomDatabase() {
-    abstract fun getAttendanceDao() : SubjectDao
+    abstract fun getAttendanceDao(): SubjectDao
 
-    companion object{
+    companion object {
+
         @Volatile
         private var instance: AttendanceDatabase? = null
 
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance
-                ?: synchronized(LOCK){
-            instance
-                    ?: buildDatabase(context).also {
-                instance = it
-            }
-        }
+                ?: synchronized(LOCK) {
+                    instance ?: buildDatabase(context).also {
+                        instance = it
+                    }
+                }
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,
-            AttendanceDatabase::class.java,
-            "AttendanceDatabase"
+                context.applicationContext,
+                AttendanceDatabase::class.java,
+                "AttendanceDatabase"
         ).build()
 
     }

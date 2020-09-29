@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class DownloadEntity(
         val docName:String,
         val authName:String,
-        val unitNo:Int,
+        val unit:String,
 ) {
     @PrimaryKey( autoGenerate = true )
     var id:Int = 0

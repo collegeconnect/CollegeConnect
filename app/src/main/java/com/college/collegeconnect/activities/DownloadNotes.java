@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,6 +26,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.NotesAdapter;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.datamodels.Upload;
+import com.college.collegeconnect.models.DownloadNotesViewModel;
 import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -46,18 +49,20 @@ public class DownloadNotes extends AppCompatActivity {
     public static final String EXTRA_BRANCH = "branch";
     public static final String EXTRA_SEMESTER = "semester";
     public static final String EXTRA_UNIT = "unit";
-    public static ArrayList<Upload> uploadList;
+    //    public static ArrayList<Upload> uploadList;
     DatabaseReference mDatabaseReference;
     public RecyclerView recyclerView;
     NotesAdapter notesAdapter;
     public AdView mAdView;
     TextView tv;
-    String receivedCourse;
-    String receivedBranch;
-    String receivedSemester;
-    String receivedUnit;
+//    String receivedCourse;
+//    String receivedBranch;
+//    String receivedSemester;
+//    String receivedUnit;
     SwipeRefreshLayout swiperefreshlayout;
-    ValueEventListener listener;
+//    ValueEventListener listener;
+    DownloadNotesViewModel downloadNotesViewModel;
+    Bundle bundle;
 
 
     @Override
@@ -65,16 +70,20 @@ public class DownloadNotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_notes);
 
-        Intent intent = getIntent();
-        receivedCourse = intent.getStringExtra(EXTRA_COURSE);
-        receivedBranch = intent.getStringExtra(EXTRA_BRANCH);
-        receivedSemester = intent.getStringExtra(EXTRA_SEMESTER);
-        receivedUnit = intent.getStringExtra(EXTRA_UNIT);
+        bundle = getIntent().getExtras();
+//        assert bundle != null;
+//        receivedCourse = bundle.getString(EXTRA_COURSE);
+//        receivedBranch = bundle.getString(EXTRA_BRANCH);
+//        receivedSemester = bundle.getString(EXTRA_SEMESTER);
+//        receivedUnit = bundle.getString(EXTRA_UNIT);
+
         swiperefreshlayout = findViewById(R.id.SwipeRefreshLayout);
+        downloadNotesViewModel = new ViewModelProvider(this).get(DownloadNotesViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolbarcom);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         tv = findViewById(R.id.tvtitle);
         tv.setText("Notes");
@@ -87,7 +96,7 @@ public class DownloadNotes extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        uploadList = new ArrayList<>();
+//        uploadList = new ArrayList<>();
         mDatabaseReference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS);
         mDatabaseReference.keepSynced(true);
         loadData();
@@ -96,43 +105,52 @@ public class DownloadNotes extends AppCompatActivity {
 
     private void loadData() {
         swiperefreshlayout.setRefreshing(true);
-        mDatabaseReference.orderByChild("download").addValueEventListener(listener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                uploadList.clear();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Upload upload = postSnapshot.getValue(Upload.class);
-                    if (upload.getCourse().equals(receivedCourse)) {
-                        if (upload.getBranch().equals(receivedBranch)) {
-                            if (upload.getSemester().equals(receivedSemester)) {
-                                if (upload.getUnit().equals(receivedUnit)) {
-                                    uploadList.add(upload);
-//                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                }
-                if (uploadList.isEmpty()) {
-//                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
-                    Snackbar.make(findViewById(R.id.relativeshit), "No PDFs Found", Snackbar.LENGTH_LONG).show();
-                } else {
-
-                    Collections.reverse(uploadList);
-                    recyclerView = findViewById(R.id.downloadRecycler);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
-                    notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
-                    recyclerView.setAdapter(notesAdapter);
-                }
-                swiperefreshlayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                swiperefreshlayout.setRefreshing(false);
-            }
+        downloadNotesViewModel.downloadNotes(bundle).observe(this, uploadList -> {
+            Collections.reverse(uploadList);
+            recyclerView = findViewById(R.id.downloadRecycler);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
+            notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList,downloadNotesViewModel);
+            recyclerView.setAdapter(notesAdapter);
         });
+        swiperefreshlayout.setRefreshing(false);
+//        mDatabaseReference.orderByChild("download").addValueEventListener(listener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                uploadList.clear();
+//                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    Upload upload = postSnapshot.getValue(Upload.class);
+//                    if (upload.getCourse().equals(receivedCourse)) {
+//                        if (upload.getBranch().equals(receivedBranch)) {
+//                            if (upload.getSemester().equals(receivedSemester)) {
+//                                if (upload.getUnit().equals(receivedUnit)) {
+//                                    uploadList.add(upload);
+////                                    Toast.makeText(DownloadNotes.this, upload.getName(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                if (uploadList.isEmpty()) {
+////                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
+//                    Snackbar.make(findViewById(R.id.relativeshit), "No PDFs Found", Snackbar.LENGTH_LONG).show();
+//                } else {
+//
+//                    Collections.reverse(uploadList);
+//                    recyclerView = findViewById(R.id.downloadRecycler);
+//                    recyclerView.setHasFixedSize(true);
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
+//                    notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList);
+//                    recyclerView.setAdapter(notesAdapter);
+//                }
+//                swiperefreshlayout.setRefreshing(false);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                swiperefreshlayout.setRefreshing(false);
+//            }
+//        });
     }
 
     @Override
@@ -188,10 +206,10 @@ public class DownloadNotes extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onDestroy() {
-        if (listener != null)
-            mDatabaseReference.removeEventListener(listener);
-        super.onDestroy();
-    }
+//    @Override
+//    protected void onDestroy() {
+//        if (listener != null)
+//            mDatabaseReference.removeEventListener(listener);
+//        super.onDestroy();
+//    }
 }

@@ -32,11 +32,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.college.collegeconnect.BuildConfig;
+import com.college.collegeconnect.database.entity.DownloadEntity;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.NotesReports;
 import com.college.collegeconnect.datamodels.Upload;
+import com.college.collegeconnect.models.DownloadNotesViewModel;
+import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -53,11 +56,13 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     private ArrayList<Upload> noteslistfull;
     private EditText answer;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    DownloadNotesViewModel downloadNotesViewModel;
     String name;
 
-    public NotesAdapter(Context context, ArrayList<Upload> noteslist) {
+    public NotesAdapter(Context context, ArrayList<Upload> noteslist, DownloadNotesViewModel downloadNotesViewModel) {
         this.context = context;
         this.noteslist = noteslist;
+        this.downloadNotesViewModel = downloadNotesViewModel;
         noteslistfull = new ArrayList<>(noteslist);
     }
 
@@ -75,7 +80,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         final Upload notes = noteslist.get(position);
         holder.title.setText(notes.getName());
         holder.author.setText(notes.getAuthor());
-        holder.noOfDown.setText("No. of Downloads: " + String.valueOf(notes.getDownload()));
+        holder.noOfDown.setText("No. of Downloads: " + notes.getDownload());
+        holder.unit.setText(notes.getUnit());
         name = notes.getName();
 
         ArrayList<String> selectedTags = new ArrayList<>();
@@ -89,7 +95,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.recyclerView.setAdapter(recyclerAdapter);
 
         final ArrayList<String> finalSelectedTags = selectedTags;
-        holder.itv.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Download Notes" + File.separator + notes.getName() + ".pdf");
@@ -97,7 +103,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     openfile(file.getAbsolutePath());
                     Log.d("upload", "onClick: already exists");
                 } else {
-                    downloadfile(notes.getUrl(), notes.getName());
+                    downloadfile(notes);
                     int downloads = notes.getDownload() + 1;
                     Upload upload = new Upload(notes.getName(),
                             notes.getCourse(),
@@ -105,7 +111,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             notes.getBranch(),
                             notes.getUnit(),
                             notes.getAuthor(), downloads, notes.getUrl(), notes.getTimestamp(), notes.getUploaderMail(), finalSelectedTags);
-                    DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+                    DatabaseReference mDatabaseReference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS);
                     mDatabaseReference.child(notes.getTimestamp() + "").setValue(upload);
                     Log.d("upload", "onClick: download");
                 }
@@ -130,9 +136,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.report: {
-//                                Toast.makeText(context, "Report Notes", Toast.LENGTH_SHORT).show();
-//                                ReportsDialog reportsDialog = new ReportsDialog(notes.getTimestamp());
-//                                reportsDialog.show(((AppCompatActivity) context).getSupportFragmentManager(),"Report Dialog");
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                                 LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
@@ -173,7 +176,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                             }
                             break;
 
-                            case R.id.tagover:
+                            case R.id.tagover: {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 LayoutInflater inflater = ((AppCompatActivity) context).getLayoutInflater();
                                 View view = inflater.inflate(R.layout.layout_tag_dialog, null);
@@ -254,8 +257,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                                 builder.setView(view);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
+                            }
+                            break;
 
+                            case R.id.delete:{
+
+                            }
                         }
+
                         return true;
                     }
                 });
@@ -269,8 +278,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     }
 
-    public void downloadfile(String url, String name) {
-        final DownloadManager downloadManager = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
+    public void downloadfile(Upload notes) {
+        String url = notes.getUrl();
+        String name = notes.getName();
+        final DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setMimeType("application/pdf");
@@ -289,6 +300,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         File mFile = new File(Uri.parse(fileUri).getPath());
                         String fileName = mFile.getAbsolutePath();
+                        DownloadEntity downloadEntity = new DownloadEntity(notes.getName(),notes.getAuthor(),notes.getUnit());
+                        downloadNotesViewModel.addDownload(downloadEntity);
                         openfile(fileName);
                     } catch (Exception e) {
                         Log.e("error", "Could not open the downloaded file");
@@ -320,9 +333,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView title, author, noOfDown;
+        TextView title, author, noOfDown, unit;
         ImageButton report;
-        View itv;
         RecyclerView recyclerView;
 
         public ViewHolder(@NonNull View itemView) {
@@ -331,8 +343,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             author = itemView.findViewById(R.id.authorname);
             report = itemView.findViewById(R.id.reportButton);
             noOfDown = itemView.findViewById(R.id.download);
-            itv = itemView;
             recyclerView = itemView.findViewById(R.id.tagsRecycler);
+            unit = itemView.findViewById(R.id.unitText);
         }
     }
 
@@ -369,7 +381,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     };
 
     public void submitReport(String text, long timeStamp) {
-        DatabaseReference = FirebaseDatabase.getInstance().getReference("NotesReports");
+        DatabaseReference = FirebaseUtil.getDatabase().getReference("NotesReports");
         NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context), text, timeStamp);
         DatabaseReference.child(System.currentTimeMillis() + "").setValue(notesReports);
 //        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();

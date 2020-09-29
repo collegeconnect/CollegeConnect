@@ -6,7 +6,7 @@ import com.college.collegeconnect.datamodels.Upload
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class FetchUploads(val query: Query) : LiveData<ArrayList<Upload>>() {
+class UploadsRepository(val query: Query) : LiveData<ArrayList<Upload>>() {
 
     //overloading constructor
     constructor(ref: DatabaseReference) : this(query = ref)

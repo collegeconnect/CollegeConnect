@@ -83,9 +83,10 @@
         android:layout_above="@id/subjectRecyclerView"
         android:layout_alignParentStart="true"
         android:layout_margin="10dp"
-        app:boxStrokeColor="@drawable/text_box_signup"
+        app:boxStrokeColor="@drawable/text_box_white"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
+        android:textColorHint="@android:color/white"
         app:hintTextColor="@android:color/white">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,7 +95,6 @@
             android:layout_height="wrap_content"
             android:hint="Subject Name"
             android:inputType="textPersonName"
-            android:textColorHint="@android:color/white"
             android:textColor="@android:color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
