@@ -1,21 +1,13 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
-import com.college.collegeconnect.database.MondayEntity
-import com.college.collegeconnect.database.SubjectDetails
-import com.college.collegeconnect.datamodels.DatabaseHelper
-import com.college.collegeconnect.datamodels.SaveSharedPreference
-import com.college.collegeconnect.models.AttendanceViewModel
-import com.github.lzyzsd.circleprogress.ArcProgress
-import java.util.*
+import com.college.collegeconnect.database.entity.MondayEntity
 import kotlin.collections.ArrayList
 
 class TimetableAdapter(private val subjects: ArrayList<MondayEntity>, private val context: Context) : RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {

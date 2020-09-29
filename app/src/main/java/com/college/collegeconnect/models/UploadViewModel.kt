@@ -1,53 +1,21 @@
 package com.college.collegeconnect.models
 
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.college.collegeconnect.datamodels.Constants
 import com.college.collegeconnect.datamodels.Upload
+import com.college.collegeconnect.settingsActivity.repository.FetchUploads
 import com.college.collegeconnect.utils.FirebaseUtil
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class UploadViewModel: ViewModel() {
+class UploadViewModel : ViewModel() {
 
-    var list : MutableLiveData<List<Upload>>? = null
-    var reference: DatabaseReference? =null
+    var reference: DatabaseReference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS)
+    val fetchUploads = FetchUploads(reference)
 
-    fun returnList(): LiveData<List<Upload>> {
-        if (list == null) {
-            list = MutableLiveData()
-            getlist()
-        }
-        return list!!
+    fun getList(): LiveData<ArrayList<Upload>> {
+        return fetchUploads
     }
 
-    fun getlist(){
-        var list2 = ArrayList<Upload>()
-        reference = FirebaseUtil.getDatabase().getReference(Constants.DATABASE_PATH_UPLOADS)
-        reference!!.keepSynced(true)
-        reference!!.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("UploadViewModel", "onCancelled: called")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                list2.clear()
-                for (postSnapshot in snapshot.children) {
-                    val upload = postSnapshot.getValue(Upload::class.java)!!
-                    if (upload.getUploaderMail() == FirebaseAuth.getInstance().currentUser?.email)
-                        list2.add(upload)
-                }
-                list?.postValue(list2)
-            }
-
-        })
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-//            reference?.removeEventListener()
-    }
 }

@@ -1,7 +1,8 @@
-package com.college.collegeconnect.database
+package com.college.collegeconnect.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.college.collegeconnect.database.entity.SubjectDetails
 
 @Dao
 interface SubjectDao {

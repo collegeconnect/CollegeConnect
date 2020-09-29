@@ -3,8 +3,12 @@ package com.college.collegeconnect.settingsActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.collegeconnect.R
+import com.college.collegeconnect.adapters.MyFilesTopAdapter
 import com.college.collegeconnect.settingsActivity.models.MyFilesViewModel
 import kotlinx.android.synthetic.main.activity_my_files.*
 
@@ -19,6 +23,14 @@ class MyFilesActivity : AppCompatActivity() {
         viewAll.setOnClickListener {
             startActivity(Intent(this,MyUploadsActivity::class.java))
         }
+
+        myFilesViewModel.getUploads().observe(this, {
+            recyclerViewUploads.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+            val adapter = MyFilesTopAdapter(this,it)
+            recyclerViewUploads.adapter = adapter
+        })
+
+
 
     }
 }

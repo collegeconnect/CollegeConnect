@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.TimetableAdapter
-import com.college.collegeconnect.database.MondayEntity
+import com.college.collegeconnect.database.entity.MondayEntity
 import com.college.collegeconnect.database.TimeTableDatabse
 import java.util.ArrayList
 

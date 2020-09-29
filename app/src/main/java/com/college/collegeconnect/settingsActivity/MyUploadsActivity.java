@@ -69,7 +69,7 @@ public class MyUploadsActivity extends AppCompatActivity {
 
     private void fetchMvvm(){
         swipeRefreshLayout.setRefreshing(true);
-        model.returnList().observe(this, new Observer<List<Upload>>() {
+        model.getList().observe(this, new Observer<List<Upload>>() {
             @Override
             public void onChanged(List<Upload> uploads) {
                 if (uploads.isEmpty()){

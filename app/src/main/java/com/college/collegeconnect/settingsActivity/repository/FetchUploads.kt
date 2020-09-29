@@ -28,7 +28,7 @@ class FetchUploads(val query: Query) : LiveData<ArrayList<Upload>>() {
         }
 
         override fun onCancelled(error: DatabaseError) {
-            Log.d("BvestActivity", "onCancelled: " + error.message)
+            Log.d("MyFilesViewModel", "onCancelled: called")
         }
     }
 

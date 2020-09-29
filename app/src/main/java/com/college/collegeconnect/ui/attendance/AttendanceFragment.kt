@@ -2,9 +2,6 @@ package com.college.collegeconnect.ui.attendance
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SubjectAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.database.SubjectDetails
+import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView

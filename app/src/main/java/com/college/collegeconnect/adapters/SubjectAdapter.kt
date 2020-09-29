@@ -1,20 +1,16 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
-import com.college.collegeconnect.database.SubjectDetails
-import com.college.collegeconnect.datamodels.DatabaseHelper
+import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.github.lzyzsd.circleprogress.ArcProgress
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {

@@ -4,7 +4,7 @@ import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.database.SubjectDetails
+import com.college.collegeconnect.database.entity.SubjectDetails
 import kotlinx.coroutines.launch
 
 class AttendanceViewModel(application: Application) : AndroidViewModel(application) {
