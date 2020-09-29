@@ -3,6 +3,7 @@ package com.college.collegeconnect.settingsActivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.MyFilesBottomAdapter
 import com.college.collegeconnect.adapters.MyFilesTopAdapter
+import com.college.collegeconnect.database.DownloadDatabase
 import com.college.collegeconnect.database.entity.DownloadEntity
 import com.college.collegeconnect.settingsActivity.models.MyFilesViewModel
 import kotlinx.android.synthetic.main.activity_my_files.*
@@ -34,13 +36,11 @@ class MyFilesActivity : AppCompatActivity() {
             recyclerViewUploads.adapter = adapterUpload
         })
 
-        myFilesViewModel.getDownloads().observe(this, {
+        DownloadDatabase(application).getDownloadsDao().getDownloadFiles().observe(this, {
             recyclerViewDownloads.layoutManager = LinearLayoutManager(this)
-            adapterDownload = MyFilesBottomAdapter(this, it as ArrayList<DownloadEntity>,myFilesViewModel)
+            adapterDownload = MyFilesBottomAdapter(this, it, myFilesViewModel)
+            Log.d(localClassName, "onCreate: ${it.toString()}")
             recyclerViewDownloads.adapter = adapterDownload
         })
-
-
-
     }
 }

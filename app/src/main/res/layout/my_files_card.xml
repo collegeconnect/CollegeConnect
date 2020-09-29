@@ -5,6 +5,10 @@
     android:layout_height="115dp"
     android:layout_marginStart="16dp"
     android:layout_marginTop="15dp"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    android:outlineAmbientShadowColor="@color/latestBlue"
+    android:outlineSpotShadowColor="@color/latestBlue"
     android:layout_marginBottom="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -21,9 +21,9 @@ class MyFilesViewModel(application: Application) :AndroidViewModel(application) 
         return fetchUploads
     }
 
-    fun getDownloads():LiveData<List<DownloadEntity>>{
-        return DownloadDatabase(getApplication()).getDownloadsDao().getDownloadFiles()
-    }
+//    fun getDownloads():LiveData<List<DownloadEntity>>{
+//        return DownloadDatabase(getApplication()).getDownloadsDao().getDownloadFiles()
+//    }
 
     fun deleteDownload(id:Int){
         viewModelScope.launch {

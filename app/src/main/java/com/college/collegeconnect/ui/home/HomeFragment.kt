@@ -118,7 +118,7 @@ class HomeFragment : Fragment() {
         }
 
         recyclerviewHome.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = context?.applicationContext?.let { HomeRecyclerAdapter(it) }
+        val adapter = context?.let { HomeRecyclerAdapter(it) }
         recyclerviewHome.adapter = adapter
     }
 

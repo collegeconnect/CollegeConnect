@@ -48,9 +48,9 @@ class BvestActivity : AppCompatActivity() {
         }
 
         collapse.setOnClickListener {
-            bvestViewModel.getSocietyList().observe(this, {
+            bvestViewModel.getSocietyList().observe(this, { list ->
                 societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                adapter2 = BvestSocietiesAdapter(this, it)
+                adapter2 = BvestSocietiesAdapter(this, list)
                 societiesRecyclerBvest.adapter = adapter2
             })
 

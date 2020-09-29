@@ -18,7 +18,7 @@ import com.college.collegeconnect.settingsActivity.models.MyFilesViewModel
 import com.college.collegeconnect.utils.toast
 import java.io.File
 
-class MyFilesBottomAdapter(val context: Context, private val arrayList: ArrayList<DownloadEntity>, private val myFilesViewModel: MyFilesViewModel):RecyclerView.Adapter<MyFilesBottomAdapter.ViewHolder>() {
+class MyFilesBottomAdapter(val context: Context, private val arrayList: List<DownloadEntity>, private val myFilesViewModel: MyFilesViewModel):RecyclerView.Adapter<MyFilesBottomAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_notes, parent, false)
         return ViewHolder(view)
@@ -53,6 +53,8 @@ class MyFilesBottomAdapter(val context: Context, private val arrayList: ArrayLis
             popup.menu.findItem(R.id.details).isVisible = false
             popup.menu.findItem(R.id.report).isVisible = false
         }
+        holder.report.visibility = View.GONE
+        holder.download.visibility = View.GONE
     }
     fun openFile(path: String) {
         val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", File(path))
@@ -76,5 +78,6 @@ class MyFilesBottomAdapter(val context: Context, private val arrayList: ArrayLis
         val authName:TextView = itemView.findViewById(R.id.authorname)
         val unit:TextView = itemView.findViewById(R.id.unitText)
         val report:ImageView = itemView.findViewById(R.id.reportButton)
+        val download:TextView = itemView.findViewById(R.id.download)
     }
 }
