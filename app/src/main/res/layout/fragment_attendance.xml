@@ -14,7 +14,7 @@
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
+        android:layout_margin="12dp"
         app:cpb_background_progressbar_color="#60ffffff"
         app:cpb_background_progressbar_width="8dp"
         app:cpb_progress_direction="to_right"
@@ -29,7 +29,7 @@
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
+        android:layout_margin="12dp"
         app:cpb_background_progressbar_color="@android:color/transparent"
         app:cpb_progress_direction="to_right"
         app:cpb_progressbar_color_end="@color/colorwhite"
@@ -68,11 +68,11 @@
         android:layout_above="@+id/subjectNamemas"
         android:layout_alignStart="@id/subjectNamemas"
         android:layout_alignEnd="@id/subjectNamemas"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
         android:textColor="@android:color/white"
         android:fontFamily="sans-serif"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/subjectRecyclerView"
         android:layout_alignParentStart="true"
-        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
         app:boxStrokeColor="@drawable/text_box_white"
         android:backgroundTint="@android:color/transparent"
         android:ems="10"
@@ -123,6 +124,5 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/ic_curve_bg"
         android:padding="10dp" />
-
 
 </RelativeLayout>

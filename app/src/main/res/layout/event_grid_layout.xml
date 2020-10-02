@@ -4,6 +4,8 @@
     android:id="@+id/cvEvent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:outlineSpotShadowColor="@color/latestBlue"
+    android:outlineAmbientShadowColor="@color/latestBlue"
     android:layout_margin="16dp"
     android:clickable="true"
     android:focusable="true"

@@ -46,7 +46,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     private static String TAG = "Step Two Sign Up";
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
-    private TextInputLayout rollno, branchanme, collegeName;
+    private TextInputLayout rollno, branchanme, collegeName, yearText;
     private FirebaseAuth mAuth;
     private Button signup;
     private Spinner collegeSpinner;
@@ -69,6 +69,7 @@ public class StepTwoSignUp extends AppCompatActivity {
         signup = findViewById(R.id.stepTwoButton);
         collegeSpinner = findViewById(R.id.collegeSpinner);
         contribute = findViewById(R.id.textView21);
+        yearText = findViewById(R.id.year);
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Other");
@@ -136,14 +137,18 @@ public class StepTwoSignUp extends AppCompatActivity {
 
                 final String roll = rollno.getEditText().getText().toString();
                 final String branch = branchanme.getEditText().getText().toString();
+                final String year = yearText.getEditText().getText().toString();
 
-                if (roll.isEmpty() && branch.isEmpty()) {
+                if (roll.isEmpty() && branch.isEmpty() && year.isEmpty()) {
                     rollno.setError("Enter Roll Number");
                     branchanme.setError("Enter Branch Name");
+                    yearText.setError("Enter Academic Year");
                 } else if (branch.isEmpty()) {
                     branchanme.setError("Enter Branch Name");
                 } else if (roll.isEmpty()) {
                     rollno.setError("Enter Roll Number");
+                }   else if (year.isEmpty()) {
+                        yearText.setError("Enter Academic Year");
                 } else {
 
                     if (collegeSpinner.getSelectedItem().toString().equals("Other") && collegeName.getEditText().getText().toString().isEmpty())
@@ -165,7 +170,7 @@ public class StepTwoSignUp extends AppCompatActivity {
 
                         if (receivedPRev == null) {//google
 
-                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), branch, college);
+                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), branch, college, year);
                             SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                             startActivity(new Intent(getApplicationContext(), Navigation.class));
                             finish();
@@ -176,7 +181,7 @@ public class StepTwoSignUp extends AppCompatActivity {
                                     try {
                                         assert documentSnapshot != null;
                                         String name = documentSnapshot.getString("name");
-                                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
+                                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college, year);
                                         Log.d(TAG, "Details Uploaded!");
                                         SaveSharedPreference.setUser(StepTwoSignUp.this, name);
                                         Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
@@ -186,7 +191,7 @@ public class StepTwoSignUp extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
+                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college, year);
                                 Log.d(TAG, "Details Uploaded!");
                                 Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
                                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.datamodels.Upload
 
-class MyFilesTopAdapter(val context: Context, private val uploadList:ArrayList<Upload>):RecyclerView.Adapter<MyFilesTopAdapter.ViewHolder>() {
+class MyUploadedFilesAdapter(val context: Context, private val uploadList:ArrayList<Upload>):RecyclerView.Adapter<MyUploadedFilesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.my_files_card, parent, false)
         return ViewHolder(view)

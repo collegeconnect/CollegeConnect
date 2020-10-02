@@ -172,6 +172,7 @@ public class SaveSharedPreference {
         editor.remove(CLEARALL);
         editor.remove(UNIT);
         editor.remove(ATTENDANCE_CRITERIA);
+        editor.remove(REF);
         editor.apply();
     }
 

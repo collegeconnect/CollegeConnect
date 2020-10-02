@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -17,11 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.college.collegeconnect.activities.OnBoardingScreen;
 import com.college.collegeconnect.datamodels.DatabaseHelper;
 import com.college.collegeconnect.DividerItemDecoration;
-import com.college.collegeconnect.activities.MainActivity;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.SettingsAdapter;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
@@ -37,10 +35,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.io.File;
 import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -144,7 +140,7 @@ public class SettingsActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         FirebaseFirestore.getInstance().clearPersistence();
                         signOut();
-                        Intent i = new Intent(SettingsActivity.this, MainActivity.class);
+                        Intent i = new Intent(SettingsActivity.this, OnBoardingScreen.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         db.deleteall();

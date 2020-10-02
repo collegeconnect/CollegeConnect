@@ -2,14 +2,12 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="140dp"
-    android:layout_height="115dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="15dp"
+    android:layout_height="110dp"
+    android:layout_margin="16dp"
     app:cardElevation="8dp"
     app:cardCornerRadius="8dp"
     android:outlineAmbientShadowColor="@color/latestBlue"
-    android:outlineSpotShadowColor="@color/latestBlue"
-    android:layout_marginBottom="15dp">
+    android:outlineSpotShadowColor="@color/latestBlue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -68,7 +68,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeEditActivity extends AppCompatActivity {
 
     private TextDrawable drawable;
-    private EditText nameField, enrollNo, branch, college;
+    private EditText nameField, enrollNo, branch, college, year;
     private ImageButton imageButton;
     private CircleImageView prfileImage;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -102,6 +102,7 @@ public class HomeEditActivity extends AppCompatActivity {
         enrollNo = findViewById(R.id.textView3copy);
         branch = findViewById(R.id.textView4copy);
         college = findViewById(R.id.textView5copy);
+        year = findViewById(R.id.textView6copy);
         imageButton = findViewById(R.id.edit_dp);
         submitDetails = findViewById(R.id.submitDetailscopy);
         progressBar = findViewById(R.id.progress);
@@ -128,6 +129,7 @@ public class HomeEditActivity extends AppCompatActivity {
         branch.setEnabled(false);
         imageButton.setEnabled(false);
         college.setEnabled(false);
+        year.setEnabled(false);
 
         submitDetails.setColorFilter(ContextCompat.getColor(this, R.color.colorwhite));
 //        setValues();
@@ -154,7 +156,8 @@ public class HomeEditActivity extends AppCompatActivity {
                 String enroll = enrollNo.getText().toString();
                 String branch = HomeEditActivity.this.branch.getText().toString();
                 String strCollege = college.getText().toString();
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege);
+                String strYear = year.getText().toString();
+                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
                 finish();
             }
         });
@@ -259,12 +262,13 @@ public class HomeEditActivity extends AppCompatActivity {
         nameField.setEnabled(true);
         enrollNo.setEnabled(true);
         branch.setEnabled(true);
+        year.setEnabled(true);
         imageButton.setEnabled(true);
         nameField.setTextColor(getColor(R.color.blackToWhite));
         enrollNo.setTextColor(getColor(R.color.blackToWhite));
         branch.setTextColor(getColor(R.color.blackToWhite));
         college.setTextColor(getColor(R.color.blackToWhite));
-
+        year.setTextColor(getColor(R.color.blackToWhite));
 
         imageButton.setVisibility(View.VISIBLE);
         submitDetails.setEnabled(true);
@@ -280,11 +284,13 @@ public class HomeEditActivity extends AppCompatActivity {
                     String name = documentSnapshot.getString("name");
                     String rollNo = documentSnapshot.getString("rollno");
                     String branch = documentSnapshot.getString("branch");
+                    String strYear = documentSnapshot.getString("year");
                     String strCollege = documentSnapshot.getString("college");
                     SaveSharedPreference.setUser(getApplicationContext(), name);
                     nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
                     enrollNo.setText(rollNo);
                     college.setText(strCollege);
+                    year.setText(strYear);
                     HomeEditActivity.this.branch.setText(branch);
 
                     assert name != null;

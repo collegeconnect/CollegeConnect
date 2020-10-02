@@ -62,7 +62,7 @@ class AttendanceFragment : Fragment() {
 
         //Set target attendance criteria
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
-        criteriaText.text = "Min: ${criteria.toInt()}%"
+        criteriaText.text = "Target\n${criteria.toInt()}%"
         att_dp.apply {
             setProgressWithAnimation(criteria, 1000) // =1s
         }

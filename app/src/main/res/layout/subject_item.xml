@@ -11,6 +11,8 @@
     android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
     android:layout_marginBottom="@dimen/cardview_compat_inset_shadow"
     android:padding="10dp"
+    android:outlineAmbientShadowColor="@color/latestBlue"
+    android:outlineSpotShadowColor="@color/latestBlue"
     app:cardCornerRadius="7dp"
     app:cardElevation="8dp">
 

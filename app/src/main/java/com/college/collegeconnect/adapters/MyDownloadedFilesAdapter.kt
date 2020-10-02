@@ -15,17 +15,16 @@ import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.entity.DownloadEntity
 import com.college.collegeconnect.settingsActivity.models.MyFilesViewModel
-import com.college.collegeconnect.utils.toast
 import java.io.File
 
-class MyFilesBottomAdapter(val context: Context, private val arrayList: List<DownloadEntity>, private val myFilesViewModel: MyFilesViewModel):RecyclerView.Adapter<MyFilesBottomAdapter.ViewHolder>() {
+class MyDownloadedFilesAdapter(val context: Context, private val arrayList: List<DownloadEntity>, private val myFilesViewModel: MyFilesViewModel):RecyclerView.Adapter<MyDownloadedFilesAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_notes, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        context.toast(arrayList[position].docName)
+
         holder.fileName.text = arrayList[position].docName
         holder.authName.text = arrayList[position].authName
         holder.unit.text = arrayList[position].unit

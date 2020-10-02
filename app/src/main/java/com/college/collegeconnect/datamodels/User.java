@@ -17,11 +17,16 @@ public class User {
     public String rollno;
     public String email;
     public String name;
+    public String year;
     public String branch;
     public String college;
     public static FirebaseFirestore firebaseFirestore;
     public static FirebaseDatabase firebaseDatabase;
     public static FirebaseAuth auth;
+
+    public String getYear() {
+        return year;
+    }
 
     public String getRollno() {
         return rollno;
@@ -48,19 +53,21 @@ public class User {
         email = null;
         name = null;
         branch = null;
+        year = null;
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String rollNo, String email, String name, String branch, String college) {
+    public User(String rollNo, String email, String name, String branch, String college, String year) {
         this.rollno = rollNo;
         this.email = email;
         this.name = name;
         this.branch = branch;
         this.college = college;
+        this.year = year;
     }
 
-    public static boolean addUser(String username, String email, String name, String branch, String college) {
-        User user = new User(username, email, name, branch, college);
+    public static boolean addUser(String username, String email, String name, String branch, String college, String year) {
+        User user = new User(username, email, name, branch, college, year);
 
         //Get user id
         firebaseFirestore = FirebaseFirestore.getInstance();

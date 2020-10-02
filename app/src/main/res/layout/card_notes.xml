@@ -4,9 +4,11 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
-    app:cardElevation="1.25dp"
+    app:cardElevation="8dp"
     app:cardUseCompatPadding="false"
-    android:layout_marginTop="3dp"
+    android:layout_margin="4dp"
+    android:outlineAmbientShadowColor="@color/latestBlue"
+    android:outlineSpotShadowColor="@color/latestBlue"
     android:clickable="true">
 
     <RelativeLayout
