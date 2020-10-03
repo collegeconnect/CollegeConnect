@@ -7,7 +7,7 @@
     android:layout_alignParentTop="true"
     android:backgroundTint="@color/cardbackground"
     android:gravity="center"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
     app:cardUseCompatPadding="true">
 
@@ -43,8 +43,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Minimum Attendance %" />
+                android:hint="Minimum Attendance %"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <android.widget.Button

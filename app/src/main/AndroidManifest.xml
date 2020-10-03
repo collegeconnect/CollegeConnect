@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".settingsActivity.MyFilesActivity"></activity>
+        <activity android:name=".ui.event.bvest.TeamDetails"></activity>
+        <activity android:name=".settingsActivity.MyFilesActivity" />
         <activity android:name=".ui.event.bvest.BvestEventActivity" />
         <activity android:name=".ui.event.bvest.BvestActivity" />
         <activity android:name=".timetable.TimeTableScheduleActivity" />

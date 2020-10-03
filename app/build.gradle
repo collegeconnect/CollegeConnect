@@ -48,12 +48,12 @@ android {
 //            storeFile rootProject.file("keystore/collegeconnect-keystore.jks")
 //            storePassword keystoreProperties['storePassword']
 //        }
-        debug {
-            keyAlias 'ccdebug'
-            keyPassword 'ccdebug'
-            storeFile rootProject.file("keystore/debug.keystore")
-            storePassword 'ccdebug'
-        }
+//        debug {
+//            keyAlias 'ccdebug'
+//            keyPassword 'ccdebug'
+//            storeFile rootProject.file("keystore/debug.keystore")
+//            storePassword 'ccdebug'
+//        }
 
     }
     buildTypes {
