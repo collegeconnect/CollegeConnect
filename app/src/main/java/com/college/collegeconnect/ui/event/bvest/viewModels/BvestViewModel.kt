@@ -52,11 +52,10 @@ class BvestViewModel : ViewModel() {
         return teamData!!
     }
 
-    @SuppressLint("RestrictedApi")
     fun loadTeamDetails(eventName: String, code: String) {
 
         databaseReference = firebaseDatabase.getReference("Bvest/events/$eventName/teams")
-        Log.d("TAG", "loadTeamDetails: ${databaseReference!!.path.toString()}")
+//        Log.d("TAG", "loadTeamDetails: ${databaseReference!!.path.toString()}")
         //listener to fetch database from reference
         listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

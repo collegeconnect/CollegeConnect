@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.ImageAdapter
@@ -50,7 +51,7 @@ class BvestEventActivity : AppCompatActivity() {
             dialogTeam()
         }
 
-        bvestViewModel.returnTeam(event.eventName, code).observe(this, androidx.lifecycle.Observer {
+        bvestViewModel.returnTeam(event.eventName, code).observe(this, {
             if (it.code == this.code) {
                 val intent = Intent(this, TeamDetails::class.java)
                 intent.putExtra("name", it.getTeamname())
@@ -81,22 +82,11 @@ class BvestEventActivity : AppCompatActivity() {
         builder.setView(view)
         val dialog = builder.create()
         dialog.show()
-        Objects.requireNonNull(dialog.window)?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
-        Objects.requireNonNull(dialog.window)?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val next = view.findViewById<ImageButton>(R.id.register_next)
         val teamname = view.findViewById<TextInputLayout>(R.id.team_code)
-        teamname.editText?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                teamname.error = null
-            }
-
-        })
+        teamname.editText?.doAfterTextChanged { teamname.error = null }
         next.setOnClickListener {
             if (!teamname.editText?.text.isNullOrBlank()) {
                 code = teamname.editText?.text.toString()
