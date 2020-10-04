@@ -46,14 +46,16 @@ public class UpcomingEvents extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("EventAdmin");
         createEvent = findViewById(R.id.createEvent);
-        Log.d("Upcoming Events", "onCreate: "+SaveSharedPreference.getUserName(this));
+        Log.d("Upcoming Events", "onCreate: " + SaveSharedPreference.getUserName(this));
         databaseReference.addListenerForSingleValueEvent(listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList = (ArrayList<String>) dataSnapshot.getValue();
-                Log.d("Upcoming Events", "onDataChange: "+arrayList.size());
-                if (arrayList.contains(SaveSharedPreference.getUserName(UpcomingEvents.this)))
-                    createEvent.setVisibility(View.VISIBLE);
+                if (arrayList != null) {
+//                Log.d("Upcoming Events", "onDataChange: "+arrayList.size());
+                    if (arrayList.contains(SaveSharedPreference.getUserName(UpcomingEvents.this)))
+                        createEvent.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -110,7 +112,7 @@ public class UpcomingEvents extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(listener != null)
+        if (listener != null)
             databaseReference.removeEventListener(listener);
         super.onDestroy();
     }

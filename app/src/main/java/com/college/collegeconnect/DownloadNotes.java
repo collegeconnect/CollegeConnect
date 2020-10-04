@@ -115,7 +115,6 @@ public class DownloadNotes extends AppCompatActivity {
                     }
                 }
                 if (uploadList.isEmpty()) {
-//                    Toast.makeText(getApplicationContext(),"No PDFs Found",Toast.LENGTH_LONG).show();
                     Snackbar.make(findViewById(R.id.relativeshit), "No PDFs Found", Snackbar.LENGTH_LONG).show();
                 } else {
 
