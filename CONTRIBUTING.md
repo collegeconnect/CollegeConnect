@@ -5,7 +5,7 @@ This is an Open Source project and we would be happy to see contributors who rep
 
 ### Branch Policy
 #### Sending Pull Request :
-Go to the repository on GitHub at https://github.com/sakshampruthi/CollegeConnect.
+Go to the repository on GitHub at https://github.com/collegeconnect/CollegeConnect.
 
 Click the “Fork” button at the top right.
 
@@ -29,7 +29,7 @@ You’ll now have a local copy of your version of the original College Connect r
 
 #### Add a connection to the original owner’s repository.
 
-`$ git remote add upstream https://github.com/sakshampruthi/CollegeConnect`
+`$ git remote add upstream https://github.com/collegeconnect/CollegeConnect`
 
 #### To check this remote add set up:
 
