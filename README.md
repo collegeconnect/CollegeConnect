@@ -1,4 +1,4 @@
-x# **College Connect**
+# **College Connect**
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de806932130d4ee7a70dd8f549ed4d47)](https://www.codacy.com/gh/collegeconnect/CollegeConnect?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=collegeconnect/CollegeConnect&amp;utm_campaign=Badge_Grade)
 [![Actions Status](https://github.com/collegeconnect/CollegeConnect/workflows/build/badge.svg)](https://github.com/sakshampruthi/CollegeConnect/actions)
