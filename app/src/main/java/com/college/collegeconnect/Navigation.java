@@ -219,7 +219,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            if (SaveSharedPreference.getPop(this) % 10 == 0) {
+            if (SaveSharedPreference.getPop(this) % 8 == 0) {
                 feedbackPop();
             } else
                 finish();
