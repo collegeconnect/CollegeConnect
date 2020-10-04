@@ -360,7 +360,7 @@ public class HomeEditActivity extends AppCompatActivity {
                                     download_dp();
                                     SaveSharedPreference.setClearall(HomeEditActivity.this, true);
                                     SaveSharedPreference.setClearall1(HomeEditActivity.this, true);
-
+                                    progressBar.setVisibility(View.GONE);
                                 }
 
                             }).addOnFailureListener(new OnFailureListener() {

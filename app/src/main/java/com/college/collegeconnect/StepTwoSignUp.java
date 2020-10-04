@@ -81,7 +81,8 @@ public class StepTwoSignUp extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<String> arrayList2 = (ArrayList<String>) dataSnapshot.getValue();
-                arrayList.addAll(arrayList2);
+                if (arrayList2 != null)
+                    arrayList.addAll(arrayList2);
                 spinnerArrayAdapter.notifyDataSetChanged();
             }
 
