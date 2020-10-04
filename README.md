@@ -9,7 +9,7 @@ x# **College Connect**
 <a href="https://play.google.com/store/apps/details?id=com.college.collegeconnect"><img alt="Get it on Google Play" height="80" src="/Images/google-play-badge.png"></a>
 
 College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
-It aims to create a helpful plateform for all college students   
+It aims to create a helpful platform for all college students   
 It uses Firebase and SQLite to store and display the information to user  
 The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time and is available in both Light and Dark mode
 
@@ -17,13 +17,13 @@ This idea was developed for Ideathon held in BVCOE, New Delhi where it was prese
 
 Later it was converted to be a _third party app for every college and course in India_
 
-The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute in the migration of the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
+The app is primarily in Java and is tightly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute in the migration of the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
 
 
 <img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
 
-### Attendence Manager
-The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance
+### Attendance Manager
+The app has an integrated **Attendance Manager** which uses SQLite Database to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance
   
 <img src = "/Images/attendance_light.png" width="235" height="500"/>  <img src = "/Images/attendance_dark.png" width="235" height="500"/>
 
@@ -31,7 +31,7 @@ The app has an integrated **Attendence Manager** which uses SQLite Databse to st
 The Notes tab provides notes uploaded by students. The recycler view shows the name of the author  
 with total no. of downloads and relevant tags
 #### _Upload Notes_  
-The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the uploader
+The upload notes area provides for easy upload of notes by users. It takes the authors name to give credit to the uploader
 
 The no. of downloads will encourage students to make more impressive notes and create a sense of healthy competition
 
@@ -46,9 +46,9 @@ This feature allows user to upload the image of timetable from memory. It stores
  * _Room Locator_ <br>
 The room locator tab implements the room locator build by the DSC BVP team. Currently it only works for BVCOE, New Delhi but we plan to expand it using the help of wide network of DSCs present all over India  
  * _Upcoming Events_ <br>
-It shows the upcoming events around you and their details along with an option to register within th application
+It shows the upcoming events around you and their details along with an option to register within the application
  * _Project Collaboration_ <br>
-This tools help to procreate a plateform where different developers can come and work together on any projects. Just list your project and get collaborators
+This tools help to procreate a platform where different developers can come and work together on any projects. Just list your project and get collaborators
 
 <img src = "/Images/tools_light.png" width="235" height="500"/> <img src = "/Images/tools_dark.png" width="235" height="500"/>
 
@@ -81,8 +81,8 @@ Please help us follow the best practices to make it easy for the reviewer as wel
  * Single commit per pull request
  * Reference the issue numbers in the commit message. Follow the pattern Fixes #<issue number> <commit message>
  * Follow uniform design practices. The design language must be consistent throughout the app.
- * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherrypicking and merging squashes.
- * If the PR is related to any front end change, please attach relevant screenshots in the pull request description.
+ * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherry picking and merging squashes.
+ * If the PR is related to any front-end change, please attach relevant screenshots in the pull request description.
 
 ### Join the development
 
