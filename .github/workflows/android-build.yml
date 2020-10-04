@@ -2,9 +2,13 @@ name: build
 
 on:
   push:
-    branches: [ development ]
-  pull_request:
-    branches: [ development ]
+    branches:
+      - 'development'
+      - 'BVEST'
+  pull_request_target:
+    branches:
+      - 'development'
+      - 'BVEST' 
 
 jobs:
   build:
