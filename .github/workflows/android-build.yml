@@ -5,10 +5,12 @@ on:
     branches:
       - 'development'
       - 'BVEST'
+      - 'master'
   pull_request_target:
     branches:
       - 'development'
       - 'BVEST'
+      - 'master'
 jobs:
   build:
 
