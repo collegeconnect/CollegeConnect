@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - 'development'
-      - 'BVEST'
       - 'master'
+      - 'mvvm'
   pull_request_target:
     branches:
       - 'development'
-      - 'BVEST'
       - 'master'
+      - 'mvvm'
 jobs:
   build:
 
