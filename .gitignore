@@ -7,7 +7,7 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.idea
+/.idea
 .DS_Store
 /build
 /captures
@@ -18,3 +18,4 @@ app/release/output.json
 keystore.properties
 keystore/collegeconnect-keystore.jks
 app/release/output-metadata.json
+/keystore
