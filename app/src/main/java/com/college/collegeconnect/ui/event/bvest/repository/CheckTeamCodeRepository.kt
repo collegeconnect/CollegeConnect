@@ -1,7 +1,6 @@
 package com.college.collegeconnect.ui.event.bvest.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference

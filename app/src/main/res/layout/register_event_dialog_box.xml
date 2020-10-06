@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@+id/register_divider"
             android:layout_margin="20dp"
             android:background="@android:color/transparent"
-            android:text="Join a team"/>
+            android:text="Create a team"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/create_team_code"
