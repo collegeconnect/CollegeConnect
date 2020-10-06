@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:backgroundTint="@color/cardbackground"
     app:cardUseCompatPadding="true"
+    app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -39,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Team Code"
-                android:inputType="number" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -81,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Team Name"
-                android:inputType="number" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
