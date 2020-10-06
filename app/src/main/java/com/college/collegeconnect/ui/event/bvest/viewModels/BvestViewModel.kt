@@ -1,6 +1,5 @@
 package com.college.collegeconnect.ui.event.bvest.viewModels
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
@@ -10,6 +9,8 @@ import com.college.collegeconnect.datamodels.Constants
 import com.college.collegeconnect.datamodels.Events
 import com.college.collegeconnect.datamodels.Society
 import com.college.collegeconnect.datamodels.Teams
+import com.college.collegeconnect.ui.event.bvest.repository.CheckTeamCodeRepository
+import com.college.collegeconnect.ui.event.bvest.repository.CreateTeamRepository
 import com.college.collegeconnect.ui.event.bvest.repository.EventRepository
 import com.college.collegeconnect.ui.event.bvest.repository.SocietiesRepository
 import com.college.collegeconnect.utils.FirebaseUtil
@@ -21,7 +22,7 @@ import com.google.firebase.database.ValueEventListener
 class BvestViewModel : ViewModel() {
 
     val firebaseDatabase = FirebaseUtil.getDatabase()
-    var databaseReference: DatabaseReference? = null
+    private lateinit var databaseReference: DatabaseReference
     private val reference2 = FirebaseUtil.getDatabase().getReference(Constants.BVEST_SOCIETY_PATH)
     private val reference = FirebaseUtil.getDatabase().getReference(Constants.BVEST_EVENT_PATH)
     var teamData: MutableLiveData<Teams>? = null
@@ -71,10 +72,19 @@ class BvestViewModel : ViewModel() {
                 Log.d("BvestActivity", "onCancelled: " + error.message)
             }
         }
-        databaseReference!!.addValueEventListener(listener as ValueEventListener)
+        databaseReference.addValueEventListener(listener as ValueEventListener)
     }
 
+    fun createTeam(eventName: String, teamName:String, code: String,list:ArrayList<String>){
+        databaseReference = firebaseDatabase.getReference("Bvest")
+        CreateTeamRepository(eventName,teamName, databaseReference,code,list).createTeam()
+    }
+    //check if team code already exists
+    fun checkTeamCode():ArrayList<String>{
+        databaseReference = FirebaseUtil.getDatabase().getReference("Bvest/teamCodes")
+        return CheckTeamCodeRepository(databaseReference).getTeams()
+    }
     override fun onCleared() {
-        listener?.let { databaseReference?.removeEventListener(it) }
+        listener?.let { databaseReference.removeEventListener(it) }
     }
 }

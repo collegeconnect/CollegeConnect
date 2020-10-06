@@ -17,13 +17,16 @@ import com.college.collegeconnect.adapters.ImageAdapter
 import com.college.collegeconnect.datamodels.Events
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import com.college.collegeconnect.utils.ImageHandler
+import com.college.collegeconnect.utils.RandomGenerator
 import com.college.collegeconnect.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_bvest_event.*
+import kotlinx.android.synthetic.main.register_event_dialog_box.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BvestEventActivity : AppCompatActivity() {
 
@@ -54,7 +57,7 @@ class BvestEventActivity : AppCompatActivity() {
         bvestViewModel.returnTeam(event.eventName, code).observe(this, {
             if (it.code == this.code) {
                 val intent = Intent(this, TeamDetails::class.java)
-                intent.putExtra("name", it.getTeamname())
+                intent.putExtra("name", it.teamname)
                 startActivity(intent)
             } else
                 toast("called")
@@ -86,14 +89,36 @@ class BvestEventActivity : AppCompatActivity() {
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val next = view.findViewById<ImageButton>(R.id.register_next)
         val teamname = view.findViewById<TextInputLayout>(R.id.team_code)
+        val createTeam = view.findViewById<TextInputLayout>(R.id.create_team_code)
         teamname.editText?.doAfterTextChanged { teamname.error = null }
         next.setOnClickListener {
             if (!teamname.editText?.text.isNullOrBlank()) {
                 code = teamname.editText?.text.toString()
                 bvestViewModel.loadTeamDetails(event.eventName, code)
                 dialog.dismiss()
-            } else
+            } else if (!createTeam.editText?.text.isNullOrEmpty()) {
+                code = RandomGenerator().randomString(6)
+                val list = bvestViewModel.checkTeamCode()
+                val con = createCode(list, code)
+                bvestViewModel.createTeam(event.eventName, createTeam.editText?.text.toString(), con, list)
+                val intent = Intent(this, TeamDetails::class.java)
+                intent.putExtra("name", createTeam.editText?.text.toString())
+                startActivity(intent)
+            } else {
                 teamname.error = "Enter Team Code"
+                createTeam.error = "Enter a Team Name"
+
+                return@setOnClickListener
+            }
+        }
+    }
+
+    private fun createCode(list: ArrayList<String>, code: String): String {
+        return if (!list.contains(code)) {
+            code
+        } else {
+            val c = RandomGenerator().randomString(6)
+            createCode(list, c)
         }
     }
 

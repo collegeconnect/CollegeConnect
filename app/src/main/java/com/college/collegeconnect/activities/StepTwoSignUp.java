@@ -125,7 +125,7 @@ public class StepTwoSignUp extends AppCompatActivity {
             }
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
+            signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
