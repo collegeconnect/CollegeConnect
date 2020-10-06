@@ -1,22 +1,17 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
-import android.content.DialogInterface
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
-import com.college.collegeconnect.utils.toast
 import com.github.lzyzsd.circleprogress.ArcProgress
+import kotlin.collections.ArrayList
 
 class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
     var per = 0
@@ -30,10 +25,8 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
         val current = subjects[position].subjectName
-
         holder.circleProgress.max = 100
         holder.circleProgress.progress = 25
         //Setting details of cards on loading
@@ -68,7 +61,7 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
         holder.increase.setOnClickListener {
             attended = subjects[position].attended
             missed = subjects[position].missed
-            val sub = SubjectDetails(subjects[position].subjectName, attended + 1, missed)
+            val sub = SubjectDetails(subjects[position].subjectName, attended+1, missed)
             sub.id = subjects[position].id
             viewModel.updateSubject(sub)
             notifyDataSetChanged()
@@ -76,7 +69,7 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
         holder.decrease.setOnClickListener {
             attended = subjects[position].attended
             missed = subjects[position].missed
-            val sub = SubjectDetails(subjects[position].subjectName, attended, missed + 1)
+            val sub = SubjectDetails(subjects[position].subjectName, attended, missed+1)
             sub.id = subjects[position].id
             viewModel.updateSubject(sub)
             notifyDataSetChanged()
@@ -84,65 +77,12 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
         holder.delete.setOnClickListener { view ->
             val popup = PopupMenu(context, view)
             val inflater = popup.menuInflater
-            inflater.inflate(R.menu.attendance_overflow, popup.menu)
+            inflater.inflate(R.menu.actions, popup.menu)
             popup.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.delete -> {
                         subjects[position].id.let { viewModel.delete(it) }
-                        notifyDataSetChanged()
-                    }
-                    R.id.edit -> {
-
-                        val builder = AlertDialog.Builder(context)
-
-                        val inflater = (context as AppCompatActivity).layoutInflater
-                        val view = inflater.inflate(R.layout.layout_edit_attendance, null)
-                        val attended_edit = view.findViewById<EditText>(R.id.edit_attended)
-                        val missed_edit = view.findViewById<EditText>(R.id.edit_missed)
-                        val subject_edit = view.findViewById<EditText>(R.id.edit_attendance_title)
-                        val total_classes = view.findViewById<EditText>(R.id.total_classes)
-                        subject_edit.setText(current)
-                        attended_edit.setText(attended.toString())
-                        missed_edit.setText(missed.toString())
-                        total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
-                        attended_edit.addTextChangedListener(object : TextWatcher {
-                            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                            }
-
-                            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                            }
-
-                            override fun afterTextChanged(s: Editable?) {
-                                if (s?.isNotEmpty()!! && missed_edit.text.toString().isNotEmpty())
-                                    total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
-                            }
-
-                        })
-                        missed_edit.addTextChangedListener(object : TextWatcher {
-                            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                            }
-
-                            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                            }
-
-                            override fun afterTextChanged(s: Editable?) {
-                                if (attended_edit.text.toString().isNotEmpty() && s?.isNotEmpty()!!)
-                                    total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
-                            }
-
-                        })
-                        builder.setView(view)
-                                .setPositiveButton("Submit", DialogInterface.OnClickListener() { dialogInterface: DialogInterface, i: Int ->
-                                    val sub = SubjectDetails(subject_edit.text.toString(), attended_edit.text.toString().toInt(), missed_edit.text.toString().toInt())
-                                    sub.id = subjects[position].id
-                                    viewModel.updateSubject(sub)
-                                    notifyDataSetChanged()
-                                })
-                                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-
-                                })
-                        val dialog = builder.create()
-                        dialog.show()
+                            notifyDataSetChanged()
                     }
                 }
                 true
@@ -163,5 +103,6 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
         var heading: TextView = itemView.findViewById(R.id.subjectHeading)
         var tv_bunk: TextView = itemView.findViewById(R.id.tv_bunk)
         var circleProgress: ArcProgress = itemView.findViewById(R.id.arc_progress)
+
     }
 }
