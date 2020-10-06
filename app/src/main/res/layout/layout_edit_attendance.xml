@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditText
+        android:id="@+id/edit_attendance_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="SUBJECT NAME"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/edit_attended_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline34"
+        android:text="Attended"
+        app:layout_constraintTop_toTopOf="@+id/edit_attended"
+        app:layout_constraintBottom_toBottomOf="@id/edit_attended"
+        android:layout_margin="10dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/edit_attended"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="14sp"
+        android:inputType="numberSigned"
+        app:layout_constraintStart_toStartOf="@id/guideline34"
+        app:layout_constraintTop_toBottomOf="@id/edit_attendance_title"/>
+
+    <TextView
+        android:id="@+id/edit_missed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline34"
+        android:text="Missed"
+        app:layout_constraintTop_toTopOf="@+id/edit_missed"
+        app:layout_constraintBottom_toBottomOf="@id/edit_missed"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/total_classes_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/guideline34"
+        android:text="Total Classes"
+        app:layout_constraintTop_toTopOf="@+id/total_classes"
+        app:layout_constraintBottom_toBottomOf="@id/total_classes"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/edit_missed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberSigned"
+        android:textSize="14sp"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toStartOf="@id/guideline34"
+        app:layout_constraintTop_toBottomOf="@id/edit_attended"/>
+
+    <EditText
+        android:id="@+id/total_classes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="@id/edit_missed"
+        app:layout_constraintEnd_toEndOf="@id/edit_missed"
+        app:layout_constraintTop_toBottomOf="@id/edit_missed"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
