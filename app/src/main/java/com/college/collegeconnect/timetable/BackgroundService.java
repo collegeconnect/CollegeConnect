@@ -44,7 +44,7 @@ public class BackgroundService extends Service {
         @Override
         public void run() {
             Log.d(TAG, "THE BACKGROUND SERVICE IS RUNNING");
-            //Run attendance_overflow
+            //Run actions
             showNotification(context);
             //
             stopSelf();
