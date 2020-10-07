@@ -19,6 +19,7 @@ public class SaveSharedPreference {
     private static final String ATTENDANCE_CRITERIA = "attendance_criteria";
     private static final String POP = "pop";
     private static final String DETAILS_UPLOADED = "uploaded";
+    private static final String COLLEGE = "college";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -107,6 +108,12 @@ public class SaveSharedPreference {
         editor.apply();
     }
 
+    public static void setCollege(Context ctx, String college){
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(COLLEGE, college);
+        editor.apply();
+    }
+
     public static int getAttendanceCriteria(Context ctx) {
         return getSharedPreferences(ctx).getInt(ATTENDANCE_CRITERIA, 75);
     }
@@ -159,6 +166,10 @@ public class SaveSharedPreference {
         return getSharedPreferences(ctx).getInt(POP, 1);
     }
 
+    public static String getCollege(Context ctx){
+        return getSharedPreferences(ctx).getString(COLLEGE, "other");
+    }
+
     //Clear data on logout
     public static void clearUserName(Context ctx) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
@@ -173,6 +184,7 @@ public class SaveSharedPreference {
         editor.remove(UNIT);
         editor.remove(ATTENDANCE_CRITERIA);
         editor.remove(REF);
+        editor.remove(COLLEGE);
         editor.apply();
     }
 

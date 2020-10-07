@@ -1,8 +1,5 @@
 package com.college.collegeconnect.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +15,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.college.collegeconnect.ContributeActivity;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
-
 import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -155,7 +154,6 @@ public class StepTwoSignUp extends AppCompatActivity {
                         collegeName.setError("Enter College Name");
                     else {
 
-
                         String college;
                         if (collegeSpinner.getSelectedItem().toString().equals("Other")) {
                             college = collegeName.getEditText().getText().toString();
@@ -165,8 +163,11 @@ public class StepTwoSignUp extends AppCompatActivity {
                             } catch (Exception e) {
                                 Log.d(TAG, "onClick: " + e.getMessage());
                             }
-                        } else
+                        } else {
                             college = collegeSpinner.getSelectedItem().toString();
+                        }
+
+                        SaveSharedPreference.setCollege(StepTwoSignUp.this, college);
 
                         if (receivedPRev == null) {//google
 
