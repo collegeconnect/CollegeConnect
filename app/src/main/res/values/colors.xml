@@ -25,4 +25,6 @@
     <color name="bottomNavInactive">#80ffffff</color>
     <color name="blackToWhite">#000</color>
     <color name="dialogColor">#84BFF1</color>
+    <color name="eighty_black">#80000000</color>
+    <color name="orange">#FFA45A</color>
 </resources>

@@ -45,6 +45,7 @@ class BvestEventActivity : AppCompatActivity() {
         //Set values
         ImageHandler().getSharedInstance(this)?.load(event.imageUrl[0])
         tvEventPageTitle.text = event.eventName
+        organizer_name.text = event.organizer
         tvEventPageDate.text = date(event.date)
         tvEventDescription.text = event.eventDescription
         val imageAdapter = ImageAdapter(event.imageUrl)

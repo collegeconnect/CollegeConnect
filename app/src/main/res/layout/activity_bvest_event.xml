@@ -39,15 +39,46 @@
             android:layout_marginTop="16dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/ubuntu_regular"
             android:paddingBottom="16dp"
-            android:text="EVENT ORGANIZER" />
+            android:text="Event Organizer" />
+
+        <TextView
+            android:id="@+id/organizer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textColor="@color/latestBlue"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingBottom="16dp"
+            android:text="Organizer Name" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/ubuntu_regular"
+            android:paddingBottom="16dp"
+            android:text="Info" />
 
         <TextView
             android:id="@+id/tvEventDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/latestBlue"
+            android:fontFamily="@font/roboto_regular"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
@@ -56,10 +87,13 @@
         <android.widget.Button
             android:id="@+id/registerEventButton"
             android:layout_width="wrap_content"
+            android:background="@drawable/button_design3"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/ubuntu_regular"
             android:layout_marginBottom="8dp"
-            android:text="REGISTER" />
+            android:text="Register" />
 
     </LinearLayout>
 
@@ -67,15 +101,20 @@
         android:id="@+id/linearLayout_EventTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/event_title_background"
+        android:background="@android:color/white"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout_EventDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#50000000"/>
+
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_events_pint_icon" />
 
@@ -83,12 +122,11 @@
             android:id="@+id/tvEventPageTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
+            android:padding="16dp"
             android:text="EVENT TITLE"
             android:textColor="@color/latestBlue"
             android:textSize="30sp"
+            android:fontFamily="@font/ubuntu_regular"
             android:textStyle="bold"
             android:transitionName="eventTitleTransition" />
 
@@ -96,11 +134,11 @@
             android:id="@+id/tvEventPageDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp"
+            android:padding="16dp"
+            android:fontFamily="@font/ubuntu_regular"
+            android:layout_marginBottom="8dp"
             android:text="EVENT DATE"
-            android:textColor="@color/latestBlue"
+            android:textColor="@color/eighty_black"
             android:textSize="20sp"
             android:transitionName="eventDateTransition" />
 

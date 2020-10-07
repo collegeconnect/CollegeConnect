@@ -157,6 +157,7 @@ public class HomeEditActivity extends AppCompatActivity {
                 String branch = HomeEditActivity.this.branch.getText().toString();
                 String strCollege = college.getText().toString();
                 String strYear = year.getText().toString();
+                SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
                 User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
                 finish();
             }
@@ -263,6 +264,7 @@ public class HomeEditActivity extends AppCompatActivity {
         enrollNo.setEnabled(true);
         branch.setEnabled(true);
         year.setEnabled(true);
+        college.setEnabled(true);
         imageButton.setEnabled(true);
         nameField.setTextColor(getColor(R.color.blackToWhite));
         enrollNo.setTextColor(getColor(R.color.blackToWhite));
