@@ -3,7 +3,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de806932130d4ee7a70dd8f549ed4d47)](https://www.codacy.com/gh/collegeconnect/CollegeConnect?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=collegeconnect/CollegeConnect&amp;utm_campaign=Badge_Grade)
 [![Actions Status](https://github.com/collegeconnect/CollegeConnect/workflows/build/badge.svg)](https://github.com/collegeconnect/CollegeConnect/actions)
 [![License Badge](https://img.shields.io/badge/license-Apache%202.0-blue)](https://github.com/sakshampruthi/CollegeConnect/blob/versionTwo/LICENSE)
-[![Gitter](https://badges.gitter.im/CollegeConnect/community.svg)](https://gitter.im/CollegeConnect/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/CollegeConnect/discussion.svg)](https://gitter.im/CollegeConnect/discussion?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 ![Api Level](https://img.shields.io/badge/Min%20API%20Level-23-important)
 
 <a href="https://play.google.com/store/apps/details?id=com.college.collegeconnect"><img alt="Get it on Google Play" height="80" src="/Images/google-play-badge.png"></a>
