@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.ui.event.UpcomingEvents;
 import com.college.collegeconnect.ui.event.bvest.BvestActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,17 +26,25 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
-    CardView cardView, events, bvest;
+    CardView roomLocator, events, bvest;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private static final String ALMA_MATER = "Bharati Vidyapeeth's College of Engineering, New Delhi";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tools, container, false);
-        cardView = view.findViewById(R.id.roomLocator);
+        roomLocator = view.findViewById(R.id.roomLocator);
         events = view.findViewById(R.id.events);
         bvest = view.findViewById(R.id.bvest);
+
+        if (ALMA_MATER.equals(SaveSharedPreference.getCollege(getContext()))) {
+            roomLocator.setVisibility(View.VISIBLE);
+        } else {
+            roomLocator.setVisibility(View.GONE);
+        }
+
         return view;
     }
 
@@ -58,6 +66,8 @@ public class ToolsFragment extends Fragment {
 
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
 
+        // TODO brano - 10/7/2020 : I see in app how bvest disappear - should i look on this also,
+        //  or will you create another issue on it ? I think that ths logic can be in onCreateView(), can't it  ?
         mFirebaseRemoteConfig.fetchAndActivate()
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
                     @Override
@@ -76,7 +86,7 @@ public class ToolsFragment extends Fragment {
                     }
                 });
 
-        cardView.setOnClickListener(new View.OnClickListener() {
+        roomLocator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new RoomLocFragment();
