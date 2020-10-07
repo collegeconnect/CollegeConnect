@@ -65,9 +65,7 @@ public class ToolsFragment extends Fragment {
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
 
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-
-        // TODO brano - 10/7/2020 : I see in app how bvest disappear - should i look on this also,
-        //  or will you create another issue on it ? I think that ths logic can be in onCreateView(), can't it  ?
+        
         mFirebaseRemoteConfig.fetchAndActivate()
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
                     @Override
