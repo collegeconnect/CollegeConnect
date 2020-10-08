@@ -4,9 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +21,6 @@ import com.college.collegeconnect.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_bvest_event.*
-import kotlinx.android.synthetic.main.register_event_dialog_box.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +39,7 @@ class BvestEventActivity : AppCompatActivity() {
         bvestViewModel = ViewModelProvider(this).get(BvestViewModel::class.java)
 
         if (intent != null) event = intent.getSerializableExtra("list") as Events
+        bvestViewModel.eventName = event.eventName
 
         //Set values
         ImageHandler().getSharedInstance(this)?.load(event.imageUrl[0])
@@ -52,14 +51,14 @@ class BvestEventActivity : AppCompatActivity() {
         ivEventBanner.adapter = imageAdapter
 
         registerEventButton.setOnClickListener {
-            dialogTeam()
+            dialogRegistration()
         }
 
-        bvestViewModel.returnTeam(event.eventName, code).observe(this, {
-            if (it.code == this.code) {
-                val intent = Intent(this, TeamDetails::class.java)
-                intent.putExtra("name", it.teamname)
-                startActivity(intent)
+        bvestViewModel.returnTeam(event.eventName, code).observe(this, { team ->
+            if (team.code == this.code) {
+                Intent(this, TeamDetails::class.java).putExtra("team", team).also {
+                    startActivity(it)
+                }
             } else
                 toast("called")
         })
@@ -82,45 +81,46 @@ class BvestEventActivity : AppCompatActivity() {
     private fun dialogTeam() {
         val builder: AlertDialog.Builder = MaterialAlertDialogBuilder(this)
         val inflater = this.layoutInflater
-        val view = inflater.inflate(R.layout.register_event_dialog_box, null)
+        val view = inflater.inflate(R.layout.join_event_dialog_box, null)
         builder.setView(view)
         val dialog = builder.create()
         dialog.show()
         dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val next = view.findViewById<ImageButton>(R.id.register_next)
-        val teamname = view.findViewById<TextInputLayout>(R.id.team_code)
-        val createTeam = view.findViewById<TextInputLayout>(R.id.create_team_code)
-        teamname.editText?.doAfterTextChanged { teamname.error = null }
+        val teamCode = view.findViewById<TextInputLayout>(R.id.team_code)
+        teamCode.editText?.doAfterTextChanged { teamCode.error = null }
         next.setOnClickListener {
-            if (!teamname.editText?.text.isNullOrBlank()) {
-                code = teamname.editText?.text.toString()
+            if (!teamCode.editText?.text.isNullOrBlank()) {
+                code = teamCode.editText?.text.toString()
                 bvestViewModel.loadTeamDetails(event.eventName, code)
                 dialog.dismiss()
-            } else if (!createTeam.editText?.text.isNullOrEmpty()) {
-                code = RandomGenerator().randomString(6)
-                val list = bvestViewModel.checkTeamCode()
-                val con = createCode(list, code)
-                bvestViewModel.createTeam(event.eventName, createTeam.editText?.text.toString(), con, list)
-                val intent = Intent(this, TeamDetails::class.java)
-                intent.putExtra("name", createTeam.editText?.text.toString())
-                startActivity(intent)
             } else {
-                teamname.error = "Enter Team Code"
-                createTeam.error = "Enter a Team Name"
-
+                teamCode.error = "Enter Team Code"
                 return@setOnClickListener
             }
         }
     }
 
-    private fun createCode(list: ArrayList<String>, code: String): String {
-        return if (!list.contains(code)) {
-            code
-        } else {
-            val c = RandomGenerator().randomString(6)
-            createCode(list, c)
+    private fun dialogRegistration() {
+        val builder: AlertDialog.Builder = MaterialAlertDialogBuilder(this)
+        val inflater = this.layoutInflater
+        val view = inflater.inflate(R.layout.register_event_dialog, null)
+        builder.setView(view)
+        val dialog = builder.create()
+        dialog.show()
+        dialog.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        view.findViewById<Button>(R.id.createTeam).setOnClickListener {
+            dialog.dismiss()
+            startActivity(Intent(this, RegisterEventActivity::class.java))
         }
+        view.findViewById<Button>(R.id.joinButton).setOnClickListener {
+            dialog.dismiss()
+            dialogTeam()
+        }
+
     }
+
 
 }

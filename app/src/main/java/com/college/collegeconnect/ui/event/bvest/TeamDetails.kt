@@ -9,7 +9,11 @@ class TeamDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team_details)
-
-        textView28.text = intent.getStringExtra("name")
+        if(intent!=null){
+            //TODO("Create TeamDetails UI and set values")
+            //TODO("Add a button")
+            //TODO("OnClick take email and name from shared preferences")
+            //TODO("Add teamMate and updateUI")
+        }
     }
 }
