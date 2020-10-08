@@ -5,28 +5,31 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.college.collegeconnect.datamodels.Constants
-import com.college.collegeconnect.datamodels.Events
-import com.college.collegeconnect.datamodels.Society
-import com.college.collegeconnect.datamodels.Teams
+import com.college.collegeconnect.datamodels.*
+import com.college.collegeconnect.ui.event.bvest.TaskListener
 import com.college.collegeconnect.ui.event.bvest.repository.CheckTeamCodeRepository
 import com.college.collegeconnect.ui.event.bvest.repository.CreateTeamRepository
 import com.college.collegeconnect.ui.event.bvest.repository.EventRepository
 import com.college.collegeconnect.ui.event.bvest.repository.SocietiesRepository
 import com.college.collegeconnect.utils.FirebaseUtil
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import io.reactivex.Completable
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 
 class BvestViewModel : ViewModel() {
 
-    val firebaseDatabase = FirebaseUtil.getDatabase()
+    private val firebaseDatabase: FirebaseDatabase = FirebaseUtil.getDatabase()
     private lateinit var databaseReference: DatabaseReference
     private val reference2 = FirebaseUtil.getDatabase().getReference(Constants.BVEST_SOCIETY_PATH)
     private val reference = FirebaseUtil.getDatabase().getReference(Constants.BVEST_EVENT_PATH)
     var teamData: MutableLiveData<Teams>? = null
     var listener: ValueEventListener? = null
+    lateinit var eventName:String
+    private val disposables = CompositeDisposable()
+    var taskListener:TaskListener? =null
+    private val createTeamRepository = CreateTeamRepository()
 
     //exposing eventList
     private val eventList: LiveData<ArrayList<Events>> = EventRepository(reference)
@@ -75,9 +78,17 @@ class BvestViewModel : ViewModel() {
         databaseReference.addValueEventListener(listener as ValueEventListener)
     }
 
-    fun createTeam(eventName: String, teamName:String, code: String,list:ArrayList<String>){
+    fun createTeam(teamName:String, code: String,list:ArrayList<String>,phoneNumber:String,teammate1:TeamMate) {
         databaseReference = firebaseDatabase.getReference("Bvest")
-        CreateTeamRepository(eventName,teamName, databaseReference,code,list).createTeam()
+        val disposable = createTeamRepository.createTeam(eventName,teamName, databaseReference,code,list,phoneNumber,teammate1)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    taskListener?.complete()
+                },{
+                    taskListener?.onError(it.message!!)
+                })
+        disposables.add(disposable)
     }
     //check if team code already exists
     fun checkTeamCode():ArrayList<String>{
@@ -86,5 +97,6 @@ class BvestViewModel : ViewModel() {
     }
     override fun onCleared() {
         listener?.let { databaseReference.removeEventListener(it) }
+        disposables.dispose()
     }
 }

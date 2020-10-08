@@ -43,56 +43,14 @@
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:id="@+id/register_divider"
-            android:layout_width="0dp"
-            android:layout_height="0.5dp"
-            android:background="#50000000"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/team_code"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/create_team_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_divider"
-            android:layout_margin="20dp"
-            android:background="@android:color/transparent"
-            android:text="Create a team"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/create_team_code"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_team_text"
-            app:boxStrokeColor="@drawable/text_box_color">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Team Name"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <ImageButton
             android:id="@+id/register_next"
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/create_team_code"
-            android:layout_margin="10dp"
+            app:layout_constraintTop_toBottomOf="@id/team_code"
+            android:layout_margin="20dp"
             android:background="@drawable/ic_next" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
