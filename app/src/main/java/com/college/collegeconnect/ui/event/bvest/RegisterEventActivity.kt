@@ -68,6 +68,7 @@ class RegisterEventActivity : AppCompatActivity(), TaskListener {
         builder.setTitle(title)
         builder.setPositiveButton("OK") { dialog, _ ->
             dialog.dismiss()
+            finish()
         }
     }
 
