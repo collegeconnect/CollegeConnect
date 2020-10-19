@@ -19,6 +19,7 @@ public class SaveSharedPreference {
     private static final String ATTENDANCE_CRITERIA = "attendance_criteria";
     private static final String POP = "pop";
     private static final String DETAILS_UPLOADED = "uploaded";
+    private static final String ENCRYPTION_KEY = "encryption_key";
 
     public static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -107,6 +108,10 @@ public class SaveSharedPreference {
         editor.apply();
     }
 
+    public static void setEncryptionKey(Context ctx, String key) {
+        getSharedPreferences(ctx).edit().putString(ENCRYPTION_KEY, key).apply();
+    }
+
     public static int getAttendanceCriteria(Context ctx) {
         return getSharedPreferences(ctx).getInt(ATTENDANCE_CRITERIA, 75);
     }
@@ -157,6 +162,10 @@ public class SaveSharedPreference {
 
     public static int getPop(Context ctx) {
         return getSharedPreferences(ctx).getInt(POP, 1);
+    }
+
+    public static String getEncryptionKey(Context ctx) {
+        return getSharedPreferences(ctx).getString(ENCRYPTION_KEY, null);
     }
 
     //Clear data on logout

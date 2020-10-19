@@ -51,7 +51,8 @@ class HomeFragment : Fragment() {
     private var storageRef: StorageReference? = null
     private var mcontext: Context? = null
     lateinit var homeViewModel: HomeViewModel
-    var registered: ListenerRegistration? = null
+    private var listener: ListenerRegistration? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         prfileImage = view.findViewById(R.id.imageView3)
@@ -75,9 +76,10 @@ class HomeFragment : Fragment() {
         branch!!.isEnabled = false
 
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        homeViewModel.returnName().observe(requireActivity(), Observer { s -> nameField!!.setText(s) })
-        homeViewModel.returnRoll().observe(requireActivity(), Observer { s -> enrollNo!!.setText(s) })
-        homeViewModel.returnBranch().observe(requireActivity(), Observer { s -> branch!!.setText(s) })
+        listener = homeViewModel.loadData()
+        homeViewModel.nameLive.observe(requireActivity(), Observer { s -> nameField!!.setText(s) })
+        homeViewModel.rollNoLive.observe(requireActivity(), Observer { s -> enrollNo!!.setText(s) })
+        homeViewModel.branchLive.observe(requireActivity(), Observer { s -> branch!!.setText(s) })
         val file = File("/data/user/0/com.college.collegeconnect/files/dp.jpeg")
         if (file.exists()) {
             uri = Uri.fromFile(file)
@@ -202,7 +204,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        if (registered != null) registered!!.remove()
+        listener?.remove()
         super.onDestroyView()
     }
 }
