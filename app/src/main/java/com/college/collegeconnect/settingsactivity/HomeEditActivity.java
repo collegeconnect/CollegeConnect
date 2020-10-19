@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.datamodels.FirebaseUserInfo;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
 import com.college.collegeconnect.activities.Navigation;
@@ -41,14 +42,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -64,6 +60,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kotlin.Unit;
 
 public class HomeEditActivity extends AppCompatActivity {
 
@@ -81,8 +78,7 @@ public class HomeEditActivity extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
     private FirebaseFirestore firebaseFirestore;
-    DocumentReference documentReference;
-    ListenerRegistration listener;
+    private ListenerRegistration listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,12 +127,11 @@ public class HomeEditActivity extends AppCompatActivity {
 
         submitDetails.setColorFilter(ContextCompat.getColor(this, R.color.colorwhite));
 //        setValues();
-        documentReference = firebaseFirestore.collection("users").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         firebaseFirestore.setFirestoreSettings(settings);
-        setvaluesFirestore();
+        setValuesFirestore();
         edit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +149,8 @@ public class HomeEditActivity extends AppCompatActivity {
                 String enroll = enrollNo.getText().toString();
                 String branch = HomeEditActivity.this.branch.getText().toString();
                 String strCollege = college.getText().toString();
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege);
+                User user = new User(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege);
+                FirebaseUserInfo.INSTANCE.uploadUserInfo(user, HomeEditActivity.this);
                 finish();
             }
         });
@@ -271,38 +267,28 @@ public class HomeEditActivity extends AppCompatActivity {
         submitDetails.setVisibility(View.VISIBLE);
     }
 
-    private void setvaluesFirestore() {
-        listener = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                try {
-                    assert documentSnapshot != null;
-                    String name = documentSnapshot.getString("name");
-                    String rollNo = documentSnapshot.getString("rollno");
-                    String branch = documentSnapshot.getString("branch");
-                    String strCollege = documentSnapshot.getString("college");
-                    SaveSharedPreference.setUser(getApplicationContext(), name);
-                    nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
-                    enrollNo.setText(rollNo);
-                    college.setText(strCollege);
-                    HomeEditActivity.this.branch.setText(branch);
+    private void setValuesFirestore() {
+        listener = FirebaseUserInfo.INSTANCE.getUserInfo(this, user -> {
+            try {
+                SaveSharedPreference.setUser(getApplicationContext(), user.getName());
+                nameField.setText(SaveSharedPreference.getUser(getApplicationContext()));
+                enrollNo.setText(user.getRollNo());
+                college.setText(user.getCollege());
+                branch.setText(user.getBranch());
 
-                    assert name != null;
-                    int space = name.indexOf(" ");
-                    int color = Navigation.generatecolor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
-                } catch (Exception e) {
-
-                }
-                if (uri != null)
-                    Picasso.get().load(uri).into(prfileImage);
-            }
+                int space = user.getName().indexOf(" ");
+                int color = Navigation.generatecolor();
+                drawable = TextDrawable.builder().beginConfig()
+                        .width(150)
+                        .height(150)
+                        .bold()
+                        .endConfig()
+                        .buildRound(user.getName().substring(0, 1) + user.getName().substring(space + 1, space + 2), color);
+                prfileImage.setImageDrawable(drawable);
+            } catch (Exception ignored) { }
+            if (uri != null)
+                Picasso.get().load(uri).into(prfileImage);
+            return Unit.INSTANCE;
         });
     }
 
@@ -395,7 +381,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if(listener != null)
+        if (listener != null)
             listener.remove();
         super.onDestroy();
     }

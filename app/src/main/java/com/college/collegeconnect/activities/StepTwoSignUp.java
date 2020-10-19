@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.college.collegeconnect.ContributeActivity;
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.datamodels.FirebaseUserInfo;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
 
@@ -30,11 +31,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+
+import kotlin.Unit;
 
 public class StepTwoSignUp extends AppCompatActivity {
 
@@ -51,9 +53,7 @@ public class StepTwoSignUp extends AppCompatActivity {
     private Spinner collegeSpinner;
     private TextView contribute;
     private String receivedPRev;
-    private FirebaseFirestore firebaseFirestore;
-    DocumentReference documentReference;
-    ListenerRegistration listener;
+    private ListenerRegistration listener;
     ValueEventListener valueListener;
 
     @Override
@@ -74,9 +74,6 @@ public class StepTwoSignUp extends AppCompatActivity {
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(StepTwoSignUp.this, android.R.layout.simple_spinner_item, arrayList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         collegeSpinner.setAdapter(spinnerArrayAdapter);
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        documentReference = firebaseFirestore.collection("users").document(mAuth.getCurrentUser().getUid());
 
         databaseReference = firebaseDatabase.getReference("Colleges");
         databaseReference.addListenerForSingleValueEvent(valueListener = new ValueEventListener() {
@@ -163,29 +160,24 @@ public class StepTwoSignUp extends AppCompatActivity {
                             college = collegeSpinner.getSelectedItem().toString();
 
                         if (receivedPRev == null) {//google
-
-                            User.addUser(roll, mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getDisplayName(), branch, college);
+                            uploadUserInfo(roll, mAuth.getCurrentUser().getDisplayName(), branch, college);
                             SaveSharedPreference.setUserName(getApplicationContext(), mAuth.getCurrentUser().getEmail());
                             startActivity(new Intent(getApplicationContext(), Navigation.class));
                             finish();
                         } else {//email
                             SaveSharedPreference.setUploaded(StepTwoSignUp.this, true);
                             if (SaveSharedPreference.getUser(StepTwoSignUp.this).equals("")) {
-                                listener = documentReference.addSnapshotListener((documentSnapshot, error) -> {
+                                listener = FirebaseUserInfo.INSTANCE.getUserInfo(StepTwoSignUp.this, user -> {
                                     try {
-                                        assert documentSnapshot != null;
-                                        String name = documentSnapshot.getString("name");
-                                        User.addUser(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
-                                        Log.d(TAG, "Details Uploaded!");
-                                        SaveSharedPreference.setUser(StepTwoSignUp.this, name);
+                                        SaveSharedPreference.setUser(StepTwoSignUp.this, user.getName());
                                         Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
                                         startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                         finish();
-                                    } catch (Exception ignored) {
-                                    }
+                                    } catch (Exception ignored) { }
+                                    return Unit.INSTANCE;
                                 });
                             } else {
-                                User.addUser(roll, mAuth.getCurrentUser().getEmail(), SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
+                                uploadUserInfo(roll, SaveSharedPreference.getUser(StepTwoSignUp.this), branch, college);
                                 Log.d(TAG, "Details Uploaded!");
                                 Intent intent = new Intent(StepTwoSignUp.this, MainActivity.class);
                                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -267,6 +259,12 @@ public class StepTwoSignUp extends AppCompatActivity {
         if(listener != null)
             listener.remove();
         super.onDestroy();
+    }
+
+    private void uploadUserInfo(String roll, String name, String branch, String college) {
+        if (mAuth.getCurrentUser() == null) return;
+        User user = new User(roll, mAuth.getCurrentUser().getEmail(), name, branch, college);
+        FirebaseUserInfo.INSTANCE.uploadUserInfo(user, this);
     }
 }
 
