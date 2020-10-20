@@ -8,10 +8,10 @@
 
 <a href="https://play.google.com/store/apps/details?id=com.college.collegeconnect"><img alt="Get it on Google Play" height="80" src="/Images/google-play-badge.png"></a>
 
-College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
-It aims to create a helpful plateform for all college students   
-It uses Firebase and SQLite to store and display the information to user  
-The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time and is available in both Light and Dark mode
+College Connect is an Android application aimed to be a one-stop-shop for all the college needs irrespective of college and course.  
+It aims to create a helpful platform for all college students.
+It uses Firebase and SQLite to store and display the information to user.
+The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time and is available in both Light and Dark mode.
 
 This idea was developed for Ideathon held in BVCOE, New Delhi where it was presented to be a college app for BVCOE  
 
@@ -23,23 +23,23 @@ The app is primarily in Java and is tighly coupled as it was developed as a proj
 <img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
 
 ### Attendence Manager
-The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance
+The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance.
   
 <img src = "/Images/attendance_light.png" width="235" height="500"/>  <img src = "/Images/attendance_dark.png" width="235" height="500"/>
 
 ### Notes  
 The Notes tab provides notes uploaded by students. The recycler view shows the name of the author  
-with total no. of downloads and relevant tags
+with total no. of downloads and relevant tags.
 #### _Upload Notes_  
 The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the uploader
 
-The no. of downloads will encourage students to make more impressive notes and create a sense of healthy competition
+The no. of downloads will encourage students to make more impressive notes and create a sense of healthy competition.
 
 <img src = "/Images/notes_light.png" width="235" height="500"/>  <img src = "/Images/notes_dark.png" width="235" height="500"/>
 
 
 ### Timetable
-This feature allows user to upload the image of timetable from memory. It stores the image in SQLite Database so that it works even without internet connectivity
+This feature allows user to upload the image of timetable from memory. It stores the image in SQLite Database so that it works even without internet connectivity.
 
 
 ### Tools
@@ -78,7 +78,7 @@ We have the following branches
 
 Please help us follow the best practices to make it easy for the reviewer as well as the contributor. We want to focus on the code quality more than on managing pull request ethics.
 
- * Single commit per pull request
+ * Single commit per pull request.
  * Reference the issue numbers in the commit message. Follow the pattern Fixes #<issue number> <commit message>
  * Follow uniform design practices. The design language must be consistent throughout the app.
  * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherrypicking and merging squashes.
