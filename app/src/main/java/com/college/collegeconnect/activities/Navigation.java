@@ -30,10 +30,14 @@ import com.college.collegeconnect.ui.attendance.AttendanceFragment;
 import com.college.collegeconnect.ui.home.HomeFragment;
 import com.college.collegeconnect.ui.notes.NotesFragment;
 import com.college.collegeconnect.ui.tools.ToolsFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 
 import java.util.Random;
@@ -51,6 +55,8 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     private static String CHANNEL_DESC = "app notification";
     AlertDialog.Builder builder;
     public static Activity act;
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    public Boolean visible = false;
 
 
     @Override
@@ -113,6 +119,25 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         else {
             String name = SaveSharedPreference.getUser(Navigation.this);
         }
+         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(10)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        boolean updated = task.getResult();
+                        Log.d("Tools", "Config params updated: " + updated);
+                        visible = mFirebaseRemoteConfig.getBoolean("bvest_visibilty");
+                    } else {
+                        Log.d("Tools", "Config params  not updated");
+                    }
+                });
         Random random = new Random();
         color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 

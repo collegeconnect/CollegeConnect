@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.activities.Navigation;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.ui.event.UpcomingEvents;
 import com.college.collegeconnect.ui.event.bvest.BvestActivity;
@@ -27,7 +28,7 @@ public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
     CardView roomLocator, events, bvest;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+//    private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private static final String ALMA_MATER = "Bharati Vidyapeeth's College of Engineering, New Delhi";
 
     @Nullable
@@ -57,32 +58,38 @@ public class ToolsFragment extends Fragment {
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
 
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(10)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-        
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Boolean> task) {
-                        if (task.isSuccessful()) {
-                            boolean updated = task.getResult();
-                            Log.d("Tools", "Config params updated: " + updated);
-                            if (mFirebaseRemoteConfig.getBoolean("bvest_visibilty")){
-                                bvest.setVisibility(View.VISIBLE);
-                            }
-                            else
-                                bvest.setVisibility(View.GONE);
-                        } else {
-                            Log.d("Tools", "Config params  not updated");
-                        }
-                    }
-                });
+//        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+//
+//        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+//                .setMinimumFetchIntervalInSeconds(10)
+//                .build();
+//        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+//
+//        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
+//
+//        mFirebaseRemoteConfig.fetchAndActivate()
+//                .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Boolean> task) {
+//                        if (task.isSuccessful()) {
+//                            boolean updated = task.getResult();
+//                            Log.d("Tools", "Config params updated: " + updated);
+//                            if (mFirebaseRemoteConfig.getBoolean("bvest_visibilty")){
+//                                bvest.setVisibility(View.VISIBLE);
+//                            }
+//                            else
+//                                bvest.setVisibility(View.GONE);
+//                        } else {
+//                            Log.d("Tools", "Config params  not updated");
+//                        }
+//                    }
+//                });
+        if(((Navigation)getActivity()).visible){
+            bvest.setVisibility(View.VISIBLE);
+        }
+        else {
+            bvest.setVisibility(View.GONE);
+        }
 
         roomLocator.setOnClickListener(new View.OnClickListener() {
             @Override
