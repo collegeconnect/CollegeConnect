@@ -11,12 +11,10 @@ import androidx.viewpager.widget.PagerAdapter;
 public class ViewPagerAdapter extends PagerAdapter {
 
     private int[] layouts;
-    private Context context;
     private LayoutInflater layoutInflater;
 
     public ViewPagerAdapter(int[] layouts, Context context) {
         this.layouts = layouts;
-        this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

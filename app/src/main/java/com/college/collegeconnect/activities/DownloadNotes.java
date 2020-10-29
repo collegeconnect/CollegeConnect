@@ -5,13 +5,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,22 +23,14 @@ import android.widget.TextView;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.NotesAdapter;
 import com.college.collegeconnect.datamodels.Constants;
-import com.college.collegeconnect.datamodels.Upload;
 import com.college.collegeconnect.models.DownloadNotesViewModel;
 import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.Collections;
 
 public class DownloadNotes extends AppCompatActivity {
@@ -55,12 +45,12 @@ public class DownloadNotes extends AppCompatActivity {
     NotesAdapter notesAdapter;
     public AdView mAdView;
     TextView tv;
-//    String receivedCourse;
+    //    String receivedCourse;
 //    String receivedBranch;
 //    String receivedSemester;
 //    String receivedUnit;
     SwipeRefreshLayout swiperefreshlayout;
-//    ValueEventListener listener;
+    //    ValueEventListener listener;
     DownloadNotesViewModel downloadNotesViewModel;
     Bundle bundle;
 
@@ -110,7 +100,7 @@ public class DownloadNotes extends AppCompatActivity {
             recyclerView = findViewById(R.id.downloadRecycler);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(DownloadNotes.this));
-            notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList,downloadNotesViewModel);
+            notesAdapter = new NotesAdapter(DownloadNotes.this, uploadList, downloadNotesViewModel);
             recyclerView.setAdapter(notesAdapter);
         });
         swiperefreshlayout.setRefreshing(false);

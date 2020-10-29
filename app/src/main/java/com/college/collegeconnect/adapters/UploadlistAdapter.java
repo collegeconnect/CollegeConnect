@@ -174,7 +174,7 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
 
                                 AlertDialog alertDialog2 = builder2.create();
                                 alertDialog2.show();
-
+                                break;
                         }
                         return true;
                     }

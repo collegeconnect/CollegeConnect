@@ -30,7 +30,6 @@ public class SignUp extends AppCompatActivity {
 
     private static final String TAG = "Step 1/2";
     private TextInputLayout password, name, email;
-    private Button button;
     private FirebaseAuth mAuth;
 
 
@@ -42,7 +41,7 @@ public class SignUp extends AppCompatActivity {
         password = findViewById(R.id.textpass);
         name = findViewById(R.id.textname);
         email = findViewById(R.id.textemail);
-        button = findViewById(R.id.stepOneButton);
+        Button button = findViewById(R.id.stepOneButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

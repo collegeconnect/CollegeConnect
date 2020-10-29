@@ -2,7 +2,6 @@ package com.college.collegeconnect.ui.tools;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +17,12 @@ import com.college.collegeconnect.activities.Navigation;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.ui.event.UpcomingEvents;
 import com.college.collegeconnect.ui.event.bvest.BvestActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
     CardView roomLocator, events, bvest;
-//    private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private static final String ALMA_MATER = "Bharati Vidyapeeth's College of Engineering, New Delhi";
 
     @Nullable
@@ -58,32 +52,6 @@ public class ToolsFragment extends Fragment {
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
 
-//        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-//
-//        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-//                .setMinimumFetchIntervalInSeconds(10)
-//                .build();
-//        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-//
-//        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-//
-//        mFirebaseRemoteConfig.fetchAndActivate()
-//                .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Boolean> task) {
-//                        if (task.isSuccessful()) {
-//                            boolean updated = task.getResult();
-//                            Log.d("Tools", "Config params updated: " + updated);
-//                            if (mFirebaseRemoteConfig.getBoolean("bvest_visibilty")){
-//                                bvest.setVisibility(View.VISIBLE);
-//                            }
-//                            else
-//                                bvest.setVisibility(View.GONE);
-//                        } else {
-//                            Log.d("Tools", "Config params  not updated");
-//                        }
-//                    }
-//                });
         if(((Navigation)getActivity()).visible){
             bvest.setVisibility(View.VISIBLE);
         }

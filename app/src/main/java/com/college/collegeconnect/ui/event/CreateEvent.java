@@ -56,13 +56,11 @@ import java.util.Date;
 
 public class CreateEvent extends AppCompatActivity {
 
-    private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
+    private final FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
     private DatabaseReference databaseReference;
     private StorageReference storageRef;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private Button create;
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private EditText name, description, url, eventDate, organizer, endeventDate;
-    private ImageButton addImage;
     private static final int GET_FROM_GALLERY = 1;
     private String date, endDate;
     private LinearLayout blurr;
@@ -94,12 +92,12 @@ public class CreateEvent extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         viewPagerImage = findViewById(R.id.viewEventImage);
         viewPagerIndicator = findViewById(R.id.tabCreateEvent);
-        create = findViewById(R.id.createEventButton);
+        Button create = findViewById(R.id.createEventButton);
         name = findViewById(R.id.addEventName);
         description = findViewById(R.id.addEventDescription);
         url = findViewById(R.id.addEventUrl);
         eventDate = findViewById(R.id.addEventDate);
-        addImage = findViewById(R.id.addEventImage);
+        ImageButton addImage = findViewById(R.id.addEventImage);
         organizer = findViewById(R.id.addOrganizer);
         blurr = findViewById(R.id.blurrScreenEvent);
         endeventDate = findViewById(R.id.addendEventDate);

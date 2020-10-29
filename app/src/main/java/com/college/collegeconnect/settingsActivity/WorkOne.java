@@ -1,6 +1,6 @@
 package com.college.collegeconnect.settingsActivity;
 
-import android.os.Bundle;
+import  android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -28,9 +28,8 @@ public class WorkOne extends Fragment {
 
     private EditText name, aboutMe, personalWebsite, resumeLink;
     private TextView tv;
-    private Fragment workTwo = new WorkTwo();
+    private final Fragment workTwo = new WorkTwo();
     private ImageButton next;
-    private FirebaseFirestore firebaseFirestore;
     private DocumentReference documentReference;
     ListenerRegistration listener;
 
@@ -54,7 +53,7 @@ public class WorkOne extends Fragment {
         if (getActivity() != null)
             tv = getActivity().findViewById(R.id.tvtitle);
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         documentReference = firebaseFirestore.collection("resume").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()

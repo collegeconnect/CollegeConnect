@@ -1,7 +1,7 @@
 package com.college.collegeconnect.timetable;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -11,11 +11,14 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.util.Log;
 import android.app.Service;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.activities.Navigation;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 
@@ -66,7 +69,7 @@ public class BackgroundService extends Service {
                 .setLights(Color.WHITE, 500, 500)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
-         NotificationManagerCompat mNotificationManager =
+        NotificationManagerCompat mNotificationManager =
                 NotificationManagerCompat.from(context);
         mNotificationManager.notify(0, mBuilder.build());
     }

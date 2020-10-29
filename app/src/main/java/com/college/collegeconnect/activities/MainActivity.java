@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private TextInputLayout email, password;
     private Button register, login;
-    int RC_SIGN_IN = 1;
+    private int RC_SIGN_IN = 1;
     GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "MainActivity";
 

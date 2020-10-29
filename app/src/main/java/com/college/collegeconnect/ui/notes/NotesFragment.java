@@ -1,7 +1,6 @@
 package com.college.collegeconnect.ui.notes;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.college.collegeconnect.activities.DownloadNotes;
@@ -27,23 +25,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class NotesFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    TextView tv, tv8;
+    private TextView tv8;
     ImageView imageView;
     Spinner course, branch, semester, unit;
-    FloatingActionButton upload;
-    Button viewnotes;
-
-    public NotesFragment() {
-        // Required empty public constructor
-    }
-
+    private FloatingActionButton upload;
+    private Button viewnotes;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        final View view = inflater.inflate(R.layout.fragment_notes, container,false);
+        final View view = inflater.inflate(R.layout.fragment_notes, container, false);
         course = view.findViewById(R.id.CourseN);
         branch = view.findViewById(R.id.BranchN);
         semester = view.findViewById(R.id.SemesterN);
@@ -61,7 +54,7 @@ public class NotesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null)
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-        tv = getActivity().findViewById(R.id.navTitle);
+        TextView tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("NOTES");
         course.setSelection(SaveSharedPreference.getCourse(getContext()));
         branch.setSelection(SaveSharedPreference.getBranch(getContext()));

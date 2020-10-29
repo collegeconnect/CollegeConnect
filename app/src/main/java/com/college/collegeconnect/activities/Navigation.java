@@ -30,8 +30,6 @@ import com.college.collegeconnect.ui.attendance.AttendanceFragment;
 import com.college.collegeconnect.ui.home.HomeFragment;
 import com.college.collegeconnect.ui.notes.NotesFragment;
 import com.college.collegeconnect.ui.tools.ToolsFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +42,6 @@ import java.util.Random;
 
 public class Navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    BottomNavigationView bottomNavigationView;
     static int color;
     Fragment homefrag = new HomeFragment();
     Fragment attenfrag = new AttendanceFragment();
@@ -154,7 +151,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         });
 
 
-        bottomNavigationView = findViewById(R.id.bottomNav);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 //        Toast.makeText(Navigation.this, SaveSharedPreference.getUser(Navigation.this), Toast.LENGTH_SHORT).show();
         loadFragments(homefrag);

@@ -71,16 +71,14 @@ public class HomeEditActivity extends AppCompatActivity {
     private EditText nameField, enrollNo, branch, college, year;
     private ImageButton imageButton;
     private CircleImageView prfileImage;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private Uri uri;
     private StorageReference storageRef;
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private Uri filePath;
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FloatingActionButton submitDetails;
     private LinearLayout blurr;
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
-    private FirebaseFirestore firebaseFirestore;
     DocumentReference documentReference;
     ListenerRegistration listener;
 
@@ -122,7 +120,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
         //Get user id
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
         nameField.setEnabled(false);
         enrollNo.setEnabled(false);
@@ -320,7 +318,7 @@ public class HomeEditActivity extends AppCompatActivity {
 
         if (requestCode == GET_FROM_GALLERY && resultCode == this.RESULT_OK && data != null && data.getData() != null) {
 
-            filePath = data.getData();
+            Uri filePath = data.getData();
             CropImage.activity(filePath).setAspectRatio(1, 1)
                     .start(this);
         }
@@ -374,6 +372,7 @@ public class HomeEditActivity extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception exception) {
+                                    Toast.makeText(HomeEditActivity.this,"Unable to Update Details. Try Again Later",Toast.LENGTH_SHORT).show();
                                 }
 
                             });

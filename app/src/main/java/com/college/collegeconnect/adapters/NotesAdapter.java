@@ -50,10 +50,9 @@ import java.util.ArrayList;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> implements Filterable {
 
-    private Context context;
-    private DatabaseReference DatabaseReference;
-    private ArrayList<Upload> noteslist;
-    private ArrayList<Upload> noteslistfull;
+    private final Context context;
+    private final ArrayList<Upload> noteslist;
+    private final ArrayList<Upload> noteslistfull;
     private EditText answer;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DownloadNotesViewModel downloadNotesViewModel;
@@ -381,9 +380,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     };
 
     public void submitReport(String text, long timeStamp) {
-        DatabaseReference = FirebaseUtil.getDatabase().getReference("NotesReports");
+        com.google.firebase.database.DatabaseReference databaseReference = FirebaseUtil.getDatabase().getReference("NotesReports");
         NotesReports notesReports = new NotesReports(SaveSharedPreference.getUserName(context), text, timeStamp);
-        DatabaseReference.child(System.currentTimeMillis() + "").setValue(notesReports);
+        databaseReference.child(System.currentTimeMillis() + "").setValue(notesReports);
 //        Toast.makeText(context, text+" "+timeStamp, Toast.LENGTH_SHORT).show();
     }
 

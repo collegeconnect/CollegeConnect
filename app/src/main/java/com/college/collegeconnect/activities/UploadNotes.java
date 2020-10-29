@@ -40,7 +40,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -54,20 +53,17 @@ public class UploadNotes extends AppCompatActivity {
     private Intent Data = null;
     private EditText fileName, author;
     Intent receiverdIntent;
-    TextView tv8, tv_title;
-    ImageView imageView;
-    String receivedAction;
-    String receivedType;
-    Uri recievedUri;
+    private TextView tv8;
+    private ImageView imageView;
+    private Uri recievedUri;
     //these are the views
-    TextView textViewStatus;
+    private TextView textViewStatus;
     //    EditText editTextFilename,author;
-    ProgressBar progressBar;
-    Button upload;
-    Spinner semester, branch, course, unit;
+    private ProgressBar progressBar;
+    private Spinner semester, branch, course, unit;
     //the firebase objects for storage and database
-    StorageReference mStorageReference;
-    DatabaseReference mDatabaseReference;
+    private StorageReference mStorageReference;
+    private DatabaseReference mDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +81,7 @@ public class UploadNotes extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        tv_title = findViewById(R.id.tvtitle);
+        TextView tv_title = findViewById(R.id.tvtitle);
         tv_title.setText("Upload Notes");
         if (SaveSharedPreference.getCheckedItem(this) == 0)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
@@ -124,14 +120,12 @@ public class UploadNotes extends AppCompatActivity {
         progressBar = findViewById(R.id.UploadNotesProgressBar);
         progressBar.setMax(100);
         progressBar.setProgress(0);
-        upload = findViewById(R.id.selectNotes);
-        if (onSharedIntent()) {
-            if (recievedUri != null) {
-                Log.i("Upload Notes", "onCreate: " + recievedUri);
-                UploadNotes.this.Data = receiverdIntent;
-                UploadNotes.this.Data.setData(recievedUri);
-                upload.setText("Upload");
-            }
+        Button upload = findViewById(R.id.selectNotes);
+        if (onSharedIntent() && recievedUri != null) {
+            Log.i("Upload Notes", "onCreate: " + recievedUri);
+            UploadNotes.this.Data = receiverdIntent;
+            UploadNotes.this.Data.setData(recievedUri);
+            upload.setText("Upload");
         }
 //        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
@@ -404,8 +398,8 @@ public class UploadNotes extends AppCompatActivity {
         receiverdIntent = getIntent();
         Bundle bundle = receiverdIntent.getExtras();
         if (bundle != null) {
-            receivedAction = receiverdIntent.getAction();
-            receivedType = receiverdIntent.getType();
+            String receivedAction = receiverdIntent.getAction();
+            String receivedType = receiverdIntent.getType();
             if (receiverdIntent != null) {
                 Log.i("Upload Notes", "onSharedIntent: " + receivedType + "::::" + receivedAction);
                 if (receivedType.contains("pdf")) {
@@ -423,10 +417,9 @@ public class UploadNotes extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

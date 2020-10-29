@@ -36,7 +36,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String tag = tags.get(position);
 //        Toast.makeText(context, tag, Toast.LENGTH_SHORT).show();
-        if (tag.toLowerCase().equals("long")) {
+        if (tag.equalsIgnoreCase("long")) {
             holder.textView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF6A6A")));
             holder.textView.setBackgroundResource(R.drawable.button_design);
         }

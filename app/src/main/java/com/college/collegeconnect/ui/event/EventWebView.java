@@ -88,12 +88,7 @@ public class EventWebView extends Fragment {
             TextView tv = getActivity().findViewById(R.id.tvtitle);
             tv.setText("Event Details");
         }
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-
-            }
-        });
+        MobileAds.initialize(getContext());
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
