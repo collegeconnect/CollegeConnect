@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.timetable.NewTimeTable
+import com.college.collegeconnect.timetable.TimeTable
 
 class HomeRecyclerAdapter(val context: Context) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
 
@@ -25,7 +26,7 @@ class HomeRecyclerAdapter(val context: Context) : RecyclerView.Adapter<HomeRecyc
         holder.textView.text = arrayList[position]
         holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, arrayListImage[position]))
         holder.itemView.setOnClickListener {
-            context.startActivity(Intent(context, NewTimeTable::class.java))
+            context.startActivity(Intent(context, TimeTable::class.java))
         }
     }
 

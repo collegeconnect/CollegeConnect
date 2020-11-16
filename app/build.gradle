@@ -25,14 +25,14 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.college.collegeconnect"
         minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "0.1.0"
+        targetSdkVersion 30
+        versionCode 3
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         kapt {
             arguments {
@@ -48,17 +48,9 @@ android {
 //            storeFile rootProject.file("keystore/collegeconnect-keystore.jks")
 //            storePassword keystoreProperties['storePassword']
 //        }
-//        debug {
-//            keyAlias 'ccdebug'
-//            keyPassword 'ccdebug'
-//            storeFile rootProject.file("keystore/debug.keystore")
-//            storePassword 'ccdebug'
-//        }
-
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
             minifyEnabled false
             versionNameSuffix '-debug-version'
         }
@@ -109,7 +101,7 @@ dependencies {
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     api 'com.github.sujithkanna:smileyrating:2.0.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
-    //    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+//    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
 //    implementation 'com.google.firebase:firebase-perf:19.0.9'
     //leak Canary
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
@@ -131,4 +123,8 @@ dependencies {
     //RxJava
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
+    // For Kotlin users also import the Kotlin extensions library for Play Core:
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+    //dotsIndicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 }

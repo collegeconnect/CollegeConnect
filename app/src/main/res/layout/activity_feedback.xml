@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activities.FeedbackActivity">
 
     <ScrollView
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content">
 
             <include
-                android:id="@+id/tollbarfeedback"
+                android:id="@+id/toolbarfeedback"
                 layout="@layout/toolbar_main" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -41,7 +42,7 @@
                 android:textColor="@color/blackToWhite"
                 app:layout_constraintEnd_toStartOf="@+id/guideline31"
                 app:layout_constraintStart_toStartOf="@+id/guideline30"
-                app:layout_constraintTop_toBottomOf="@+id/tollbarfeedback" />
+                app:layout_constraintTop_toBottomOf="@+id/toolbarfeedback" />
 
             <com.hsalf.smileyrating.SmileyRating
                 android:id="@+id/smileyRating"

@@ -46,7 +46,8 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int images[] = {R.drawable.ic_brightness_24dp, R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
+//    int images[] = {R.drawable.ic_brightness_24dp, R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
+    int images[] = {R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -65,23 +66,15 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         checked_item = 0;
         holder.textView.setText(options.get(position));
         holder.imageView.setBackgroundResource(images[position]);
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (position == 0)
-                            dialog();
-                        else if (position == 1)
-                            dialogAttend();
-                        else
-                            context.startActivity(new Intent(context, (Class) act_list.get(position)));
-                    }
-                }, 165);
-
-            }
-        });
+        holder.relativeLayout.setOnClickListener(v -> v.postDelayed(() -> {
+//            if (position == 0)
+//                dialog();
+//            else
+                if (position == 0)
+                dialogAttend();
+            else
+                context.startActivity(new Intent(context, (Class) act_list.get(position)));
+        }, 165));
     }
 
     private void dialogAttend() {
@@ -105,13 +98,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
-        set.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!placeholder.getEditText().getText().toString().equals(""))
-                    SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
-                dialog.dismiss();
-            }
+        set.setOnClickListener(v -> {
+            if (!placeholder.getEditText().getText().toString().equals(""))
+                SaveSharedPreference.setAttendanceCriteria(context, Integer.parseInt(Objects.requireNonNull(placeholder.getEditText()).getText().toString()));
+            dialog.dismiss();
         });
     }
 
@@ -119,42 +109,30 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         final String theme[] = context.getResources().getStringArray(R.array.themes);
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
         builder.setTitle("Select Theme");
-        builder.setSingleChoiceItems(R.array.themes, SaveSharedPreference.getCheckedItem(context), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selection = theme[which];
+        builder.setSingleChoiceItems(R.array.themes, SaveSharedPreference.getCheckedItem(context), (dialog, which) -> {
+            selection = theme[which];
+            checked_item = which;
+        });
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            if (selection == null) {
+                checked_item = SaveSharedPreference.getCheckedItem(context);
+                selection = theme[checked_item];
 
-                checked_item = which;
             }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (selection == null) {
-                    checked_item = SaveSharedPreference.getCheckedItem(context);
-                    selection = theme[checked_item];
-
-                }
-                switch (selection) {
-                    case "System Default":
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                        break;
-                    case "Dark":
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        break;
-                    case "Light":
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        break;
-                }
-                SaveSharedPreference.setCheckedItem(context, checked_item);
+            switch (selection) {
+                case "System Default":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    break;
+                case "Dark":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    break;
+                case "Light":
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    break;
             }
+            SaveSharedPreference.setCheckedItem(context, checked_item);
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -178,7 +156,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView;
             act_list = new ArrayList<>();
-            act_list.add(0);
+//            act_list.add(0);
             act_list.add(1);
             act_list.add(myfiles);
             act_list.add(workprofile);

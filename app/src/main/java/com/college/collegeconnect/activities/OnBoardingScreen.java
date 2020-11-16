@@ -13,12 +13,14 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.ViewPagerAdapter;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.google.android.material.tabs.TabLayout;
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 public class OnBoardingScreen extends AppCompatActivity {
 
-    private int[] layouts = {R.layout.first_slide, R.layout.second_slide, R.layout.third_slide, R.layout.fourth_slide};
+    private int[] layouts = {R.layout.first_slide, R.layout.second_slide, R.layout.third_slide};
     private Button back, next;
     private int currentPage;
+    private WormDotsIndicator wormDotsIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,7 @@ public class OnBoardingScreen extends AppCompatActivity {
 
             }
         });
-
+        wormDotsIndicator = findViewById(R.id.worm_dots_indicator);
         back = findViewById(R.id.buttonBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,9 @@ public class OnBoardingScreen extends AppCompatActivity {
                     pager.setCurrentItem(currentPage + 1);
             }
         });
-        TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.setupWithViewPager(pager, true);
+        wormDotsIndicator.setViewPager(pager);
+//        TabLayout tabLayout = findViewById(R.id.tab_layout);
+//        tabLayout.setupWithViewPager(pager, true);
+
     }
 }

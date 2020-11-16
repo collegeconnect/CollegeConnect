@@ -121,6 +121,7 @@
             android:text="COLLEGE"
             android:textAlignment="center"
             android:textColor="@color/newBlue"
+            android:enabled="false"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView6copy"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"

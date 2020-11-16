@@ -20,12 +20,13 @@ public class Splash extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        if (SaveSharedPreference.getCheckedItem(Splash.this) == 0)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        else if (SaveSharedPreference.getCheckedItem(Splash.this) == 1)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else if (SaveSharedPreference.getCheckedItem(Splash.this) == 2)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        if (SaveSharedPreference.getCheckedItem(Splash.this) == 0)
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+//        else if (SaveSharedPreference.getCheckedItem(Splash.this) == 1)
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        else if (SaveSharedPreference.getCheckedItem(Splash.this) == 2)
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         Intent i = new Intent(Splash.this, OnBoardingScreen.class);
         startActivity(i);

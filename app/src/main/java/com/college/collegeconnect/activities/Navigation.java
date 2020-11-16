@@ -200,7 +200,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 
     public void feedbackPop() {
         builder.setTitle("Feedback");
-        builder.setMessage("Consider taking a one minute feedback?");
+        builder.setMessage("Since the application is under development, we require constant feedback\nConsider taking a one minute feedback?");
         builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -239,7 +239,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            if (SaveSharedPreference.getPop(this) % 10 == 0) {
+            if (SaveSharedPreference.getPop(this) % 7 == 0) {
                 feedbackPop();
             } else
                 finish();

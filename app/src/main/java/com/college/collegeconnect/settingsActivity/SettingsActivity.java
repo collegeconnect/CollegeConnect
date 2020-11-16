@@ -58,6 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_settings);
 
         storageRef = storage.getReference();
         Toolbar toolbar = findViewById(R.id.settingbar);
@@ -93,7 +94,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
         ArrayList<String> options = new ArrayList<>();
 //        options.add("Update Profile");
-        options.add("Theme");
+//        options.add("Theme");
         options.add("Set Attendance Criteria");
         options.add("My Files");
         options.add("Work Profile");

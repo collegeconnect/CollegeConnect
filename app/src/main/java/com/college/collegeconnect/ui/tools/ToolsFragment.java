@@ -32,7 +32,7 @@ public class ToolsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tools, container, false);
         roomLocator = view.findViewById(R.id.roomLocator);
         events = view.findViewById(R.id.events);
-        bvest = view.findViewById(R.id.bvest);
+//        bvest = view.findViewById(R.id.bvest);
 
         if (ALMA_MATER.equals(SaveSharedPreference.getCollege(getContext()))) {
             roomLocator.setVisibility(View.VISIBLE);
@@ -53,10 +53,10 @@ public class ToolsFragment extends Fragment {
         tv.setText("TOOLS");
 
         if(((Navigation)getActivity()).visible){
-            bvest.setVisibility(View.VISIBLE);
+//            bvest.setVisibility(View.VISIBLE);
         }
         else {
-            bvest.setVisibility(View.GONE);
+//            bvest.setVisibility(View.GONE);
         }
 
         roomLocator.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +85,13 @@ public class ToolsFragment extends Fragment {
 //        else
 //            bvest.setVisibility(View.GONE);
 
-        bvest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getContext(), "BVEST", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), BvestActivity.class));
-            }
-        });
+//        bvest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(getContext(), "BVEST", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(getContext(), BvestActivity.class));
+//            }
+//        });
 
     }
 
