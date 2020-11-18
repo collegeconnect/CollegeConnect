@@ -71,7 +71,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="4dp"
         android:textColor="@android:color/white"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/nunito_regular"
         android:textSize="22sp"
         android:textStyle="bold"/>
 

@@ -32,7 +32,6 @@ class PlaceholderFragment(private val position: Int) : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         subjectRecycler.setHasFixedSize(true)
         subjectRecycler.layoutManager = LinearLayoutManager(context)
         load()
@@ -43,11 +42,11 @@ class PlaceholderFragment(private val position: Int) : Fragment() {
         val subject = context?.let {
             TimeTableDatabse(it).getMondayDao().getMonClasses()
         }
-        subject?.observe(requireActivity(), Observer {
+        subject?.observe(requireActivity(), {
             val subjectList = ArrayList<MondayEntity>()
             subjectList.addAll(it)
-            PlaceholderFragment.subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1) }!!
-            subjectRecycler.adapter = PlaceholderFragment.subjectAdapter
+            subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1) }!!
+            subjectRecycler.adapter = subjectAdapter
         })
     }
 

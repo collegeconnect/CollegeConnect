@@ -12,10 +12,13 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.activities.OnBoardingScreen;
 import com.college.collegeconnect.datamodels.DatabaseHelper;
@@ -28,6 +31,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,28 +54,25 @@ public class SettingsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private SettingsAdapter settingsAdapter;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
     CircleImageView prfileImage;
     TextDrawable drawable;
     TextView nameField;
     Uri uri;
+    private ReviewManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setContentView(R.layout.activity_settings);
 
-        storageRef = storage.getReference();
+        StorageReference storageRef = storage.getReference();
         Toolbar toolbar = findViewById(R.id.settingbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.newBlue), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(getColor(R.color.latestBlue), PorterDuff.Mode.SRC_ATOP);
         db = new DatabaseHelper(this);
-
+        manager = ReviewManagerFactory.create(this);
         prfileImage = findViewById(R.id.settings_dp);
         nameField = findViewById(R.id.textView16);
         String name = SaveSharedPreference.getUser(this);
@@ -165,6 +170,12 @@ public class SettingsActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu,menu);
+        return true;
+    }
+
     private void signOut() {
         mgoogleSignInClient.signOut();
     }
@@ -185,6 +196,19 @@ public class SettingsActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.rate:
+                Task<ReviewInfo> request = manager.requestReviewFlow();
+                request.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // We can get the ReviewInfo object
+                        ReviewInfo reviewInfo = task.getResult();
+                        Snackbar.make(findViewById(android.R.id.content),"Review Submitted Successfully",Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        // There was some problem, continue regardless of the result.
+                    }
+                });
+                return true;
+
         }
         return super.onOptionsItemSelected(item);
     }

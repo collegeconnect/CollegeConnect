@@ -17,15 +17,14 @@ class TimetableAdapter(private val subjects: ArrayList<MondayEntity>, private va
     var attended: Int = 0
     var missed: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.timetable_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.timetable_card, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.heading.text = subjects[position].subjectName
-        holder.start.text = subjects[position].startTime
-        holder.end.text = subjects[position].endTime
+        holder.time.text = "${subjects[position].startTime} - ${subjects[position].endTime}"
 //        criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
 //        val current = subjects[position].subjectName
 //        holder.circleProgress.max = 100
@@ -98,9 +97,9 @@ class TimetableAdapter(private val subjects: ArrayList<MondayEntity>, private va
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var heading: TextView = itemView.findViewById(R.id.subjectTitle)
-        var start: TextView = itemView.findViewById(R.id.begin)
-        var end: TextView = itemView.findViewById(R.id.end)
-
+        var heading: TextView = itemView.findViewById(R.id.subject_title)
+        var time: TextView = itemView.findViewById(R.id.time)
+        var state: TextView = itemView.findViewById(R.id.lec_state)
+        var stateCircle: ImageView = itemView.findViewById(R.id.lec_state_circle)
     }
 }

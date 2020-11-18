@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/tools_header"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="90dp"
         android:background="@drawable/ic_toolbar">
 
         <androidx.appcompat.widget.Toolbar
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/nunito_semibold"
             android:text="Tools"
             android:textColor="@color/colorwhite"
             android:textSize="25sp" />

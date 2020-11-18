@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageView22"
+            android:id="@+id/lec_state_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -26,32 +26,33 @@
             android:backgroundTint="@color/blackToWhite"
             android:background="?android:attr/listDivider"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView22"
-            app:layout_constraintStart_toStartOf="@+id/imageView22"
-            app:layout_constraintTop_toBottomOf="@+id/imageView22" />
+            app:layout_constraintEnd_toEndOf="@+id/lec_state_circle"
+            app:layout_constraintStart_toStartOf="@+id/lec_state_circle"
+            app:layout_constraintTop_toBottomOf="@+id/lec_state_circle" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="time"
             android:textStyle="bold"
             android:textColor="@color/blackToWhite"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+            app:layout_constraintBottom_toBottomOf="@+id/lec_state_circle"
             app:layout_constraintStart_toStartOf="@+id/materialCardView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView22" />
+            app:layout_constraintTop_toTopOf="@+id/lec_state_circle" />
 
         <TextView
+            android:id="@+id/lec_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Now"
             android:textColor="@color/latestBlue"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView22"
+            app:layout_constraintBottom_toBottomOf="@+id/lec_state_circle"
             app:layout_constraintEnd_toEndOf="@+id/materialCardView2"
-            app:layout_constraintTop_toTopOf="@+id/imageView22"
+            app:layout_constraintTop_toTopOf="@+id/lec_state_circle"
             app:layout_constraintVertical_bias="1.0" />
 
         <com.google.android.material.card.MaterialCardView
@@ -74,7 +75,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/documentName"
+                    android:id="@+id/subject_title"
                     android:layout_width="84dp"
                     android:layout_height="15dp"
                     android:layout_marginStart="16dp"
@@ -90,6 +91,7 @@
                     app:layout_constraintVertical_bias="0.25" />
 
                 <TextView
+                    android:id="@+id/room_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -99,7 +101,7 @@
                     app:drawableLeftCompat="@drawable/ic_room"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/documentName" />
+                    app:layout_constraintTop_toBottomOf="@+id/subject_title" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 

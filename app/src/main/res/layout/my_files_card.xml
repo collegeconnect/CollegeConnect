@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/documentName"
+            android:id="@+id/subject_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="7"

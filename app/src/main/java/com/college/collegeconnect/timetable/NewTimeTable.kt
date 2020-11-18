@@ -15,6 +15,7 @@ import com.college.collegeconnect.adapters.SectionsPagerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.entity.MondayEntity
 import com.college.collegeconnect.database.TimeTableDatabse
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_new_time_table.*
 import java.util.*
