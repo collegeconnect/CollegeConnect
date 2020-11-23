@@ -8,57 +8,57 @@
 
 <a href="https://play.google.com/store/apps/details?id=com.college.collegeconnect"><img alt="Get it on Google Play" height="80" src="/Images/google-play-badge.png"></a>
 
-College Connect is an Android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
-It aims to create a helpful plateform for all college students   
-It uses Firebase and SQLite to store and display the information to user  
-The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time and is available in both Light and Dark mode
+College Connect is an android application aimed to be a one stop shop for all the college needs irrespective of college and course.  
+It aims to create a helpful platform for all college students.
+It uses Firebase and SQLite to store and display the information to user.
+The app uses Material UI for an attractive interface (subject to improvement) which attracts user to stay on the app for more time.
 
-This idea was developed for Ideathon held in BVCOE, New Delhi where it was presented to be a college app for BVCOE  
+This idea was developed for Ideathon held in BVCOE, New Delhi where it was presented to be a college app for BVCOE, New Delhi 
 
-Later it was converted to be a _third party app for every college and course in India_
+Later it was aimed to be a _third party app for every college and course in India_
 
-The app is primarily in Java and is tighly coupled as it was developed as a project to learn Android Development. If anyone wishes to contibute in the migration of the application to MVVM architecture please contact the repo [Maintainers](https://github.com/sakshampruthi/CollegeConnect#maintainers-and-developers) as we'd be more than happy to port to MVVM
+The app is developed using native android(Java and Kotlin both) and follows MVVM architecture. It is tighly coupled as it was developed as a project to learn Android Development.
 
-
-<img src = "/Images/login.png" width="235" height="500"/> <img src = "/Images/home_light.png" width="235" height="500"/><img src = "/Images/home_dark.png" width="235" height="500"/>
+<img src = "/Images/login.PNG" width="235" height="500"/> <img src = "/Images/home_light.PNG" width="235" height="500"/>
 
 ### Attendence Manager
-The app has an integrated **Attendence Manager** which uses SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and easy to look at and convenient to track your attendance
+The app has an integrated **Attendence Manager** which uses Room Library and SQLite Databse to store and retrieve data and display it in a graphical manner which looks appealing and convenient to track your attendance.
   
-<img src = "/Images/attendance_light.png" width="235" height="500"/>  <img src = "/Images/attendance_dark.png" width="235" height="500"/>
+<img src = "/Images/attendance_light.PNG" width="235" height="500"/>
 
 ### Notes  
-The Notes tab provides notes uploaded by students. The recycler view shows the name of the author  
-with total no. of downloads and relevant tags
-#### _Upload Notes_  
-The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the uploader
+The Notes tab provides notes uploaded by students. The recycler view shows the name of the author with total number of downloads and relevant tags.
+#### _Upload Notes and My Files_  
+The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the author.
 
-The no. of downloads will encourage students to make more impressive notes and create a sense of healthy competition
+The number of downloads will encourage students to make more impressive notes and create a sense of healthy competition.
 
-<img src = "/Images/notes_light.png" width="235" height="500"/>  <img src = "/Images/notes_dark.png" width="235" height="500"/>
+The My Files section enables easy management of the notes uploaded by the users as well as the notes downloaded by the user.
+
+<img src = "/Images/notes_light.PNG" width="235" height="500"/>  <img src = "/Images/myfiles_light.PNG" width="235" height="500"/>
 
 
 ### Timetable
-This feature allows user to upload the image of timetable from memory. It stores the image in SQLite Database so that it works even without internet connectivity
-
+This feature allows user to upload the image of timetable from memory. It stores the image in SQLite Database so that it works even without internet connectivity.
+A new and interactive implementation of this is currently under development and if anyone wishes to contribute to it they can look for it in the issues tab.
 
 ### Tools
  * _Room Locator_ <br>
 The room locator tab implements the room locator build by the DSC BVP team. Currently it only works for BVCOE, New Delhi but we plan to expand it using the help of wide network of DSCs present all over India  
  * _Upcoming Events_ <br>
-It shows the upcoming events around you and their details along with an option to register within th application
+It shows the upcoming events around you and their details along with an option to register from within the application.
  * _Project Collaboration_ <br>
-This tools help to procreate a plateform where different developers can come and work together on any projects. Just list your project and get collaborators
+This tools help to procreate a platform where different developers can come and work together on any projects. Just list your project and get collaborators. This feature is currently under development.
 
-<img src = "/Images/tools_light.png" width="235" height="500"/> <img src = "/Images/tools_dark.png" width="235" height="500"/>
+<img src = "/Images/tools_light.PNG" width="235" height="500"/>
 
 ### Settings
  * View and edit Personal profile Details  
- * Change Application theme  
- * View uploaded files  
+ * View downloaded files  
+ * View uploaded files
  * View and Edit Professional profile  
 
-<img src = "/Images/settings_light.png" width="235" height="500"/> <img src = "/Images/settings_dark.png" width="235" height="500"/>
+<img src = "/Images/settings_light.PNG" width="235" height="500"/>
 
 ## Contributions Best Practices
 
