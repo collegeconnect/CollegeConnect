@@ -13,8 +13,8 @@ import androidx.viewpager.widget.ViewPager
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SectionsPagerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.database.entity.MondayEntity
 import com.college.collegeconnect.database.TimeTableDatabse
+import com.college.collegeconnect.database.entity.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_new_time_table.*
@@ -27,7 +27,7 @@ class NewTimeTable : AppCompatActivity() {
         setContentView(R.layout.activity_new_time_table)
 
         //Setup viewpager and tablayout
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs = findViewById<TabLayout>(R.id.tabs)
@@ -93,7 +93,7 @@ class NewTimeTable : AppCompatActivity() {
         }
 
         builder.setPositiveButton("Done") { dialog, which ->
-            saveClass(MondayEntity(spinner.selectedItem.toString(), startTime.toString(), endTime.toString()))
+            saveClass(spinner.selectedItem.toString(), startTime.toString(), endTime.toString())
             Toast.makeText(this, "$startTime : $endTime", Toast.LENGTH_SHORT).show()
         }
 
@@ -106,10 +106,18 @@ class NewTimeTable : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun saveClass(entity: MondayEntity) {
+    private fun saveClass(name: String, startTime: String, endTime: String) {
         class SaveClass : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg p0: Void?): Void? {
-                TimeTableDatabse(applicationContext).getMondayDao().add(entity)
+                when (view_pager.currentItem) {
+                    0 -> TimeTableDatabse(applicationContext).getMondayDao().add(MondayEntity(name,startTime,endTime))
+                    1 -> TimeTableDatabse(applicationContext).getTuesdayDao().add(TuesdayEntity(name,startTime,endTime))
+                    2 -> TimeTableDatabse(applicationContext).getWednesdayDao().add(WednesdayEntity(name,startTime,endTime))
+                    3 -> TimeTableDatabse(applicationContext).getThursdayDao().add(ThursdayEntity(name,startTime,endTime))
+                    4 -> TimeTableDatabse(applicationContext).getFridayDao().add(FridayEntity(name,startTime,endTime))
+                    5 -> TimeTableDatabse(applicationContext).getSaturdayDao().add(SaturdayEntity(name,startTime,endTime))
+                    6 -> TimeTableDatabse(applicationContext).getSundayDao().add(SundayEntity(name,startTime,endTime))
+                }
                 return null
             }
 

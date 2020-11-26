@@ -31,7 +31,7 @@ android {
         applicationId "com.college.collegeconnect"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 4
+        versionCode 5
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         kapt {
@@ -124,7 +124,15 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     // For Kotlin users also import the Kotlin extensions library for Play Core:
+    implementation 'com.google.android.play:core:1.8.3'
     implementation 'com.google.android.play:core-ktx:1.8.1'
     //dotsIndicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+    //Dagger 2 Dependency
+    kapt "com.google.dagger:dagger-compiler:2.30"
+    implementation "com.google.dagger:dagger:2.30"
+    implementation "androidx.core:core-ktx:+"
+}
+repositories {
+    mavenCentral()
 }

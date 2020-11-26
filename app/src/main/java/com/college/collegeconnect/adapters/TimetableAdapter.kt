@@ -8,9 +8,10 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.entity.MondayEntity
+import com.college.collegeconnect.database.entity.TimetableEntity
 import kotlin.collections.ArrayList
 
-class TimetableAdapter(private val subjects: ArrayList<MondayEntity>, private val context: Context) : RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
+class TimetableAdapter(private val subjects: ArrayList<TimetableEntity>, private val context: Context) : RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
     var per = 0
     var criteria = 0f
     var predict = 0f

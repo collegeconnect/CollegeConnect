@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:gravity="center"
-        android:text="No Upcoming Events right now! \n Check Back after some time"
+        android:text="No upcoming events right now! \n Check again after some time."
         android:textColor="@color/blackToWhite"
         android:textSize="18sp"
         android:visibility="gone" />

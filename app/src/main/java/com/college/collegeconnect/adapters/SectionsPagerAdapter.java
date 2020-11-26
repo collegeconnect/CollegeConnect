@@ -17,12 +17,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public static final String[] TAB_TITLES = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    private final Context mContext;
+    public static final String[] TAB_TITLES = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(FragmentManager fm) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mContext = context;
     }
 
     @NotNull
@@ -42,7 +40,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 6 total pages.
-        return 6;
+        // Show 7 total pages.
+        return 7;
     }
 }

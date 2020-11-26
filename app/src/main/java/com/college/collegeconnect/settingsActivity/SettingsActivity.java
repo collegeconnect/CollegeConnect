@@ -17,8 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.activities.OnBoardingScreen;
 import com.college.collegeconnect.datamodels.DatabaseHelper;
@@ -37,8 +35,6 @@ import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -65,7 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        StorageReference storageRef = storage.getReference();
         Toolbar toolbar = findViewById(R.id.settingbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -202,6 +197,12 @@ public class SettingsActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // We can get the ReviewInfo object
                         ReviewInfo reviewInfo = task.getResult();
+                        Task<Void> flow = manager.launchReviewFlow(SettingsActivity.this, reviewInfo);
+                        flow.addOnCompleteListener(task1 -> {
+                            // The flow has finished. The API does not indicate whether the user
+                            // reviewed or not, or even whether the review dialog was shown. Thus, no
+                            // matter the result, we continue our app flow.
+                        });
                         Snackbar.make(findViewById(android.R.id.content),"Review Submitted Successfully",Snackbar.LENGTH_SHORT).show();
                     } else {
                         // There was some problem, continue regardless of the result.

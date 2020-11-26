@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.TimetableAdapter
-import com.college.collegeconnect.database.entity.MondayEntity
 import com.college.collegeconnect.database.TimeTableDatabse
+import com.college.collegeconnect.database.entity.*
+import kotlinx.android.synthetic.main.activity_new_time_table.*
 import java.util.ArrayList
 
 /**
@@ -40,10 +41,19 @@ class PlaceholderFragment(private val position: Int) : Fragment() {
     private fun load() {
 
         val subject = context?.let {
-            TimeTableDatabse(it).getMondayDao().getMonClasses()
+            when (position) {
+                0 -> TimeTableDatabse(it).getMondayDao().getMonClasses()
+                1 -> TimeTableDatabse(it).getTuesdayDao().getTuesClasses()
+                2 -> TimeTableDatabse(it).getWednesdayDao().getWedClasses()
+                3 -> TimeTableDatabse(it).getThursdayDao().getThursClasses()
+                4 -> TimeTableDatabse(it).getFridayDao().getFriClasses()
+                5 -> TimeTableDatabse(it).getSaturdayDao().getSatClasses()
+                6 -> TimeTableDatabse(it).getSundayDao().getSunClasses()
+                else -> null
+            }
         }
         subject?.observe(requireActivity(), {
-            val subjectList = ArrayList<MondayEntity>()
+            val subjectList = ArrayList<TimetableEntity>()
             subjectList.addAll(it)
             subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1) }!!
             subjectRecycler.adapter = subjectAdapter

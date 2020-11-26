@@ -4,16 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.college.collegeconnect.database.dao.MondayDao
-import com.college.collegeconnect.database.entity.MondayEntity
+import com.college.collegeconnect.database.dao.*
+import com.college.collegeconnect.database.entity.*
 
 @Database(
-        entities = [MondayEntity::class],
+        entities = [MondayEntity::class, TuesdayEntity::class, WednesdayEntity::class, ThursdayEntity::class, FridayEntity::class, SaturdayEntity::class, SundayEntity::class],
         version = 1
 )
 abstract class TimeTableDatabse : RoomDatabase(){
 
     abstract fun getMondayDao(): MondayDao
+    abstract fun getTuesdayDao(): TuesdayDao
+    abstract fun getWednesdayDao(): WednesdayDao
+    abstract fun getThursdayDao(): ThursdayDao
+    abstract fun getFridayDao(): FridayDao
+    abstract fun getSaturdayDao(): SaturdayDao
+    abstract fun getSundayDao(): SundayDao
 
     companion object {
         @Volatile private var instance : TimeTableDatabse? = null
