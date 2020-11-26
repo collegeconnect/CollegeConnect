@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.college.collegeconnect.database.AttendanceDatabase
+import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
@@ -68,6 +69,8 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
                 val name = documentSnapshot!!.getString("name")
                 val rollNo = documentSnapshot.getString("rollno")
                 val strbranch = documentSnapshot.getString("branch")
+                val college = documentSnapshot.getString("college")
+                SaveSharedPreference.setCollege(getApplication(),college)
                 nameLive?.postValue(name)
                 rollNoLive?.postValue(rollNo)
                 branchLive?.postValue(strbranch)
