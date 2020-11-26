@@ -1,7 +1,6 @@
 package com.college.collegeconnect.timetable
 
 import android.app.TimePickerDialog
-import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Spinner
@@ -9,23 +8,28 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SectionsPagerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
-import com.college.collegeconnect.database.TimeTableDatabse
 import com.college.collegeconnect.database.entity.*
-import com.google.android.material.appbar.AppBarLayout
+import com.college.collegeconnect.utils.toast
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_new_time_table.*
+import java.time.LocalTime
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 class NewTimeTable : AppCompatActivity() {
+
+    lateinit var newTimeTableViewModel: NewTimeTableViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_time_table)
 
+        newTimeTableViewModel = ViewModelProvider(this).get(NewTimeTableViewModel::class.java)
         //Setup viewpager and tablayout
         val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
@@ -42,6 +46,8 @@ class NewTimeTable : AppCompatActivity() {
 
         var startTime: String? = null
         var endTime: String? = null
+        var startTimeShow: String? = null
+        var endTimeShow: String? = null
 
         val builder = AlertDialog.Builder(this)
         val inflater = (this as AppCompatActivity).layoutInflater
@@ -67,13 +73,32 @@ class NewTimeTable : AppCompatActivity() {
             val minute = mcurrentTime[Calendar.MINUTE]
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(this, { timePicker, selectedHour, selectedMinute ->
+                val am_pm = if (selectedHour < 12) "AM" else "PM"
+                val hour = if (selectedHour > 12) {
+                    (selectedHour-12).toString()
+                } else {
+                    if (selectedHour < 10)
+                        "0$selectedHour"
+                    else
+                        selectedHour.toString()
+                }
+                val min = if (selectedMinute < 10)
+                    "0$selectedMinute"
+                else
+                    selectedMinute.toString()
 
-                    start.text = "$selectedHour:$selectedMinute"
-                    startTime = "$selectedHour:$selectedMinute"
+                val hourStore =  if (selectedHour < 10)
+                    "0$selectedHour"
+                else
+                    selectedHour.toString()
 
-            }, hour, minute, true) //Yes 24 hour time
+                start.text = "$hour:$min $am_pm"
+                startTimeShow = "$hour:$min $am_pm"
+                startTime = "$hourStore:$min:00"
+
+
+            }, hour, minute, false) //Yes 24 hour time
             mTimePicker.show()
-
         }
 
         end.setOnClickListener {
@@ -83,49 +108,50 @@ class NewTimeTable : AppCompatActivity() {
             val minute = mcurrentTime[Calendar.MINUTE]
             val mTimePicker: TimePickerDialog
             mTimePicker = TimePickerDialog(this, { timePicker, selectedHour, selectedMinute ->
+                val am_pm = if (selectedHour < 12) "AM" else "PM"
+                val hour = if (selectedHour > 12) {
+                    (selectedHour-12).toString()
+                } else {
+                    if (selectedHour < 10)
+                        "0$selectedHour"
+                    else
+                        selectedHour.toString()
+                }
+                val min = if (selectedMinute < 10)
+                    "0$selectedMinute"
+                else
+                    selectedMinute.toString()
 
-                    end.text = "$selectedHour:$selectedMinute"
-                    endTime = "$selectedHour:$selectedMinute"
+                val hourStore =  if (selectedHour < 10)
+                    "0$selectedHour"
+                else
+                    selectedHour.toString()
 
-            }, hour, minute, true) //Yes 24 hour time
+                end.text = "$hour:$min $am_pm"
+                endTimeShow = "$hour:$min $am_pm"
+                endTime = "$hourStore:$min:00"
+
+            }, hour, minute, false) //Yes 24 hour time
             mTimePicker.show()
-
         }
 
         builder.setPositiveButton("Done") { dialog, which ->
-            saveClass(spinner.selectedItem.toString(), startTime.toString(), endTime.toString())
+//            saveClass(spinner.selectedItem.toString(), startTime.toString(), endTime.toString())
+            if(spinner.adapter.count == 0){
+                toast("Add Subject in Attendance Manager")
+                return@setPositiveButton
+            }
+            startTimeShow?.let { sts-> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem) } }
             Toast.makeText(this, "$startTime : $endTime", Toast.LENGTH_SHORT).show()
         }
 
         builder.setNegativeButton("Cancel") { dialog, which ->
+            dialog.dismiss()
         }
 
         builder.setView(view)
         val dialog = builder.create()
 
         dialog.show()
-    }
-
-    private fun saveClass(name: String, startTime: String, endTime: String) {
-        class SaveClass : AsyncTask<Void, Void, Void>() {
-            override fun doInBackground(vararg p0: Void?): Void? {
-                when (view_pager.currentItem) {
-                    0 -> TimeTableDatabse(applicationContext).getMondayDao().add(MondayEntity(name,startTime,endTime))
-                    1 -> TimeTableDatabse(applicationContext).getTuesdayDao().add(TuesdayEntity(name,startTime,endTime))
-                    2 -> TimeTableDatabse(applicationContext).getWednesdayDao().add(WednesdayEntity(name,startTime,endTime))
-                    3 -> TimeTableDatabse(applicationContext).getThursdayDao().add(ThursdayEntity(name,startTime,endTime))
-                    4 -> TimeTableDatabse(applicationContext).getFridayDao().add(FridayEntity(name,startTime,endTime))
-                    5 -> TimeTableDatabse(applicationContext).getSaturdayDao().add(SaturdayEntity(name,startTime,endTime))
-                    6 -> TimeTableDatabse(applicationContext).getSundayDao().add(SundayEntity(name,startTime,endTime))
-                }
-                return null
-            }
-
-            override fun onPostExecute(result: Void?) {
-                super.onPostExecute(result)
-                Toast.makeText(applicationContext, "Class added", Toast.LENGTH_SHORT).show()
-            }
-        }
-        SaveClass().execute()
     }
 }

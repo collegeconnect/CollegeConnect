@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 open class TimetableEntity(
         val subjectName: String,
         val startTime: String,
-        val endTime: String
+        val startTimeShow: String,
+        val endTime: String,
+        val endTimeShow: String
 )

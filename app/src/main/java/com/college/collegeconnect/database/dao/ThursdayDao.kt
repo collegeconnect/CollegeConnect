@@ -11,8 +11,8 @@ import com.college.collegeconnect.database.entity.TuesdayEntity
 interface ThursdayDao {
 
     @Insert
-     fun add(sub : ThursdayEntity)
+     suspend fun add(sub : ThursdayEntity)
 
-    @Query("SELECT * FROM ThursdayEntity")
+    @Query("SELECT * FROM ThursdayEntity ORDER BY startTimeShow ASC")
     fun getThursClasses(): LiveData<List<ThursdayEntity>>
 }

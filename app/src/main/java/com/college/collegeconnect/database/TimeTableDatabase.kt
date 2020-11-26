@@ -11,7 +11,7 @@ import com.college.collegeconnect.database.entity.*
         entities = [MondayEntity::class, TuesdayEntity::class, WednesdayEntity::class, ThursdayEntity::class, FridayEntity::class, SaturdayEntity::class, SundayEntity::class],
         version = 1
 )
-abstract class TimeTableDatabse : RoomDatabase(){
+abstract class TimeTableDatabase : RoomDatabase(){
 
     abstract fun getMondayDao(): MondayDao
     abstract fun getTuesdayDao(): TuesdayDao
@@ -22,7 +22,7 @@ abstract class TimeTableDatabse : RoomDatabase(){
     abstract fun getSundayDao(): SundayDao
 
     companion object {
-        @Volatile private var instance : TimeTableDatabse? = null
+        @Volatile private var instance : TimeTableDatabase? = null
 
         private val LOCK = Any()
 
@@ -34,8 +34,8 @@ abstract class TimeTableDatabse : RoomDatabase(){
 
         private fun builDatabase(context: Context) = Room.databaseBuilder(
                 context.applicationContext,
-                TimeTableDatabse::class.java,
-                "timetabledatabse"
+                TimeTableDatabase::class.java,
+                "timetabledatabase"
         ).build()
     }
 }
