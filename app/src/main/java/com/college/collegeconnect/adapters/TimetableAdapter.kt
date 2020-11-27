@@ -1,11 +1,14 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +22,7 @@ import com.college.collegeconnect.database.entity.FridayEntity
 import com.college.collegeconnect.database.entity.TimetableEntity
 import com.college.collegeconnect.timetable.NewTimeTableViewModel
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.util.*
 
@@ -34,19 +38,28 @@ class TimetableAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("TimeTableAdapter", "$dayOfWeek Calendar = ${DateFormat.format("u",System.currentTimeMillis())}")
-        Toast.makeText(context,"$dayOfWeek Calendar = ${DateFormat.format("u", System.currentTimeMillis())}",Toast.LENGTH_SHORT).show()
         holder.heading.text = subjects[position].subjectName
         holder.time.text = "${subjects[position].startTimeShow} - ${subjects[position].endTimeShow}"
         holder.roomNumber.text = subjects[position].roomNumber
         val pattern = "dd-MM-yyyy"
         val dateInString: String = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
+//        val localDate = LocalDate.of(dateInString.substring(6,10).toInt(), dateInString.substring(3,5).toInt(), dateInString.substring(0,2).toInt())
+//        val day = DayOfWeek.from(localDate).value
+//        val cal = Calendar.getInstance()
+//        cal.firstDayOfWeek = Calendar.MONDAY
         val startingTime = getMilli("$dateInString ${subjects[position].startTime}")
         val endingTime = getMilli("$dateInString ${subjects[position].endTime}")
+        Log.d("TimeTableAdapter", "${dayOfWeek + 2} Calendar = ${Calendar.getInstance()[Calendar.DAY_OF_WEEK]}")
 
-        if(System.currentTimeMillis() in startingTime until endingTime){
-            holder.state.visibility = View.VISIBLE
-            holder.stateCircle.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_ellipse_filled))
+        if(System.currentTimeMillis() in startingTime until endingTime) {
+            if (dayOfWeek + 2 == Calendar.getInstance()[Calendar.DAY_OF_WEEK]) {
+                holder.state.visibility = View.VISIBLE
+                holder.stateCircle.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_ellipse_filled))
+            }
+            if (dayOfWeek == 6 && Calendar.getInstance()[Calendar.DAY_OF_WEEK]==1){
+                holder.state.visibility = View.VISIBLE
+                holder.stateCircle.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_ellipse_filled))
+            }
         }
         else{
             holder.state.visibility = View.INVISIBLE
@@ -60,12 +73,10 @@ class TimetableAdapter(
             val view = inflater.inflate(R.layout.layout_delete_timetable_class, null)
             view.findViewById<TextView>(R.id.txt_sub_name).text = subjects[position].subjectName
             view.findViewById<TextView>(R.id.txt_time_schedule).text = "${subjects[position].startTimeShow} - ${subjects[position].endTimeShow}"
-            val sdf = SimpleDateFormat("EEEE")
-            val d = Date()
-            val dayOfTheWeek = sdf.format(d)
-            view.findViewById<TextView>(R.id.txt_day).text = dayOfTheWeek
+            view.findViewById<TextView>(R.id.txt_day).text = SectionsPagerAdapter.TAB_TITLES[dayOfWeek]
             builder.setView(view)
             val dialog = builder.create()
+            Objects.requireNonNull(dialog.window)?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             view.findViewById<Button>(R.id.btn_delete_class).setOnClickListener {
                 Log.d("TimeTableAdapter", "Delete: $dayOfWeek")
                 newTimeTableViewModel.deleteClass(dayOfWeek, subjects[position])

@@ -17,6 +17,6 @@ interface FridayDao {
     @Insert
      suspend fun add(sub : FridayEntity)
 
-    @Query("SELECT * FROM FridayEntity ORDER BY startTimeShow ASC")
+    @Query("SELECT * FROM FridayEntity ORDER BY startTime ASC")
     fun getFriClasses(): LiveData<List<FridayEntity>>
 }

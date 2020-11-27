@@ -13,7 +13,7 @@ interface ThursdayDao {
     @Insert
      suspend fun add(sub : ThursdayEntity)
 
-    @Query("SELECT * FROM ThursdayEntity ORDER BY startTimeShow ASC")
+    @Query("SELECT * FROM ThursdayEntity ORDER BY startTime ASC")
     fun getThursClasses(): LiveData<List<ThursdayEntity>>
 
     @Query("DELETE FROM ThursdayEntity WHERE id=:uid")

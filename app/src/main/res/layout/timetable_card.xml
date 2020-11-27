@@ -50,6 +50,7 @@
             android:textColor="@color/latestBlue"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@+id/lec_state_circle"
             app:layout_constraintEnd_toEndOf="@+id/materialCardView2"
             app:layout_constraintTop_toTopOf="@+id/lec_state_circle"

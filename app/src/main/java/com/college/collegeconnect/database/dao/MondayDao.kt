@@ -13,7 +13,7 @@ interface MondayDao {
     @Insert
      suspend fun add(sub : MondayEntity)
 
-    @Query("SELECT * FROM MondayEntity ORDER BY startTimeShow ASC")
+    @Query("SELECT * FROM MondayEntity ORDER BY startTime ASC")
     fun getMonClasses(): LiveData<List<MondayEntity>>
 
     @Delete
