@@ -9,5 +9,6 @@ open class TimetableEntity(
         val startTime: String,
         val startTimeShow: String,
         val endTime: String,
-        val endTimeShow: String
+        val endTimeShow: String,
+        val roomNumber: String
 )

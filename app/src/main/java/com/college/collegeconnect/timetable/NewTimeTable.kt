@@ -2,10 +2,7 @@ package com.college.collegeconnect.timetable
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -31,7 +28,7 @@ class NewTimeTable : AppCompatActivity() {
 
         newTimeTableViewModel = ViewModelProvider(this).get(NewTimeTableViewModel::class.java)
         //Setup viewpager and tablayout
-        val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
+        val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager, newTimeTableViewModel)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs = findViewById<TabLayout>(R.id.tabs)
@@ -62,7 +59,7 @@ class NewTimeTable : AppCompatActivity() {
             spinner.adapter = adapter
         })
 
-
+        val roomNumber = view.findViewById<EditText>(R.id.roomNumber)
         val start = view.findViewById<TextView>(R.id.start_time)
         val end = view.findViewById<TextView>(R.id.end_time)
 
@@ -140,7 +137,7 @@ class NewTimeTable : AppCompatActivity() {
                 toast("Add Subject in Attendance Manager")
                 return@setPositiveButton
             }
-            startTimeShow?.let { sts-> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem) } }
+            startTimeShow?.let { sts-> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.text.toString()) } }
             Toast.makeText(this, "$startTime : $endTime", Toast.LENGTH_SHORT).show()
         }
 

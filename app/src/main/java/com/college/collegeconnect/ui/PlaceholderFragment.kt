@@ -12,12 +12,13 @@ import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.TimetableAdapter
 import com.college.collegeconnect.database.TimeTableDatabase
 import com.college.collegeconnect.database.entity.*
+import com.college.collegeconnect.timetable.NewTimeTableViewModel
 import java.util.ArrayList
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class PlaceholderFragment(private val position: Int) : Fragment() {
+class PlaceholderFragment(private val position: Int, private var newTimeTableViewModel: NewTimeTableViewModel) : Fragment() {
 
     private lateinit var subjectRecycler: RecyclerView
 
@@ -53,7 +54,7 @@ class PlaceholderFragment(private val position: Int) : Fragment() {
         subject?.observe(requireActivity(), {
             val subjectList = ArrayList<TimetableEntity>()
             subjectList.addAll(it)
-            subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1) }!!
+            subjectAdapter = context?.let { it1 -> TimetableAdapter(subjectList, it1, newTimeTableViewModel, position) }!!
             subjectRecycler.adapter = subjectAdapter
         })
     }

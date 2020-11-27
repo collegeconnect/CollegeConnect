@@ -66,4 +66,23 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView25"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Room Number"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textView27"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+    <EditText
+        android:id="@+id/roomNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Room Number"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/end_time"
+        app:layout_constraintTop_toBottomOf="@+id/end_time" />
 </androidx.constraintlayout.widget.ConstraintLayout>

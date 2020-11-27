@@ -1,5 +1,6 @@
 package com.college.collegeconnect.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,12 +23,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.settingsActivity.MyFilesActivity;
+import com.college.collegeconnect.settingsActivity.SettingsActivity;
 import com.college.collegeconnect.settingsActivity.WorkProfile;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.settingsActivity.AboutActivity;
 import com.college.collegeconnect.settingsActivity.ContactActivity;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +44,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private ArrayList<String> options;
     String selection;
-    private Context context;
+    private final Context context;
     List act_list;
     int checked_item = 0;
     TextInputLayout placeholder;
@@ -46,8 +53,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-//    int images[] = {R.drawable.ic_brightness_24dp, R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
-    int images[] = {R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_contactus, R.drawable.ic_about};
+    int[] images = {R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_baseline_star_rate, R.drawable.ic_contactus, R.drawable.ic_about};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -67,11 +73,27 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.textView.setText(options.get(position));
         holder.imageView.setBackgroundResource(images[position]);
         holder.relativeLayout.setOnClickListener(v -> v.postDelayed(() -> {
-//            if (position == 0)
-//                dialog();
-//            else
-                if (position == 0)
+            if (position == 0)
                 dialogAttend();
+            else if (position==3){
+                ReviewManager manager;
+                manager = ReviewManagerFactory.create(context);
+                Task<ReviewInfo> request = manager.requestReviewFlow();
+                request.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // We can get the ReviewInfo object
+                        ReviewInfo reviewInfo = task.getResult();
+                        Task<Void> flow = manager.launchReviewFlow((Activity)context , reviewInfo);
+                        flow.addOnCompleteListener(task1 -> {
+                            // The flow has finished. The API does not indicate whether the user
+                            // reviewed or not, or even whether the review dialog was shown. Thus, no
+                            // matter the result, we continue our app flow.
+                        });
+                    } else {
+                        // There was some problem, continue regardless of the result.
+                    }
+                });
+            }
             else
                 context.startActivity(new Intent(context, (Class) act_list.get(position)));
         }, 165));
@@ -156,10 +178,10 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             imageView = itemView.findViewById(R.id.setting_icon);
             relativeLayout = itemView;
             act_list = new ArrayList<>();
-//            act_list.add(0);
             act_list.add(1);
             act_list.add(myfiles);
             act_list.add(workprofile);
+            act_list.add(4);
             act_list.add(contactus);
             act_list.add(about);
         }

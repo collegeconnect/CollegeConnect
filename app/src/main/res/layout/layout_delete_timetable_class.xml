@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/cardbackground"
@@ -14,12 +15,12 @@
         android:paddingBottom="10dp">
 
         <TextView
-            android:id="@+id/txtEditAttendance"
+            android:id="@+id/txtDeleteClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/nunito_regular"
-            android:text="Edit Subject Details"
+            android:text="Unschedule Class?"
             android:textColor="@color/blackToWhite"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -28,10 +29,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edit_attendance_title"
+            android:id="@+id/txt_sub_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/nunito_regular"
             android:hint="Subject Name"
@@ -39,18 +39,19 @@
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditAttendance" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDeleteClass" />
 
         <TextView
-            android:id="@+id/edit_attended_text"
+            android:id="@+id/txt_time_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/nunito_regular"
-            android:text="Classes attended"
+            android:text="Time Schedule"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/edit_attended"
             app:layout_constraintEnd_toEndOf="@id/guideline34"
-            app:layout_constraintTop_toTopOf="@+id/edit_attended" />
+            app:layout_constraintStart_toStartOf="@+id/guideline34"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sub_name" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline34"
@@ -59,73 +60,29 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <EditText
-            android:id="@+id/edit_attended"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:inputType="numberSigned"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/guideline34"
-            app:layout_constraintTop_toBottomOf="@id/edit_attendance_title" />
-
         <TextView
-            android:id="@+id/edit_missed_text"
+            android:id="@+id/txt_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/nunito_regular"
-            android:text="Classes missed"
+            android:text="Day"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/edit_missed"
             app:layout_constraintEnd_toEndOf="@id/guideline34"
-            app:layout_constraintTop_toTopOf="@+id/edit_missed" />
-
-        <TextView
-            android:id="@+id/total_classes_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Total classes"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/total_classes"
-            app:layout_constraintEnd_toEndOf="@id/guideline34"
-            app:layout_constraintTop_toTopOf="@+id/total_classes" />
-
-        <EditText
-            android:id="@+id/edit_missed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:inputType="numberSigned"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/guideline34"
-            app:layout_constraintTop_toBottomOf="@id/edit_attended" />
-
-        <EditText
-            android:id="@+id/total_classes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@id/edit_missed"
-            app:layout_constraintStart_toStartOf="@id/edit_missed"
-            app:layout_constraintTop_toBottomOf="@id/edit_missed" />
+            app:layout_constraintStart_toStartOf="@+id/guideline34"
+            app:layout_constraintTop_toBottomOf="@+id/txt_time_schedule" />
 
         <android.widget.Button
-            android:id="@+id/btn_apply_attendance_edit"
+            android:id="@+id/btn_delete_class"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/close_dialog_button"
-            android:text="Submit"
+            android:text="Delete"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/total_classes" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_day" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

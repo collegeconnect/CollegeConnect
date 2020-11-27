@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.college.collegeconnect.timetable.NewTimeTableViewModel;
 import com.college.collegeconnect.ui.PlaceholderFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,10 +18,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+    private NewTimeTableViewModel newTimeTableViewModel;
     public static final String[] TAB_TITLES = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
-    public SectionsPagerAdapter(FragmentManager fm) {
+    public SectionsPagerAdapter(FragmentManager fm, NewTimeTableViewModel newTimeTableViewModel) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.newTimeTableViewModel = newTimeTableViewModel;
     }
 
     @NotNull
@@ -28,7 +31,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return new PlaceholderFragment(position);
+        return new PlaceholderFragment(position, newTimeTableViewModel);
     }
 
     @Nullable

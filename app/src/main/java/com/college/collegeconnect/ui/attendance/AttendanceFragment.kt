@@ -30,7 +30,6 @@ import java.util.*
 class AttendanceFragment : Fragment() {
     lateinit var bottomNavigationView: BottomNavigationView
     lateinit var subject: TextInputLayout
-    lateinit var addSubject: Button
     private lateinit var subjectRecycler: RecyclerView
     lateinit var tv: TextView
     lateinit var mCtx: Context

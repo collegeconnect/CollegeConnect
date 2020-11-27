@@ -11,6 +11,9 @@ import com.college.collegeconnect.database.entity.TuesdayEntity
 @Dao
 interface FridayDao {
 
+    @Query("DELETE FROM FridayEntity WHERE id=:uid")
+    suspend fun delete(uid:Int)
+
     @Insert
      suspend fun add(sub : FridayEntity)
 

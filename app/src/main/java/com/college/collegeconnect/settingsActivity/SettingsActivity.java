@@ -49,12 +49,10 @@ public class SettingsActivity extends AppCompatActivity {
     private Button logout;
     private RecyclerView recyclerView;
     private SettingsAdapter settingsAdapter;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
     CircleImageView prfileImage;
     TextDrawable drawable;
     TextView nameField;
     Uri uri;
-    private ReviewManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +65,13 @@ public class SettingsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getColor(R.color.latestBlue), PorterDuff.Mode.SRC_ATOP);
         db = new DatabaseHelper(this);
-        manager = ReviewManagerFactory.create(this);
+        //Set profile image and name
         prfileImage = findViewById(R.id.settings_dp);
         nameField = findViewById(R.id.textView16);
         String name = SaveSharedPreference.getUser(this);
         nameField.setText(name);
         File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
+        //Load dp if already exits in storage
         if (file.exists()) {
             SettingsActivity.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
@@ -98,6 +97,7 @@ public class SettingsActivity extends AppCompatActivity {
         options.add("Set Attendance Criteria");
         options.add("My Files");
         options.add("Work Profile");
+        options.add("Rate Us");
         options.add("Contact Us");
         options.add("About");
 
@@ -108,13 +108,14 @@ public class SettingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(settingsAdapter);
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 80, 0);
         recyclerView.addItemDecoration(decoration);
+        //Edit user details
         findViewById(R.id.profile_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SettingsActivity.this, HomeEditActivity.class));
             }
         });
-
+        //Logout
         logout = findViewById(R.id.logoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                 logOutDialog();
             }
         });
-//        loadFragment(fragment);
     }
-
 
     public void logOutDialog() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
@@ -165,12 +164,6 @@ public class SettingsActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings_menu,menu);
-        return true;
-    }
-
     private void signOut() {
         mgoogleSignInClient.signOut();
     }
@@ -183,35 +176,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .build();
         mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.rate:
-                Task<ReviewInfo> request = manager.requestReviewFlow();
-                request.addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // We can get the ReviewInfo object
-                        ReviewInfo reviewInfo = task.getResult();
-                        Task<Void> flow = manager.launchReviewFlow(SettingsActivity.this, reviewInfo);
-                        flow.addOnCompleteListener(task1 -> {
-                            // The flow has finished. The API does not indicate whether the user
-                            // reviewed or not, or even whether the review dialog was shown. Thus, no
-                            // matter the result, we continue our app flow.
-                        });
-                        Snackbar.make(findViewById(android.R.id.content),"Review Submitted Successfully",Snackbar.LENGTH_SHORT).show();
-                    } else {
-                        // There was some problem, continue regardless of the result.
-                    }
-                });
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.college.collegeconnect.adapters
 
 import android.content.Context
-import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +17,7 @@ import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.models.AttendanceViewModel
 import com.github.lzyzsd.circleprogress.ArcProgress
-import kotlin.collections.ArrayList
+import java.util.*
 
 class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private val context: Context, private val viewModel: AttendanceViewModel) : RecyclerView.Adapter<SubjectAdapter.ViewHolder>() {
     var per = 0
@@ -91,13 +93,13 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
                     R.id.edit -> {
 
                         val builder = AlertDialog.Builder(context)
-
                         val inflater = (context as AppCompatActivity).layoutInflater
                         val view = inflater.inflate(R.layout.layout_edit_attendance, null)
                         val attended_edit = view.findViewById<EditText>(R.id.edit_attended)
                         val missed_edit = view.findViewById<EditText>(R.id.edit_missed)
                         val subject_edit = view.findViewById<EditText>(R.id.edit_attendance_title)
                         val total_classes = view.findViewById<EditText>(R.id.total_classes)
+                        val submit_btn = view.findViewById<Button>(R.id.btn_apply_attendance_edit)
                         subject_edit.setText(current)
                         attended_edit.setText(attended.toString())
                         missed_edit.setText(missed.toString())
@@ -111,16 +113,16 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
                                 total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
                         }
                         builder.setView(view)
-                                .setPositiveButton("Submit", DialogInterface.OnClickListener() { dialogInterface: DialogInterface, i: Int ->
-                                    val sub = SubjectDetails(subject_edit.text.toString(), attended_edit.text.toString().toInt(), missed_edit.text.toString().toInt())
-                                    sub.id = subjects[position].id
-                                    viewModel.updateSubject(sub)
-                                    notifyDataSetChanged()
-                                })
-                                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-
-                                })
                         val dialog = builder.create()
+                        submit_btn.setOnClickListener {
+                            val sub = SubjectDetails(subject_edit.text.toString(), attended_edit.text.toString().toInt(), missed_edit.text.toString().toInt())
+                            sub.id = subjects[position].id
+                            viewModel.updateSubject(sub)
+                            notifyDataSetChanged()
+                            dialog.dismiss()
+                        }
+                        Objects.requireNonNull(dialog.window)?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
+                        Objects.requireNonNull(dialog.window)?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                         dialog.show()
                     }
                 }

@@ -16,4 +16,8 @@ interface SundayDao {
 
     @Query("SELECT * FROM SundayEntity ORDER BY startTimeShow ASC")
     fun getSunClasses(): LiveData<List<SundayEntity>>
+
+    @Query("DELETE FROM SundayEntity WHERE id=:uid")
+    suspend fun delete(uid:Int)
+
 }
