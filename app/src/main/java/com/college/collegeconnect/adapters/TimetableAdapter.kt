@@ -25,15 +25,10 @@ class TimetableAdapter(private val subjects: ArrayList<TimetableEntity>, private
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.heading.text = subjects[position].subjectName
         holder.time.text = "${subjects[position].startTimeShow} - ${subjects[position].endTimeShow}"
-        val pattern = "yyyy-MM-dd"
+        val pattern = "dd-MM-yyyy"
         val dateInString: String = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
         val startingTime = getMilli("$dateInString ${subjects[position].startTime}")
         val endingTime = getMilli("$dateInString ${subjects[position].endTime}")
-
-        Log.d("TimetableAdapter", "onBindViewHolder: starting time: $startingTime")
-        Log.d("TimetableAdapter", "onBindViewHolder: ending time: $endingTime")
-        Log.d("TimetableAdapter", "onBindViewHolder: current time: ${System.currentTimeMillis()}")
-
 
         if(System.currentTimeMillis() in startingTime until endingTime){
             holder.state.visibility = View.VISIBLE
@@ -46,7 +41,7 @@ class TimetableAdapter(private val subjects: ArrayList<TimetableEntity>, private
     }
 
     private fun getMilli(myDate: String): Long {
-        val format = SimpleDateFormat("yyyy-dd-MM hh:mm:ss",Locale.getDefault())
+        val format = SimpleDateFormat("dd-MM-yyyy hh:mm:ss",Locale.getDefault())
 //        format.timeZone = TimeZone.getTimeZone("UTC")
         val d = format.parse(myDate)
         return d.time

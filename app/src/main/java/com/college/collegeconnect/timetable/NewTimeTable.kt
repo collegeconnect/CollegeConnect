@@ -96,7 +96,6 @@ class NewTimeTable : AppCompatActivity() {
                 startTimeShow = "$hour:$min $am_pm"
                 startTime = "$hourStore:$min:00"
 
-
             }, hour, minute, false) //Yes 24 hour time
             mTimePicker.show()
         }
