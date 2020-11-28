@@ -52,10 +52,12 @@ class TimetableAdapter(
         Log.d("TimeTableAdapter", "${dayOfWeek + 2} Calendar = ${Calendar.getInstance()[Calendar.DAY_OF_WEEK]}")
 
         if(System.currentTimeMillis() in startingTime until endingTime) {
+            // for monday to saturday
             if (dayOfWeek + 2 == Calendar.getInstance()[Calendar.DAY_OF_WEEK]) {
                 holder.state.visibility = View.VISIBLE
                 holder.stateCircle.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_ellipse_filled))
             }
+            // for sunday
             if (dayOfWeek == 6 && Calendar.getInstance()[Calendar.DAY_OF_WEEK]==1){
                 holder.state.visibility = View.VISIBLE
                 holder.stateCircle.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_ellipse_filled))
@@ -76,7 +78,7 @@ class TimetableAdapter(
             view.findViewById<TextView>(R.id.txt_day).text = SectionsPagerAdapter.TAB_TITLES[dayOfWeek]
             builder.setView(view)
             val dialog = builder.create()
-            Objects.requireNonNull(dialog.window)?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             view.findViewById<Button>(R.id.btn_delete_class).setOnClickListener {
                 Log.d("TimeTableAdapter", "Delete: $dayOfWeek")
                 newTimeTableViewModel.deleteClass(dayOfWeek, subjects[position])
@@ -87,9 +89,9 @@ class TimetableAdapter(
         }
     }
 
+    // get time in milliseconds
     private fun getMilli(myDate: String): Long {
         val format = SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.getDefault())
-//        format.timeZone = TimeZone.getTimeZone("UTC")
         val d = format.parse(myDate)
         return d.time
     }

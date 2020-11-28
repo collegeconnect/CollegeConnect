@@ -95,23 +95,50 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
                         val builder = AlertDialog.Builder(context)
                         val inflater = (context as AppCompatActivity).layoutInflater
                         val view = inflater.inflate(R.layout.layout_edit_attendance, null)
-                        val attended_edit = view.findViewById<EditText>(R.id.edit_attended)
-                        val missed_edit = view.findViewById<EditText>(R.id.edit_missed)
+                        val attended_edit = view.findViewById<TextView>(R.id.edit_attended)
+                        val missed_edit = view.findViewById<TextView>(R.id.edit_missed)
                         val subject_edit = view.findViewById<EditText>(R.id.edit_attendance_title)
-                        val total_classes = view.findViewById<EditText>(R.id.total_classes)
+                        val total_classes = view.findViewById<TextView>(R.id.total_classes)
                         val submit_btn = view.findViewById<Button>(R.id.btn_apply_attendance_edit)
+                        val addAtten  = view.findViewById<ImageButton>(R.id.add_atten)
+                        val subAtten = view.findViewById<ImageButton>(R.id.sub_atten)
+                        val addMiss = view.findViewById<ImageButton>(R.id.add_missed)
+                        val subMiss = view.findViewById<ImageButton>(R.id.sub_missed)
+                        attended = subjects[position].attended
+                        missed = subjects[position].missed
                         subject_edit.setText(current)
-                        attended_edit.setText(attended.toString())
-                        missed_edit.setText(missed.toString())
-                        total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
+                        attended_edit.text = attended.toString()
+                        missed_edit.text = missed.toString()
+                        total_classes.text = (missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString()
+                        addAtten.setOnClickListener {
+                            val temp = attended_edit.text.toString().toInt() + 1
+                            attended_edit.text = temp.toString()
+                        }
+                        subAtten.setOnClickListener {
+                            if(attended_edit.text.toString().toInt()>0) {
+                                val temp = attended_edit.text.toString().toInt() - 1
+                                attended_edit.text = temp.toString()
+                            }
+                        }
+                        addMiss.setOnClickListener {
+                            val temp = missed_edit.text.toString().toInt() + 1
+                            missed_edit.text = temp.toString()
+                        }
+                        subMiss.setOnClickListener {
+                            if(missed_edit.text.toString().toInt()>0) {
+                                val temp = missed_edit.text.toString().toInt() - 1
+                                missed_edit.text = temp.toString()
+                            }
+                        }
                         attended_edit.doAfterTextChanged {
                             if (it?.isNotEmpty()!! && missed_edit.text.toString().isNotEmpty())
-                                total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
+                                total_classes.text = (missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString()
                         }
                         missed_edit.doAfterTextChanged {
                             if (attended_edit.text.toString().isNotEmpty() && it?.isNotEmpty()!!)
-                                total_classes.setText((missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString())
+                                total_classes.text = (missed_edit.text.toString().toInt() + attended_edit.text.toString().toInt()).toString()
                         }
+
                         builder.setView(view)
                         val dialog = builder.create()
                         submit_btn.setOnClickListener {

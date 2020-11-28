@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/cardbackground"
     app:cardCornerRadius="10dp"
-    app:cardElevation="1dp"
+    app:cardElevation="10dp"
+    android:outlineAmbientShadowColor="@color/latestBlue"
+    android:outlineSpotShadowColor="@color/latestBlue"
     app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/txtEditAttendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:fontFamily="@font/nunito_regular"
+            android:fontFamily="@font/nunito_semibold"
             android:text="Edit Subject Details"
             android:textColor="@color/blackToWhite"
-            android:textSize="25sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +34,7 @@
             android:id="@+id/edit_attendance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/nunito_regular"
             android:hint="Subject Name"
@@ -46,8 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
-            android:text="Classes attended"
-            android:textSize="14sp"
+            android:text="Classes attended:"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/edit_attended"
             app:layout_constraintEnd_toEndOf="@id/guideline34"
             app:layout_constraintTop_toTopOf="@+id/edit_attended" />
@@ -59,24 +62,70 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_attended"
             android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             android:inputType="numberSigned"
             android:textAlignment="center"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline34"
             app:layout_constraintTop_toBottomOf="@id/edit_attendance_title" />
+
+        <ImageButton
+            android:id="@+id/add_atten"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_add_circle_outline_24"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_attended"
+            app:layout_constraintStart_toEndOf="@+id/edit_attended"
+            app:layout_constraintTop_toTopOf="@+id/edit_attended"/>
+        <ImageButton
+            android:id="@+id/sub_atten"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_baseline_remove_circle_outline_24"
+            android:background="@null"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_attended"
+            app:layout_constraintStart_toEndOf="@+id/add_atten"
+            app:layout_constraintTop_toTopOf="@+id/edit_attended" />
+
+
+
+        <ImageButton
+            android:id="@+id/add_missed"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_add_circle_outline_24"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_missed"
+            app:layout_constraintStart_toEndOf="@+id/edit_missed"
+            app:layout_constraintTop_toTopOf="@+id/edit_missed" />
+
+        <ImageButton
+            android:id="@+id/sub_missed"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="16dp"
+            android:background="@null"
+            android:src="@drawable/ic_baseline_remove_circle_outline_24"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_missed"
+            app:layout_constraintStart_toEndOf="@+id/add_missed"
+            app:layout_constraintTop_toTopOf="@+id/edit_missed" />
 
         <TextView
             android:id="@+id/edit_missed_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
-            android:text="Classes missed"
-            android:textSize="14sp"
+            android:text="Classes missed:"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/edit_missed"
             app:layout_constraintEnd_toEndOf="@id/guideline34"
             app:layout_constraintTop_toTopOf="@+id/edit_missed" />
@@ -86,30 +135,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
-            android:text="Total classes"
-            android:textSize="14sp"
+            android:text="Total classes:"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/total_classes"
             app:layout_constraintEnd_toEndOf="@id/guideline34"
             app:layout_constraintTop_toTopOf="@+id/total_classes" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_missed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="8dp"
             android:inputType="numberSigned"
+            android:layout_marginTop="16dp"
             android:textAlignment="center"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline34"
             app:layout_constraintTop_toBottomOf="@id/edit_attended" />
 
-        <EditText
+        <TextView
             android:id="@+id/total_classes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
             android:focusable="false"
-            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/edit_missed"
             app:layout_constraintStart_toStartOf="@id/edit_missed"
@@ -119,13 +170,13 @@
             android:id="@+id/btn_apply_attendance_edit"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/close_dialog_button"
             android:text="Submit"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/total_classes" />
+            app:layout_constraintTop_toBottomOf="@+id/total_classes_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

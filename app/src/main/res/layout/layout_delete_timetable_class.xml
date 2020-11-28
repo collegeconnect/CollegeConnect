@@ -13,17 +13,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
+        android:paddingBottom="24dp">
 
         <TextView
             android:id="@+id/txtDeleteClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:fontFamily="@font/nunito_regular"
-            android:text="Unschedule Class?"
+            android:fontFamily="@font/nunito_semibold"
+            android:text="Unschedule Class ?"
             android:textColor="@color/blackToWhite"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
             android:fontFamily="@font/nunito_regular"
             android:hint="Subject Name"
             android:textAlignment="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtDeleteClass" />

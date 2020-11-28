@@ -95,12 +95,16 @@ class AttendanceFragment : Fragment() {
                 if (atten != null && miss != null) {
                     if (aggregate.text.isNotEmpty()) {
                         val t = aggregate.text.toString()
-                        prevpercent = t.substring(0,t.length-1).toInt()
+                        prevpercent = t.substring(0, t.length - 1).toInt()
                     }
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
-                    if (!percentage.isNaN()) {
+                    if (!percentage.isNaN() && percentage!=0.0f) {
                         setProgressBar(percentage)
                         aggregate.text = "%.0f".format(percentage * 100) + "%"
+                    }
+                    else {
+                        setProgressBar(0.001f)
+                        aggregate.text = "0%"
                     }
                 }
             })
@@ -110,12 +114,16 @@ class AttendanceFragment : Fragment() {
                 if (atten != null && miss != null) {
                     if (aggregate.text.isNotEmpty()) {
                         val t = aggregate.text.toString()
-                        prevpercent = t.substring(0,t.length-1).toInt()
+                        prevpercent = t.substring(0, t.length - 1).toInt()
                     }
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
-                    if (!percentage.isNaN()) {
+                    if (!percentage.isNaN() && percentage!=0.0f) {
                         setProgressBar(percentage)
-                        aggregate.text = "%.0f".format(percentage*100)+"%"
+                        aggregate.text = "%.0f".format(percentage * 100) + "%"
+                    }
+                    else{
+                        setProgressBar(0.001f)
+                        aggregate.text = "0%"
                     }
                 }
             })
@@ -124,7 +132,7 @@ class AttendanceFragment : Fragment() {
 
     private fun setProgressBar(percentage: Float) {
         circularProgressBar.apply {
-            setProgressWithAnimation(percentage * 100, 1500) // =1s
+                setProgressWithAnimation(percentage * 100, 1500) // =1s
         }
     }
 
@@ -153,7 +161,7 @@ class AttendanceFragment : Fragment() {
         subject?.observe(requireActivity(), Observer {
             val subjectList = ArrayList<SubjectDetails>()
             subjectList.addAll(it)
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 setProgressBar(0.001f)
                 aggregate.text = "0%"
             }

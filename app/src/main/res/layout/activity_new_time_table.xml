@@ -18,6 +18,7 @@
         android:backgroundTint="@color/latestBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:tint="@null"
+        app:borderWidth="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:focusable="true" />
 

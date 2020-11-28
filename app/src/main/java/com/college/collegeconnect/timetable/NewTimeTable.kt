@@ -72,7 +72,12 @@ class NewTimeTable : AppCompatActivity() {
             mTimePicker = TimePickerDialog(this, { timePicker, selectedHour, selectedMinute ->
                 val am_pm = if (selectedHour < 12) "AM" else "PM"
                 val hour = if (selectedHour > 12) {
-                    (selectedHour-12).toString()
+                    val temp = selectedHour - 12
+                    if (temp < 10)
+                        "0$temp"
+                    else
+                        temp.toString()
+
                 } else {
                     if (selectedHour < 10)
                         "0$selectedHour"
@@ -84,7 +89,7 @@ class NewTimeTable : AppCompatActivity() {
                 else
                     selectedMinute.toString()
 
-                val hourStore =  if (selectedHour < 10)
+                val hourStore = if (selectedHour < 10)
                     "0$selectedHour"
                 else
                     selectedHour.toString()
@@ -106,7 +111,12 @@ class NewTimeTable : AppCompatActivity() {
             mTimePicker = TimePickerDialog(this, { timePicker, selectedHour, selectedMinute ->
                 val am_pm = if (selectedHour < 12) "AM" else "PM"
                 val hour = if (selectedHour > 12) {
-                    (selectedHour-12).toString()
+                    val temp = selectedHour - 12
+                    if (temp < 10)
+                        "0$temp"
+                    else
+                        temp.toString()
+
                 } else {
                     if (selectedHour < 10)
                         "0$selectedHour"
@@ -118,7 +128,7 @@ class NewTimeTable : AppCompatActivity() {
                 else
                     selectedMinute.toString()
 
-                val hourStore =  if (selectedHour < 10)
+                val hourStore = if (selectedHour < 10)
                     "0$selectedHour"
                 else
                     selectedHour.toString()
@@ -133,11 +143,11 @@ class NewTimeTable : AppCompatActivity() {
 
         builder.setPositiveButton("Done") { dialog, which ->
 //            saveClass(spinner.selectedItem.toString(), startTime.toString(), endTime.toString())
-            if(spinner.adapter.count == 0){
+            if (spinner.adapter.count == 0) {
                 toast("Add Subject in Attendance Manager")
                 return@setPositiveButton
             }
-            startTimeShow?.let { sts-> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.text.toString()) } }
+            startTimeShow?.let { sts -> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.text.toString()) } }
             Toast.makeText(this, "$startTime : $endTime", Toast.LENGTH_SHORT).show()
         }
 
