@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="textcolor">#138FF7</color>
-    <color name="fragmentbackground">#121212</color>
-    <color name="cardbackground">#212226</color>
-    <color name="arctext">#9AD1EF</color>
-    <color name="cardtext">#9AD1EF</color>
-    <color name="colorAccent">#138FF7</color>
-    <color name="statusBar">#000</color>
-    <color name="bottomBoundary">#50121212</color>
-    <color name="bottomNav">#000</color>
-    <color name="bottomNavItem">#138FF7</color>
-    <color name="blackToWhite">#fff</color>
-    <color name="dialogColor">#121212</color>
+<!--    <color name="textcolor">#138FF7</color>-->
+<!--    <color name="fragmentbackground">#121212</color>-->
+<!--    <color name="cardbackground">#212226</color>-->
+<!--    <color name="arctext">#9AD1EF</color>-->
+<!--    <color name="cardtext">#9AD1EF</color>-->
+<!--    <color name="colorAccent">#138FF7</color>-->
+<!--    <color name="statusBar">#000</color>-->
+<!--    <color name="bottomBoundary">#50121212</color>-->
+<!--    <color name="bottomNav">#000</color>-->
+<!--    <color name="bottomNavItem">#138FF7</color>-->
+<!--    <color name="blackToWhite">#fff</color>-->
+<!--    <color name="dialogColor">#121212</color>-->
 </resources>

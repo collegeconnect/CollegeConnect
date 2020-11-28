@@ -38,6 +38,9 @@ class TimetableAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        if (position == subjects.size-1)
+            holder.bottomDivider.visibility = View.VISIBLE
         holder.heading.text = subjects[position].subjectName
         holder.time.text = "${subjects[position].startTimeShow} - ${subjects[position].endTimeShow}"
         holder.roomNumber.text = subjects[position].roomNumber
@@ -105,5 +108,6 @@ class TimetableAdapter(
         var state: TextView = itemView.findViewById(R.id.lec_state)
         var stateCircle: ImageView = itemView.findViewById(R.id.lec_state_circle)
         var roomNumber: TextView = itemView.findViewById(R.id.room_num)
+        var bottomDivider = itemView.findViewById<View>(R.id.divider_bottom)
     }
 }

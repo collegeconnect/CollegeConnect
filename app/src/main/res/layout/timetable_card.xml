@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="140dp">
+
+        <View
+            android:id="@+id/divider_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/blackToWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/lec_state_circle"
@@ -23,8 +34,8 @@
             android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/blackToWhite"
             android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/blackToWhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/lec_state_circle"
             app:layout_constraintStart_toStartOf="@+id/lec_state_circle"
@@ -35,9 +46,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="time"
-            android:textStyle="bold"
             android:textColor="@color/blackToWhite"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/lec_state_circle"
             app:layout_constraintStart_toStartOf="@+id/materialCardView2"
             app:layout_constraintTop_toTopOf="@+id/lec_state_circle" />
@@ -58,8 +69,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView2"
-            android:layout_width="280dp"
-            android:layout_height="70dp"
+            android:layout_width="320dp"
+            android:layout_height="80dp"
             android:outlineAmbientShadowColor="@color/latestBlue"
             android:outlineSpotShadowColor="@color/latestBlue"
             app:cardCornerRadius="10dp"
@@ -69,7 +80,7 @@
             app:layout_constraintHorizontal_bias="0.72"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.65">
+            app:layout_constraintVertical_bias="0.75">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -98,7 +109,7 @@
                     android:layout_marginStart="16dp"
                     android:drawablePadding="5dp"
                     android:text="Room number"
-                    android:textSize="13sp"
+                    android:textSize="14sp"
                     app:drawableLeftCompat="@drawable/ic_room"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

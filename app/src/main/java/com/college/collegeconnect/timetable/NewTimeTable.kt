@@ -1,6 +1,8 @@
 package com.college.collegeconnect.timetable
 
 import android.app.TimePickerDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -13,6 +15,7 @@ import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.entity.*
 import com.college.collegeconnect.utils.toast
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_new_time_table.*
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
@@ -41,10 +44,10 @@ class NewTimeTable : AppCompatActivity() {
 
     private fun add_class() {
 
-        var startTime: String? = null
-        var endTime: String? = null
-        var startTimeShow: String? = null
-        var endTimeShow: String? = null
+        var startTime: String? = "08:00:00"
+        var endTime: String? = "09:00:00"
+        var startTimeShow: String? = "08:00 AM"
+        var endTimeShow: String? = "09:00 AM"
 
         val builder = AlertDialog.Builder(this)
         val inflater = (this as AppCompatActivity).layoutInflater
@@ -59,7 +62,7 @@ class NewTimeTable : AppCompatActivity() {
             spinner.adapter = adapter
         })
 
-        val roomNumber = view.findViewById<EditText>(R.id.roomNumber)
+        val roomNumber = view.findViewById<TextInputLayout>(R.id.roomNumber)
         val start = view.findViewById<TextView>(R.id.start_time)
         val end = view.findViewById<TextView>(R.id.end_time)
 
@@ -141,23 +144,18 @@ class NewTimeTable : AppCompatActivity() {
             mTimePicker.show()
         }
 
-        builder.setPositiveButton("Done") { dialog, which ->
-//            saveClass(spinner.selectedItem.toString(), startTime.toString(), endTime.toString())
-            if (spinner.adapter.count == 0) {
-                toast("Add Subject in Attendance Manager")
-                return@setPositiveButton
-            }
-            startTimeShow?.let { sts -> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.text.toString()) } }
-            Toast.makeText(this, "$startTime : $endTime", Toast.LENGTH_SHORT).show()
-        }
-
-        builder.setNegativeButton("Cancel") { dialog, which ->
-            dialog.dismiss()
-        }
-
         builder.setView(view)
         val dialog = builder.create()
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        view.findViewById<Button>(R.id.btn_schedule_class).setOnClickListener {
+            if (spinner.adapter.count == 0) {
+                toast("No subject added!")
+                return@setOnClickListener
+            }
+            startTimeShow?.let { sts -> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.editText?.text.toString()) } }
+            dialog.dismiss()
+        }
         dialog.show()
     }
 }
