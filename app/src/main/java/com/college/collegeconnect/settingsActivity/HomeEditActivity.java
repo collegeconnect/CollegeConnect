@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.customviews.DoneListener;
 import com.college.collegeconnect.customviews.EditTextWithEditButton;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
@@ -66,7 +67,7 @@ import java.io.OutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeEditActivity extends AppCompatActivity {
+public class HomeEditActivity extends AppCompatActivity implements DoneListener {
 
     private TextDrawable drawable;
     private EditTextWithEditButton nameField, enrollNo, branch, college, year;
@@ -127,6 +128,7 @@ public class HomeEditActivity extends AppCompatActivity {
         imageButton.setEnabled(false);
         college.setEnabled(false);
         year.setEnabled(false);
+        setDoneListener(nameField, enrollNo, branch, college, year);
 
 //        setValues();
         documentReference = firebaseFirestore.collection("users").document(userId);
@@ -143,20 +145,24 @@ public class HomeEditActivity extends AppCompatActivity {
                 getprfpic();
             }
         });
+    }
 
-//        submitDetails.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String name = nameField.getText().toString();
-//                String enroll = enrollNo.getText().toString();
-//                String branch = HomeEditActivity.this.branch.getText().toString();
-//                String strCollege = college.getText().toString();
-//                String strYear = year.getText().toString();
-//                SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
-//                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
-//                finish();
-//            }
-//        });
+    @Override
+    public void onDonePressed() {
+        Log.d("HomeEditActivity", "Trying to save user");
+        String name = nameField.getText().toString();
+        String enroll = enrollNo.getText().toString();
+        String branch = HomeEditActivity.this.branch.getText().toString();
+        String strCollege = college.getText().toString();
+        String strYear = year.getText().toString();
+        SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
+        User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
+    }
+
+    public void setDoneListener(EditTextWithEditButton... editTexts) {
+        for (EditTextWithEditButton editText : editTexts) {
+            editText.setDoneListener(this);
+        }
     }
 
     private void download_dp() {
@@ -396,4 +402,5 @@ public class HomeEditActivity extends AppCompatActivity {
             listener.remove();
         super.onDestroy();
     }
+
 }

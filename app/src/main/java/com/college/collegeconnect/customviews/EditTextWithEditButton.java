@@ -29,6 +29,8 @@ public class EditTextWithEditButton extends ConstraintLayout {
     TextInputEditText editText;
     TextView edit;
 
+    private DoneListener doneListener;
+
     public EditTextWithEditButton(@NonNull Context context) {
         super(context);
         init(context, null);
@@ -52,6 +54,7 @@ public class EditTextWithEditButton extends ConstraintLayout {
 
         edit.setOnClickListener(view -> {
             if (editText.isEnabled()) {
+                if (doneListener != null) doneListener.onDonePressed();
                 disable();
             } else {
                 enable();
@@ -71,8 +74,11 @@ public class EditTextWithEditButton extends ConstraintLayout {
         attrsArray.recycle();
     }
 
+    public void setDoneListener(DoneListener doneListener) {
+        this.doneListener = doneListener;
+    }
+
     private void setEditTextInputType(InputType inputType) {
-        Log.d("Input Type", inputType.toString());
         switch (inputType) {
             case NORMAL_TEXT:
                 editText.setInputType(android.text.InputType.TYPE_CLASS_TEXT);
