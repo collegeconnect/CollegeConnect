@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.customviews.EditTextWithEditButton;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.User;
 import com.college.collegeconnect.activities.Navigation;
@@ -68,14 +69,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeEditActivity extends AppCompatActivity {
 
     private TextDrawable drawable;
-    private EditText nameField, enrollNo, branch, college, year;
+    private EditTextWithEditButton nameField, enrollNo, branch, college, year;
     private ImageButton imageButton;
     private CircleImageView prfileImage;
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private Uri uri;
     private StorageReference storageRef;
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private FloatingActionButton submitDetails;
     private LinearLayout blurr;
     private static final int GET_FROM_GALLERY = 1;
     ProgressBar progressBar;
@@ -102,7 +102,6 @@ public class HomeEditActivity extends AppCompatActivity {
         college = findViewById(R.id.textView5copy);
         year = findViewById(R.id.textView6copy);
         imageButton = findViewById(R.id.edit_dp);
-        submitDetails = findViewById(R.id.submitDetailscopy);
         progressBar = findViewById(R.id.progress);
         progressBar.setVisibility(View.GONE);
         blurr = findViewById(R.id.blurrScreen);
@@ -129,7 +128,6 @@ public class HomeEditActivity extends AppCompatActivity {
         college.setEnabled(false);
         year.setEnabled(false);
 
-        submitDetails.setColorFilter(ContextCompat.getColor(this, R.color.colorwhite));
 //        setValues();
         documentReference = firebaseFirestore.collection("users").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -146,20 +144,19 @@ public class HomeEditActivity extends AppCompatActivity {
             }
         });
 
-
-        submitDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = nameField.getText().toString();
-                String enroll = enrollNo.getText().toString();
-                String branch = HomeEditActivity.this.branch.getText().toString();
-                String strCollege = college.getText().toString();
-                String strYear = year.getText().toString();
-                SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
-                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
-                finish();
-            }
-        });
+//        submitDetails.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String name = nameField.getText().toString();
+//                String enroll = enrollNo.getText().toString();
+//                String branch = HomeEditActivity.this.branch.getText().toString();
+//                String strCollege = college.getText().toString();
+//                String strYear = year.getText().toString();
+//                SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
+//                User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
+//                finish();
+//            }
+//        });
     }
 
     private void download_dp() {
@@ -264,15 +261,8 @@ public class HomeEditActivity extends AppCompatActivity {
         year.setEnabled(true);
         college.setEnabled(true);
         imageButton.setEnabled(true);
-        nameField.setTextColor(getColor(R.color.blackToWhite));
-        enrollNo.setTextColor(getColor(R.color.blackToWhite));
-        branch.setTextColor(getColor(R.color.blackToWhite));
-        college.setTextColor(getColor(R.color.blackToWhite));
-        year.setTextColor(getColor(R.color.blackToWhite));
 
         imageButton.setVisibility(View.VISIBLE);
-        submitDetails.setEnabled(true);
-        submitDetails.setVisibility(View.VISIBLE);
     }
 
     private void setvaluesFirestore() {

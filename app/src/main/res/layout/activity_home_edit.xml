@@ -37,116 +37,71 @@
             app:layout_constraintStart_toStartOf="@+id/guideline20"
             app:layout_constraintTop_toBottomOf="@+id/imageView3copy" />
 
-        <EditText
+        <com.college.collegeconnect.customviews.EditTextWithEditButton
             android:id="@+id/nameFieldcopy"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/imageView3copy"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/buttonlayout2"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:inputType="textCapWords"
-            android:padding="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="NAME"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/newBlue"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textView3copy"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
-            app:layout_constraintStart_toStartOf="@+id/guideline20" />
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:hint="Name"
+            app:inputType="normalText" />
 
-        <EditText
+        <com.college.collegeconnect.customviews.EditTextWithEditButton
             android:id="@+id/textView3copy"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/nameFieldcopy"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/buttonlayout2"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:inputType="number"
-            android:padding="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="ROLL NO."
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/newBlue"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textView5copy"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
-            app:layout_constraintStart_toStartOf="@+id/guideline20" />
-
-        <EditText
-            android:id="@+id/textView6copy"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/buttonlayout2"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:inputType="number"
-            android:padding="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="YEAR"
-            android:textAlignment="center"
-            android:textColor="@color/newBlue"
-            android:textStyle="bold"
+            app:hint="ROLL NO"
+            app:inputType="number"
+            />
+
+        <com.college.collegeconnect.customviews.EditTextWithEditButton
+            android:id="@+id/textView6copy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textView4copy"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
-            app:layout_constraintStart_toStartOf="@+id/guideline20" />
-
-        <EditText
-            android:id="@+id/textView5copy"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/textView3copy"
-            android:layout_centerHorizontal="true"
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/buttonlayout2"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:padding="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="COLLEGE"
-            android:textAlignment="center"
-            android:textColor="@color/newBlue"
-            android:textStyle="bold"
+            app:hint="YEAR"
+            app:inputType="number"
+            />
+
+        <com.college.collegeconnect.customviews.EditTextWithEditButton
+            android:id="@+id/textView5copy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textView6copy"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
-            app:layout_constraintStart_toStartOf="@+id/guideline20" />
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            app:hint="COLLEGE"
+            />
 
-        <EditText
+        <com.college.collegeconnect.customviews.EditTextWithEditButton
             android:id="@+id/textView4copy"
-            android:layout_width="205dp"
-            android:layout_height="40dp"
-            android:layout_below="@id/textView5copy"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/buttonlayout2"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:padding="5dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="BRANCH"
-            android:textAlignment="center"
-            android:textColor="@color/newBlue"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
-            app:layout_constraintStart_toStartOf="@+id/guideline20" />
+            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            app:hint="BRANCH"
+            />
 
         <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--        android:id="@+id/editDetailscopy"-->
@@ -162,20 +117,6 @@
         <!--        app:layout_constraintBottom_toBottomOf="parent"-->
         <!--        app:layout_constraintEnd_toEndOf="parent"-->
         <!--        app:srcCompat="@android:drawable/ic_menu_edit" />-->
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/submitDetailscopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="50dp"
-            android:backgroundTint="@android:color/holo_green_light"
-            android:enabled="false"
-            android:visibility="gone"
-            app:borderWidth="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/check" />
 
 
         <!--    <TextView-->

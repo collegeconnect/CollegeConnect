@@ -117,4 +117,6 @@
 
     <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
     <string name="contact_network"><u>Don\'t see your college?\n<b>Collaborate with us</b></u></string>
+    <string name="done">Done</string>
+    <string name="edit">Edit</string>
 </resources>
