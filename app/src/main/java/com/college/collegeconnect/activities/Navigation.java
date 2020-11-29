@@ -33,6 +33,7 @@ import com.college.collegeconnect.ui.tools.ToolsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.play.core.review.ReviewManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
@@ -201,12 +202,7 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     public void feedbackPop() {
         builder.setTitle("Feedback");
         builder.setMessage("Consider taking a one minute feedback?");
-        builder.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Navigation.this, FeedbackActivity.class));
-            }
-        });
+        builder.setPositiveButton("Sure", (dialog, which) -> startActivity(new Intent(Navigation.this, FeedbackActivity.class)));
         builder.setNegativeButton("Exit", (dialog, which) -> {
             dialog.dismiss();
             finish();
@@ -239,9 +235,9 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().findFragmentById(R.id.fragmentContainer) instanceof HomeFragment) {
-            if (SaveSharedPreference.getPop(this) % 10 == 0) {
-                feedbackPop();
-            } else
+//            if (SaveSharedPreference.getPop(this) % 7 == 0) {
+//                feedbackPop();
+//            } else
                 finish();
         } else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStackImmediate();

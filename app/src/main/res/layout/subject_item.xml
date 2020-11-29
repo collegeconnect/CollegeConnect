@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@id/subjectName"
-    android:layout_margin="20dp"
+    android:layout_margin="16dp"
     android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
     android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
     android:layout_marginBottom="@dimen/cardview_compat_inset_shadow"
-    android:padding="10dp"
+    android:padding="8dp"
     android:outlineAmbientShadowColor="@color/latestBlue"
     android:outlineSpotShadowColor="@color/latestBlue"
     app:cardCornerRadius="7dp"
@@ -30,6 +30,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             app:arc_bottom_text="Attendance"
+            app:arc_bottom_text_size="8.5sp"
             app:arc_finished_color="#00FF00"
             app:arc_max="100"
             app:arc_progress="50"
@@ -63,11 +64,11 @@
 
                 <ImageButton
                     android:id="@+id/pop"
+                    android:layout_weight="0.03"
                     style="?android:attr/actionOverflowButtonStyle"
                     android:layout_width="12dp"
                     android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent" />
+                    android:layout_gravity="end" />
 
             </LinearLayout>
 

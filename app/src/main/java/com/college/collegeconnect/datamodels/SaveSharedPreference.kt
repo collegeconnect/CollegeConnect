@@ -19,6 +19,7 @@ object SaveSharedPreference {
     private const val POP = "pop"
     private const val DETAILS_UPLOADED = "uploaded"
     private const val COLLEGE = "college"
+    private const val REVIEW = "review"
     private fun getSharedPreferences(ctx: Context?): SharedPreferences {
         return PreferenceManager.getDefaultSharedPreferences(ctx)
     }
@@ -126,6 +127,13 @@ object SaveSharedPreference {
         editor.apply()
     }
 
+    @JvmStatic
+    fun setRev(ctx: Context?, value: Boolean) {
+        val editor = getSharedPreferences(ctx).edit()
+        editor.putBoolean(REVIEW, value)
+        editor.apply()
+    }
+
     fun getAttendanceCriteria(ctx: Context?): Int {
         return getSharedPreferences(ctx).getInt(ATTENDANCE_CRITERIA, 75)
     }
@@ -142,7 +150,7 @@ object SaveSharedPreference {
 
     @JvmStatic
     fun getCheckedItem(ctx: Context?): Int {
-        return getSharedPreferences(ctx).getInt(CHECKED_ITEM, 0)
+        return getSharedPreferences(ctx).getInt(CHECKED_ITEM, 2)
     }
 
     @JvmStatic
@@ -192,6 +200,11 @@ object SaveSharedPreference {
     @JvmStatic
     fun getCollege(ctx: Context?): String? {
         return getSharedPreferences(ctx).getString(COLLEGE, "other")
+    }
+
+    @JvmStatic
+    fun getReview(ctx: Context?): Boolean {
+        return getSharedPreferences(ctx).getBoolean(REVIEW, false)
     }
 
     //Clear data on logout

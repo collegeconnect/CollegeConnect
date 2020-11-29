@@ -1,12 +1,21 @@
 package com.college.collegeconnect.settingsActivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Environment;
+import android.print.pdf.PrintedPdfDocument;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +26,12 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
+import com.college.collegeconnect.database.entity.DownloadEntity;
 import com.college.collegeconnect.datamodels.Resume;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
+import com.college.collegeconnect.models.DownloadNotesViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +44,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class WorkTwo extends Fragment {
@@ -80,6 +97,8 @@ public class WorkTwo extends Fragment {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, PackageManager.PERMISSION_GRANTED);
+
         documentReference = firebaseFirestore.collection("resume").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
@@ -125,6 +144,35 @@ public class WorkTwo extends Fragment {
                         getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     }
                 });
+
+                PdfDocument pdfDocument = new PdfDocument();
+                Paint paint = new Paint();
+                //Page 1
+                PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(400,600,1).create();
+                PdfDocument.Page page = pdfDocument.startPage(pageInfo);
+                Canvas canvas = page.getCanvas();
+                canvas.drawText("Resume",40,50,paint);
+                pdfDocument.finishPage(page);
+
+                //page 2
+                PdfDocument.PageInfo pageInfo2 = new PdfDocument.PageInfo.Builder(400,600,1).create();
+                PdfDocument.Page page2 = pdfDocument.startPage(pageInfo2);
+                Canvas canvas2 = page2.getCanvas();
+                canvas2.drawText("Resume Page 2",40,50,paint);
+                pdfDocument.finishPage(page2);
+
+                DownloadNotesViewModel downloadNotesViewModel = new ViewModelProvider(getActivity()).get(DownloadNotesViewModel.class);
+                File file = new File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Download Notes" + File.separator + "Resume" + ".pdf");
+                try {
+                    DownloadEntity downloadEntity = new DownloadEntity("Resume",SaveSharedPreference.getUserName(getContext()),"");
+                    downloadNotesViewModel.addDownload(downloadEntity);
+                    pdfDocument.writeTo(new FileOutputStream(file));
+                    Log.d("Pdf","Success");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("Pdf",e.getMessage());
+                }
+                pdfDocument.close();
             }
         });
 

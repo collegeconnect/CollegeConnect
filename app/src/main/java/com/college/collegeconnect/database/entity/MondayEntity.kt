@@ -4,11 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class MondayEntity(
-        val subjectName: String,
-        val startTime: String,
-        val endTime: String
-) {
+class MondayEntity(subjectName: String, startTime: String, startTimeShow: String, endTime: String, endTimeShow: String, roomNumber: String) :
+        TimetableEntity(subjectName, startTime, startTimeShow, endTime, endTimeShow, roomNumber) {
     @PrimaryKey( autoGenerate = true )
     var id:Int = 0
 }

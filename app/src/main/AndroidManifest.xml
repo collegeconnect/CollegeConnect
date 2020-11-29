@@ -12,6 +12,7 @@
 
     <application
         android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
         android:configChanges="uiMode"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"

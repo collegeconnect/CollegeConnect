@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/imageView18"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginTop="90dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias=".5"
@@ -16,18 +16,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_on_two" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_rectangle_onboard"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@android:color/transparent"
-        android:gravity="center"
-        android:text="Search and download notes,\nadd relevant tags\nand upload your own notes."
-        android:textColor="@color/newBlue"
+        android:text="Search and download notes, add relevant\ntags and upload your own notes."
+        android:textColor="#4D000000"
         android:textSize="18sp"
+        android:textStyle="bold"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@id/imageView18"
-        app:layout_constraintStart_toStartOf="@id/imageView18"
-        app:layout_constraintTop_toBottomOf="@id/imageView18" />
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Organize"
+        android:textColor="#85000000"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView18" />
 </androidx.constraintlayout.widget.ConstraintLayout>

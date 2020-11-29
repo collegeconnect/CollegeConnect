@@ -34,22 +34,16 @@ public class ContactActivity extends AppCompatActivity {
         final CheckBox feedback = findViewById(R.id.feedBack);
         final CheckBox issue = findViewById(R.id.issue);
         TextView tv = findViewById(R.id.tvtitle);
-        feedback.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    feedback.setError(null);
-                    issue.setError(null);
-                }
+        feedback.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                feedback.setError(null);
+                issue.setError(null);
             }
         });
-        issue.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    feedback.setError(null);
-                    issue.setError(null);
-                }
+        issue.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                feedback.setError(null);
+                issue.setError(null);
             }
         });
         Log.i("TAG", "SERIAL: " + Build.SERIAL);
@@ -69,25 +63,28 @@ public class ContactActivity extends AppCompatActivity {
         Log.i("TAG", "Version Code: " + Build.DEVICE);
 
         tv.setText("Contact Us");
-        findViewById(R.id.email_contact).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                String[] recipients = {"college.connect8@gmail.com"};
-                intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-                String mess = Build.MANUFACTURER + " | " + Build.BRAND + " " + Build.MODEL + " | " + Build.DEVICE + " | Android " + Build.VERSION.RELEASE + " | " + Build.VERSION.INCREMENTAL + "\n\n";
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
-                final PackageManager pm = getPackageManager();
-                final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
-                ResolveInfo best = null;
-                for (final ResolveInfo info : matches)
-                    if (info.activityInfo.packageName.endsWith(".gm") ||
-                            info.activityInfo.name.toLowerCase().contains("gmail")) best = info;
-                if (best != null)
-                    intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
-                startActivity(intent);
-            }
+        findViewById(R.id.email_contact).setOnClickListener(v -> {
+            final Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            String[] recipients = {"college.connect8@gmail.com"};
+            intent.putExtra(Intent.EXTRA_EMAIL, recipients);
+            String mess = "Manufacturer: "+Build.MANUFACTURER + "\n"
+                    + "Brand: " + Build.BRAND + "\n"
+                    + "Model: " + Build.MODEL + "\n"
+                    + "Version Code :" + Build.DEVICE + "\n"
+                    + "Android " + Build.VERSION.RELEASE + "\n"
+                    + "Board: " + Build.BOARD + "\n"
+                    + "Incremental: " + Build.VERSION.INCREMENTAL + "\n\n";
+            intent.putExtra(Intent.EXTRA_TEXT, mess);
+            final PackageManager pm = getPackageManager();
+            final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
+            ResolveInfo best = null;
+            for (final ResolveInfo info : matches)
+                if (info.activityInfo.packageName.endsWith(".gm") ||
+                        info.activityInfo.name.toLowerCase().contains("gmail")) best = info;
+            if (best != null)
+                intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+            startActivity(intent);
         });
 
         findViewById(R.id.sendMail).setOnClickListener(new View.OnClickListener() {
@@ -115,7 +112,13 @@ public class ContactActivity extends AppCompatActivity {
                 else if (feedback.isChecked())
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
 
-                String mess = Build.MANUFACTURER + " | " + Build.BRAND + " " + Build.MODEL + " | " + Build.DEVICE + " | Android " + Build.VERSION.RELEASE + " | " + Build.VERSION.INCREMENTAL + "\n\n" + message;
+                String mess = "Manufacturer: "+Build.MANUFACTURER + "\n"
+                        + "Brand: " + Build.BRAND + "\n"
+                        + "Model: " + Build.MODEL + "\n"
+                        + "Version Code :" + Build.DEVICE + "\n"
+                        + "Android " + Build.VERSION.RELEASE + "\n"
+                        + "Board: " + Build.BOARD + "\n"
+                        + "Incremental: " + Build.VERSION.INCREMENTAL + "\n\n";
                 intent.putExtra(android.content.Intent.EXTRA_TEXT, mess);
                 final PackageManager pm = getPackageManager();
                 final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);

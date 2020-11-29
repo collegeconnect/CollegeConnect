@@ -39,6 +39,8 @@ import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -46,12 +48,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UploadNotes extends AppCompatActivity {
 
     final static int PICK_PDF_CODE = 2342;
     private Intent Data = null;
-    private EditText fileName, author;
+    private TextInputLayout fileName, author;
+    private Button upload;
     Intent receiverdIntent;
     private TextView tv8;
     private ImageView imageView;
@@ -83,12 +87,12 @@ public class UploadNotes extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         TextView tv_title = findViewById(R.id.tvtitle);
         tv_title.setText("Upload Notes");
-        if (SaveSharedPreference.getCheckedItem(this) == 0)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        else if (SaveSharedPreference.getCheckedItem(this) == 1)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else if (SaveSharedPreference.getCheckedItem(this) == 2)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//        if (SaveSharedPreference.getCheckedItem(this) == 0)
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+//        else if (SaveSharedPreference.getCheckedItem(this) == 1)
+//            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//        else if (SaveSharedPreference.getCheckedItem(this) == 2)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         //getting the views
         textViewStatus = findViewById(R.id.textViewStatus);
@@ -131,6 +135,7 @@ public class UploadNotes extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UploadNotes.this.Data = null;
                 getPDF();
 
             }
@@ -240,59 +245,46 @@ public class UploadNotes extends AppCompatActivity {
         }
     }
 
-    private void alertDialog(String filenaam) {
+    private void alertDialog(String filename) {
         AlertDialog.Builder builder = new AlertDialog.Builder(UploadNotes.this);
-
-        LayoutInflater inflater = getLayoutInflater().from(UploadNotes.this);
+        LayoutInflater inflater = LayoutInflater.from(UploadNotes.this);
         final View view = inflater.inflate(R.layout.layout_dialog_notes, null);
 
-
-        builder.setView(view)
-                .setTitle("Set File Name")
-                .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        UploadNotes.this.Data = null;
-                    }
-                });
+        builder.setView(view);
         fileName = view.findViewById(R.id.fileName);
         author = view.findViewById(R.id.authorName);
-
+        Objects.requireNonNull(fileName.getEditText()).setText(filename);
+        Objects.requireNonNull(author.getEditText()).setText(SaveSharedPreference.getUser(this));
+        author.getEditText().setEnabled(false);
+        upload = view.findViewById(R.id.btn_upload_notes);
 
         final AlertDialog dialog = builder.create();
         dialog.show();
-        fileName.setText(filenaam);
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                        boolean isError = false;
-                String file = fileName.getText().toString();
-                String authorName = author.getText().toString();
-//                        isError=true;
-                if (file.isEmpty() && authorName.isEmpty()) {
-                    fileName.setError("Filename cannot be empty");
-                    author.setError("Author name cannot be empty");
-                } else if (file.isEmpty()) {
-//                            isError = true;
-                    fileName.setError("Filename cannot be empty");
-                } else if (authorName.isEmpty()) {
-//                            isError = true;
-                    author.setError("Author name cannot be empty");
-                } else {
-                    applyTexts(file, authorName);
-                    UploadNotes.this.Data = null;
-                    dialog.dismiss();
-                }
+        fileName.getEditText().setText(filename);
+        upload.setOnClickListener(v -> {
+            String file = fileName.getEditText().getText().toString();
+            String authorName = author.getEditText().getText().toString();
+
+            if (file.isEmpty() && authorName.isEmpty()) {
+                fileName.setError("Filename cannot be empty");
+                author.setError("Author name cannot be empty");
+                return;
             }
+            if (file.isEmpty()) {
+                fileName.setError("Filename cannot be empty");
+                fileName.requestFocus();
+                return;
+            }
+            if (authorName.isEmpty()) {
+                author.setError("Author name cannot be empty");
+                author.requestFocus();
+                return;
+            }
+            applyTexts(file, authorName);
+            UploadNotes.this.Data = null;
+            dialog.dismiss();
         });
-        fileName.addTextChangedListener(new TextWatcher() {
+        fileName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -308,7 +300,7 @@ public class UploadNotes extends AppCompatActivity {
                 fileName.setError(null);
             }
         });
-        author.addTextChangedListener(new TextWatcher() {
+        author.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

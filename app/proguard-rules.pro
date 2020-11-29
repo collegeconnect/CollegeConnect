@@ -23,3 +23,4 @@
 # Keep custom model classes
 -keep class com.college.collegeconnect.datamodels.* { *; }
 -keep class com.college.collegeconnect.adapters.* { *; }
+-keep class com.college.collegeconnect.utils.* { *; }

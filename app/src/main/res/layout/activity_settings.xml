@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="24dp"
-                android:text="Made with ❤\nVersion 0.1.0"
+                android:text="Made with ❤\nVersion 1.0"
                 android:textAlignment="center"
                 android:textColor="@color/textcolor" />
 

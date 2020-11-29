@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.college.collegeconnect.timetable.NewTimeTableViewModel;
 import com.college.collegeconnect.ui.PlaceholderFragment;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -15,19 +18,20 @@ import com.college.collegeconnect.ui.PlaceholderFragment;
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public static final String[] TAB_TITLES = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-    private final Context mContext;
+    private NewTimeTableViewModel newTimeTableViewModel;
+    public static final String[] TAB_TITLES = {"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"};
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
-        mContext = context;
+    public SectionsPagerAdapter(FragmentManager fm, NewTimeTableViewModel newTimeTableViewModel) {
+        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.newTimeTableViewModel = newTimeTableViewModel;
     }
 
+    @NotNull
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return new PlaceholderFragment(position);
+        return new PlaceholderFragment(position, newTimeTableViewModel);
     }
 
     @Nullable
@@ -39,7 +43,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 6 total pages.
-        return 6;
+        // Show 7 total pages.
+        return 7;
     }
 }

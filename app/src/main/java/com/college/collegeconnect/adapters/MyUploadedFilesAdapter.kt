@@ -22,6 +22,6 @@ class MyUploadedFilesAdapter(val context: Context, private val uploadList:ArrayL
     override fun getItemCount() = uploadList.size
 
     class ViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView) {
-        val textView:TextView = itemView.findViewById(R.id.documentName)
+        val textView:TextView = itemView.findViewById(R.id.subject_title)
     }
 }

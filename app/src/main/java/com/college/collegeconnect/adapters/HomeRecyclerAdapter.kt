@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.timetable.NewTimeTable
+import com.college.collegeconnect.timetable.TimeTable
 
 class HomeRecyclerAdapter(val context: Context) : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
 

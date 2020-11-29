@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeFragment : Fragment() {
     var bottomNavigationView: BottomNavigationView? = null
@@ -120,6 +122,35 @@ class HomeFragment : Fragment() {
         recyclerviewHome.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapter = context?.let { HomeRecyclerAdapter(it) }
         recyclerviewHome.adapter = adapter
+
+        //Set happening now
+        var now = false
+        homeViewModel.getHappeningNow().observe(requireActivity(),  {
+            it.forEach { it1->
+                val pattern = "dd-MM-yyyy"
+                val dateInString: String = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
+                val startingTime = getMilli("$dateInString ${it1.startTime}")
+                val endingTime = getMilli("$dateInString ${it1.endTime}")
+                if(System.currentTimeMillis() in startingTime until endingTime) {
+                    txt_now_subject_title.text = it1.subjectName
+                    txt_now_room_num.text = it1.roomNumber
+                    txt_now_time.text = "${it1.startTimeShow} - ${it1.endTimeShow}"
+                    now = true
+                }
+            }
+            if (!now) {
+                txt_now_state.text = "No class happening currently"
+                txt_now_time.visibility = View.GONE
+                card_now_class.visibility = View.GONE
+            }
+        })
+    }
+
+    // get time in milliseconds
+    private fun getMilli(myDate: String): Long {
+        val format = SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.getDefault())
+        val d = format.parse(myDate)
+        return d.time
     }
 
     private fun download_dp() {

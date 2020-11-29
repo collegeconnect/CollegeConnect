@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,9 +29,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,10 +49,6 @@ public class SettingsActivity extends AppCompatActivity {
     private Button logout;
     private RecyclerView recyclerView;
     private SettingsAdapter settingsAdapter;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference;
     CircleImageView prfileImage;
     TextDrawable drawable;
     TextView nameField;
@@ -59,19 +59,19 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        storageRef = storage.getReference();
         Toolbar toolbar = findViewById(R.id.settingbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.newBlue), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(getColor(R.color.latestBlue), PorterDuff.Mode.SRC_ATOP);
         db = new DatabaseHelper(this);
-
+        //Set profile image and name
         prfileImage = findViewById(R.id.settings_dp);
         nameField = findViewById(R.id.textView16);
         String name = SaveSharedPreference.getUser(this);
         nameField.setText(name);
         File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
+        //Load dp if already exits in storage
         if (file.exists()) {
             SettingsActivity.this.uri = Uri.fromFile(file);
             Picasso.get().load(uri).into(prfileImage);
@@ -93,10 +93,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
         ArrayList<String> options = new ArrayList<>();
 //        options.add("Update Profile");
-        options.add("Theme");
+//        options.add("Theme");
         options.add("Set Attendance Criteria");
         options.add("My Files");
         options.add("Work Profile");
+        options.add("Rate Us");
         options.add("Contact Us");
         options.add("About");
 
@@ -107,13 +108,14 @@ public class SettingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(settingsAdapter);
         DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST, 80, 0);
         recyclerView.addItemDecoration(decoration);
+        //Edit user details
         findViewById(R.id.profile_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SettingsActivity.this, HomeEditActivity.class));
             }
         });
-
+        //Logout
         logout = findViewById(R.id.logoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +123,7 @@ public class SettingsActivity extends AppCompatActivity {
                 logOutDialog();
             }
         });
-//        loadFragment(fragment);
     }
-
 
     public void logOutDialog() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
@@ -176,16 +176,6 @@ public class SettingsActivity extends AppCompatActivity {
                 .build();
         mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

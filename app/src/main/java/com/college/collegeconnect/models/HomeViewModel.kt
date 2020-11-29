@@ -4,8 +4,13 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.college.collegeconnect.database.AttendanceDatabase
+import com.college.collegeconnect.database.TimeTableDatabase
+import com.college.collegeconnect.database.entity.TimetableEntity
+import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {
 
@@ -15,6 +20,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
     var nameLive : MutableLiveData<String>?= null
     var rollNoLive:MutableLiveData<String>?= null
     var branchLive:MutableLiveData<String>?= null
+    var classList:MutableLiveData<List<TimetableEntity>>?= null
 //    var tot: MutableLiveData<List<Int>>?= null
 
     fun returnName(): LiveData<String> {
@@ -23,6 +29,16 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
             loadData()
         }
         return nameLive!!
+    }
+
+    fun returnNow() : LiveData<List<TimetableEntity>> {
+        if (classList == null) {
+            classList = MutableLiveData()
+            Log.d("TAG", "returnNow: called")
+            getHappeningNow()
+        }
+        Log.d("TAG", "returnNow: ${classList!!.value.toString()}")
+        return classList!!
     }
 
     fun returnRoll(): LiveData<String> {
@@ -68,6 +84,9 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
                 val name = documentSnapshot!!.getString("name")
                 val rollNo = documentSnapshot.getString("rollno")
                 val strbranch = documentSnapshot.getString("branch")
+                val college = documentSnapshot.getString("college")
+                SaveSharedPreference.setCollege(getApplication(),college)
+                SaveSharedPreference.setUser(getApplication(),name)
                 nameLive?.postValue(name)
                 rollNoLive?.postValue(rollNo)
                 branchLive?.postValue(strbranch)
@@ -89,6 +108,22 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
             }
 //            if (uri != null) Picasso.get().load(uri).into(prfileImage)
         }
+    }
+
+    fun getHappeningNow() : LiveData<out List<TimetableEntity>>{
+
+        val classlist = when(Calendar.getInstance()[Calendar.DAY_OF_WEEK]) {
+            1 -> TimeTableDatabase(getApplication()).getSundayDao().getSunClasses()
+            2 -> TimeTableDatabase(getApplication()).getMondayDao().getMonClasses()
+            3 -> TimeTableDatabase(getApplication()).getTuesdayDao().getTuesClasses()
+            4 -> TimeTableDatabase(getApplication()).getWednesdayDao().getWedClasses()
+            5 -> TimeTableDatabase(getApplication()).getThursdayDao().getThursClasses()
+            6 -> TimeTableDatabase(getApplication()).getFridayDao().getFriClasses()
+            7 -> TimeTableDatabase(getApplication()).getSaturdayDao().getSatClasses()
+            else -> null
+        }
+        Log.d("TAG", "getHappeningNow: ${classlist?.value}")
+        return classlist!!
     }
 
     fun getAttended():LiveData<Int>{
