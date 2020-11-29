@@ -24,6 +24,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             app:civ_border_color="#8A8989"
+            android:background="@drawable/ic_dp_circle"
+            android:padding="25dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline20"
             app:layout_constraintStart_toStartOf="@+id/guideline20"
             app:layout_constraintTop_toTopOf="parent" />
@@ -142,7 +144,10 @@
             android:background="@drawable/ic_update_dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/imageView3copy"
-            app:layout_constraintEnd_toEndOf="@id/imageView3copy" />
+            app:layout_constraintEnd_toEndOf="@id/imageView3copy"
+            app:layout_constraintStart_toStartOf="@+id/imageView3copy"
+            app:layout_constraintTop_toTopOf="@+id/imageView3copy"
+            tools:visibility="visible" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
