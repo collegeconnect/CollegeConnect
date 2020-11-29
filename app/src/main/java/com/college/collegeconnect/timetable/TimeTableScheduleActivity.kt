@@ -15,7 +15,7 @@ import java.util.*
 class TimeTableScheduleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lateinit var c:Calendar
+        var c = Calendar.getInstance()
         setContentView(R.layout.activity_time_table_schedule)
         textView26.setOnClickListener {
             val timePickerDialog = TimePickerDialog(this,

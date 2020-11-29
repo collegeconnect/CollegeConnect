@@ -5,5 +5,9 @@
         <key>bvest_visibilty</key>
         <value>false</value>
     </entry>
+    <entry>
+        <key>timetable_activity</key>
+        <value>true</value>
+    </entry>
 </defaultsMap>
     <!-- END xml_defaults -->

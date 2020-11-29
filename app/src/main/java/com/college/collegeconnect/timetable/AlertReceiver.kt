@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.college.collegeconnect.R
+import com.college.collegeconnect.activities.MainActivity
 import com.college.collegeconnect.activities.Navigation
 
 
@@ -18,7 +19,7 @@ class AlertReceiver : BroadcastReceiver(){
 
     override fun onReceive(context: Context?, intent1: Intent?) {
 //        Notification.displayNotification(context,"","")
-        val intent = Intent(context, TimeTableScheduleActivity::class.java)
+        val intent = Intent(context,MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         val pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
