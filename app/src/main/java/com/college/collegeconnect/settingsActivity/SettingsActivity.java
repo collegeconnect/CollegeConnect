@@ -1,6 +1,7 @@
 package com.college.collegeconnect.settingsActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -112,7 +113,7 @@ public class SettingsActivity extends AppCompatActivity {
         findViewById(R.id.profile_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SettingsActivity.this, HomeEditActivity.class));
+                startActivityForResult(new Intent(SettingsActivity.this, HomeEditActivity.class),10);
             }
         });
         //Logout
@@ -123,6 +124,14 @@ public class SettingsActivity extends AppCompatActivity {
                 logOutDialog();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10){
+            nameField.setText(data.getStringExtra("NAME"));
+        }
     }
 
     public void logOutDialog() {

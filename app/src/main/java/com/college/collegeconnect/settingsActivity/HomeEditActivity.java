@@ -155,6 +155,9 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         String strYear = year.getText().toString();
         SaveSharedPreference.setCollege(HomeEditActivity.this, strCollege);
         SaveSharedPreference.setUser(this,name);
+        Intent intent = new Intent();
+        intent.putExtra("NAME",name);
+        setResult(10,intent);
         User.addUser(enroll, firebaseAuth.getCurrentUser().getEmail(), name, branch, strCollege, strYear);
     }
 
