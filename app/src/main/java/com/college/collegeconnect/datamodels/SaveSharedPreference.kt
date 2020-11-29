@@ -150,7 +150,7 @@ object SaveSharedPreference {
 
     @JvmStatic
     fun getCheckedItem(ctx: Context?): Int {
-        return getSharedPreferences(ctx).getInt(CHECKED_ITEM, 0)
+        return getSharedPreferences(ctx).getInt(CHECKED_ITEM, 2)
     }
 
     @JvmStatic

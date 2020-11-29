@@ -71,6 +71,7 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
                 val strbranch = documentSnapshot.getString("branch")
                 val college = documentSnapshot.getString("college")
                 SaveSharedPreference.setCollege(getApplication(),college)
+                SaveSharedPreference.setUser(getApplication(),name)
                 nameLive?.postValue(name)
                 rollNoLive?.postValue(rollNo)
                 branchLive?.postValue(strbranch)

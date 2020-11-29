@@ -20,10 +20,7 @@
         android:id="@+id/att_dp"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
         app:cpb_background_progressbar_color="#60ffffff"
         app:cpb_background_progressbar_width="8dp"
         app:cpb_progress_direction="to_right"
@@ -31,25 +28,24 @@
         app:cpb_progressbar_color_start="#FF0000"
         app:cpb_progressbar_width="20dp"
         app:cpb_round_border="true"
+        app:layout_constraintBottom_toBottomOf="@+id/subjectNamemas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/criteriaText" />
 
     <com.mikhaellopez.circularprogressbar.CircularProgressBar
         android:id="@+id/att_dp2"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
         app:cpb_background_progressbar_color="@android:color/transparent"
         app:cpb_progress_direction="to_right"
         app:cpb_progressbar_color_end="@color/colorwhite"
         app:cpb_progressbar_color_start="#00FF00"
         app:cpb_progressbar_width="20dp"
         app:cpb_round_border="true"
+        app:layout_constraintBottom_toBottomOf="@+id/subjectNamemas"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/criteriaText" />
 
     <TextView
         android:id="@+id/aggregate"
