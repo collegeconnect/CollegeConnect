@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     private NewTimeTableViewModel newTimeTableViewModel;
-    public static final String[] TAB_TITLES = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    public static final String[] TAB_TITLES = {"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"};
 
     public SectionsPagerAdapter(FragmentManager fm, NewTimeTableViewModel newTimeTableViewModel) {
         super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
