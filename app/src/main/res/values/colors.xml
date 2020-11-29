@@ -27,4 +27,6 @@
     <color name="dialogColor">#84BFF1</color>
     <color name="eighty_black">#80000000</color>
     <color name="orange">#FFA45A</color>
+    <color name="pink">#AE445C</color>
+    <color name="gray">#888888</color>
 </resources>
