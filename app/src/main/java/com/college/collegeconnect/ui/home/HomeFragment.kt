@@ -125,13 +125,13 @@ class HomeFragment : Fragment() {
 
         //Set happening now
         var now = false
-        homeViewModel.getHappeningNow().observe(requireActivity(),  {
-            it.forEach { it1->
+        homeViewModel.getHappeningNow().observe(requireActivity(), {
+            it.forEach { it1 ->
                 val pattern = "dd-MM-yyyy"
                 val dateInString: String = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
                 val startingTime = getMilli("$dateInString ${it1.startTime}")
                 val endingTime = getMilli("$dateInString ${it1.endTime}")
-                if(System.currentTimeMillis() in startingTime until endingTime) {
+                if (System.currentTimeMillis() in startingTime until endingTime) {
                     txt_now_subject_title.text = it1.subjectName
                     txt_now_room_num.text = it1.roomNumber
                     txt_now_time.text = "${it1.startTimeShow} - ${it1.endTimeShow}"
@@ -139,9 +139,13 @@ class HomeFragment : Fragment() {
                 }
             }
             if (!now) {
-                txt_now_state.text = "No class happening currently"
-                txt_now_time.visibility = View.GONE
-                card_now_class.visibility = View.GONE
+                try {
+                    txt_now_state.text = "No class happening currently"
+                    txt_now_time.visibility = View.GONE
+                    card_now_class.visibility = View.GONE
+                } catch (e:Exception) {
+                    Log.d("HomeFragment", "onActivityCreated: ${e.message}")
+                }
             }
         })
     }
