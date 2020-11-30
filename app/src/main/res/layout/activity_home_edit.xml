@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     tools:context=".settingsActivity.HomeEditActivity">
 
+    <LinearLayout
+        android:id="@+id/blurrScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70000000"
+        android:orientation="vertical"
+        android:elevation="2dp"
+        android:visibility="gone" />
+
     <include
         layout="@layout/toolbar_main"
         android:id="@+id/toolbaredit"/>
@@ -142,12 +151,8 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/ic_update_dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/imageView3copy"
-            app:layout_constraintEnd_toEndOf="@id/imageView3copy"
-            app:layout_constraintStart_toStartOf="@+id/imageView3copy"
-            app:layout_constraintTop_toTopOf="@+id/imageView3copy"
-            tools:visibility="visible" />
+            app:layout_constraintEnd_toEndOf="@id/imageView3copy"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
@@ -203,18 +208,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
-
-        <LinearLayout
-            android:id="@+id/blurrScreen"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#70000000"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -21,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -29,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.BuildConfig;
 import com.college.collegeconnect.R;
@@ -55,14 +52,11 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeEditActivity extends AppCompatActivity implements DoneListener {
@@ -107,10 +101,9 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
 
         tv.setText("Edit Details");
         storageRef = storage.getReference();
-        File file = new File("/data/user/0/com.college.collegeconnect/files/dp.jpeg");
+        File file = new File("/data/user/0/"+BuildConfig.APPLICATION_ID+"/files/dp.jpeg");
         if (file.exists()) {
             HomeEditActivity.this.uri = Uri.fromFile(file);
-
         }
 
         if (uri != null)
@@ -120,27 +113,27 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-        nameField.setEnabled(false);
-        enrollNo.setEnabled(false);
-        branch.setEnabled(false);
-        imageButton.setEnabled(false);
-        college.setEnabled(false);
-        year.setEnabled(false);
+//        nameField.setEnabled(false);
+//        enrollNo.setEnabled(false);
+//        branch.setEnabled(false);
+//        imageButton.setEnabled(false);
+//        college.setEnabled(false);
+//        year.setEnabled(false);
         setDoneListener(nameField, enrollNo, branch, college, year);
 
-//        setValues();
+        //Initialize Firebase Firestore
         documentReference = firebaseFirestore.collection("users").document(userId);
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(true)
                 .build();
         firebaseFirestore.setFirestoreSettings(settings);
-        setvaluesFirestore();
-        edit();
+        setValuesFirestore();
+//        edit();
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getprfpic();
+                getProfilePic();
             }
         });
     }
@@ -167,6 +160,7 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         }
     }
 
+    //Download dp to storage
     private void download_dp() {
         final DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(HomeEditActivity.this.uri);
@@ -182,7 +176,7 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
                         String fileUri = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
                         HomeEditActivity.this.uri = Uri.parse(fileUri);
                         copyFile("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files", "/dp.jpeg", getFilesDir().getAbsolutePath());
-                        new File("/storage/emulated/0/Android/data/com.college.collegeconnect/files/dp.jpeg").delete();
+                        new File("/storage/emulated/0/Android/data/"+ BuildConfig.APPLICATION_ID + "/files/dp.jpeg").delete();
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setVisibility(View.GONE);
                         blurr.setVisibility(View.GONE);
@@ -224,15 +218,14 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
             out.close();
             out = null;
 
-        } catch (FileNotFoundException fnfe1) {
+        } catch (Exception fnfe1) {
             Log.e("tag", fnfe1.getMessage());
-        } catch (Exception e) {
-            Log.e("tag", e.getMessage());
         }
 
     }
 
-    private void getprfpic() {
+    //Select dp from storage
+    private void getProfilePic() {
         if (ContextCompat.checkSelfPermission(HomeEditActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
 
@@ -252,7 +245,7 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 100 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getprfpic();
+            getProfilePic();
 
         } else {
             Toast.makeText(this,
@@ -269,11 +262,9 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         year.setEnabled(true);
         college.setEnabled(true);
         imageButton.setEnabled(true);
-
-        imageButton.setVisibility(View.VISIBLE);
     }
 
-    private void setvaluesFirestore() {
+    private void setValuesFirestore() {
         listener = documentReference.addSnapshotListener(MetadataChanges.INCLUDE, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -314,13 +305,13 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GET_FROM_GALLERY && resultCode == this.RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri filePath = data.getData();
             CropImage.activity(filePath).setAspectRatio(1, 1)
                     .start(this);
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data!=null) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 assert result != null;
@@ -334,7 +325,7 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
                     blurr.setVisibility(View.VISIBLE);
                     uploadImage(resultUri);
                 } catch (Exception e) {
-                    Log.d("Home fragment", "onActivityResult: CropImage failed");
+                    Log.d("HomeEditActivity", "onActivityResult: CropImage failed");
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 assert result != null;
@@ -343,6 +334,7 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         }
     }
 
+    //Upload dp to Firebase Storage
     private void uploadImage(Uri resultUri) {
         if (resultUri != null) {
 
@@ -381,21 +373,10 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
                 @Override
                 public void onFailure(@NonNull Exception e) {
 //                    progressBar.setVisibility(View.GONE);
-
                     Toast.makeText(HomeEditActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
