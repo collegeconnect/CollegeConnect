@@ -44,11 +44,13 @@
                 android:id="@+id/roomLocator"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="7dp"
+                android:outlineSpotShadowColor="@color/latestBlue"
+                android:outlineAmbientShadowColor="@color/latestBlue"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="7dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="3dp">
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:id="@+id/cardLayout"
@@ -97,11 +99,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_below="@id/roomLocator"
-                android:layout_marginStart="7dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="7dp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="2dp"
+                android:layout_marginEnd="8dp"
+                android:outlineSpotShadowColor="@color/latestBlue"
+                android:outlineAmbientShadowColor="@color/latestBlue"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp"
                 android:layout_marginBottom="20dp">
 
                 <LinearLayout

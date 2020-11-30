@@ -186,16 +186,6 @@ public class DownloadNotes extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 //    @Override
 //    protected void onDestroy() {
 //        if (listener != null)

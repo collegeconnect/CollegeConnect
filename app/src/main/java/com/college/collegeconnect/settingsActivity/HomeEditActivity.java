@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -378,7 +379,6 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
             });
         }
     }
-
     @Override
     protected void onDestroy() {
         if(listener != null)

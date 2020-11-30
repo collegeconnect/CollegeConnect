@@ -12,27 +12,49 @@
 
     <application
         android:allowBackup="true"
-        android:requestLegacyExternalStorage="true"
         android:configChanges="uiMode"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.event.bvest.RegisterEventActivity"></activity>
-        <activity android:name=".ui.event.bvest.TeamDetails" />
-        <activity android:name=".settingsActivity.MyFilesActivity" />
-        <activity android:name=".ui.event.bvest.BvestEventActivity" />
-        <activity android:name=".ui.event.bvest.BvestActivity" />
-        <activity android:name=".timetable.TimeTableScheduleActivity" />
+        <activity
+            android:name=".ui.event.bvest.RegisterEventActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.event.bvest.TeamDetails"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".settingsActivity.MyFilesActivity"
+            android:parentActivityName=".settingsActivity.MyFilesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.event.bvest.BvestEventActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.event.bvest.BvestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".timetable.TimeTableScheduleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.FeedbackActivity"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".activities.FeedbackActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".settingsActivity.WorkProfile"
-            android:parentActivityName=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.WorkProfile"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
@@ -65,19 +87,19 @@
 
         <activity
             android:name=".settingsActivity.AboutActivity"
-            android:parentActivityName=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsActivity.ContactActivity"
-            android:parentActivityName=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.ContactActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsActivity.MyUploadsActivity"
-            android:parentActivityName=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.MyUploadsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".settingsActivity.HomeEditActivity"
-            android:parentActivityName=".settingsActivity.SettingsActivity"
+            android:parentActivityName=".settingsActivity.HomeEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -97,12 +119,12 @@
         <activity
             android:name=".activities.DownloadNotes"
             android:label="DownloadNotes"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".activities.DownloadNotes"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.UploadNotes"
             android:label="Upload"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".activities.UploadNotes"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter
@@ -121,24 +143,23 @@
             android:name=".timetable.TimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".timetable.TimeTable"
             android:screenOrientation="portrait" />
         <activity
             android:name=".timetable.NewTimeTable"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Time Table"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".timetable.NewTimeTable"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.Navigation"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SignUp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:parentActivityName=".activities.Navigation"
+            android:parentActivityName=".activities.SignUp"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity

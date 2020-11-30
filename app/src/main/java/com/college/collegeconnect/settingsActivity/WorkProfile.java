@@ -49,11 +49,10 @@ public class WorkProfile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
                 getSupportFragmentManager().popBackStackImmediate();
-            else
-                finish();
-            return true;
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

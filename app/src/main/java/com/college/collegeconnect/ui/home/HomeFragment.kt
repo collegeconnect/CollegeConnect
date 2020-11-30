@@ -94,11 +94,11 @@ class HomeFragment : Fragment() {
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (percentage.isNaN())
-                        totalAttendance!!.text = "0.00%"
+                        totalAttendance!!.text = "0%"
                     else
-                        totalAttendance!!.text = "%.2f".format(percentage*100)+"%"
+                        totalAttendance!!.text = "%.0f".format(percentage*100)+"%"
                 } else
-                    totalAttendance!!.text = "0.00%"
+                    totalAttendance!!.text = "0%"
             })
 
         })
@@ -107,11 +107,11 @@ class HomeFragment : Fragment() {
                 if (atten != null && miss != null) {
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (percentage.isNaN())
-                        totalAttendance!!.text = "0.00%"
+                        totalAttendance!!.text = "0%"
                     else
-                        totalAttendance!!.text = "%.2f".format(percentage*100)+"%"
+                        totalAttendance!!.text = "%.0f".format(percentage*100)+"%"
                 } else
-                    totalAttendance!!.text = "0.00%"
+                    totalAttendance!!.text = "0%"
             })
         })
 

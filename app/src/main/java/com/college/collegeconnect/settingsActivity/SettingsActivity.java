@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
@@ -78,6 +79,7 @@ public class SettingsActivity extends AppCompatActivity {
             Picasso.get().load(uri).into(prfileImage);
         } else {
             try {
+                assert name != null;
                 int space = name.indexOf(" ");
                 int color = Navigation.generatecolor();
                 drawable = TextDrawable.builder().beginConfig()
@@ -185,6 +187,25 @@ public class SettingsActivity extends AppCompatActivity {
                 .build();
         mgoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.gitHub) {
+            String url = "https://github.com/collegeconnect/CollegeConnect";
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(getColor(R.color.latestBlue));
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(url));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
