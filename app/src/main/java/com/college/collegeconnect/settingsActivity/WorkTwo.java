@@ -14,8 +14,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Environment;
-import android.print.pdf.PrintedPdfDocument;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +29,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.database.entity.DownloadEntity;
 import com.college.collegeconnect.datamodels.Resume;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
-import com.college.collegeconnect.models.DownloadNotesViewModel;
+import com.college.collegeconnect.viewmodels.DownloadNotesViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +44,6 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.MetadataChanges;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 

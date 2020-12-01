@@ -3,6 +3,7 @@ package com.college.collegeconnect.settingsActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,10 @@ class   MyFilesActivity : AppCompatActivity() {
             recyclerViewUploads.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             adapterUpload = MyUploadedFilesAdapter(this, it)
             recyclerViewUploads.adapter = adapterUpload
+            if (it.isNullOrEmpty())
+                txt_no_uploads.visibility = View.VISIBLE
+            else
+                txt_no_uploads.visibility = View.GONE
         })
 
         DownloadDatabase(application).getDownloadsDao().getDownloadFiles().observe(this, {
@@ -42,6 +47,10 @@ class   MyFilesActivity : AppCompatActivity() {
             adapterDownload = MyDownloadedFilesAdapter(this, it, myFilesViewModel)
             Log.d(localClassName, "onCreate: ${it.toString()}")
             recyclerViewDownloads.adapter = adapterDownload
+            if (it.isNullOrEmpty())
+                txt_no_downloads.visibility = View.VISIBLE
+            else
+                txt_no_downloads.visibility = View.GONE
         })
     }
 }

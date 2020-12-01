@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.R
 import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
-import com.college.collegeconnect.models.AttendanceViewModel
+import com.college.collegeconnect.viewmodels.AttendanceViewModel
 import com.github.lzyzsd.circleprogress.ArcProgress
 import java.util.*
 

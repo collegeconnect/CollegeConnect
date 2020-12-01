@@ -71,7 +71,7 @@
             android:name=".ui.event.UpcomingEvents"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContributeActivity"
+            android:name=".activities.ContributeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 

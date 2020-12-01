@@ -1,14 +1,12 @@
 package com.college.collegeconnect.adapters;
 
-import android.content.Context;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.college.collegeconnect.timetable.NewTimeTableViewModel;
-import com.college.collegeconnect.ui.PlaceholderFragment;
+import com.college.collegeconnect.timetable.PlaceholderFragment;
 
 import org.jetbrains.annotations.NotNull;
 

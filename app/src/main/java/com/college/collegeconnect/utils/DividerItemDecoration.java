@@ -1,4 +1,4 @@
-package com.college.collegeconnect;
+package com.college.collegeconnect.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

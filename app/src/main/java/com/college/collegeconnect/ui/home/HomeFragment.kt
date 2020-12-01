@@ -21,7 +21,7 @@ import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.HomeRecyclerAdapter
 import com.college.collegeconnect.datamodels.SaveSharedPreference
-import com.college.collegeconnect.models.HomeViewModel
+import com.college.collegeconnect.viewmodels.HomeViewModel
 import com.college.collegeconnect.settingsActivity.SettingsActivity
 import com.college.collegeconnect.utils.ImageHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,4 +1,4 @@
-package com.college.collegeconnect.models
+package com.college.collegeconnect.viewmodels
 
 
 import androidx.lifecycle.LiveData

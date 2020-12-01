@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
@@ -14,15 +13,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-
-import com.college.collegeconnect.timetable.NewTimeTable;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.settingsActivity.SettingsActivity;
@@ -32,13 +27,7 @@ import com.college.collegeconnect.ui.notes.NotesFragment;
 import com.college.collegeconnect.ui.tools.ToolsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.play.core.review.ReviewManager;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-
-
 import java.util.Random;
 
 public class Navigation extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +42,6 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
     private static String CHANNEL_DESC = "app notification";
     AlertDialog.Builder builder;
     public static Activity act;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
     public Boolean visible = false;
 
 
@@ -117,50 +105,22 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
         else {
             String name = SaveSharedPreference.getUser(Navigation.this);
         }
-         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(10)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        boolean updated = task.getResult();
-                        Log.d("Tools", "Config params updated: " + updated);
-                        visible = mFirebaseRemoteConfig.getBoolean("bvest_visibilty");
-                    } else {
-                        Log.d("Tools", "Config params  not updated");
-                    }
-                });
         Random random = new Random();
         color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
         Toolbar toolbar = findViewById(R.id.toolbarnav);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setColorFilter(getResources().getColor(R.color.colorwhite));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                timetable();
-//                Notification.displayNotificaton(getApplicationContext(),"Title","body");
-            }
-        });
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//        Toast.makeText(Navigation.this, SaveSharedPreference.getUser(Navigation.this), Toast.LENGTH_SHORT).show();
         loadFragments(homefrag);
 
     }
 
 
-    public static int generatecolor() {
+    public static int generateColor() {
 
         return color;
     }
@@ -192,12 +152,6 @@ public class Navigation extends AppCompatActivity implements BottomNavigationVie
 //        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
 //                || super.onSupportNavigateUp();
 //    }
-
-    private void timetable() {
-//        Intent intent1 = new Intent(this, TimeTableScheduleActivity.class);
-        Intent intent1 = new Intent(this, NewTimeTable.class);
-        startActivity(intent1);
-    }
 
     public void feedbackPop() {
         builder.setTitle("Feedback");

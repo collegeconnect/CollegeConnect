@@ -38,7 +38,7 @@ import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
 import com.college.collegeconnect.datamodels.NotesReports;
 import com.college.collegeconnect.datamodels.Upload;
-import com.college.collegeconnect.models.DownloadNotesViewModel;
+import com.college.collegeconnect.viewmodels.DownloadNotesViewModel;
 import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -9,7 +9,7 @@ public class FirebaseUtil {
     public static FirebaseDatabase getDatabase() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();
-            mDatabase.setPersistenceEnabled(true);
+//            mDatabase.setPersistenceEnabled(true);
         }
         return mDatabase;
     }

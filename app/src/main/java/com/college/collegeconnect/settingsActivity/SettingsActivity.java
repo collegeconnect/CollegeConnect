@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.college.collegeconnect.activities.OnBoardingScreen;
 import com.college.collegeconnect.datamodels.DatabaseHelper;
-import com.college.collegeconnect.DividerItemDecoration;
+import com.college.collegeconnect.utils.DividerItemDecoration;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.SettingsAdapter;
 import com.college.collegeconnect.datamodels.SaveSharedPreference;
@@ -31,15 +31,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.play.core.review.ReviewInfo;
-import com.google.android.play.core.review.ReviewManager;
-import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
@@ -81,7 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
             try {
                 assert name != null;
                 int space = name.indexOf(" ");
-                int color = Navigation.generatecolor();
+                int color = Navigation.generateColor();
                 drawable = TextDrawable.builder().beginConfig()
                         .width(150)
                         .height(150)

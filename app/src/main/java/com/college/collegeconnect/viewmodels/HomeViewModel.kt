@@ -1,4 +1,4 @@
-package com.college.collegeconnect.models
+package com.college.collegeconnect.viewmodels
 
 import android.app.Application
 import android.util.Log
@@ -9,7 +9,6 @@ import com.college.collegeconnect.database.entity.TimetableEntity
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeViewModel(application: Application): AndroidViewModel(application) {

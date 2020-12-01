@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -20,7 +19,7 @@ import com.college.collegeconnect.adapters.SubjectAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.entity.SubjectDetails
 import com.college.collegeconnect.datamodels.SaveSharedPreference
-import com.college.collegeconnect.models.AttendanceViewModel
+import com.college.collegeconnect.viewmodels.AttendanceViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.mikhaellopez.circularprogressbar.CircularProgressBar

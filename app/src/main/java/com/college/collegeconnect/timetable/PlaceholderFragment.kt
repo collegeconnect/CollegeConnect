@@ -1,4 +1,4 @@
-package com.college.collegeconnect.ui
+package com.college.collegeconnect.timetable
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,6 @@ import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.TimetableAdapter
 import com.college.collegeconnect.database.TimeTableDatabase
 import com.college.collegeconnect.database.entity.*
-import com.college.collegeconnect.timetable.NewTimeTableViewModel
 import java.util.ArrayList
 
 /**

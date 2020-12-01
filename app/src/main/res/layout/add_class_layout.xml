@@ -2,7 +2,6 @@
 
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -78,17 +77,6 @@
             app:layout_constraintTop_toBottomOf="@id/txtScheduleClass" />
 
         <View
-            android:id="@+id/view2"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/ic_hourglass"
-            android:rotation="180"
-            app:layout_constraintBottom_toBottomOf="@+id/start_time"
-            app:layout_constraintEnd_toStartOf="@+id/textView25"
-            app:layout_constraintTop_toTopOf="@+id/textView25" />
-
-        <View
             android:id="@+id/view3"
             android:layout_width="20dp"
             android:layout_height="32dp"
@@ -107,7 +95,18 @@
             android:layout_marginStart="4dp"
             android:background="@drawable/ic_hourglass"
             app:layout_constraintBottom_toBottomOf="@+id/end_time"
-            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintStart_toEndOf="@+id/end_time"
+            app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_hourglass"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="@+id/start_time"
+            app:layout_constraintEnd_toStartOf="@+id/start_time"
             app:layout_constraintTop_toTopOf="@+id/textView25" />
 
         <TextView
@@ -117,9 +116,10 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/nunito_regular"
-            android:text="Start Time"
+            android:text="Start"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline41"
+            app:layout_constraintEnd_toEndOf="@+id/start_time"
+            app:layout_constraintStart_toStartOf="@+id/start_time"
             app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
         <TextView
@@ -128,9 +128,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
             android:text="8:00 AM"
+            android:layout_marginEnd="8dp"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView25"
-            app:layout_constraintStart_toStartOf="@+id/textView25"
+            app:layout_constraintEnd_toEndOf="@+id/guideline41"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
         <TextView
@@ -139,9 +139,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_regular"
             android:text="9:00 AM"
+            android:layout_marginStart="8dp"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView27"
-            app:layout_constraintStart_toStartOf="@+id/textView27"
+            app:layout_constraintStart_toStartOf="@+id/guideline41"
             app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
         <TextView
@@ -151,9 +151,10 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/nunito_regular"
-            android:text="End Time"
+            android:text="End"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/guideline41"
+            app:layout_constraintStart_toStartOf="@+id/end_time"
+            app:layout_constraintEnd_toEndOf="@+id/end_time"
             app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
 

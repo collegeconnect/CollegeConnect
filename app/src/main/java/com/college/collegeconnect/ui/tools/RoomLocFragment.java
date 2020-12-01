@@ -43,7 +43,6 @@ import java.net.URISyntaxException;
 public class RoomLocFragment extends Fragment {
 
     BottomNavigationView bottomNavigationView;
-    FloatingActionButton fab;
     WebView webView;
     ImageView imageView;
     TextView textView, textslow;
@@ -76,7 +75,6 @@ public class RoomLocFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         if (getActivity() != null) {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
-            fab = getActivity().findViewById(R.id.fab);
         }  MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -226,7 +224,6 @@ public class RoomLocFragment extends Fragment {
     public void onStart() {
         super.onStart();
         bottomNavigationView.setVisibility(View.GONE);
-        fab.setVisibility(View.INVISIBLE);
         bottomNavigationView.getMenu().findItem(R.id.nav_tools).setChecked(true);
     }
 

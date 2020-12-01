@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
 
                 final String Strpassword = password.getEditText().getText().toString();
                 final String Strname = name.getEditText().getText().toString();
-                final String Stremail = email.getEditText().getText().toString();
+                final String Stremail = email.getEditText().getText().toString().trim();
 
                 if (Stremail.isEmpty() && Strpassword.isEmpty() && Strname.isEmpty()) {
 

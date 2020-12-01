@@ -1,6 +1,5 @@
 package com.college.collegeconnect.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -23,7 +22,7 @@ import android.widget.TextView;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.NotesAdapter;
 import com.college.collegeconnect.datamodels.Constants;
-import com.college.collegeconnect.models.DownloadNotesViewModel;
+import com.college.collegeconnect.viewmodels.DownloadNotesViewModel;
 import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
