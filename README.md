@@ -28,6 +28,9 @@ The app has an integrated **Attendence Manager** which uses Room Library and SQL
 
 ### Notes  
 The Notes tab provides notes uploaded by students. The recycler view shows the name of the author with total number of downloads and relevant tags.
+
+<img src = "/Images/download_notes_light.PNG" width="235" height="500"/>
+
 #### _Upload Notes and My Files_  
 The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the author.
 
@@ -39,8 +42,10 @@ The My Files section enables easy management of the notes uploaded by the users 
 
 
 ### Timetable
-This feature allows user to upload the image of timetable from memory. It stores the image in SQLite Database so that it works even without internet connectivity.
-A new and interactive implementation of this is currently under development and if anyone wishes to contribute to it they can look for it in the issues tab.
+This feature allows the user to store their timetable in an ingenious and orderly fashion. It also indicates the current ongoing class.
+It requires the user to enter the class details consisting of subject name, start time, end time and the room number. We're constantly working on to make this feature more interative and seamless.
+
+<img src = "/Images/timetable_light.PNG" width="235" height="500"/>
 
 ### Tools
  * _Room Locator_ <br>
@@ -53,10 +58,10 @@ This tools help to procreate a platform where different developers can come and 
 <img src = "/Images/tools_light.PNG" width="235" height="500"/>
 
 ### Settings
- * View and edit Personal profile Details  
+ * View and edit personal profile details  
  * View downloaded files  
  * View uploaded files
- * View and Edit Professional profile  
+ * View and edit professional profile  
 
 <img src = "/Images/settings_light.PNG" width="235" height="500"/>
 
@@ -94,6 +99,6 @@ Please help us follow the best practices to make it easy for the reviewer as wel
 This project is currently licensed under the Apache License Version 2.0. A copy of [LICENSE](LICENSE) should be present along with the source code.
 
 ## Maintainers and Developers
-This repository is maintained by 
+This repository is owned and maintained by 
  * [Sajal Jain](https://github.com/sjain30)
  * [Saksham Pruthi](https://github.com/sakshampruthi)
