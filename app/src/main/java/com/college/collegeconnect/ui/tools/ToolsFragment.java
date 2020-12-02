@@ -23,8 +23,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class ToolsFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
     TextView tv;
-    CardView roomLocator, events, bvest;
-    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    CardView roomLocator, events;
+
     private static final String ALMA_MATER = "Bharati Vidyapeeth's College of Engineering, New Delhi";
 
     @Nullable
@@ -34,7 +34,6 @@ public class ToolsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tools, container, false);
         roomLocator = view.findViewById(R.id.roomLocator);
         events = view.findViewById(R.id.events);
-        bvest = view.findViewById(R.id.bvest);
 
         if (ALMA_MATER.equals(SaveSharedPreference.getCollege(getContext()))) {
             roomLocator.setVisibility(View.VISIBLE);
@@ -53,31 +52,6 @@ public class ToolsFragment extends Fragment {
             bottomNavigationView = getActivity().findViewById(R.id.bottomNav);
         tv = getActivity().findViewById(R.id.navTitle);
         tv.setText("TOOLS");
-
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder().build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
-
-        mFirebaseRemoteConfig.fetchAndActivate()
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<Boolean>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Boolean> task) {
-                        if (task.isSuccessful()) {
-                            boolean updated = task.getResult();
-                            Log.d("Tools", "Config params updated: " + updated);
-                            if (mFirebaseRemoteConfig.getBoolean("bvest_visibilty")){
-                                bvest.setVisibility(View.VISIBLE);
-                            }
-                            else
-                                bvest.setVisibility(View.GONE);
-                        } else {
-                            Log.d("Tools", "Config params  not updated");
-                        }
-                    }
-                });
 
         roomLocator.setOnClickListener(new View.OnClickListener() {
             @Override
