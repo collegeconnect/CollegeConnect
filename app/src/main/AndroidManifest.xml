@@ -21,6 +21,7 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.PdfViewerActivity"></activity>
         <activity
             android:name=".ui.event.bvest.RegisterEventActivity"
             android:screenOrientation="portrait"

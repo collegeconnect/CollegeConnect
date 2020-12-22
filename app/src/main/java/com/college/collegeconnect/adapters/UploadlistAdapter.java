@@ -1,5 +1,6 @@
 package com.college.collegeconnect.adapters;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -29,6 +31,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.college.collegeconnect.BuildConfig;
+import com.college.collegeconnect.activities.PdfViewerActivity;
 import com.college.collegeconnect.datamodels.Constants;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.datamodels.Upload;
@@ -218,17 +221,19 @@ public class UploadlistAdapter extends RecyclerView.Adapter<UploadlistAdapter.Vi
     }
 
     public void openfile(String path) {
-        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", new File(path));
+//        Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", new File(path));
 //        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
-        context.getApplicationContext().grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        context.getApplicationContext().grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent intent = new Intent(context, PdfViewerActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("file",path);
+//        intent.setAction(Intent.ACTION_VIEW);
+//        intent.putExtra(Intent.EXTRA_STREAM, uri);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Log.d("Upload", "openfile: " + path);
-        intent.setDataAndType(uri, "application/pdf");
-        context.startActivity(intent);
+//        intent.setDataAndType(uri, "application/pdf");
+        ((Activity) context).startActivityForResult(intent,95);
     }
 
 

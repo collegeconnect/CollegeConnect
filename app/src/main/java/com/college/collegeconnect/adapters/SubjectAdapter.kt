@@ -94,7 +94,7 @@ class SubjectAdapter(private val subjects: ArrayList<SubjectDetails>, private va
 
                         val builder = AlertDialog.Builder(context)
                         val inflater = (context as AppCompatActivity).layoutInflater
-                        val view = inflater.inflate(R.layout.layout_edit_attendance, null)
+                        val view = inflater.inflate(R.layout.layout_edit_attendance , null)
                         val attended_edit = view.findViewById<TextView>(R.id.edit_attended)
                         val missed_edit = view.findViewById<TextView>(R.id.edit_missed)
                         val subject_edit = view.findViewById<EditText>(R.id.edit_attendance_title)

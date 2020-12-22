@@ -1,7 +1,9 @@
 package com.college.collegeconnect.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.college.collegeconnect.BuildConfig
 import com.college.collegeconnect.R
+import com.college.collegeconnect.activities.PdfViewerActivity
 import com.college.collegeconnect.database.entity.DownloadEntity
 import com.college.collegeconnect.settingsActivity.models.MyFilesViewModel
 import java.io.File
@@ -31,8 +34,16 @@ class MyDownloadedFilesAdapter(val context: Context, private val arrayList: List
         val file = File("/storage/emulated/0/Android/data/" + BuildConfig.APPLICATION_ID + "/files/Notes/Download Notes" + File.separator + arrayList[position].docName + ".pdf")
         holder.itemView.setOnClickListener {
             if(file.exists()){
-                openFile(file.absolutePath)
+                openfile(file.absolutePath)
             }
+        }
+
+        holder.itemView.setOnLongClickListener{
+            if(file.exists()){
+                file.delete()
+                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener false
         }
 
         holder.report.setOnClickListener {
@@ -67,6 +78,24 @@ class MyDownloadedFilesAdapter(val context: Context, private val arrayList: List
         Log.d("Upload", "openfile: $path")
         intent.setDataAndType(uri, "application/pdf")
         context.startActivity(intent)
+    }
+    fun openfile(path: String) {
+//        val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", File(path))
+        //        Log.d("Upload", "openfile:uri being sent in intent "+uri+"\n Actual path: "+uri);
+//        context.applicationContext.grantUriPermission(context.packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val bundle = Bundle()
+        bundle.putString("file", path)
+        val intent = Intent(context, PdfViewerActivity::class.java).apply {
+            putExtras(bundle)
+        }
+
+        //        intent.setAction(Intent.ACTION_VIEW);
+//        intent.putExtra(Intent.EXTRA_STREAM, uri);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Log.d("Upload", "openfile: $path")
+//        intent.setDataAndType(uri, "application/pdf")
+        (context as Activity).startActivity(intent)
     }
 
     override fun getItemCount() = arrayList.size

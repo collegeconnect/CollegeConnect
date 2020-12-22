@@ -1,6 +1,8 @@
 package com.college.collegeconnect.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -140,6 +143,20 @@ public class DownloadNotes extends AppCompatActivity {
 //                swiperefreshlayout.setRefreshing(false);
 //            }
 //        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == 95){
+            assert data != null;
+            rateDialog(data.getLongExtra("timestamp",0));
+        }
+    }
+
+    private void rateDialog(long timestamp) {
+        //TODO(rating Dialog pops up)
+        //TODO(use timestamp tp create a database reference to store ratings and tags
     }
 
     @Override

@@ -18,7 +18,7 @@ android {
     }
 
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.college.collegeconnect"
         minSdkVersion 24
@@ -44,6 +44,9 @@ android {
         }
 
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -57,8 +60,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-messaging'
@@ -66,16 +69,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'com.google.firebase:firebase-config'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.material:material:1.3.0-alpha04'
+    implementation 'com.google.android.material:material:1.3.0-beta01'
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.google.firebase:firebase-storage'
-    implementation 'com.firebaseui:firebase-ui-storage:6.2.0'
+    implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.MikeOrtiz:TouchImageView:2.3.3'
     implementation 'com.google.firebase:firebase-auth'
@@ -117,5 +120,9 @@ dependencies {
     implementation "com.google.dagger:dagger:2.30"
     implementation "androidx.core:core-ktx:1.3.2"
     //Chrome Custom Tabs
-    implementation "androidx.browser:browser:1.2.0"
+    implementation "androidx.browser:browser:1.3.0"
+    //pdf viewer
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+    //rating bar
+    implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
 }
