@@ -1,21 +1,21 @@
 package com.college.collegeconnect.ui.event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.adapters.ImageAdapter;
 import com.college.collegeconnect.datamodels.Constants;
@@ -28,20 +28,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class EventDetailsFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase = FirebaseUtil.getDatabase();
-    //    private TouchImageView banner;
-    private TextView evntName, startingDate, endingDate;
+    private TextView eventName, startingDate, endingDate;
     private TextView description;
-    private Button register;
+    private Button register, calendar;
     String registrationurl;
     private FloatingActionButton floatingActionButton;
     private ViewPager imagesViewpager;
@@ -71,12 +71,12 @@ public class EventDetailsFragment extends Fragment {
 //        banner = view.findViewById(R.id.eventBanner);
         imagesViewpager = view.findViewById(R.id.eventBanner);
         viewpagerIndicator = view.findViewById(R.id.viewPager_indicator);
-        evntName = view.findViewById(R.id.eventName);
+        eventName = view.findViewById(R.id.eventName);
         startingDate = view.findViewById(R.id.StartingDate);
         endingDate = view.findViewById(R.id.EndingDate);
         description = view.findViewById(R.id.eventDescription);
         register = view.findViewById(R.id.registerButton);
-
+        calendar = view.findViewById(R.id.btn_add_to_calendar);
         return view;
     }
 
@@ -108,7 +108,47 @@ public class EventDetailsFragment extends Fragment {
             }
         });
 
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addEventToCalendar();
+            }
+        });
+
         loadDetails();
+    }
+
+    private void addEventToCalendar() {
+
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setData(CalendarContract.Events.CONTENT_URI);
+        intent.putExtra(CalendarContract.Events.TITLE, eventName.getText().toString());
+//        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString());
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, description.getText().toString());
+        intent.putExtra(CalendarContract.Events.DTSTART,getMilli(startingDate.getText().toString()));
+        intent.putExtra(CalendarContract.Events.DTEND,getMilli(endingDate.getText().toString()));
+        intent.putExtra(CalendarContract.Events.ALL_DAY, true);
+
+        if(intent.resolveActivity(mContext.getPackageManager()) != null){
+            startActivity(intent);
+        }else{
+            Toast.makeText(mContext, "There is no app that support this action", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private Long getMilli(String mDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, dd MMM yy", Locale.getDefault());
+        Date time = null;
+        try {
+            time = simpleDateFormat.parse(mDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("TAG", "getMilli: "+time);
+        Calendar cali = Calendar.getInstance();
+        cali.setTime(time);
+        return cali.getTimeInMillis();
     }
 
     private void loadDetails() {
@@ -128,7 +168,7 @@ public class EventDetailsFragment extends Fragment {
 //                Picasso.get().load(imageurl).into(banner);
                     Log.d("change", "onDataChange: " + eventImages.get(0));
 
-                    evntName.setText(name);
+                    eventName.setText(name);
                     description.setText(Description);
                     startingDate.setText(date(date));
                     endingDate.setText(date(endDate));

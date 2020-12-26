@@ -209,15 +209,15 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/newBlue" />
 
-        <receiver
-            android:name=".timetable.AlertReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":remote">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver-->
+<!--            android:name=".timetable.AlertReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true"-->
+<!--            android:process=":remote">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

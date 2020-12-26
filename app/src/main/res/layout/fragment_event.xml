@@ -50,20 +50,20 @@
           app:tabRippleColor="@null" />
 
 
-      <TextView
-          android:id="@+id/eventName"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="15dp"
-          android:text="Event Name"
-          android:textAllCaps="true"
-          android:textColor="@color/newBlue"
-          android:textSize="30sp"
-          android:gravity="center"
-          android:fontFamily="@font/ubuntu_regular"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent" />
+       <TextView
+           android:id="@+id/eventName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:fontFamily="@font/ubuntu_regular"
+           android:gravity="center"
+           android:text="Event Name"
+           android:textAllCaps="true"
+           android:textColor="@color/newBlue"
+           android:textSize="30sp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
 
       <TextView
           android:id="@+id/eventDescription"
@@ -112,11 +112,24 @@
           app:layout_constraintStart_toEndOf="@+id/divider4"
           app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
-      <android.widget.Button
+       <android.widget.Button
+           android:id="@+id/btn_add_to_calendar"
+           android:layout_width="200dp"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="24dp"
+           android:background="@drawable/button_design3"
+           android:text="Add to Calendar"
+           app:layout_constraintBottom_toTopOf="@id/registerButton"
+           android:layout_marginBottom="8dp"
+           android:textColor="@color/colorwhite"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/StartingDate" />
+
+       <android.widget.Button
           android:id="@+id/registerButton"
           android:layout_width="200dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="24dp"
           android:background="@drawable/button_design3"
           android:text="Register"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +137,7 @@
           android:textColor="@color/colorwhite"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/StartingDate" />
+          app:layout_constraintTop_toBottomOf="@id/btn_add_to_calendar" />
 
       <TextView
           android:id="@+id/textView19"
