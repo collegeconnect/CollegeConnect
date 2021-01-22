@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.android.material:material:1.3.0-beta01'
+    implementation 'com.google.android.material:material:1.3.0-rc01'
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
@@ -125,4 +125,8 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
     //rating bar
     implementation 'me.zhanghai.android.materialratingbar:library:1.4.0'
+    //viewBinding
+    implementation 'com.github.sakshampruthi:viewbinding:1.0.0'
+    //randomGenerator
+    implementation 'com.github.sakshampruthi:AlphaNumericGenerator:1.0.1'
 }

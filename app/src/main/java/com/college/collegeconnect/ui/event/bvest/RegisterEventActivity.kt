@@ -8,8 +8,8 @@ import com.college.collegeconnect.R
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.datamodels.TeamMate
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
-import com.college.collegeconnect.utils.RandomGenerator
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.sample.alphanumericgenerator.randomGenerator
 import kotlinx.android.synthetic.main.activity_register_event.*
 
 class RegisterEventActivity : AppCompatActivity(), TaskListener {
@@ -20,7 +20,7 @@ class RegisterEventActivity : AppCompatActivity(), TaskListener {
         setContentView(R.layout.activity_register_event)
         bvestViewModel = ViewModelProvider(this).get(BvestViewModel::class.java)
         bvestViewModel.taskListener = this
-        code = RandomGenerator().randomString(6)
+        code = randomGenerator(6)
         val list = bvestViewModel.checkTeamCode()
         val con = createCode(list, code)
         teamCode.text = con
@@ -76,7 +76,7 @@ class RegisterEventActivity : AppCompatActivity(), TaskListener {
         return if (!list.contains(code)) {
             code
         } else {
-            val c = RandomGenerator().randomString(6)
+            val c = randomGenerator(6)
             createCode(list, c)
         }
     }

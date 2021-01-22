@@ -16,7 +16,6 @@ import com.college.collegeconnect.adapters.ImageAdapter
 import com.college.collegeconnect.datamodels.Events
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import com.college.collegeconnect.utils.ImageHandler
-import com.college.collegeconnect.utils.RandomGenerator
 import com.college.collegeconnect.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_bvest_event.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BvestEventActivity : AppCompatActivity() {
 
