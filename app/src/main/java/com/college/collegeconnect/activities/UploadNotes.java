@@ -19,12 +19,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -39,7 +37,6 @@ import com.college.collegeconnect.utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,13 +53,12 @@ public class UploadNotes extends AppCompatActivity {
     private Intent Data = null;
     private TextInputLayout fileName, author;
     private Button upload;
-    Intent receiverdIntent;
+    Intent receivedIntent;
     private TextView tv8;
     private ImageView imageView;
     private Uri recievedUri;
     //these are the views
     private TextView textViewStatus;
-    //    EditText editTextFilename,author;
     private ProgressBar progressBar;
     private Spinner semester, branch, course, unit;
     //the firebase objects for storage and database
@@ -127,15 +123,13 @@ public class UploadNotes extends AppCompatActivity {
         Button upload = findViewById(R.id.selectNotes);
         if (onSharedIntent() && recievedUri != null) {
             Log.i("Upload Notes", "onCreate: " + recievedUri);
-            UploadNotes.this.Data = receiverdIntent;
+            UploadNotes.this.Data = receivedIntent;
             UploadNotes.this.Data.setData(recievedUri);
             upload.setText("Upload");
         }
-//        author=findViewById(R.id.author);
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UploadNotes.this.Data = null;
                 getPDF();
 
             }
@@ -173,19 +167,23 @@ public class UploadNotes extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select PDF"), PICK_PDF_CODE);
             }
         } else {
-            StringBuilder filenaam = new StringBuilder();
-            String str = recievedUri.getLastPathSegment();
+            StringBuilder filename = new StringBuilder();
+            String str;
+            if (recievedUri != null)
+                str = recievedUri.getLastPathSegment();
+            else
+                str = UploadNotes.this.Data.getData().getLastPathSegment();
             int slash = -1;
             if (str.contains("/")) {
                 slash = str.indexOf("/");
-                filenaam.append(str.substring(slash, str.length() - 1));
+                filename.append(str.substring(slash, str.length() - 1));
             }
             String str1 = str.substring(slash + 1, str.length() - 1);
             if (str1.contains(".")) {
                 int dot = str1.indexOf(".");
-                filenaam.append(str1.substring(0, dot));
+                filename.append(str1.substring(0, dot));
             }
-            alertDialog(filenaam.toString());
+            alertDialog(filename.toString());
         }
 
     }
@@ -210,26 +208,23 @@ public class UploadNotes extends AppCompatActivity {
         //when the user choses the file
         if (requestCode == PICK_PDF_CODE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //if a file is selected
-            StringBuilder filenaam = new StringBuilder();
-            if (data.getData() != null) {
-                String str = data.getData().getLastPathSegment();
-                int slash = -1;
-                if (str.contains("/")) {
-                    slash = str.indexOf("/");
-                    filenaam.append(str.substring(slash, str.length() - 1));
-                }
-                String str1 = str.substring(slash + 1, str.length() - 1);
-                if (str1.contains(".")) {
-                    int dot = str1.indexOf(".");
-                    filenaam.append(str1.substring(0, dot));
-                }
+            StringBuilder filename = new StringBuilder();
+            String str = data.getData().getLastPathSegment();
+            int slash = -1;
+            if (str.contains("/")) {
+                slash = str.indexOf("/");
+                filename.append(str.substring(slash, str.length() - 1));
+            }
+            String str1 = str.substring(slash + 1, str.length() - 1);
+            if (str1.contains(".")) {
+                int dot = str1.indexOf(".");
+                filename.append(str1.substring(0, dot));
+            }
 
-//                    editTextFilename.setText(str);
-                //uploading the file
-                UploadNotes.this.Data = data;
-//                NotesDialog notesDialog = new NotesDialog();
-//                notesDialog.show(getSupportFragmentManager(),"Notes Dialog");
-                alertDialog(filenaam.toString());
+            //uploading the file
+            UploadNotes.this.Data = data;
+            textViewStatus.setText("File Selected!");
+            alertDialog(filename.toString());
 
 
 //                findViewById(R.id.uploadNotes).setOnClickListener(new View.OnClickListener() {
@@ -238,10 +233,8 @@ public class UploadNotes extends AppCompatActivity {
 //                        uploadFile(data.getData());
 //                    }
 //                });
-
-            } else {
-                Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
-            }
+        } else {
+            Toast.makeText(this, "No file chosen", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -260,6 +253,19 @@ public class UploadNotes extends AppCompatActivity {
 
         final AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if (UploadNotes.this.Data != null)
+                    upload.setText("Upload");
+            }
+        });
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                    upload.setText("Upload");
+            }
+        });
         fileName.getEditText().setText(filename);
         upload.setOnClickListener(v -> {
             String file = fileName.getEditText().getText().toString();
@@ -320,8 +326,6 @@ public class UploadNotes extends AppCompatActivity {
 
 
     //this method is uploading the file
-    //the code is same as the previous tutorial
-    //so we are not explaining it
     private void uploadFile(Uri data, final String filename, final String authorname) {
 
         progressBar.setVisibility(View.VISIBLE);
@@ -369,7 +373,6 @@ public class UploadNotes extends AppCompatActivity {
                                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         progressBar.setProgress(0);
                         double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-//                        textViewStatus.setText((int) progress + "% Uploading...");
                         textViewStatus.setText("");
                         progressBar.setProgress((int) progress);
 
@@ -387,17 +390,18 @@ public class UploadNotes extends AppCompatActivity {
     }
 
     public boolean onSharedIntent() {
-        receiverdIntent = getIntent();
-        Bundle bundle = receiverdIntent.getExtras();
+        receivedIntent = getIntent();
+        Bundle bundle = receivedIntent.getExtras();
         if (bundle != null) {
-            String receivedAction = receiverdIntent.getAction();
-            String receivedType = receiverdIntent.getType();
-            if (receiverdIntent != null) {
+            String receivedAction = receivedIntent.getAction();
+            String receivedType = receivedIntent.getType();
+            if (receivedIntent != null) {
                 Log.i("Upload Notes", "onSharedIntent: " + receivedType + "::::" + receivedAction);
                 if (receivedType.contains("pdf")) {
-                    recievedUri = receiverdIntent.getParcelableExtra(Intent.EXTRA_STREAM);
+                    recievedUri = receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM);
                     if (recievedUri != null) {
                         Log.i("Upload Notes", "onSharedIntent: " + recievedUri.toString());
+                        textViewStatus.setText("File Selected!");
                         return true;
                     }
 
