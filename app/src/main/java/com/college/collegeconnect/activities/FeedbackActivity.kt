@@ -1,8 +1,5 @@
 package com.college.collegeconnect.activities
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
@@ -22,7 +19,6 @@ import com.hsalf.smileyrating.SmileyRating
 import kotlinx.android.synthetic.main.activity_feedback.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 
-
 class FeedbackActivity : AppCompatActivity() {
 
     private lateinit var mood: String
@@ -30,7 +26,7 @@ class FeedbackActivity : AppCompatActivity() {
     lateinit var firebaseAuth: FirebaseAuth
     lateinit var alertDialog: AlertDialog.Builder
     var email: String = ""
-    private lateinit var manager:ReviewManager
+    private lateinit var manager: ReviewManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feedback)
@@ -47,7 +43,7 @@ class FeedbackActivity : AppCompatActivity() {
         manager = ReviewManagerFactory.create(this)
         alertDialog = MaterialAlertDialogBuilder(this)
         alertDialog.setTitle("Thank you")
-                .setMessage("Rate us on Playstore?")
+            .setMessage("Rate us on Playstore?")
 
 //        alertDialog.setPositiveButton("Sure") { _, _ ->
 //            val uri = Uri.parse("market://details?id=" + this.packageName)
@@ -75,26 +71,25 @@ class FeedbackActivity : AppCompatActivity() {
                     val reviewInfo = request.result
                     val flow = manager.launchReviewFlow(this, reviewInfo)
                     flow.addOnCompleteListener {
-                        SaveSharedPreference.setRev(this,true)
+                        SaveSharedPreference.setRev(this, true)
                     }
                 } else {
                     // There was some problem, continue regardless of the result.
                     dialog.dismiss()
                     finish()
-                    Navigation.act.finish()
+                    Navigation.act?.finish()
                 }
             }
         }.setNegativeButton("Later") { dialog, _ ->
             dialog.dismiss()
             finish()
-            Navigation.act.finish()
+            Navigation.act?.finish()
         }
 
         ansProblem.editText?.doAfterTextChanged { ansProblem.error = null }
         ansFeature.editText?.doAfterTextChanged { ansFeature.error = null }
         ansNoFeature.editText?.doAfterTextChanged { ansNoFeature.error = null }
         ansFeature.editText?.doAfterTextChanged { ansFeature.error = null }
-
 
         smileyRating.setRating(SmileyRating.Type.GREAT, true)
         solveAns.setIndicatorTextFormat("\${TICK_TEXT}")
@@ -131,16 +126,18 @@ class FeedbackActivity : AppCompatActivity() {
     }
 
     private fun submit() {
-        val feedback = Feedback(email,
-                mood,
-                ansProblem.editText?.text.toString(),
-                solveAns.progress,
-                ansNoFeature.editText?.text.toString(),
-                indicatorSeekBar.progress,
-                ansConfused.editText?.text.toString(),
-                ansFeature.editText?.text.toString())
+        val feedback = Feedback(
+            email,
+            mood,
+            ansProblem.editText?.text.toString(),
+            solveAns.progress,
+            ansNoFeature.editText?.text.toString(),
+            indicatorSeekBar.progress,
+            ansConfused.editText?.text.toString(),
+            ansFeature.editText?.text.toString()
+        )
         databaseReference.setValue(feedback)
-        if(!SaveSharedPreference.getReview(this)) {
+        if (!SaveSharedPreference.getReview(this)) {
             val dialog = alertDialog.create()
             dialog.show()
         }
