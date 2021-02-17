@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +16,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.settingsActivity.MyFilesActivity;
 import com.college.collegeconnect.settingsActivity.SettingsActivity;
@@ -36,6 +41,7 @@ import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +59,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     Class workprofile = WorkProfile.class;
     Class contactus = ContactActivity.class;
     Class about = AboutActivity.class;
-    int[] images = {R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_baseline_star_rate, R.drawable.ic_contactus, R.drawable.ic_about};
+    int[] images = {R.drawable.ic_addchart_24px, R.drawable.ic_uploadlist, R.drawable.ic_work_24px, R.drawable.ic_baseline_star_rate, R.drawable.ic_contactus, R.drawable.ic_about, R.drawable.ic_export};
 
     public SettingsAdapter(ArrayList<String> options, Context context) {
         this.options = options;
@@ -89,14 +95,39 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
                             // reviewed or not, or even whether the review dialog was shown. Thus, no
                             // matter the result, we continue our app flow.
                         });
-                    } else {
-                        // There was some problem, continue regardless of the result.
                     }
                 });
+            }
+            else if(position==6){
+                exportData();
             }
             else
                 context.startActivity(new Intent(context, (Class) act_list.get(position)));
         }, 165));
+    }
+
+    private void exportData() {
+        SQLiteToExcel sqliteToExcel = new SQLiteToExcel(context, "AttendanceDatabase", "/storage/emulated/0/Download/");
+        sqliteToExcel.exportSingleTable("SubjectDetails", "attendance.xls" , new SQLiteToExcel.ExportListener() {
+            @Override
+            public void onStart() {
+                Toast.makeText(context, "Processing!", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCompleted(String filePath) {
+                Uri uri = FileProvider.getUriForFile(context,  context.getPackageName() + ".provider", new File(filePath));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setDataAndType(uri, "application/vnd.ms-excel");
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                Log.i("TAG", "onCompleted: ${uri.toString()}");
+                context.startActivity(Intent.createChooser(intent, "Select"));
+            }
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(context, "An error occurred!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void dialogAttend() {
@@ -184,6 +215,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             act_list.add(4);
             act_list.add(contactus);
             act_list.add(about);
+            act_list.add(7);
         }
     }
 }

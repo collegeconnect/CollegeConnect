@@ -129,4 +129,6 @@ dependencies {
     implementation 'com.github.sakshampruthi:viewbinding:1.0.0'
     //randomGenerator
     implementation 'com.github.sakshampruthi:AlphaNumericGenerator:1.0.1'
+
+    implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 }

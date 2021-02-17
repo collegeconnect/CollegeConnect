@@ -96,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         options.add("Rate Us");
         options.add("Contact Us");
         options.add("About");
+        options.add("Export Attendance");
 
         recyclerView = findViewById(R.id.settings_recycler);
         recyclerView.setHasFixedSize(true);
@@ -113,12 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
         //Logout
         logout = findViewById(R.id.logoutButton);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOutDialog();
-            }
-        });
+        logout.setOnClickListener(v -> logOutDialog());
     }
 
     @Override
