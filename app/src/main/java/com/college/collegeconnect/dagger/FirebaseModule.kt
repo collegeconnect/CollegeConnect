@@ -4,9 +4,12 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
-class FirebaseModule {
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
     /**
      * Provides Instance of FirebaseRemoteConfig
