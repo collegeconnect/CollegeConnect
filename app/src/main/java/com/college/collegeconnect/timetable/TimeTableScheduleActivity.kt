@@ -40,7 +40,7 @@ class TimeTableScheduleActivity : AppCompatActivity() {
         button6.setOnClickListener {
             setUpAlarm(c)
         }
-        button.setOnClickListener {
+        btnLogin.setOnClickListener {
             cancelAlarm()
         }
     }
