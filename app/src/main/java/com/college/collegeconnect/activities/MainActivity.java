@@ -219,7 +219,11 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             login.setEnabled(true);
             register.setEnabled(true);
-        } else if (Strpass.isEmpty()) {
+        }
+        else if(! Patterns.EMAIL_ADDRESS.matcher(Stremail).matches()){
+                email.setError("Enter your valid email address");
+        }
+        else if (Strpass.isEmpty()) {
             password.setError("Enter a valid password");
             progressBar.setVisibility(View.GONE);
             login.setEnabled(true);
