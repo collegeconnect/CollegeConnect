@@ -21,7 +21,7 @@ object SaveSharedPreference {
     private const val COLLEGE = "college"
     private const val REVIEW = "review"
     private fun getSharedPreferences(ctx: Context?): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(ctx)
+        return PreferenceManager.getDefaultSharedPreferences(ctx!!)
     }
 
     // To store upload status

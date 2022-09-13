@@ -1,13 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
+//apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions'
 //apply plugin: 'com.google.firebase.crashlytics'
 //apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -18,12 +23,12 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "com.college.collegeconnect"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 9
         versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -55,35 +60,36 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.31"
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'com.google.firebase:firebase-config'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
-    implementation 'com.google.android.material:material:1.5.0-alpha04'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
+    implementation 'com.google.android.material:material:1.8.0-alpha01'
     implementation 'com.github.lzyzsd:circleprogress:1.2.1'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.github.MikeOrtiz:TouchImageView:2.3.3'
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.2.1'
     implementation 'com.google.firebase:firebase-auth'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
@@ -97,14 +103,14 @@ dependencies {
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
     //room
 
-    def room_version = "2.4.0-alpha05"
-    def lifecycle_version = "2.3.1"
+    def room_version = "2.4.3"
+    def lifecycle_version = "2.5.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     //coroutine room support
     implementation "androidx.room:room-ktx:$room_version"
     //coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     implementation 'com.google.firebase:firebase-config-ktx'
@@ -117,12 +123,12 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation "io.reactivex.rxjava3:rxandroid:3.0.0"
     // For Kotlin users also import the Kotlin extensions library for Play Core:
-    implementation 'com.google.android.play:core:1.10.2'
+    implementation 'com.google.android.play:core:1.10.3'
     implementation 'com.google.android.play:core-ktx:1.8.1'
     //dotsIndicator
     implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
     //Chrome Custom Tabs
-    implementation "androidx.browser:browser:1.3.0"
+    implementation "androidx.browser:browser:1.4.0"
     //pdf viewer
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
     //rating bar
@@ -134,8 +140,8 @@ dependencies {
 
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+    implementation 'com.google.android.gms:play-services-ads:21.2.0'
 
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:2.40.1"
+    kapt "com.google.dagger:hilt-compiler:2.40.1"
 }
