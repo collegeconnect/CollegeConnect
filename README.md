@@ -21,18 +21,18 @@ The app is developed using native android(Java and Kotlin both) and follows MVVM
 
 <img src = "/Images/login.PNG" width="235" height="500"/> <img src = "/Images/home_light.PNG" width="235" height="500"/>
 
-### Attendence Manager
-The app has an integrated **Attendance Manager** which uses Room Library and SQLite Database to store and retrieve data and display it in a graphical manner which looks appealing and convenient to track your attendance.
+### Attendance Manager
+The app has an integrated **Attendance Manager** which uses Room Library and SQLite Database to store and retrieve data and display it in a graphical manner that looks appealing and convenient to track your attendance.
   
 <img src = "/Images/attendance_light.PNG" width="235" height="500"/>
 
 ### Notes  
-The Notes tab provides notes uploaded by students. The recycler view shows the name of the author with a total number of downloads and relevant tags.
+The Notes tab provides notes uploaded by students. The recycler view shows the name of the author with the total number of downloads and relevant tags.
 
 <img src = "/Images/download_notes_light.PNG" width="235" height="500"/>
 
 #### _Upload Notes and My Files_  
-The upload notes area provide for easy upload of notes by users. It takes the authors name to give credit to the author.
+The upload notes area provides for easy upload of notes by users. It takes the author's name to give credit to the author.
 
 The number of downloads will encourage students to make more impressive notes and create a sense of healthy competition.
 
@@ -43,7 +43,7 @@ The My Files section enables easy management of the notes uploaded by the users 
 
 ### Timetable
 This feature allows the user to store their timetable in an ingenious and orderly fashion. It also indicates the current ongoing class.
-It requires the user to enter the class details consisting of subject name, start time, end time and the room number. We're constantly working on to make this feature more interactive and seamless.
+It requires the user to enter the class details consisting of the subject name, start time, end time, and room number. We're constantly working on making this feature more interactive and seamless.
 
 <img src = "/Images/timetable_light.PNG" width="235" height="500"/>
 
@@ -53,7 +53,7 @@ The room locator tab implements the room locator build by the DSC BVP team. Curr
  * _Upcoming Events_ <br>
 It shows the upcoming events around you and their details along with an option to register from within the application.
  * _Project Collaboration_ <br>
-This tool help to procreate a platform where different developers can come and work together on any projects. Just list your project and get collaborators. This feature is currently under development.
+This tool help to procreate a platform where different developers can come and work together on any project. Just list your project and get collaborators. This feature is currently under development.
 
 <img src = "/Images/tools_light.PNG" width="235" height="500"/>
 
@@ -86,12 +86,12 @@ Please help us follow the best practices to make it easy for the reviewer as wel
  * Single commit per pull request
  * Reference the issue numbers in the commit message. Follow the pattern Fixes #<issue number> <commit message>
  * Follow uniform design practices. The design language must be consistent throughout the app.
- * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherrypicking and merging squashes.
+ * The pull request will not get merged until and unless the commits are squashed. In case there are multiple commits on the PR, the commit author needs to squash them and not the maintainers cherry-picking and merging squashes.
  * If the PR is related to any front end change, please attach relevant screenshots in the pull request description.
 
 ### Join the development
 
-* Before you join the development, please set up the project on your local machine, run it and go through the application completely. Press on any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or to you due to the exploring :wink: You'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
+* Before you join the development, please set up the project on your local machine, run it and go through the application completely. Press on any button you can find and see where it leads to. Explore. (Don't worry ... Nothing will happen to the app or you due to the exploring :wink: You'll be more familiar with what is where and might even get some cool ideas on how to improve various aspects of the app.)
 * If you would like to work on an issue, drop in a comment at the issue. If it is already assigned to someone, but there is no sign of any work being done, please free to drop in a comment so that the issue can be assigned to you if the previous assignee has dropped it entirely.
 
 ## License
