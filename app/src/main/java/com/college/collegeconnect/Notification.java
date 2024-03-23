@@ -20,7 +20,7 @@ public class Notification {
         Intent intent = new Intent(mCtx, MainActivity.class);
         intent.putExtra("fragment", "attenfrag");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(mCtx, 100, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(mCtx, 100, intent, PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mCtx, Navigation.CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_stat_call_white)

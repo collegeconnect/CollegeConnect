@@ -18,12 +18,13 @@ import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.SubjectAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.entity.SubjectDetails
+import com.college.collegeconnect.databinding.FragmentAttendanceBinding
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.viewmodels.AttendanceViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputLayout
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import kotlinx.android.synthetic.main.fragment_attendance.*
+import com.sample.viewbinding.fragment.viewBinding
 import java.util.*
 
 class AttendanceFragment : Fragment() {
@@ -37,6 +38,7 @@ class AttendanceFragment : Fragment() {
     private var criteria = 0f
     lateinit var circularProgressBar: CircularProgressBar
     var prevpercent = 0
+    private val binding: FragmentAttendanceBinding by viewBinding()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_attendance, container, false)
@@ -53,6 +55,7 @@ class AttendanceFragment : Fragment() {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         tv = requireActivity().findViewById(R.id.navTitle)
@@ -60,8 +63,8 @@ class AttendanceFragment : Fragment() {
 
         //Set target attendance criteria
         criteria = SaveSharedPreference.getAttendanceCriteria(context).toFloat()
-        criteriaText.text = "Target\n${criteria.toInt()}%"
-        att_dp.apply {
+        binding.criteriaText.text = "Target\n${criteria.toInt()}%"
+        binding.attDp.apply {
             setProgressWithAnimation(criteria, 1000) // =1s
         }
 
@@ -72,7 +75,7 @@ class AttendanceFragment : Fragment() {
         load()
 
         //Add subject by pressing enter on keyboard
-        subjectNamemas.editText!!.setOnKeyListener(object : View.OnKeyListener {
+        binding.subjectNamemas.editText!!.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
                 if (event.action == KeyEvent.ACTION_DOWN) {
                     when (keyCode) {
@@ -92,18 +95,18 @@ class AttendanceFragment : Fragment() {
         viewModel.getAttended().observe(viewLifecycleOwner, Observer { atten ->
             viewModel.getMissed().observe(viewLifecycleOwner, Observer { miss ->
                 if (atten != null && miss != null) {
-                    if (aggregate.text.isNotEmpty()) {
-                        val t = aggregate.text.toString()
+                    if (binding.aggregate.text.isNotEmpty()) {
+                        val t = binding.aggregate.text.toString()
                         prevpercent = t.substring(0, t.length - 1).toInt()
                     }
                     val percentage = atten.toFloat() / (atten.toFloat() + miss.toFloat())
                     if (!percentage.isNaN() && percentage!=0.0f) {
                         setProgressBar(percentage)
-                        aggregate.text = "%.0f".format(percentage * 100) + "%"
+                        binding.aggregate.text = "%.0f".format(percentage * 100) + "%"
                     }
                     else {
                         setProgressBar(0.001f)
-                        aggregate.text = "0%"
+                        binding.aggregate.text = "0%"
                     }
                 }
             })
@@ -111,18 +114,18 @@ class AttendanceFragment : Fragment() {
         viewModel.getMissed().observe(viewLifecycleOwner, Observer { miss ->
             viewModel.getAttended().observe(viewLifecycleOwner, Observer { atten ->
                 if (atten != null && miss != null) {
-                    if (aggregate.text.isNotEmpty()) {
-                        val t = aggregate.text.toString()
+                    if (binding.aggregate.text.isNotEmpty()) {
+                        val t = binding.aggregate.text.toString()
                         prevpercent = t.substring(0, t.length - 1).toInt()
                     }
                     val percentage = atten.toFloat().div((atten.toFloat() + miss.toFloat()))
                     if (!percentage.isNaN() && percentage!=0.0f) {
                         setProgressBar(percentage)
-                        aggregate.text = "%.0f".format(percentage * 100) + "%"
+                        binding.aggregate.text = "%.0f".format(percentage * 100) + "%"
                     }
                     else{
                         setProgressBar(0.001f)
-                        aggregate.text = "0%"
+                        binding.aggregate.text = "0%"
                     }
                 }
             })
@@ -162,7 +165,7 @@ class AttendanceFragment : Fragment() {
             subjectList.addAll(it)
             if (it.isEmpty()) {
                 setProgressBar(0.001f)
-                aggregate.text = "0%"
+                binding.aggregate.text = "0%"
             }
             subjectAdapter = SubjectAdapter(subjectList, mCtx, viewModel)
             subjectRecycler.adapter = subjectAdapter
@@ -178,7 +181,7 @@ class AttendanceFragment : Fragment() {
             } catch (e: Exception) {
             }
             subjectAdapter.notifyDataSetChanged()
-            subject.editText!!.setText("")
+            subject.editText?.setText("")
             subject.clearFocus()
         }
 

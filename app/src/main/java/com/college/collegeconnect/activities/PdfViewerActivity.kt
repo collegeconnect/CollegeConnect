@@ -7,10 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
-import com.college.collegeconnect.R
 import com.college.collegeconnect.databinding.ActivityPdfViewerBinding
-import com.college.collegeconnect.utils.toast
-import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 import java.io.File
 import java.lang.Exception
 

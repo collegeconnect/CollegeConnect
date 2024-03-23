@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.BvestEventsAdapter
 import com.college.collegeconnect.adapters.BvestSocietiesAdapter
+import com.college.collegeconnect.databinding.ActivityBvestBinding
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
-import kotlinx.android.synthetic.main.activity_bvest.*
+import com.sample.viewbinding.activity.viewBinding
 
 class BvestActivity : AppCompatActivity() {
 
+    private val binding: ActivityBvestBinding by viewBinding()
     lateinit var bvestViewModel: BvestViewModel
     lateinit var adapter: BvestEventsAdapter
     lateinit var adapter2: BvestSocietiesAdapter
@@ -24,58 +26,59 @@ class BvestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bvest)
 
         bvestViewModel = ViewModelProvider(this).get(BvestViewModel::class.java)
-        eventSwipeBvest.setOnRefreshListener {
+        binding.eventSwipeBvest.setOnRefreshListener {
             loadData()
             loadSocieties()
-            if (collapse.visibility == View.VISIBLE) {
-                collapse.visibility = View.GONE
-                viewAll.visibility = View.VISIBLE
+            if (binding.collapse.visibility == View.VISIBLE) {
+                binding.collapse.visibility = View.GONE
+                binding.viewAll.visibility = View.VISIBLE
             }
         }
 
         loadData()
         loadSocieties()
 
-        viewAll.setOnClickListener {
-            bvestViewModel.getSocietyList().observe(this, { list ->
-                societiesRecyclerBvest.layoutManager = GridLayoutManager(this, 3)
+        binding.viewAll.setOnClickListener {
+            bvestViewModel.getSocietyList().observe(this) { list ->
+                binding.societiesRecyclerBvest.layoutManager = GridLayoutManager(this, 3)
                 adapter2 = BvestSocietiesAdapter(this, list)
-                societiesRecyclerBvest.adapter = adapter2
-            })
+                binding.societiesRecyclerBvest.adapter = adapter2
+            }
 
-            collapse.visibility = View.VISIBLE
+            binding.collapse.visibility = View.VISIBLE
             it.visibility = View.GONE
         }
 
-        collapse.setOnClickListener {
-            bvestViewModel.getSocietyList().observe(this, { list ->
-                societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.collapse.setOnClickListener {
+            bvestViewModel.getSocietyList().observe(this) { list ->
+                binding.societiesRecyclerBvest.layoutManager =
+                    LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 adapter2 = BvestSocietiesAdapter(this, list)
-                societiesRecyclerBvest.adapter = adapter2
-            })
+                binding.societiesRecyclerBvest.adapter = adapter2
+            }
 
             it.visibility = View.GONE
-            viewAll.visibility = View.VISIBLE
+            binding.viewAll.visibility = View.VISIBLE
         }
     }
 
     private fun loadData() {
-        eventSwipeBvest.isRefreshing = true
+        binding.eventSwipeBvest.isRefreshing = true
         bvestViewModel.getEventList().observe(this, {
-            eventsRecyclerBvest.layoutManager = GridLayoutManager(this, 2)
+            binding.eventsRecyclerBvest.layoutManager = GridLayoutManager(this, 2)
             adapter = BvestEventsAdapter(this, it)
-            eventsRecyclerBvest.adapter = adapter
-            eventSwipeBvest.isRefreshing = false
+            binding.eventsRecyclerBvest.adapter = adapter
+            binding.eventSwipeBvest.isRefreshing = false
         })
     }
 
     private fun loadSocieties() {
-        eventSwipeBvest.isRefreshing = true
+        binding.eventSwipeBvest.isRefreshing = true
         bvestViewModel.getSocietyList().observe(this, {
-            societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.societiesRecyclerBvest.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             adapter2 = BvestSocietiesAdapter(this, it)
-            societiesRecyclerBvest.adapter = adapter2
-            eventSwipeBvest.isRefreshing = false
+            binding.societiesRecyclerBvest.adapter = adapter2
+            binding.eventSwipeBvest.isRefreshing = false
         })
     }
 }

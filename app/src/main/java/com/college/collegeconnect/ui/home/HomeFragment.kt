@@ -31,8 +31,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.sample.viewbinding.fragment.viewBinding
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,13 +46,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var mcontext: Context? = null
     lateinit var homeViewModel: HomeViewModel
     var registered: ListenerRegistration? = null
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-        return view
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) bottomNavigationView = requireActivity().findViewById(R.id.bottomNav)
         tv = requireActivity().findViewById(R.id.navTitle)
         tv.text = "HOME"
@@ -108,39 +109,40 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             })
         })
 
-        settings_btn.setOnClickListener {
+        homeViewBinding.settingsBtn.setOnClickListener {
             context?.startActivity(Intent(context,SettingsActivity::class.java))
         }
 
-        recyclerviewHome.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        homeViewBinding.recyclerviewHome.layoutManager =  LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val adapter = context?.let { HomeRecyclerAdapter(it) }
-        recyclerviewHome.adapter = adapter
+        homeViewBinding.recyclerviewHome.adapter = adapter
 
         //Set happening now
         var now = false
-        homeViewModel.getHappeningNow().observe(requireActivity(), {
+        homeViewModel.getHappeningNow().observe(requireActivity()) {
             it.forEach { it1 ->
                 val pattern = "dd-MM-yyyy"
-                val dateInString: String = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
+                val dateInString: String =
+                    SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
                 val startingTime = getMilli("$dateInString ${it1.startTime}")
                 val endingTime = getMilli("$dateInString ${it1.endTime}")
                 if (System.currentTimeMillis() in startingTime until endingTime) {
-                    txt_now_subject_title.text = it1.subjectName
-                    txt_now_room_num.text = it1.roomNumber
-                    txt_now_time.text = "${it1.startTimeShow} - ${it1.endTimeShow}"
+                    homeViewBinding.txtNowSubjectTitle.text = it1.subjectName
+                    homeViewBinding.txtNowRoomNum.text = it1.roomNumber
+                    homeViewBinding.txtNowTime.text = "${it1.startTimeShow} - ${it1.endTimeShow}"
                     now = true
                 }
             }
             if (!now) {
                 try {
-                    txt_now_state.text = "No class happening currently"
-                    txt_now_time.visibility = View.GONE
-                    card_now_class.visibility = View.GONE
-                } catch (e:Exception) {
+                    homeViewBinding.txtNowState.text = "No class happening currently"
+                    homeViewBinding.txtNowTime.visibility = View.GONE
+                    homeViewBinding.cardNowClass.visibility = View.GONE
+                } catch (e: Exception) {
                     Log.d("HomeFragment", "onActivityCreated: ${e.message}")
                 }
             }
-        })
+        }
     }
 
     // get time in milliseconds

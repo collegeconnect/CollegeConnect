@@ -13,13 +13,14 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.college.collegeconnect.R
 import com.college.collegeconnect.adapters.ImageAdapter
+import com.college.collegeconnect.databinding.ActivityBvestEventBinding
 import com.college.collegeconnect.datamodels.Events
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import com.college.collegeconnect.utils.ImageHandler
 import com.college.collegeconnect.utils.toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_bvest_event.*
+import com.sample.viewbinding.activity.viewBinding
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,7 +29,7 @@ class BvestEventActivity : AppCompatActivity() {
 
     lateinit var bvestViewModel: BvestViewModel
     var code = ""
-
+    private val binding: ActivityBvestEventBinding by viewBinding()
     private lateinit var event: Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +42,14 @@ class BvestEventActivity : AppCompatActivity() {
 
         //Set values
         ImageHandler().getSharedInstance(this)?.load(event.imageUrl[0])
-        tvEventPageTitle.text = event.eventName
-        organizer_name.text = event.organizer
-        tvEventPageDate.text = date(event.date)
-        tvEventDescription.text = event.eventDescription
+        binding.tvEventPageTitle.text = event.eventName
+        binding.organizerName.text = event.organizer
+        binding.tvEventPageDate.text = date(event.date)
+        binding.tvEventDescription.text = event.eventDescription
         val imageAdapter = ImageAdapter(event.imageUrl)
-        ivEventBanner.adapter = imageAdapter
+        binding.ivEventBanner.adapter = imageAdapter
 
-        registerEventButton.setOnClickListener {
+        binding.registerEventButton.setOnClickListener {
             dialogRegistration()
         }
 

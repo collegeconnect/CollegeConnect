@@ -5,14 +5,17 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.college.collegeconnect.R
+import com.college.collegeconnect.databinding.ActivityRegisterEventBinding
 import com.college.collegeconnect.datamodels.SaveSharedPreference
 import com.college.collegeconnect.datamodels.TeamMate
 import com.college.collegeconnect.ui.event.bvest.viewModels.BvestViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sample.alphanumericgenerator.randomGenerator
-import kotlinx.android.synthetic.main.activity_register_event.*
+import com.sample.viewbinding.activity.viewBinding
 
 class RegisterEventActivity : AppCompatActivity(), TaskListener {
+
+    private val binding: ActivityRegisterEventBinding by viewBinding()
     lateinit var code: String
     private lateinit var bvestViewModel: BvestViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,33 +26,33 @@ class RegisterEventActivity : AppCompatActivity(), TaskListener {
         code = randomGenerator(6)
         val list = bvestViewModel.checkTeamCode()
         val con = createCode(list, code)
-        teamCode.text = con
-        nameText.editText?.apply {
+        binding.teamCode.text = con
+        binding.nameText.editText?.apply {
             setText(SaveSharedPreference.getUser(this@RegisterEventActivity))
             isEnabled = false
         }
-        emailText.editText?.apply {
+        binding.emailText.editText?.apply {
             setText(SaveSharedPreference.getUserName(this@RegisterEventActivity))
             isEnabled = false
         }
-        collegetext.editText?.apply {
+        binding.collegetext.editText?.apply {
             setText(SaveSharedPreference.getCollege(this@RegisterEventActivity))
             isEnabled = false
         }
 
-        doneButton.setOnClickListener {
-            if (phoneText.editText?.text.isNullOrEmpty()) {
-                phoneText.error = "Enter a Phone Number"
-                phoneText.editText?.requestFocus()
+        binding.doneButton.setOnClickListener {
+            if (binding.phoneText.editText?.text.isNullOrEmpty()) {
+                binding.phoneText.error = "Enter a Phone Number"
+                binding.phoneText.editText?.requestFocus()
                 return@setOnClickListener
-            } else if (phoneText.editText?.text?.length!! > 10) {
-                phoneText.error = "Enter a Valid Phone Number"
-                phoneText.editText?.requestFocus()
+            } else if (binding.phoneText.editText?.text?.length!! > 10) {
+                binding.phoneText.error = "Enter a Valid Phone Number"
+                binding.phoneText.editText?.requestFocus()
                 return@setOnClickListener
             }
-            if (teamName.editText?.text.isNullOrEmpty()) {
-                teamName.error = "Enter a Team Name"
-                teamName.editText?.requestFocus()
+            if (binding.teamName.editText?.text.isNullOrEmpty()) {
+                binding.teamName.error = "Enter a Team Name"
+                binding.teamName.editText?.requestFocus()
                 return@setOnClickListener
             }
             register(list, con)
@@ -58,7 +61,7 @@ class RegisterEventActivity : AppCompatActivity(), TaskListener {
 
     private fun register(list: ArrayList<String>, code: String) {
         val teamMate1 = TeamMate(SaveSharedPreference.getUser(this), SaveSharedPreference.getUserName(this))
-        bvestViewModel.createTeam(teamName.editText?.text.toString(), code, list, phoneText.editText?.text.toString(), teamMate1)
+        bvestViewModel.createTeam(binding.teamName.editText?.text.toString(), code, list, binding.phoneText.editText?.text.toString(), teamMate1)
 
     }
 

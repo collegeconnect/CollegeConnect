@@ -46,7 +46,8 @@ class AlertReceiver : BroadcastReceiver(){
         val intent = Intent(context?.applicationContext, Navigation::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context?.applicationContext, 0, intent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(context?.applicationContext, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(context?.applicationContext!!, "Notification")
                 .setSmallIcon(R.mipmap.ic_stat_call_white)

@@ -29,6 +29,7 @@ class PlaceholderFragment(private val position: Int, private var newTimeTableVie
         return view
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subjectRecycler.setHasFixedSize(true)

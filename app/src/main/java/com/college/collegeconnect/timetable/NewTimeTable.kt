@@ -1,10 +1,12 @@
 package com.college.collegeconnect.timetable
 
+import android.Manifest
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,6 +15,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
@@ -23,16 +26,18 @@ import com.college.collegeconnect.activities.Navigation
 import com.college.collegeconnect.adapters.SectionsPagerAdapter
 import com.college.collegeconnect.database.AttendanceDatabase
 import com.college.collegeconnect.database.entity.*
+import com.college.collegeconnect.databinding.ActivityNewTimeTableBinding
 import com.college.collegeconnect.utils.toast
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_new_time_table.*
+import com.sample.viewbinding.activity.viewBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NewTimeTable : AppCompatActivity() {
 
     lateinit var newTimeTableViewModel: NewTimeTableViewModel
+    private val binding: ActivityNewTimeTableBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +51,7 @@ class NewTimeTable : AppCompatActivity() {
         val tabs = findViewById<TabLayout>(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
 
-        time_table_fab.setOnClickListener {
+        binding.timeTableFab.setOnClickListener {
             add_class()
         }
     }
@@ -162,7 +167,7 @@ class NewTimeTable : AppCompatActivity() {
                 toast("No subject added!")
                 return@setOnClickListener
             }
-            startTimeShow?.let { sts -> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, view_pager.currentItem, roomNumber.editText?.text.toString()) } }
+            startTimeShow?.let { sts -> endTimeShow?.let { ets -> newTimeTableViewModel.addItem(spinner.selectedItem.toString(), startTime.toString(), sts, endTime.toString(), ets, binding.viewPager.currentItem, roomNumber.editText?.text.toString()) } }
             dialog.dismiss()
         }
         dialog.show()
@@ -172,7 +177,7 @@ class NewTimeTable : AppCompatActivity() {
     fun alert(endTime: String){
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE)
 //        val alarmClockInfo = AlarmManager.AlarmClockInfo(getMilli("${SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())} $endTime"), pendingIntent)
         val intent2 = Intent()
         intent2.putExtra("Class", "Added")
@@ -214,7 +219,8 @@ class NewTimeTable : AppCompatActivity() {
         val intent = Intent(application, Navigation::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(application, 0, intent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(application, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE)
 
         val builder = NotificationCompat.Builder(application, "Notification")
                 .setSmallIcon(R.mipmap.ic_stat_call_white)
@@ -237,6 +243,20 @@ class NewTimeTable : AppCompatActivity() {
 
         with(NotificationManagerCompat.from(application)) {
             // notificationId is a unique int for each notification that you must define
+            if (ActivityCompat.checkSelfPermission(
+                    this@NewTimeTable,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return
+            }
             notify(1, builder.build())
         }
     }
