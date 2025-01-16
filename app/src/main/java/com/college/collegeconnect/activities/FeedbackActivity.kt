@@ -19,7 +19,6 @@ import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.hsalf.smileyrating.SmileyRating
 import com.sample.viewbinding.activity.viewBinding
 
 
@@ -97,18 +96,18 @@ class FeedbackActivity : AppCompatActivity() {
         binding.ansNoFeature.editText?.doAfterTextChanged { binding.ansNoFeature.error = null }
 
 
-        binding.smileyRating.setRating(SmileyRating.Type.GREAT, true)
-        binding.solveAns.setIndicatorTextFormat("\${TICK_TEXT}")
-        binding.indicatorSeekBar.setIndicatorTextFormat("\${TICK_TEXT}")
-        binding.smileyRating.setSmileySelectedListener { type ->
-            when (type.rating) {
-                1 -> mood = "Tired"
-                2 -> mood = "Sleepy"
-                3 -> mood = "Neutral"
-                4 -> mood = "Good"
-                5 -> mood = "Energetic"
-            }
-        }
+//        binding.smileyRating.setRating(SmileyRating.Type.GREAT, true)
+//        binding.solveAns.setIndicatorTextFormat("\${TICK_TEXT}")
+//        binding.indicatorSeekBar.setIndicatorTextFormat("\${TICK_TEXT}")
+//        binding.smileyRating.setSmileySelectedListener { type ->
+//            when (type.rating) {
+//                1 -> mood = "Tired"
+//                2 -> mood = "Sleepy"
+//                3 -> mood = "Neutral"
+//                4 -> mood = "Good"
+//                5 -> mood = "Energetic"
+//            }
+//        }
 
         binding.submitFeedback.setOnClickListener {
             if (binding.ansProblem.editText?.text == null) {
@@ -135,9 +134,9 @@ class FeedbackActivity : AppCompatActivity() {
         val feedback = Feedback(email,
                 mood,
             binding.ansProblem.editText?.text.toString(),
-                binding.solveAns.progress,
+                1,
             binding.ansNoFeature.editText?.text.toString(),
-                binding.indicatorSeekBar.progress,
+                1,
                 binding.ansConfused.editText?.text.toString(),
             binding.ansFeature.editText?.text.toString())
         databaseReference.setValue(feedback)

@@ -51,7 +51,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodo.cropper.CropImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -285,13 +284,13 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
                     assert name != null;
                     int space = name.indexOf(" ");
                     int color = Navigation.generateColor();
-                    drawable = TextDrawable.builder().beginConfig()
-                            .width(150)
-                            .height(150)
-                            .bold()
-                            .endConfig()
-                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                    prfileImage.setImageDrawable(drawable);
+//                    drawable = TextDrawable.builder().beginConfig()
+//                            .width(150)
+//                            .height(150)
+//                            .bold()
+//                            .endConfig()
+//                            .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+//                    prfileImage.setImageDrawable(drawable);
                 } catch (Exception e) {
 
                 }
@@ -301,38 +300,38 @@ public class HomeEditActivity extends AppCompatActivity implements DoneListener 
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            Uri filePath = data.getData();
-            CropImage.activity(filePath).setAspectRatio(1, 1)
-                    .start(this);
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data!=null) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                assert result != null;
-                Uri resultUri = result.getUri();
-                try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-                    prfileImage.setImageBitmap(bitmap);
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    progressBar.setVisibility(View.VISIBLE);
-                    blurr.setVisibility(View.VISIBLE);
-                    uploadImage(resultUri);
-                } catch (Exception e) {
-                    Log.d("HomeEditActivity", "onActivityResult: CropImage failed");
-                }
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                assert result != null;
-                Exception error = result.getError();
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == GET_FROM_GALLERY && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//
+//            Uri filePath = data.getData();
+//            CropImage.activity(filePath).setAspectRatio(1, 1)
+//                    .start(this);
+//        }
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && data!=null) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (resultCode == RESULT_OK) {
+//                assert result != null;
+//                Uri resultUri = result.getUri();
+//                try {
+//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+//                    prfileImage.setImageBitmap(bitmap);
+//                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    progressBar.setVisibility(View.VISIBLE);
+//                    blurr.setVisibility(View.VISIBLE);
+//                    uploadImage(resultUri);
+//                } catch (Exception e) {
+//                    Log.d("HomeEditActivity", "onActivityResult: CropImage failed");
+//                }
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                assert result != null;
+//                Exception error = result.getError();
+//            }
+//        }
+//    }
 
     //Upload dp to Firebase Storage
     private void uploadImage(Uri resultUri) {

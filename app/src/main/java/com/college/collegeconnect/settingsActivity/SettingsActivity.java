@@ -75,13 +75,13 @@ public class SettingsActivity extends AppCompatActivity {
                 assert name != null;
                 int space = name.indexOf(" ");
                 int color = Navigation.generateColor();
-                drawable = TextDrawable.builder().beginConfig()
-                        .width(150)
-                        .height(150)
-                        .bold()
-                        .endConfig()
-                        .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
-                prfileImage.setImageDrawable(drawable);
+//                drawable = TextDrawable.builder().beginConfig()
+//                        .width(150)
+//                        .height(150)
+//                        .bold()
+//                        .endConfig()
+//                        .buildRound(name.substring(0, 1) + name.substring(space + 1, space + 2), color);
+//                prfileImage.setImageDrawable(drawable);
             } catch (Exception e) {
 
             }

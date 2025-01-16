@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ajts.androidmads.library.SQLiteToExcel;
 import com.college.collegeconnect.R;
 import com.college.collegeconnect.settingsActivity.MyFilesActivity;
 import com.college.collegeconnect.settingsActivity.SettingsActivity;
@@ -107,27 +106,28 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     }
 
     private void exportData() {
-        SQLiteToExcel sqliteToExcel = new SQLiteToExcel(context, "AttendanceDatabase", "/storage/emulated/0/Download/");
-        sqliteToExcel.exportSingleTable("SubjectDetails", "attendance.xls" , new SQLiteToExcel.ExportListener() {
-            @Override
-            public void onStart() {
-                Toast.makeText(context, "Processing!", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onCompleted(String filePath) {
-                Uri uri = FileProvider.getUriForFile(context,  context.getPackageName() + ".provider", new File(filePath));
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setDataAndType(uri, "application/vnd.ms-excel");
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                Log.i("TAG", "onCompleted: ${uri.toString()}");
-                context.startActivity(Intent.createChooser(intent, "Select"));
-            }
-            @Override
-            public void onError(Exception e) {
-                Toast.makeText(context, "An error occurred!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Toast.makeText(context, "An error occurred!", Toast.LENGTH_SHORT).show();
+//        SQLiteToExcel sqliteToExcel = new SQLiteToExcel(context, "AttendanceDatabase", "/storage/emulated/0/Download/");
+//        sqliteToExcel.exportSingleTable("SubjectDetails", "attendance.xls" , new SQLiteToExcel.ExportListener() {
+//            @Override
+//            public void onStart() {
+//                Toast.makeText(context, "Processing!", Toast.LENGTH_SHORT).show();
+//            }
+//            @Override
+//            public void onCompleted(String filePath) {
+//                Uri uri = FileProvider.getUriForFile(context,  context.getPackageName() + ".provider", new File(filePath));
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setDataAndType(uri, "application/vnd.ms-excel");
+//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                intent.putExtra(Intent.EXTRA_STREAM, uri);
+//                Log.i("TAG", "onCompleted: ${uri.toString()}");
+//                context.startActivity(Intent.createChooser(intent, "Select"));
+//            }
+//            @Override
+//            public void onError(Exception e) {
+//                Toast.makeText(context, "An error occurred!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     private void dialogAttend() {
